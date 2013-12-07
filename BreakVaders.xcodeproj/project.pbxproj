@@ -215,7 +215,6 @@
 		CBFA56E01852F41100879246 /* LTWaddle.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56861852F41100879246 /* LTWaddle.mm */; };
 		CBFA56E11852F41100879246 /* ModalUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56881852F41100879246 /* ModalUIView.m */; };
 		CBFA56E21852F41100879246 /* ModalWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA568A1852F41100879246 /* ModalWebView.m */; };
-		CBFA56E31852F41100879246 /* MultiBreakoutAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA568C1852F41100879246 /* MultiBreakoutAppDelegate.mm */; };
 		CBFA56E41852F41100879246 /* MultiBrickScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA568E1852F41100879246 /* MultiBrickScene.mm */; };
 		CBFA56E51852F41100879246 /* NamedParticleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56901852F41100879246 /* NamedParticleSystem.m */; };
 		CBFA56E61852F41100879246 /* OverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56921852F41100879246 /* OverlayViewController.m */; };
@@ -225,7 +224,6 @@
 		CBFA56EA1852F41100879246 /* Player.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569A1852F41100879246 /* Player.mm */; };
 		CBFA56EB1852F41100879246 /* PongVaderScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569C1852F41100879246 /* PongVaderScene.mm */; };
 		CBFA56EC1852F41100879246 /* Powerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569E1852F41100879246 /* Powerup.mm */; };
-		CBFA56ED1852F41100879246 /* Reachable.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A01852F41100879246 /* Reachable.m */; };
 		CBFA56EE1852F41100879246 /* Rock.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A21852F41100879246 /* Rock.mm */; };
 		CBFA56EF1852F41100879246 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A41852F41100879246 /* SettingsManager.m */; };
 		CBFA56F01852F41100879246 /* ShieldBoss.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A61852F41100879246 /* ShieldBoss.mm */; };
@@ -497,8 +495,6 @@
 		CBFA56881852F41100879246 /* ModalUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalUIView.m; path = Classes/ModalUIView.m; sourceTree = "<group>"; };
 		CBFA56891852F41100879246 /* ModalWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalWebView.h; path = Classes/ModalWebView.h; sourceTree = "<group>"; };
 		CBFA568A1852F41100879246 /* ModalWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalWebView.m; path = Classes/ModalWebView.m; sourceTree = "<group>"; };
-		CBFA568B1852F41100879246 /* MultiBreakoutAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiBreakoutAppDelegate.h; path = Classes/MultiBreakoutAppDelegate.h; sourceTree = "<group>"; };
-		CBFA568C1852F41100879246 /* MultiBreakoutAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MultiBreakoutAppDelegate.mm; path = Classes/MultiBreakoutAppDelegate.mm; sourceTree = "<group>"; };
 		CBFA568D1852F41100879246 /* MultiBrickScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiBrickScene.h; path = Classes/MultiBrickScene.h; sourceTree = "<group>"; };
 		CBFA568E1852F41100879246 /* MultiBrickScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MultiBrickScene.mm; path = Classes/MultiBrickScene.mm; sourceTree = "<group>"; };
 		CBFA568F1852F41100879246 /* NamedParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NamedParticleSystem.h; path = Classes/NamedParticleSystem.h; sourceTree = "<group>"; };
@@ -517,8 +513,6 @@
 		CBFA569C1852F41100879246 /* PongVaderScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PongVaderScene.mm; path = Classes/PongVaderScene.mm; sourceTree = "<group>"; };
 		CBFA569D1852F41100879246 /* Powerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Powerup.h; path = Classes/Powerup.h; sourceTree = "<group>"; };
 		CBFA569E1852F41100879246 /* Powerup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Powerup.mm; path = Classes/Powerup.mm; sourceTree = "<group>"; };
-		CBFA569F1852F41100879246 /* Reachable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachable.h; path = Classes/Reachable.h; sourceTree = "<group>"; };
-		CBFA56A01852F41100879246 /* Reachable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachable.m; path = Classes/Reachable.m; sourceTree = "<group>"; };
 		CBFA56A11852F41100879246 /* Rock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Rock.h; path = Classes/Rock.h; sourceTree = "<group>"; };
 		CBFA56A21852F41100879246 /* Rock.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Rock.mm; path = Classes/Rock.mm; sourceTree = "<group>"; };
 		CBFA56A31852F41100879246 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Classes/SettingsManager.h; sourceTree = "<group>"; };
@@ -875,8 +869,6 @@
 				CBFA56881852F41100879246 /* ModalUIView.m */,
 				CBFA56891852F41100879246 /* ModalWebView.h */,
 				CBFA568A1852F41100879246 /* ModalWebView.m */,
-				CBFA568B1852F41100879246 /* MultiBreakoutAppDelegate.h */,
-				CBFA568C1852F41100879246 /* MultiBreakoutAppDelegate.mm */,
 				CBFA568D1852F41100879246 /* MultiBrickScene.h */,
 				CBFA568E1852F41100879246 /* MultiBrickScene.mm */,
 				CBFA568F1852F41100879246 /* NamedParticleSystem.h */,
@@ -895,8 +887,6 @@
 				CBFA569C1852F41100879246 /* PongVaderScene.mm */,
 				CBFA569D1852F41100879246 /* Powerup.h */,
 				CBFA569E1852F41100879246 /* Powerup.mm */,
-				CBFA569F1852F41100879246 /* Reachable.h */,
-				CBFA56A01852F41100879246 /* Reachable.m */,
 				CBFA56A11852F41100879246 /* Rock.h */,
 				CBFA56A21852F41100879246 /* Rock.mm */,
 				CBFA56A31852F41100879246 /* SettingsManager.h */,
@@ -1310,7 +1300,6 @@
 				CBFA56C31852F41100879246 /* ADMBrain.mm in Sources */,
 				CBFA56C41852F41100879246 /* ADMBrainSeg.mm in Sources */,
 				CBFA56CB1852F41100879246 /* BlockFleet.mm in Sources */,
-				CBFA56ED1852F41100879246 /* Reachable.m in Sources */,
 				CBFA56DF1852F41100879246 /* LineFleet.mm in Sources */,
 				CBFA56FA1852F41100879246 /* UFO.mm in Sources */,
 				CBFA56D81852F41100879246 /* Fleet.mm in Sources */,
@@ -1326,7 +1315,6 @@
 				CBFA56D11852F41100879246 /* CircleFleet.mm in Sources */,
 				CBFA56C21852F41100879246 /* AABBQueryCallback.mm in Sources */,
 				CBFA56F51852F41100879246 /* StarField.m in Sources */,
-				CBFA56E31852F41100879246 /* MultiBreakoutAppDelegate.mm in Sources */,
 				CBFA56CA1852F41100879246 /* BeatSequencer.m in Sources */,
 				CBFA56EF1852F41100879246 /* SettingsManager.m in Sources */,
 				CBFA56E51852F41100879246 /* NamedParticleSystem.m in Sources */,
