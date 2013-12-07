@@ -1,1024 +1,1191 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>0D4777C5DBD548FAB8EDDADE</key>
-		<dict>
-			<key>fileRef</key>
-			<string>384635EF25554563ABC5A516</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>384635EF25554563ABC5A516</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>76646B34A4A3440D8ABB3DE8</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>B130CE315A73448F97C10FB9</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Pods.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077DD1851AA6300A0D2FB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB1077EF1851AA6300A0D2FB</string>
-				<string>CB1078081851AA6300A0D2FB</string>
-				<string>CB1077E81851AA6300A0D2FB</string>
-				<string>CB1077E71851AA6300A0D2FB</string>
-				<string>B130CE315A73448F97C10FB9</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077DE1851AA6300A0D2FB</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>CLASSPREFIX</key>
-				<string>BV</string>
-				<key>LastUpgradeCheck</key>
-				<string>0500</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>Jonathan Beilin</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>CB1078001851AA6300A0D2FB</key>
-					<dict>
-						<key>TestTargetID</key>
-						<string>CB1077E51851AA6300A0D2FB</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>CB1077E11851AA6300A0D2FB</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-			</array>
-			<key>mainGroup</key>
-			<string>CB1077DD1851AA6300A0D2FB</string>
-			<key>productRefGroup</key>
-			<string>CB1077E71851AA6300A0D2FB</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>CB1077E51851AA6300A0D2FB</string>
-				<string>CB1078001851AA6300A0D2FB</string>
-			</array>
-		</dict>
-		<key>CB1077E11851AA6300A0D2FB</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>CB1078101851AA6300A0D2FB</string>
-				<string>CB1078111851AA6300A0D2FB</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>CB1077E21851AA6300A0D2FB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>CB1077FA1851AA6300A0D2FB</string>
-				<string>CB1077F61851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>CB1077E31851AA6300A0D2FB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>CB1077EC1851AA6300A0D2FB</string>
-				<string>CB1077EE1851AA6300A0D2FB</string>
-				<string>CB1077EA1851AA6300A0D2FB</string>
-				<string>0D4777C5DBD548FAB8EDDADE</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>CB1077E41851AA6300A0D2FB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>CB1077F41851AA6300A0D2FB</string>
-				<string>CB1077FC1851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>CB1077E51851AA6300A0D2FB</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>CB1078121851AA6300A0D2FB</string>
-			<key>buildPhases</key>
-			<array>
-				<string>76646B34A4A3440D8ABB3DE8</string>
-				<string>CB1077E21851AA6300A0D2FB</string>
-				<string>CB1077E31851AA6300A0D2FB</string>
-				<string>CB1077E41851AA6300A0D2FB</string>
-				<string>E0558F7B20944896BBB75863</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>BreakVaders</string>
-			<key>productName</key>
-			<string>BreakVaders</string>
-			<key>productReference</key>
-			<string>CB1077E61851AA6300A0D2FB</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>CB1077E61851AA6300A0D2FB</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>BreakVaders.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>CB1077E71851AA6300A0D2FB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB1077E61851AA6300A0D2FB</string>
-				<string>CB1078011851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077E81851AA6300A0D2FB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB1077E91851AA6300A0D2FB</string>
-				<string>CB1077EB1851AA6300A0D2FB</string>
-				<string>CB1077ED1851AA6300A0D2FB</string>
-				<string>CB1078021851AA6300A0D2FB</string>
-				<string>384635EF25554563ABC5A516</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077E91851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>Foundation.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/Foundation.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>CB1077EA1851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB1077E91851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1077EB1851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>CoreGraphics.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/CoreGraphics.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>CB1077EC1851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB1077EB1851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1077ED1851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>UIKit.framework</string>
-			<key>path</key>
-			<string>System/Library/Frameworks/UIKit.framework</string>
-			<key>sourceTree</key>
-			<string>SDKROOT</string>
-		</dict>
-		<key>CB1077EE1851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB1077ED1851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1077EF1851AA6300A0D2FB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB1077F81851AA6300A0D2FB</string>
-				<string>CB1077F91851AA6300A0D2FB</string>
-				<string>CB1077FB1851AA6300A0D2FB</string>
-				<string>CB1077F01851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>BreakVaders</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077F01851AA6300A0D2FB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB1077F11851AA6300A0D2FB</string>
-				<string>CB1077F21851AA6300A0D2FB</string>
-				<string>CB1077F51851AA6300A0D2FB</string>
-				<string>CB1077F71851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077F11851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>BreakVaders-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077F21851AA6300A0D2FB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB1077F31851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077F31851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077F41851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB1077F21851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1077F51851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>main.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077F61851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB1077F51851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1077F71851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>BreakVaders-Prefix.pch</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077F81851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>BVAppDelegate.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077F91851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>BVAppDelegate.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077FA1851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB1077F91851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1077FB1851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Images.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1077FC1851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB1077FB1851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1077FD1851AA6300A0D2FB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>CB10780F1851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>CB1077FE1851AA6300A0D2FB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>CB1078031851AA6300A0D2FB</string>
-				<string>CB1078051851AA6300A0D2FB</string>
-				<string>CB1078041851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>CB1077FF1851AA6300A0D2FB</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>CB10780D1851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>CB1078001851AA6300A0D2FB</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>CB1078151851AA6300A0D2FB</string>
-			<key>buildPhases</key>
-			<array>
-				<string>CB1077FD1851AA6300A0D2FB</string>
-				<string>CB1077FE1851AA6300A0D2FB</string>
-				<string>CB1077FF1851AA6300A0D2FB</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>CB1078071851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>BreakVadersTests</string>
-			<key>productName</key>
-			<string>BreakVadersTests</string>
-			<key>productReference</key>
-			<string>CB1078011851AA6300A0D2FB</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>CB1078011851AA6300A0D2FB</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>BreakVadersTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>CB1078021851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>wrapper.framework</string>
-			<key>name</key>
-			<string>XCTest.framework</string>
-			<key>path</key>
-			<string>Library/Frameworks/XCTest.framework</string>
-			<key>sourceTree</key>
-			<string>DEVELOPER_DIR</string>
-		</dict>
-		<key>CB1078031851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB1078021851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1078041851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB1077E91851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1078051851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB1077ED1851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1078061851AA6300A0D2FB</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>CB1077DE1851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>CB1077E51851AA6300A0D2FB</string>
-			<key>remoteInfo</key>
-			<string>BreakVaders</string>
-		</dict>
-		<key>CB1078071851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>CB1077E51851AA6300A0D2FB</string>
-			<key>targetProxy</key>
-			<string>CB1078061851AA6300A0D2FB</string>
-		</dict>
-		<key>CB1078081851AA6300A0D2FB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB10780E1851AA6300A0D2FB</string>
-				<string>CB1078091851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>BreakVadersTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB1078091851AA6300A0D2FB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB10780A1851AA6300A0D2FB</string>
-				<string>CB10780B1851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB10780A1851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>BreakVadersTests-Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB10780B1851AA6300A0D2FB</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>CB10780C1851AA6300A0D2FB</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB10780C1851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.strings</string>
-			<key>name</key>
-			<string>en</string>
-			<key>path</key>
-			<string>en.lproj/InfoPlist.strings</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB10780D1851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB10780B1851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB10780E1851AA6300A0D2FB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>BreakVadersTests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>CB10780F1851AA6300A0D2FB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>CB10780E1851AA6300A0D2FB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>CB1078101851AA6300A0D2FB</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>ARCHS</key>
-				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_SYMBOLS_PRIVATE_EXTERN</key>
-				<string>NO</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.0</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>CB1078111851AA6300A0D2FB</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>ARCHS</key>
-				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>YES</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>7.0</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>CB1078121851AA6300A0D2FB</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>CB1078131851AA6300A0D2FB</string>
-				<string>CB1078141851AA6300A0D2FB</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>CB1078131851AA6300A0D2FB</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>B130CE315A73448F97C10FB9</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>BreakVaders/BreakVaders-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>BreakVaders/BreakVaders-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>app</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>CB1078141851AA6300A0D2FB</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>B130CE315A73448F97C10FB9</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME</key>
-				<string>LaunchImage</string>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>BreakVaders/BreakVaders-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>BreakVaders/BreakVaders-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>app</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>CB1078151851AA6300A0D2FB</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>CB1078161851AA6300A0D2FB</string>
-				<string>CB1078171851AA6300A0D2FB</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>CB1078161851AA6300A0D2FB</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ARCHS</key>
-				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
-				<key>BUNDLE_LOADER</key>
-				<string>$(BUILT_PRODUCTS_DIR)/BreakVaders.app/BreakVaders</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>BreakVaders/BreakVaders-Prefix.pch</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>INFOPLIST_FILE</key>
-				<string>BreakVadersTests/BreakVadersTests-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUNDLE_LOADER)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>CB1078171851AA6300A0D2FB</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ARCHS</key>
-				<string>$(ARCHS_STANDARD_INCLUDING_64_BIT)</string>
-				<key>BUNDLE_LOADER</key>
-				<string>$(BUILT_PRODUCTS_DIR)/BreakVaders.app/BreakVaders</string>
-				<key>FRAMEWORK_SEARCH_PATHS</key>
-				<array>
-					<string>$(SDKROOT)/Developer/Library/Frameworks</string>
-					<string>$(inherited)</string>
-					<string>$(DEVELOPER_FRAMEWORKS_DIR)</string>
-				</array>
-				<key>GCC_PRECOMPILE_PREFIX_HEADER</key>
-				<string>YES</string>
-				<key>GCC_PREFIX_HEADER</key>
-				<string>BreakVaders/BreakVaders-Prefix.pch</string>
-				<key>INFOPLIST_FILE</key>
-				<string>BreakVadersTests/BreakVadersTests-Info.plist</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUNDLE_LOADER)</string>
-				<key>WRAPPER_EXTENSION</key>
-				<string>xctest</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>E0558F7B20944896BBB75863</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Pods-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>CB1077DE1851AA6300A0D2FB</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0D4777C5DBD548FAB8EDDADE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 384635EF25554563ABC5A516 /* libPods.a */; };
+		CB1077EA1851AA6300A0D2FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1077E91851AA6300A0D2FB /* Foundation.framework */; };
+		CB1077EC1851AA6300A0D2FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1077EB1851AA6300A0D2FB /* CoreGraphics.framework */; };
+		CB1077EE1851AA6300A0D2FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1077ED1851AA6300A0D2FB /* UIKit.framework */; };
+		CB1077F41851AA6300A0D2FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB1077F21851AA6300A0D2FB /* InfoPlist.strings */; };
+		CB1077F61851AA6300A0D2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F51851AA6300A0D2FB /* main.m */; };
+		CB1077FA1851AA6300A0D2FB /* BVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */; };
+		CB1077FC1851AA6300A0D2FB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB1077FB1851AA6300A0D2FB /* Images.xcassets */; };
+		CB1078031851AA6300A0D2FB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1078021851AA6300A0D2FB /* XCTest.framework */; };
+		CB1078041851AA6300A0D2FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1077E91851AA6300A0D2FB /* Foundation.framework */; };
+		CB1078051851AA6300A0D2FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1077ED1851AA6300A0D2FB /* UIKit.framework */; };
+		CB10780D1851AA6300A0D2FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB10780B1851AA6300A0D2FB /* InfoPlist.strings */; };
+		CB10780F1851AA6300A0D2FB /* BreakVadersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB10780E1851AA6300A0D2FB /* BreakVadersTests.m */; };
+		CB9020C71852DE9400F3B416 /* apLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020111852DE9300F3B416 /* apLogo.png */; };
+		CB9020C81852DE9400F3B416 /* arrow-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020121852DE9300F3B416 /* arrow-low.png */; };
+		CB9020C91852DE9400F3B416 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020131852DE9300F3B416 /* arrow.png */; };
+		CB9020CA1852DE9400F3B416 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020141852DE9300F3B416 /* Ball.png */; };
+		CB9020CB1852DE9400F3B416 /* BallDouble.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020151852DE9300F3B416 /* BallDouble.png */; };
+		CB9020CC1852DE9400F3B416 /* BallDoubleHollow.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020161852DE9300F3B416 /* BallDoubleHollow.png */; };
+		CB9020CD1852DE9400F3B416 /* blip.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020171852DE9300F3B416 /* blip.wav */; };
+		CB9020CF1852DE9400F3B416 /* bluePill-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020191852DE9300F3B416 /* bluePill-low.png */; };
+		CB9020D01852DE9400F3B416 /* bluePill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90201A1852DE9300F3B416 /* bluePill.png */; };
+		CB9020D61852DE9400F3B416 /* boink.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020201852DE9300F3B416 /* boink.wav */; };
+		CB9020D71852DE9400F3B416 /* boom.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020211852DE9300F3B416 /* boom.wav */; };
+		CB9020D81852DE9400F3B416 /* boss1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020221852DE9300F3B416 /* boss1.png */; };
+		CB9020D91852DE9400F3B416 /* boss21.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020231852DE9300F3B416 /* boss21.png */; };
+		CB9020DA1852DE9400F3B416 /* charge.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020241852DE9300F3B416 /* charge.wav */; };
+		CB9020DB1852DE9400F3B416 /* city1-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020251852DE9300F3B416 /* city1-low.png */; };
+		CB9020DC1852DE9400F3B416 /* city1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020261852DE9300F3B416 /* city1.png */; };
+		CB9020DD1852DE9400F3B416 /* city2-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020271852DE9300F3B416 /* city2-low.png */; };
+		CB9020DE1852DE9400F3B416 /* city2.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020281852DE9300F3B416 /* city2.png */; };
+		CB9020DF1852DE9400F3B416 /* city3-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020291852DE9300F3B416 /* city3-low.png */; };
+		CB9020E01852DE9400F3B416 /* city3.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90202A1852DE9300F3B416 /* city3.png */; };
+		CB9020E11852DE9400F3B416 /* city4-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90202B1852DE9300F3B416 /* city4-low.png */; };
+		CB9020E21852DE9400F3B416 /* city4.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90202C1852DE9300F3B416 /* city4.png */; };
+		CB9020E31852DE9400F3B416 /* cole-waddle-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90202D1852DE9300F3B416 /* cole-waddle-ipad.png */; };
+		CB9020E41852DE9400F3B416 /* cole-waddle-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90202E1852DE9300F3B416 /* cole-waddle-iphone.png */; };
+		CB9020E51852DE9400F3B416 /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CB9020301852DE9300F3B416 /* Base.xcconfig */; };
+		CB9020E61852DE9400F3B416 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CB9020311852DE9300F3B416 /* Debug.xcconfig */; };
+		CB9020E71852DE9400F3B416 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CB9020321852DE9300F3B416 /* Release.xcconfig */; };
+		CB9020E91852DE9400F3B416 /* DawdleHurt.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020341852DE9300F3B416 /* DawdleHurt.wav */; };
+		CB9020EA1852DE9400F3B416 /* DawdleWail.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020351852DE9300F3B416 /* DawdleWail.wav */; };
+		CB9020EB1852DE9400F3B416 /* draftloop-01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB9020361852DE9300F3B416 /* draftloop-01.mp3 */; };
+		CB9020EC1852DE9400F3B416 /* draftloop-02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB9020371852DE9300F3B416 /* draftloop-02.mp3 */; };
+		CB9020ED1852DE9400F3B416 /* draftloop-03.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB9020381852DE9300F3B416 /* draftloop-03.mp3 */; };
+		CB9020EE1852DE9400F3B416 /* draftloop-04.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB9020391852DE9300F3B416 /* draftloop-04.mp3 */; };
+		CB9020EF1852DE9400F3B416 /* dynamic1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90203A1852DE9300F3B416 /* dynamic1.png */; };
+		CB9020F01852DE9400F3B416 /* effectring0.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90203B1852DE9300F3B416 /* effectring0.png */; };
+		CB9020F11852DE9400F3B416 /* effectring1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90203C1852DE9300F3B416 /* effectring1.png */; };
+		CB9020F21852DE9400F3B416 /* effectring2.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90203D1852DE9300F3B416 /* effectring2.png */; };
+		CB9020F31852DE9400F3B416 /* effectring3.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90203E1852DE9300F3B416 /* effectring3.png */; };
+		CB9020F41852DE9400F3B416 /* effectring4.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90203F1852DE9300F3B416 /* effectring4.png */; };
+		CB9020F61852DE9400F3B416 /* effectring5.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020411852DE9300F3B416 /* effectring5.png */; };
+		CB9020F71852DE9400F3B416 /* effectring6.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020421852DE9300F3B416 /* effectring6.png */; };
+		CB9020F81852DE9400F3B416 /* effectring7.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020431852DE9300F3B416 /* effectring7.png */; };
+		CB9020F91852DE9400F3B416 /* expand.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020441852DE9300F3B416 /* expand.wav */; };
+		CB9020FA1852DE9400F3B416 /* explosion.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9020451852DE9300F3B416 /* explosion.plist */; };
+		CB9020FB1852DE9400F3B416 /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020461852DE9300F3B416 /* explosion.png */; };
+		CB9020FC1852DE9400F3B416 /* EyeHurt.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020471852DE9300F3B416 /* EyeHurt.wav */; };
+		CB9020FD1852DE9400F3B416 /* EyeUnfreeze.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020481852DE9300F3B416 /* EyeUnfreeze.wav */; };
+		CB9020FE1852DE9400F3B416 /* EyeWail.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020491852DE9300F3B416 /* EyeWail.wav */; };
+		CB9020FF1852DE9400F3B416 /* fall.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB90204A1852DE9300F3B416 /* fall.wav */; };
+		CB9021021852DE9400F3B416 /* fuzz.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB90204D1852DE9300F3B416 /* fuzz.mp3 */; };
+		CB9021031852DE9400F3B416 /* fuzz.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB90204E1852DE9300F3B416 /* fuzz.wav */; };
+		CB9021041852DE9400F3B416 /* greenPill-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90204F1852DE9300F3B416 /* greenPill-low.png */; };
+		CB9021051852DE9400F3B416 /* greenPill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020501852DE9300F3B416 /* greenPill.png */; };
+		CB9021061852DE9400F3B416 /* greenshot.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020511852DE9300F3B416 /* greenshot.wav */; };
+		CB9021081852DE9400F3B416 /* bluePill2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020541852DE9300F3B416 /* bluePill2x.png */; };
+		CB9021091852DE9400F3B416 /* bobblearsm.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020551852DE9300F3B416 /* bobblearsm.png */; };
+		CB90210A1852DE9400F3B416 /* bobblesm.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020561852DE9300F3B416 /* bobblesm.png */; };
+		CB90210B1852DE9400F3B416 /* greenPill2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020571852DE9300F3B416 /* greenPill2x.png */; };
+		CB90210C1852DE9400F3B416 /* help.html in Resources */ = {isa = PBXBuildFile; fileRef = CB9020581852DE9300F3B416 /* help.html */; };
+		CB90210E1852DE9400F3B416 /* lines.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90205A1852DE9300F3B416 /* lines.png */; };
+		CB90210F1852DE9400F3B416 /* magPill2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90205B1852DE9300F3B416 /* magPill2x.png */; };
+		CB9021101852DE9400F3B416 /* prancearsm.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90205C1852DE9300F3B416 /* prancearsm.png */; };
+		CB9021111852DE9400F3B416 /* prancesm.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90205D1852DE9300F3B416 /* prancesm.png */; };
+		CB9021121852DE9400F3B416 /* pvaders-webfont.svg in Resources */ = {isa = PBXBuildFile; fileRef = CB90205E1852DE9300F3B416 /* pvaders-webfont.svg */; };
+		CB9021131852DE9400F3B416 /* redball.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90205F1852DE9300F3B416 /* redball.png */; };
+		CB9021141852DE9400F3B416 /* redPill2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020601852DE9300F3B416 /* redPill2x.png */; };
+		CB9021151852DE9400F3B416 /* slice.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020611852DE9300F3B416 /* slice.png */; };
+		CB9021161852DE9400F3B416 /* smcity1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020621852DE9300F3B416 /* smcity1.png */; };
+		CB9021171852DE9400F3B416 /* smcity2.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020631852DE9300F3B416 /* smcity2.png */; };
+		CB9021181852DE9400F3B416 /* smcity3.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020641852DE9300F3B416 /* smcity3.png */; };
+		CB9021191852DE9400F3B416 /* smcity4.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020651852DE9300F3B416 /* smcity4.png */; };
+		CB90211A1852DE9400F3B416 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = CB9020661852DE9300F3B416 /* style.css */; };
+		CB90211B1852DE9400F3B416 /* waddlearsm.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020671852DE9300F3B416 /* waddlearsm.png */; };
+		CB90211C1852DE9400F3B416 /* waddlesm.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020681852DE9300F3B416 /* waddlesm.png */; };
+		CB90211D1852DE9400F3B416 /* homing.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020691852DE9300F3B416 /* homing.wav */; };
+		CB90211E1852DE9400F3B416 /* hsLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90206A1852DE9300F3B416 /* hsLogo.png */; };
+		CB90211F1852DE9400F3B416 /* intro.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB90206B1852DE9300F3B416 /* intro.mp3 */; };
+		CB9021201852DE9400F3B416 /* invader32.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90206C1852DE9300F3B416 /* invader32.png */; };
+		CB9021211852DE9400F3B416 /* invader128.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90206D1852DE9300F3B416 /* invader128.png */; };
+		CB9021221852DE9400F3B416 /* jon-bobble-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90206E1852DE9300F3B416 /* jon-bobble-ipad.png */; };
+		CB9021231852DE9400F3B416 /* jon-bobble-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90206F1852DE9300F3B416 /* jon-bobble-iphone.png */; };
+		CB9021241852DE9400F3B416 /* kdcLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020701852DE9300F3B416 /* kdcLogo.png */; };
+		CB9021251852DE9400F3B416 /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020711852DE9300F3B416 /* lose.wav */; };
+		CB9021261852DE9400F3B416 /* magPill-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020721852DE9300F3B416 /* magPill-low.png */; };
+		CB9021271852DE9400F3B416 /* magPill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020731852DE9300F3B416 /* magPill.png */; };
+		CB9021281852DE9400F3B416 /* mine-explosion-iphone.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9020741852DE9300F3B416 /* mine-explosion-iphone.plist */; };
+		CB9021291852DE9400F3B416 /* mine-explosion.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9020751852DE9300F3B416 /* mine-explosion.plist */; };
+		CB90212A1852DE9400F3B416 /* mine.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020761852DE9400F3B416 /* mine.wav */; };
+		CB90212B1852DE9400F3B416 /* mountains1-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020771852DE9400F3B416 /* mountains1-low.png */; };
+		CB90212C1852DE9400F3B416 /* mountains1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020781852DE9400F3B416 /* mountains1.png */; };
+		CB90212D1852DE9400F3B416 /* mountains2-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020791852DE9400F3B416 /* mountains2-low.png */; };
+		CB90212E1852DE9400F3B416 /* mountains2.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90207A1852DE9400F3B416 /* mountains2.png */; };
+		CB90212F1852DE9400F3B416 /* nsLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90207B1852DE9400F3B416 /* nsLogo.png */; };
+		CB9021301852DE9400F3B416 /* OFGameCenter.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB90207C1852DE9400F3B416 /* OFGameCenter.plist */; };
+		CB9021311852DE9400F3B416 /* oldpowerupParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90207D1852DE9400F3B416 /* oldpowerupParticle.png */; };
+		CB9021321852DE9400F3B416 /* oldstreak.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90207E1852DE9400F3B416 /* oldstreak.png */; };
+		CB9021331852DE9400F3B416 /* Paddle-low-half.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90207F1852DE9400F3B416 /* Paddle-low-half.png */; };
+		CB9021341852DE9400F3B416 /* Paddle-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020801852DE9400F3B416 /* Paddle-low.png */; };
+		CB9021351852DE9400F3B416 /* Paddle.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020811852DE9400F3B416 /* Paddle.png */; };
+		CB9021361852DE9400F3B416 /* paddle.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020821852DE9400F3B416 /* paddle.wav */; };
+		CB9021381852DE9400F3B416 /* pixplanet.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020841852DE9400F3B416 /* pixplanet.png */; };
+		CB9021391852DE9400F3B416 /* pixplanet.pxi in Resources */ = {isa = PBXBuildFile; fileRef = CB9020851852DE9400F3B416 /* pixplanet.pxi */; };
+		CB90213A1852DE9400F3B416 /* pixplanet2.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020861852DE9400F3B416 /* pixplanet2.png */; };
+		CB90213B1852DE9400F3B416 /* planet.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020871852DE9400F3B416 /* planet.wav */; };
+		CB90213C1852DE9400F3B416 /* Pong.cfxr in Resources */ = {isa = PBXBuildFile; fileRef = CB9020881852DE9400F3B416 /* Pong.cfxr */; };
+		CB90213D1852DE9400F3B416 /* pongvaders sound effects round infinity.cfxr in Resources */ = {isa = PBXBuildFile; fileRef = CB9020891852DE9400F3B416 /* pongvaders sound effects round infinity.cfxr */; };
+		CB90213E1852DE9400F3B416 /* pongvaders-low.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB90208A1852DE9400F3B416 /* pongvaders-low.plist */; };
+		CB90213F1852DE9400F3B416 /* pongvaders-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90208B1852DE9400F3B416 /* pongvaders-low.png */; };
+		CB9021401852DE9400F3B416 /* pongvaders-low.zss in Resources */ = {isa = PBXBuildFile; fileRef = CB90208C1852DE9400F3B416 /* pongvaders-low.zss */; };
+		CB9021411852DE9400F3B416 /* pongvaders.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB90208D1852DE9400F3B416 /* pongvaders.plist */; };
+		CB9021421852DE9400F3B416 /* pongvaders.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90208E1852DE9400F3B416 /* pongvaders.png */; };
+		CB9021431852DE9400F3B416 /* pongvaders.zss in Resources */ = {isa = PBXBuildFile; fileRef = CB90208F1852DE9400F3B416 /* pongvaders.zss */; };
+		CB9021441852DE9400F3B416 /* portal.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020901852DE9400F3B416 /* portal.wav */; };
+		CB9021451852DE9400F3B416 /* powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020911852DE9400F3B416 /* powerup.wav */; };
+		CB9021461852DE9400F3B416 /* powerupParticle.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9020921852DE9400F3B416 /* powerupParticle.plist */; };
+		CB9021471852DE9400F3B416 /* powerupParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020931852DE9400F3B416 /* powerupParticle.png */; };
+		CB9021481852DE9400F3B416 /* prance1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020941852DE9400F3B416 /* prance1.png */; };
+		CB90214A1852DE9400F3B416 /* pvaders.hiero in Resources */ = {isa = PBXBuildFile; fileRef = CB9020961852DE9400F3B416 /* pvaders.hiero */; };
+		CB90214B1852DE9400F3B416 /* pvaders.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB9020971852DE9400F3B416 /* pvaders.ttf */; };
+		CB90214C1852DE9400F3B416 /* pvaders8.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CB9020981852DE9400F3B416 /* pvaders8.fnt */; };
+		CB90214D1852DE9400F3B416 /* pvaders8.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020991852DE9400F3B416 /* pvaders8.png */; };
+		CB90214E1852DE9400F3B416 /* pvaders12.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CB90209A1852DE9400F3B416 /* pvaders12.fnt */; };
+		CB90214F1852DE9400F3B416 /* pvaders12.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90209B1852DE9400F3B416 /* pvaders12.png */; };
+		CB9021501852DE9400F3B416 /* pvaders16.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CB90209C1852DE9400F3B416 /* pvaders16.fnt */; };
+		CB9021511852DE9400F3B416 /* pvaders16.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90209D1852DE9400F3B416 /* pvaders16.png */; };
+		CB9021521852DE9400F3B416 /* pvaders24.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CB90209E1852DE9400F3B416 /* pvaders24.fnt */; };
+		CB9021531852DE9400F3B416 /* pvaders24.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90209F1852DE9400F3B416 /* pvaders24.png */; };
+		CB9021541852DE9400F3B416 /* pvaders32.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CB9020A01852DE9400F3B416 /* pvaders32.fnt */; };
+		CB9021551852DE9400F3B416 /* pvaders32.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020A11852DE9400F3B416 /* pvaders32.png */; };
+		CB9021561852DE9400F3B416 /* pvTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020A21852DE9400F3B416 /* pvTitle.png */; };
+		CB9021581852DE9400F3B416 /* pvTitleOld.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020A41852DE9400F3B416 /* pvTitleOld.png */; };
+		CB9021591852DE9400F3B416 /* px10.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB9020A51852DE9400F3B416 /* px10.ttf */; };
+		CB90215A1852DE9400F3B416 /* quarterplanet.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020A61852DE9400F3B416 /* quarterplanet.png */; };
+		CB90215B1852DE9400F3B416 /* redpaddle.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020A71852DE9400F3B416 /* redpaddle.wav */; };
+		CB90215C1852DE9400F3B416 /* redPill-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020A81852DE9400F3B416 /* redPill-low.png */; };
+		CB90215D1852DE9400F3B416 /* redPill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020A91852DE9400F3B416 /* redPill.png */; };
+		CB90215E1852DE9400F3B416 /* shield32.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020AA1852DE9400F3B416 /* shield32.png */; };
+		CB90215F1852DE9400F3B416 /* shield64.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020AB1852DE9400F3B416 /* shield64.png */; };
+		CB9021601852DE9400F3B416 /* shoot.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020AC1852DE9400F3B416 /* shoot.wav */; };
+		CB9021611852DE9400F3B416 /* sky-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020AD1852DE9400F3B416 /* sky-low.png */; };
+		CB9021621852DE9400F3B416 /* sky.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020AE1852DE9400F3B416 /* sky.png */; };
+		CB9021631852DE9400F3B416 /* slice.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020AF1852DE9400F3B416 /* slice.wav */; };
+		CB9021641852DE9400F3B416 /* smallExplosion-iphone.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9020B01852DE9400F3B416 /* smallExplosion-iphone.plist */; };
+		CB9021651852DE9400F3B416 /* smallExplosion-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020B11852DE9400F3B416 /* smallExplosion-iphone.png */; };
+		CB9021661852DE9400F3B416 /* smallExplosion.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9020B21852DE9400F3B416 /* smallExplosion.plist */; };
+		CB9021671852DE9400F3B416 /* smallExplosion.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020B31852DE9400F3B416 /* smallExplosion.png */; };
+		CB9021681852DE9400F3B416 /* solvalou_combat_aircraft__solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB9020B41852DE9400F3B416 /* solvalou_combat_aircraft__solid.ttf */; };
+		CB9021691852DE9400F3B416 /* solvalou.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CB9020B51852DE9400F3B416 /* solvalou.fnt */; };
+		CB90216A1852DE9400F3B416 /* solvalou.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020B61852DE9400F3B416 /* solvalou.png */; };
+		CB90216B1852DE9400F3B416 /* speech.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020B71852DE9400F3B416 /* speech.wav */; };
+		CB90216C1852DE9400F3B416 /* stars.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9020B81852DE9400F3B416 /* stars.plist */; };
+		CB90216D1852DE9400F3B416 /* stars.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020B91852DE9400F3B416 /* stars.png */; };
+		CB90216E1852DE9400F3B416 /* stars.zss in Resources */ = {isa = PBXBuildFile; fileRef = CB9020BA1852DE9400F3B416 /* stars.zss */; };
+		CB90216F1852DE9400F3B416 /* stars2.zss in Resources */ = {isa = PBXBuildFile; fileRef = CB9020BB1852DE9400F3B416 /* stars2.zss */; };
+		CB9021701852DE9400F3B416 /* static1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020BC1852DE9400F3B416 /* static1.png */; };
+		CB9021711852DE9400F3B416 /* streak.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020BD1852DE9400F3B416 /* streak.png */; };
+		CB9021721852DE9400F3B416 /* textbubble-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020BE1852DE9400F3B416 /* textbubble-low.png */; };
+		CB9021731852DE9400F3B416 /* textbubble.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020BF1852DE9400F3B416 /* textbubble.png */; };
+		CB9021741852DE9400F3B416 /* textbubble.psd in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C01852DE9400F3B416 /* textbubble.psd */; };
+		CB9021751852DE9400F3B416 /* textbubblewedge-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C11852DE9400F3B416 /* textbubblewedge-low.png */; };
+		CB9021761852DE9400F3B416 /* textbubblewedge.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C21852DE9400F3B416 /* textbubblewedge.png */; };
+		CB9021771852DE9400F3B416 /* waddle1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C31852DE9400F3B416 /* waddle1.png */; };
+		CB9021781852DE9400F3B416 /* wail.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C41852DE9400F3B416 /* wail.wav */; };
+		CB9021791852DE9400F3B416 /* warp.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C51852DE9400F3B416 /* warp.wav */; };
+		CB90217A1852DE9400F3B416 /* yellowPill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C61852DE9400F3B416 /* yellowPill.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CB1078061851AA6300A0D2FB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB1077DE1851AA6300A0D2FB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB1077E51851AA6300A0D2FB;
+			remoteInfo = BreakVaders;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		384635EF25554563ABC5A516 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B130CE315A73448F97C10FB9 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		CB1077E61851AA6300A0D2FB /* BreakVaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakVaders.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB1077E91851AA6300A0D2FB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		CB1077EB1851AA6300A0D2FB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		CB1077ED1851AA6300A0D2FB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		CB1077F11851AA6300A0D2FB /* BreakVaders-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BreakVaders-Info.plist"; sourceTree = "<group>"; };
+		CB1077F31851AA6300A0D2FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CB1077F51851AA6300A0D2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		CB1077F71851AA6300A0D2FB /* BreakVaders-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BreakVaders-Prefix.pch"; sourceTree = "<group>"; };
+		CB1077F81851AA6300A0D2FB /* BVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BVAppDelegate.h; sourceTree = "<group>"; };
+		CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BVAppDelegate.m; sourceTree = "<group>"; };
+		CB1077FB1851AA6300A0D2FB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
+		CB1078011851AA6300A0D2FB /* BreakVadersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreakVadersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB1078021851AA6300A0D2FB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		CB10780A1851AA6300A0D2FB /* BreakVadersTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BreakVadersTests-Info.plist"; sourceTree = "<group>"; };
+		CB10780C1851AA6300A0D2FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CB10780E1851AA6300A0D2FB /* BreakVadersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreakVadersTests.m; sourceTree = "<group>"; };
+		CB9020111852DE9300F3B416 /* apLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = apLogo.png; path = Resources/apLogo.png; sourceTree = "<group>"; };
+		CB9020121852DE9300F3B416 /* arrow-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow-low.png"; path = "Resources/arrow-low.png"; sourceTree = "<group>"; };
+		CB9020131852DE9300F3B416 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Resources/arrow.png; sourceTree = "<group>"; };
+		CB9020141852DE9300F3B416 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Ball.png; path = Resources/Ball.png; sourceTree = "<group>"; };
+		CB9020151852DE9300F3B416 /* BallDouble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BallDouble.png; path = Resources/BallDouble.png; sourceTree = "<group>"; };
+		CB9020161852DE9300F3B416 /* BallDoubleHollow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BallDoubleHollow.png; path = Resources/BallDoubleHollow.png; sourceTree = "<group>"; };
+		CB9020171852DE9300F3B416 /* blip.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = blip.wav; path = Resources/blip.wav; sourceTree = "<group>"; };
+		CB9020191852DE9300F3B416 /* bluePill-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bluePill-low.png"; path = "Resources/bluePill-low.png"; sourceTree = "<group>"; };
+		CB90201A1852DE9300F3B416 /* bluePill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bluePill.png; path = Resources/bluePill.png; sourceTree = "<group>"; };
+		CB9020201852DE9300F3B416 /* boink.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = boink.wav; path = Resources/boink.wav; sourceTree = "<group>"; };
+		CB9020211852DE9300F3B416 /* boom.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = boom.wav; path = Resources/boom.wav; sourceTree = "<group>"; };
+		CB9020221852DE9300F3B416 /* boss1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boss1.png; path = Resources/boss1.png; sourceTree = "<group>"; };
+		CB9020231852DE9300F3B416 /* boss21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = boss21.png; path = Resources/boss21.png; sourceTree = "<group>"; };
+		CB9020241852DE9300F3B416 /* charge.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = charge.wav; path = Resources/charge.wav; sourceTree = "<group>"; };
+		CB9020251852DE9300F3B416 /* city1-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "city1-low.png"; path = "Resources/city1-low.png"; sourceTree = "<group>"; };
+		CB9020261852DE9300F3B416 /* city1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = city1.png; path = Resources/city1.png; sourceTree = "<group>"; };
+		CB9020271852DE9300F3B416 /* city2-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "city2-low.png"; path = "Resources/city2-low.png"; sourceTree = "<group>"; };
+		CB9020281852DE9300F3B416 /* city2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = city2.png; path = Resources/city2.png; sourceTree = "<group>"; };
+		CB9020291852DE9300F3B416 /* city3-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "city3-low.png"; path = "Resources/city3-low.png"; sourceTree = "<group>"; };
+		CB90202A1852DE9300F3B416 /* city3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = city3.png; path = Resources/city3.png; sourceTree = "<group>"; };
+		CB90202B1852DE9300F3B416 /* city4-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "city4-low.png"; path = "Resources/city4-low.png"; sourceTree = "<group>"; };
+		CB90202C1852DE9300F3B416 /* city4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = city4.png; path = Resources/city4.png; sourceTree = "<group>"; };
+		CB90202D1852DE9300F3B416 /* cole-waddle-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cole-waddle-ipad.png"; path = "Resources/cole-waddle-ipad.png"; sourceTree = "<group>"; };
+		CB90202E1852DE9300F3B416 /* cole-waddle-iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cole-waddle-iphone.png"; path = "Resources/cole-waddle-iphone.png"; sourceTree = "<group>"; };
+		CB9020301852DE9300F3B416 /* Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		CB9020311852DE9300F3B416 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		CB9020321852DE9300F3B416 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		CB9020341852DE9300F3B416 /* DawdleHurt.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = DawdleHurt.wav; path = Resources/DawdleHurt.wav; sourceTree = "<group>"; };
+		CB9020351852DE9300F3B416 /* DawdleWail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = DawdleWail.wav; path = Resources/DawdleWail.wav; sourceTree = "<group>"; };
+		CB9020361852DE9300F3B416 /* draftloop-01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "draftloop-01.mp3"; path = "Resources/draftloop-01.mp3"; sourceTree = "<group>"; };
+		CB9020371852DE9300F3B416 /* draftloop-02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "draftloop-02.mp3"; path = "Resources/draftloop-02.mp3"; sourceTree = "<group>"; };
+		CB9020381852DE9300F3B416 /* draftloop-03.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "draftloop-03.mp3"; path = "Resources/draftloop-03.mp3"; sourceTree = "<group>"; };
+		CB9020391852DE9300F3B416 /* draftloop-04.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "draftloop-04.mp3"; path = "Resources/draftloop-04.mp3"; sourceTree = "<group>"; };
+		CB90203A1852DE9300F3B416 /* dynamic1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dynamic1.png; path = Resources/dynamic1.png; sourceTree = "<group>"; };
+		CB90203B1852DE9300F3B416 /* effectring0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effectring0.png; path = Resources/effectring0.png; sourceTree = "<group>"; };
+		CB90203C1852DE9300F3B416 /* effectring1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effectring1.png; path = Resources/effectring1.png; sourceTree = "<group>"; };
+		CB90203D1852DE9300F3B416 /* effectring2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effectring2.png; path = Resources/effectring2.png; sourceTree = "<group>"; };
+		CB90203E1852DE9300F3B416 /* effectring3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effectring3.png; path = Resources/effectring3.png; sourceTree = "<group>"; };
+		CB90203F1852DE9300F3B416 /* effectring4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effectring4.png; path = Resources/effectring4.png; sourceTree = "<group>"; };
+		CB9020411852DE9300F3B416 /* effectring5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effectring5.png; path = Resources/effectring5.png; sourceTree = "<group>"; };
+		CB9020421852DE9300F3B416 /* effectring6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effectring6.png; path = Resources/effectring6.png; sourceTree = "<group>"; };
+		CB9020431852DE9300F3B416 /* effectring7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = effectring7.png; path = Resources/effectring7.png; sourceTree = "<group>"; };
+		CB9020441852DE9300F3B416 /* expand.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = expand.wav; path = Resources/expand.wav; sourceTree = "<group>"; };
+		CB9020451852DE9300F3B416 /* explosion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = explosion.plist; path = Resources/explosion.plist; sourceTree = "<group>"; };
+		CB9020461852DE9300F3B416 /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = explosion.png; path = Resources/explosion.png; sourceTree = "<group>"; };
+		CB9020471852DE9300F3B416 /* EyeHurt.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = EyeHurt.wav; path = Resources/EyeHurt.wav; sourceTree = "<group>"; };
+		CB9020481852DE9300F3B416 /* EyeUnfreeze.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = EyeUnfreeze.wav; path = Resources/EyeUnfreeze.wav; sourceTree = "<group>"; };
+		CB9020491852DE9300F3B416 /* EyeWail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = EyeWail.wav; path = Resources/EyeWail.wav; sourceTree = "<group>"; };
+		CB90204A1852DE9300F3B416 /* fall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = fall.wav; path = Resources/fall.wav; sourceTree = "<group>"; };
+		CB90204D1852DE9300F3B416 /* fuzz.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = fuzz.mp3; path = Resources/fuzz.mp3; sourceTree = "<group>"; };
+		CB90204E1852DE9300F3B416 /* fuzz.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = fuzz.wav; path = Resources/fuzz.wav; sourceTree = "<group>"; };
+		CB90204F1852DE9300F3B416 /* greenPill-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "greenPill-low.png"; path = "Resources/greenPill-low.png"; sourceTree = "<group>"; };
+		CB9020501852DE9300F3B416 /* greenPill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = greenPill.png; path = Resources/greenPill.png; sourceTree = "<group>"; };
+		CB9020511852DE9300F3B416 /* greenshot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = greenshot.wav; path = Resources/greenshot.wav; sourceTree = "<group>"; };
+		CB9020541852DE9300F3B416 /* bluePill2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluePill2x.png; sourceTree = "<group>"; };
+		CB9020551852DE9300F3B416 /* bobblearsm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bobblearsm.png; sourceTree = "<group>"; };
+		CB9020561852DE9300F3B416 /* bobblesm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bobblesm.png; sourceTree = "<group>"; };
+		CB9020571852DE9300F3B416 /* greenPill2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenPill2x.png; sourceTree = "<group>"; };
+		CB9020581852DE9300F3B416 /* help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = help.html; sourceTree = "<group>"; };
+		CB90205A1852DE9300F3B416 /* lines.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lines.png; sourceTree = "<group>"; };
+		CB90205B1852DE9300F3B416 /* magPill2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = magPill2x.png; sourceTree = "<group>"; };
+		CB90205C1852DE9300F3B416 /* prancearsm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prancearsm.png; sourceTree = "<group>"; };
+		CB90205D1852DE9300F3B416 /* prancesm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prancesm.png; sourceTree = "<group>"; };
+		CB90205E1852DE9300F3B416 /* pvaders-webfont.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "pvaders-webfont.svg"; sourceTree = "<group>"; };
+		CB90205F1852DE9300F3B416 /* redball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redball.png; sourceTree = "<group>"; };
+		CB9020601852DE9300F3B416 /* redPill2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redPill2x.png; sourceTree = "<group>"; };
+		CB9020611852DE9300F3B416 /* slice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slice.png; sourceTree = "<group>"; };
+		CB9020621852DE9300F3B416 /* smcity1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smcity1.png; sourceTree = "<group>"; };
+		CB9020631852DE9300F3B416 /* smcity2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smcity2.png; sourceTree = "<group>"; };
+		CB9020641852DE9300F3B416 /* smcity3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smcity3.png; sourceTree = "<group>"; };
+		CB9020651852DE9300F3B416 /* smcity4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smcity4.png; sourceTree = "<group>"; };
+		CB9020661852DE9300F3B416 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		CB9020671852DE9300F3B416 /* waddlearsm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waddlearsm.png; sourceTree = "<group>"; };
+		CB9020681852DE9300F3B416 /* waddlesm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = waddlesm.png; sourceTree = "<group>"; };
+		CB9020691852DE9300F3B416 /* homing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = homing.wav; path = Resources/homing.wav; sourceTree = "<group>"; };
+		CB90206A1852DE9300F3B416 /* hsLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hsLogo.png; path = Resources/hsLogo.png; sourceTree = "<group>"; };
+		CB90206B1852DE9300F3B416 /* intro.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = intro.mp3; path = Resources/intro.mp3; sourceTree = "<group>"; };
+		CB90206C1852DE9300F3B416 /* invader32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = invader32.png; path = Resources/invader32.png; sourceTree = "<group>"; };
+		CB90206D1852DE9300F3B416 /* invader128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = invader128.png; path = Resources/invader128.png; sourceTree = "<group>"; };
+		CB90206E1852DE9300F3B416 /* jon-bobble-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "jon-bobble-ipad.png"; path = "Resources/jon-bobble-ipad.png"; sourceTree = "<group>"; };
+		CB90206F1852DE9300F3B416 /* jon-bobble-iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "jon-bobble-iphone.png"; path = "Resources/jon-bobble-iphone.png"; sourceTree = "<group>"; };
+		CB9020701852DE9300F3B416 /* kdcLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = kdcLogo.png; path = Resources/kdcLogo.png; sourceTree = "<group>"; };
+		CB9020711852DE9300F3B416 /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = lose.wav; path = Resources/lose.wav; sourceTree = "<group>"; };
+		CB9020721852DE9300F3B416 /* magPill-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "magPill-low.png"; path = "Resources/magPill-low.png"; sourceTree = "<group>"; };
+		CB9020731852DE9300F3B416 /* magPill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = magPill.png; path = Resources/magPill.png; sourceTree = "<group>"; };
+		CB9020741852DE9300F3B416 /* mine-explosion-iphone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "mine-explosion-iphone.plist"; path = "Resources/mine-explosion-iphone.plist"; sourceTree = "<group>"; };
+		CB9020751852DE9300F3B416 /* mine-explosion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "mine-explosion.plist"; path = "Resources/mine-explosion.plist"; sourceTree = "<group>"; };
+		CB9020761852DE9400F3B416 /* mine.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = mine.wav; path = Resources/mine.wav; sourceTree = "<group>"; };
+		CB9020771852DE9400F3B416 /* mountains1-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mountains1-low.png"; path = "Resources/mountains1-low.png"; sourceTree = "<group>"; };
+		CB9020781852DE9400F3B416 /* mountains1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mountains1.png; path = Resources/mountains1.png; sourceTree = "<group>"; };
+		CB9020791852DE9400F3B416 /* mountains2-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mountains2-low.png"; path = "Resources/mountains2-low.png"; sourceTree = "<group>"; };
+		CB90207A1852DE9400F3B416 /* mountains2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mountains2.png; path = Resources/mountains2.png; sourceTree = "<group>"; };
+		CB90207B1852DE9400F3B416 /* nsLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nsLogo.png; path = Resources/nsLogo.png; sourceTree = "<group>"; };
+		CB90207C1852DE9400F3B416 /* OFGameCenter.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = OFGameCenter.plist; path = Resources/OFGameCenter.plist; sourceTree = "<group>"; };
+		CB90207D1852DE9400F3B416 /* oldpowerupParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oldpowerupParticle.png; path = Resources/oldpowerupParticle.png; sourceTree = "<group>"; };
+		CB90207E1852DE9400F3B416 /* oldstreak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oldstreak.png; path = Resources/oldstreak.png; sourceTree = "<group>"; };
+		CB90207F1852DE9400F3B416 /* Paddle-low-half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Paddle-low-half.png"; path = "Resources/Paddle-low-half.png"; sourceTree = "<group>"; };
+		CB9020801852DE9400F3B416 /* Paddle-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Paddle-low.png"; path = "Resources/Paddle-low.png"; sourceTree = "<group>"; };
+		CB9020811852DE9400F3B416 /* Paddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Paddle.png; path = Resources/Paddle.png; sourceTree = "<group>"; };
+		CB9020821852DE9400F3B416 /* paddle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = paddle.wav; path = Resources/paddle.wav; sourceTree = "<group>"; };
+		CB9020841852DE9400F3B416 /* pixplanet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pixplanet.png; path = Resources/pixplanet.png; sourceTree = "<group>"; };
+		CB9020851852DE9400F3B416 /* pixplanet.pxi */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = pixplanet.pxi; path = Resources/pixplanet.pxi; sourceTree = "<group>"; };
+		CB9020861852DE9400F3B416 /* pixplanet2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pixplanet2.png; path = Resources/pixplanet2.png; sourceTree = "<group>"; };
+		CB9020871852DE9400F3B416 /* planet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = planet.wav; path = Resources/planet.wav; sourceTree = "<group>"; };
+		CB9020881852DE9400F3B416 /* Pong.cfxr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Pong.cfxr; path = Resources/Pong.cfxr; sourceTree = "<group>"; };
+		CB9020891852DE9400F3B416 /* pongvaders sound effects round infinity.cfxr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "pongvaders sound effects round infinity.cfxr"; path = "Resources/pongvaders sound effects round infinity.cfxr"; sourceTree = "<group>"; };
+		CB90208A1852DE9400F3B416 /* pongvaders-low.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "pongvaders-low.plist"; path = "Resources/pongvaders-low.plist"; sourceTree = "<group>"; };
+		CB90208B1852DE9400F3B416 /* pongvaders-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pongvaders-low.png"; path = "Resources/pongvaders-low.png"; sourceTree = "<group>"; };
+		CB90208C1852DE9400F3B416 /* pongvaders-low.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = "pongvaders-low.zss"; path = "Resources/pongvaders-low.zss"; sourceTree = "<group>"; };
+		CB90208D1852DE9400F3B416 /* pongvaders.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = pongvaders.plist; path = Resources/pongvaders.plist; sourceTree = "<group>"; };
+		CB90208E1852DE9400F3B416 /* pongvaders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pongvaders.png; path = Resources/pongvaders.png; sourceTree = "<group>"; };
+		CB90208F1852DE9400F3B416 /* pongvaders.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = pongvaders.zss; path = Resources/pongvaders.zss; sourceTree = "<group>"; };
+		CB9020901852DE9400F3B416 /* portal.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = portal.wav; path = Resources/portal.wav; sourceTree = "<group>"; };
+		CB9020911852DE9400F3B416 /* powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = powerup.wav; path = Resources/powerup.wav; sourceTree = "<group>"; };
+		CB9020921852DE9400F3B416 /* powerupParticle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = powerupParticle.plist; path = Resources/powerupParticle.plist; sourceTree = "<group>"; };
+		CB9020931852DE9400F3B416 /* powerupParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = powerupParticle.png; path = Resources/powerupParticle.png; sourceTree = "<group>"; };
+		CB9020941852DE9400F3B416 /* prance1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = prance1.png; path = Resources/prance1.png; sourceTree = "<group>"; };
+		CB9020961852DE9400F3B416 /* pvaders.hiero */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = pvaders.hiero; path = Resources/pvaders.hiero; sourceTree = "<group>"; };
+		CB9020971852DE9400F3B416 /* pvaders.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = pvaders.ttf; path = Resources/pvaders.ttf; sourceTree = "<group>"; };
+		CB9020981852DE9400F3B416 /* pvaders8.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = pvaders8.fnt; path = Resources/pvaders8.fnt; sourceTree = "<group>"; };
+		CB9020991852DE9400F3B416 /* pvaders8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pvaders8.png; path = Resources/pvaders8.png; sourceTree = "<group>"; };
+		CB90209A1852DE9400F3B416 /* pvaders12.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = pvaders12.fnt; path = Resources/pvaders12.fnt; sourceTree = "<group>"; };
+		CB90209B1852DE9400F3B416 /* pvaders12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pvaders12.png; path = Resources/pvaders12.png; sourceTree = "<group>"; };
+		CB90209C1852DE9400F3B416 /* pvaders16.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = pvaders16.fnt; path = Resources/pvaders16.fnt; sourceTree = "<group>"; };
+		CB90209D1852DE9400F3B416 /* pvaders16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pvaders16.png; path = Resources/pvaders16.png; sourceTree = "<group>"; };
+		CB90209E1852DE9400F3B416 /* pvaders24.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = pvaders24.fnt; path = Resources/pvaders24.fnt; sourceTree = "<group>"; };
+		CB90209F1852DE9400F3B416 /* pvaders24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pvaders24.png; path = Resources/pvaders24.png; sourceTree = "<group>"; };
+		CB9020A01852DE9400F3B416 /* pvaders32.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = pvaders32.fnt; path = Resources/pvaders32.fnt; sourceTree = "<group>"; };
+		CB9020A11852DE9400F3B416 /* pvaders32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pvaders32.png; path = Resources/pvaders32.png; sourceTree = "<group>"; };
+		CB9020A21852DE9400F3B416 /* pvTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pvTitle.png; path = Resources/pvTitle.png; sourceTree = "<group>"; };
+		CB9020A41852DE9400F3B416 /* pvTitleOld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pvTitleOld.png; path = Resources/pvTitleOld.png; sourceTree = "<group>"; };
+		CB9020A51852DE9400F3B416 /* px10.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = px10.ttf; path = Resources/px10.ttf; sourceTree = "<group>"; };
+		CB9020A61852DE9400F3B416 /* quarterplanet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = quarterplanet.png; path = Resources/quarterplanet.png; sourceTree = "<group>"; };
+		CB9020A71852DE9400F3B416 /* redpaddle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = redpaddle.wav; path = Resources/redpaddle.wav; sourceTree = "<group>"; };
+		CB9020A81852DE9400F3B416 /* redPill-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "redPill-low.png"; path = "Resources/redPill-low.png"; sourceTree = "<group>"; };
+		CB9020A91852DE9400F3B416 /* redPill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = redPill.png; path = Resources/redPill.png; sourceTree = "<group>"; };
+		CB9020AA1852DE9400F3B416 /* shield32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shield32.png; path = Resources/shield32.png; sourceTree = "<group>"; };
+		CB9020AB1852DE9400F3B416 /* shield64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = shield64.png; path = Resources/shield64.png; sourceTree = "<group>"; };
+		CB9020AC1852DE9400F3B416 /* shoot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = shoot.wav; path = Resources/shoot.wav; sourceTree = "<group>"; };
+		CB9020AD1852DE9400F3B416 /* sky-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "sky-low.png"; path = "Resources/sky-low.png"; sourceTree = "<group>"; };
+		CB9020AE1852DE9400F3B416 /* sky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sky.png; path = Resources/sky.png; sourceTree = "<group>"; };
+		CB9020AF1852DE9400F3B416 /* slice.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = slice.wav; path = Resources/slice.wav; sourceTree = "<group>"; };
+		CB9020B01852DE9400F3B416 /* smallExplosion-iphone.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "smallExplosion-iphone.plist"; path = "Resources/smallExplosion-iphone.plist"; sourceTree = "<group>"; };
+		CB9020B11852DE9400F3B416 /* smallExplosion-iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "smallExplosion-iphone.png"; path = "Resources/smallExplosion-iphone.png"; sourceTree = "<group>"; };
+		CB9020B21852DE9400F3B416 /* smallExplosion.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = smallExplosion.plist; path = Resources/smallExplosion.plist; sourceTree = "<group>"; };
+		CB9020B31852DE9400F3B416 /* smallExplosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallExplosion.png; path = Resources/smallExplosion.png; sourceTree = "<group>"; };
+		CB9020B41852DE9400F3B416 /* solvalou_combat_aircraft__solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = solvalou_combat_aircraft__solid.ttf; path = Resources/solvalou_combat_aircraft__solid.ttf; sourceTree = "<group>"; };
+		CB9020B51852DE9400F3B416 /* solvalou.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = solvalou.fnt; path = Resources/solvalou.fnt; sourceTree = "<group>"; };
+		CB9020B61852DE9400F3B416 /* solvalou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = solvalou.png; path = Resources/solvalou.png; sourceTree = "<group>"; };
+		CB9020B71852DE9400F3B416 /* speech.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = speech.wav; path = Resources/speech.wav; sourceTree = "<group>"; };
+		CB9020B81852DE9400F3B416 /* stars.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = stars.plist; path = Resources/stars.plist; sourceTree = "<group>"; };
+		CB9020B91852DE9400F3B416 /* stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stars.png; path = Resources/stars.png; sourceTree = "<group>"; };
+		CB9020BA1852DE9400F3B416 /* stars.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = stars.zss; path = Resources/stars.zss; sourceTree = "<group>"; };
+		CB9020BB1852DE9400F3B416 /* stars2.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = stars2.zss; path = Resources/stars2.zss; sourceTree = "<group>"; };
+		CB9020BC1852DE9400F3B416 /* static1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = static1.png; path = Resources/static1.png; sourceTree = "<group>"; };
+		CB9020BD1852DE9400F3B416 /* streak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = streak.png; path = Resources/streak.png; sourceTree = "<group>"; };
+		CB9020BE1852DE9400F3B416 /* textbubble-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "textbubble-low.png"; path = "Resources/textbubble-low.png"; sourceTree = "<group>"; };
+		CB9020BF1852DE9400F3B416 /* textbubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = textbubble.png; path = Resources/textbubble.png; sourceTree = "<group>"; };
+		CB9020C01852DE9400F3B416 /* textbubble.psd */ = {isa = PBXFileReference; lastKnownFileType = file; name = textbubble.psd; path = Resources/textbubble.psd; sourceTree = "<group>"; };
+		CB9020C11852DE9400F3B416 /* textbubblewedge-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "textbubblewedge-low.png"; path = "Resources/textbubblewedge-low.png"; sourceTree = "<group>"; };
+		CB9020C21852DE9400F3B416 /* textbubblewedge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = textbubblewedge.png; path = Resources/textbubblewedge.png; sourceTree = "<group>"; };
+		CB9020C31852DE9400F3B416 /* waddle1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = waddle1.png; path = Resources/waddle1.png; sourceTree = "<group>"; };
+		CB9020C41852DE9400F3B416 /* wail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = wail.wav; path = Resources/wail.wav; sourceTree = "<group>"; };
+		CB9020C51852DE9400F3B416 /* warp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = warp.wav; path = Resources/warp.wav; sourceTree = "<group>"; };
+		CB9020C61852DE9400F3B416 /* yellowPill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yellowPill.png; path = Resources/yellowPill.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CB1077E31851AA6300A0D2FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB1077EC1851AA6300A0D2FB /* CoreGraphics.framework in Frameworks */,
+				CB1077EE1851AA6300A0D2FB /* UIKit.framework in Frameworks */,
+				CB1077EA1851AA6300A0D2FB /* Foundation.framework in Frameworks */,
+				0D4777C5DBD548FAB8EDDADE /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB1077FE1851AA6300A0D2FB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB1078031851AA6300A0D2FB /* XCTest.framework in Frameworks */,
+				CB1078051851AA6300A0D2FB /* UIKit.framework in Frameworks */,
+				CB1078041851AA6300A0D2FB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CB1077DD1851AA6300A0D2FB = {
+			isa = PBXGroup;
+			children = (
+				CB1077EF1851AA6300A0D2FB /* BreakVaders */,
+				CB9020101852DE1C00F3B416 /* Resources */,
+				CB1077F01851AA6300A0D2FB /* Supporting Files */,
+				CB1078081851AA6300A0D2FB /* BreakVadersTests */,
+				CB1077E81851AA6300A0D2FB /* Frameworks */,
+				CB1077E71851AA6300A0D2FB /* Products */,
+				B130CE315A73448F97C10FB9 /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		CB1077E71851AA6300A0D2FB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB1077E61851AA6300A0D2FB /* BreakVaders.app */,
+				CB1078011851AA6300A0D2FB /* BreakVadersTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CB1077E81851AA6300A0D2FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CB1077E91851AA6300A0D2FB /* Foundation.framework */,
+				CB1077EB1851AA6300A0D2FB /* CoreGraphics.framework */,
+				CB1077ED1851AA6300A0D2FB /* UIKit.framework */,
+				CB1078021851AA6300A0D2FB /* XCTest.framework */,
+				384635EF25554563ABC5A516 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB1077EF1851AA6300A0D2FB /* BreakVaders */ = {
+			isa = PBXGroup;
+			children = (
+				CB1077F81851AA6300A0D2FB /* BVAppDelegate.h */,
+				CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */,
+			);
+			path = BreakVaders;
+			sourceTree = "<group>";
+		};
+		CB1077F01851AA6300A0D2FB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CB1077F11851AA6300A0D2FB /* BreakVaders-Info.plist */,
+				CB1077F21851AA6300A0D2FB /* InfoPlist.strings */,
+				CB1077F51851AA6300A0D2FB /* main.m */,
+				CB1077F71851AA6300A0D2FB /* BreakVaders-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = BreakVaders;
+			sourceTree = "<group>";
+		};
+		CB1078081851AA6300A0D2FB /* BreakVadersTests */ = {
+			isa = PBXGroup;
+			children = (
+				CB10780E1851AA6300A0D2FB /* BreakVadersTests.m */,
+				CB1078091851AA6300A0D2FB /* Supporting Files */,
+			);
+			path = BreakVadersTests;
+			sourceTree = "<group>";
+		};
+		CB1078091851AA6300A0D2FB /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CB10780A1851AA6300A0D2FB /* BreakVadersTests-Info.plist */,
+				CB10780B1851AA6300A0D2FB /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		CB9020101852DE1C00F3B416 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CB1077FB1851AA6300A0D2FB /* Images.xcassets */,
+				CB9020111852DE9300F3B416 /* apLogo.png */,
+				CB9020121852DE9300F3B416 /* arrow-low.png */,
+				CB9020131852DE9300F3B416 /* arrow.png */,
+				CB9020141852DE9300F3B416 /* Ball.png */,
+				CB9020151852DE9300F3B416 /* BallDouble.png */,
+				CB9020161852DE9300F3B416 /* BallDoubleHollow.png */,
+				CB9020171852DE9300F3B416 /* blip.wav */,
+				CB9020191852DE9300F3B416 /* bluePill-low.png */,
+				CB90201A1852DE9300F3B416 /* bluePill.png */,
+				CB9020201852DE9300F3B416 /* boink.wav */,
+				CB9020211852DE9300F3B416 /* boom.wav */,
+				CB9020221852DE9300F3B416 /* boss1.png */,
+				CB9020231852DE9300F3B416 /* boss21.png */,
+				CB9020241852DE9300F3B416 /* charge.wav */,
+				CB9020251852DE9300F3B416 /* city1-low.png */,
+				CB9020261852DE9300F3B416 /* city1.png */,
+				CB9020271852DE9300F3B416 /* city2-low.png */,
+				CB9020281852DE9300F3B416 /* city2.png */,
+				CB9020291852DE9300F3B416 /* city3-low.png */,
+				CB90202A1852DE9300F3B416 /* city3.png */,
+				CB90202B1852DE9300F3B416 /* city4-low.png */,
+				CB90202C1852DE9300F3B416 /* city4.png */,
+				CB90202D1852DE9300F3B416 /* cole-waddle-ipad.png */,
+				CB90202E1852DE9300F3B416 /* cole-waddle-iphone.png */,
+				CB90202F1852DE9300F3B416 /* Config */,
+				CB9020341852DE9300F3B416 /* DawdleHurt.wav */,
+				CB9020351852DE9300F3B416 /* DawdleWail.wav */,
+				CB9020361852DE9300F3B416 /* draftloop-01.mp3 */,
+				CB9020371852DE9300F3B416 /* draftloop-02.mp3 */,
+				CB9020381852DE9300F3B416 /* draftloop-03.mp3 */,
+				CB9020391852DE9300F3B416 /* draftloop-04.mp3 */,
+				CB90203A1852DE9300F3B416 /* dynamic1.png */,
+				CB90203B1852DE9300F3B416 /* effectring0.png */,
+				CB90203C1852DE9300F3B416 /* effectring1.png */,
+				CB90203D1852DE9300F3B416 /* effectring2.png */,
+				CB90203E1852DE9300F3B416 /* effectring3.png */,
+				CB90203F1852DE9300F3B416 /* effectring4.png */,
+				CB9020411852DE9300F3B416 /* effectring5.png */,
+				CB9020421852DE9300F3B416 /* effectring6.png */,
+				CB9020431852DE9300F3B416 /* effectring7.png */,
+				CB9020441852DE9300F3B416 /* expand.wav */,
+				CB9020451852DE9300F3B416 /* explosion.plist */,
+				CB9020461852DE9300F3B416 /* explosion.png */,
+				CB9020471852DE9300F3B416 /* EyeHurt.wav */,
+				CB9020481852DE9300F3B416 /* EyeUnfreeze.wav */,
+				CB9020491852DE9300F3B416 /* EyeWail.wav */,
+				CB90204A1852DE9300F3B416 /* fall.wav */,
+				CB90204D1852DE9300F3B416 /* fuzz.mp3 */,
+				CB90204E1852DE9300F3B416 /* fuzz.wav */,
+				CB90204F1852DE9300F3B416 /* greenPill-low.png */,
+				CB9020501852DE9300F3B416 /* greenPill.png */,
+				CB9020511852DE9300F3B416 /* greenshot.wav */,
+				CB9020521852DE9300F3B416 /* help */,
+				CB9020691852DE9300F3B416 /* homing.wav */,
+				CB90206A1852DE9300F3B416 /* hsLogo.png */,
+				CB90206B1852DE9300F3B416 /* intro.mp3 */,
+				CB90206C1852DE9300F3B416 /* invader32.png */,
+				CB90206D1852DE9300F3B416 /* invader128.png */,
+				CB90206E1852DE9300F3B416 /* jon-bobble-ipad.png */,
+				CB90206F1852DE9300F3B416 /* jon-bobble-iphone.png */,
+				CB9020701852DE9300F3B416 /* kdcLogo.png */,
+				CB9020711852DE9300F3B416 /* lose.wav */,
+				CB9020721852DE9300F3B416 /* magPill-low.png */,
+				CB9020731852DE9300F3B416 /* magPill.png */,
+				CB9020741852DE9300F3B416 /* mine-explosion-iphone.plist */,
+				CB9020751852DE9300F3B416 /* mine-explosion.plist */,
+				CB9020761852DE9400F3B416 /* mine.wav */,
+				CB9020771852DE9400F3B416 /* mountains1-low.png */,
+				CB9020781852DE9400F3B416 /* mountains1.png */,
+				CB9020791852DE9400F3B416 /* mountains2-low.png */,
+				CB90207A1852DE9400F3B416 /* mountains2.png */,
+				CB90207B1852DE9400F3B416 /* nsLogo.png */,
+				CB90207C1852DE9400F3B416 /* OFGameCenter.plist */,
+				CB90207D1852DE9400F3B416 /* oldpowerupParticle.png */,
+				CB90207E1852DE9400F3B416 /* oldstreak.png */,
+				CB90207F1852DE9400F3B416 /* Paddle-low-half.png */,
+				CB9020801852DE9400F3B416 /* Paddle-low.png */,
+				CB9020811852DE9400F3B416 /* Paddle.png */,
+				CB9020821852DE9400F3B416 /* paddle.wav */,
+				CB9020841852DE9400F3B416 /* pixplanet.png */,
+				CB9020851852DE9400F3B416 /* pixplanet.pxi */,
+				CB9020861852DE9400F3B416 /* pixplanet2.png */,
+				CB9020871852DE9400F3B416 /* planet.wav */,
+				CB9020881852DE9400F3B416 /* Pong.cfxr */,
+				CB9020891852DE9400F3B416 /* pongvaders sound effects round infinity.cfxr */,
+				CB90208A1852DE9400F3B416 /* pongvaders-low.plist */,
+				CB90208B1852DE9400F3B416 /* pongvaders-low.png */,
+				CB90208C1852DE9400F3B416 /* pongvaders-low.zss */,
+				CB90208D1852DE9400F3B416 /* pongvaders.plist */,
+				CB90208E1852DE9400F3B416 /* pongvaders.png */,
+				CB90208F1852DE9400F3B416 /* pongvaders.zss */,
+				CB9020901852DE9400F3B416 /* portal.wav */,
+				CB9020911852DE9400F3B416 /* powerup.wav */,
+				CB9020921852DE9400F3B416 /* powerupParticle.plist */,
+				CB9020931852DE9400F3B416 /* powerupParticle.png */,
+				CB9020941852DE9400F3B416 /* prance1.png */,
+				CB9020961852DE9400F3B416 /* pvaders.hiero */,
+				CB9020971852DE9400F3B416 /* pvaders.ttf */,
+				CB9020981852DE9400F3B416 /* pvaders8.fnt */,
+				CB9020991852DE9400F3B416 /* pvaders8.png */,
+				CB90209A1852DE9400F3B416 /* pvaders12.fnt */,
+				CB90209B1852DE9400F3B416 /* pvaders12.png */,
+				CB90209C1852DE9400F3B416 /* pvaders16.fnt */,
+				CB90209D1852DE9400F3B416 /* pvaders16.png */,
+				CB90209E1852DE9400F3B416 /* pvaders24.fnt */,
+				CB90209F1852DE9400F3B416 /* pvaders24.png */,
+				CB9020A01852DE9400F3B416 /* pvaders32.fnt */,
+				CB9020A11852DE9400F3B416 /* pvaders32.png */,
+				CB9020A21852DE9400F3B416 /* pvTitle.png */,
+				CB9020A41852DE9400F3B416 /* pvTitleOld.png */,
+				CB9020A51852DE9400F3B416 /* px10.ttf */,
+				CB9020A61852DE9400F3B416 /* quarterplanet.png */,
+				CB9020A71852DE9400F3B416 /* redpaddle.wav */,
+				CB9020A81852DE9400F3B416 /* redPill-low.png */,
+				CB9020A91852DE9400F3B416 /* redPill.png */,
+				CB9020AA1852DE9400F3B416 /* shield32.png */,
+				CB9020AB1852DE9400F3B416 /* shield64.png */,
+				CB9020AC1852DE9400F3B416 /* shoot.wav */,
+				CB9020AD1852DE9400F3B416 /* sky-low.png */,
+				CB9020AE1852DE9400F3B416 /* sky.png */,
+				CB9020AF1852DE9400F3B416 /* slice.wav */,
+				CB9020B01852DE9400F3B416 /* smallExplosion-iphone.plist */,
+				CB9020B11852DE9400F3B416 /* smallExplosion-iphone.png */,
+				CB9020B21852DE9400F3B416 /* smallExplosion.plist */,
+				CB9020B31852DE9400F3B416 /* smallExplosion.png */,
+				CB9020B41852DE9400F3B416 /* solvalou_combat_aircraft__solid.ttf */,
+				CB9020B51852DE9400F3B416 /* solvalou.fnt */,
+				CB9020B61852DE9400F3B416 /* solvalou.png */,
+				CB9020B71852DE9400F3B416 /* speech.wav */,
+				CB9020B81852DE9400F3B416 /* stars.plist */,
+				CB9020B91852DE9400F3B416 /* stars.png */,
+				CB9020BA1852DE9400F3B416 /* stars.zss */,
+				CB9020BB1852DE9400F3B416 /* stars2.zss */,
+				CB9020BC1852DE9400F3B416 /* static1.png */,
+				CB9020BD1852DE9400F3B416 /* streak.png */,
+				CB9020BE1852DE9400F3B416 /* textbubble-low.png */,
+				CB9020BF1852DE9400F3B416 /* textbubble.png */,
+				CB9020C01852DE9400F3B416 /* textbubble.psd */,
+				CB9020C11852DE9400F3B416 /* textbubblewedge-low.png */,
+				CB9020C21852DE9400F3B416 /* textbubblewedge.png */,
+				CB9020C31852DE9400F3B416 /* waddle1.png */,
+				CB9020C41852DE9400F3B416 /* wail.wav */,
+				CB9020C51852DE9400F3B416 /* warp.wav */,
+				CB9020C61852DE9400F3B416 /* yellowPill.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		CB90202F1852DE9300F3B416 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				CB9020301852DE9300F3B416 /* Base.xcconfig */,
+				CB9020311852DE9300F3B416 /* Debug.xcconfig */,
+				CB9020321852DE9300F3B416 /* Release.xcconfig */,
+			);
+			name = Config;
+			path = Resources/Config;
+			sourceTree = "<group>";
+		};
+		CB9020521852DE9300F3B416 /* help */ = {
+			isa = PBXGroup;
+			children = (
+				CB9020541852DE9300F3B416 /* bluePill2x.png */,
+				CB9020551852DE9300F3B416 /* bobblearsm.png */,
+				CB9020561852DE9300F3B416 /* bobblesm.png */,
+				CB9020571852DE9300F3B416 /* greenPill2x.png */,
+				CB9020581852DE9300F3B416 /* help.html */,
+				CB90205A1852DE9300F3B416 /* lines.png */,
+				CB90205B1852DE9300F3B416 /* magPill2x.png */,
+				CB90205C1852DE9300F3B416 /* prancearsm.png */,
+				CB90205D1852DE9300F3B416 /* prancesm.png */,
+				CB90205E1852DE9300F3B416 /* pvaders-webfont.svg */,
+				CB90205F1852DE9300F3B416 /* redball.png */,
+				CB9020601852DE9300F3B416 /* redPill2x.png */,
+				CB9020611852DE9300F3B416 /* slice.png */,
+				CB9020621852DE9300F3B416 /* smcity1.png */,
+				CB9020631852DE9300F3B416 /* smcity2.png */,
+				CB9020641852DE9300F3B416 /* smcity3.png */,
+				CB9020651852DE9300F3B416 /* smcity4.png */,
+				CB9020661852DE9300F3B416 /* style.css */,
+				CB9020671852DE9300F3B416 /* waddlearsm.png */,
+				CB9020681852DE9300F3B416 /* waddlesm.png */,
+			);
+			name = help;
+			path = Resources/help;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CB1077E51851AA6300A0D2FB /* BreakVaders */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB1078121851AA6300A0D2FB /* Build configuration list for PBXNativeTarget "BreakVaders" */;
+			buildPhases = (
+				76646B34A4A3440D8ABB3DE8 /* Check Pods Manifest.lock */,
+				CB1077E21851AA6300A0D2FB /* Sources */,
+				CB1077E31851AA6300A0D2FB /* Frameworks */,
+				CB1077E41851AA6300A0D2FB /* Resources */,
+				E0558F7B20944896BBB75863 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BreakVaders;
+			productName = BreakVaders;
+			productReference = CB1077E61851AA6300A0D2FB /* BreakVaders.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CB1078001851AA6300A0D2FB /* BreakVadersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB1078151851AA6300A0D2FB /* Build configuration list for PBXNativeTarget "BreakVadersTests" */;
+			buildPhases = (
+				CB1077FD1851AA6300A0D2FB /* Sources */,
+				CB1077FE1851AA6300A0D2FB /* Frameworks */,
+				CB1077FF1851AA6300A0D2FB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CB1078071851AA6300A0D2FB /* PBXTargetDependency */,
+			);
+			name = BreakVadersTests;
+			productName = BreakVadersTests;
+			productReference = CB1078011851AA6300A0D2FB /* BreakVadersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CB1077DE1851AA6300A0D2FB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = BV;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Jonathan Beilin";
+				TargetAttributes = {
+					CB1078001851AA6300A0D2FB = {
+						TestTargetID = CB1077E51851AA6300A0D2FB;
+					};
+				};
+			};
+			buildConfigurationList = CB1077E11851AA6300A0D2FB /* Build configuration list for PBXProject "BreakVaders" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = CB1077DD1851AA6300A0D2FB;
+			productRefGroup = CB1077E71851AA6300A0D2FB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CB1077E51851AA6300A0D2FB /* BreakVaders */,
+				CB1078001851AA6300A0D2FB /* BreakVadersTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CB1077E41851AA6300A0D2FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB9020EC1852DE9400F3B416 /* draftloop-02.mp3 in Resources */,
+				CB9021241852DE9400F3B416 /* kdcLogo.png in Resources */,
+				CB90216C1852DE9400F3B416 /* stars.plist in Resources */,
+				CB9021701852DE9400F3B416 /* static1.png in Resources */,
+				CB9020DA1852DE9400F3B416 /* charge.wav in Resources */,
+				CB9020E11852DE9400F3B416 /* city4-low.png in Resources */,
+				CB9021771852DE9400F3B416 /* waddle1.png in Resources */,
+				CB9020F41852DE9400F3B416 /* effectring4.png in Resources */,
+				CB9020D81852DE9400F3B416 /* boss1.png in Resources */,
+				CB9021091852DE9400F3B416 /* bobblearsm.png in Resources */,
+				CB9021141852DE9400F3B416 /* redPill2x.png in Resources */,
+				CB9021521852DE9400F3B416 /* pvaders24.fnt in Resources */,
+				CB9020D01852DE9400F3B416 /* bluePill.png in Resources */,
+				CB90212B1852DE9400F3B416 /* mountains1-low.png in Resources */,
+				CB9021421852DE9400F3B416 /* pongvaders.png in Resources */,
+				CB9021211852DE9400F3B416 /* invader128.png in Resources */,
+				CB9021221852DE9400F3B416 /* jon-bobble-ipad.png in Resources */,
+				CB90214B1852DE9400F3B416 /* pvaders.ttf in Resources */,
+				CB90212F1852DE9400F3B416 /* nsLogo.png in Resources */,
+				CB90210A1852DE9400F3B416 /* bobblesm.png in Resources */,
+				CB9021741852DE9400F3B416 /* textbubble.psd in Resources */,
+				CB90214E1852DE9400F3B416 /* pvaders12.fnt in Resources */,
+				CB90216E1852DE9400F3B416 /* stars.zss in Resources */,
+				CB90213B1852DE9400F3B416 /* planet.wav in Resources */,
+				CB90212E1852DE9400F3B416 /* mountains2.png in Resources */,
+				CB9021591852DE9400F3B416 /* px10.ttf in Resources */,
+				CB9020F11852DE9400F3B416 /* effectring1.png in Resources */,
+				CB9021291852DE9400F3B416 /* mine-explosion.plist in Resources */,
+				CB9020D61852DE9400F3B416 /* boink.wav in Resources */,
+				CB90210B1852DE9400F3B416 /* greenPill2x.png in Resources */,
+				CB9020CA1852DE9400F3B416 /* Ball.png in Resources */,
+				CB9021581852DE9400F3B416 /* pvTitleOld.png in Resources */,
+				CB9021441852DE9400F3B416 /* portal.wav in Resources */,
+				CB9021541852DE9400F3B416 /* pvaders32.fnt in Resources */,
+				CB9021261852DE9400F3B416 /* magPill-low.png in Resources */,
+				CB9021171852DE9400F3B416 /* smcity2.png in Resources */,
+				CB9020DC1852DE9400F3B416 /* city1.png in Resources */,
+				CB9021631852DE9400F3B416 /* slice.wav in Resources */,
+				CB9021401852DE9400F3B416 /* pongvaders-low.zss in Resources */,
+				CB9020F31852DE9400F3B416 /* effectring3.png in Resources */,
+				CB9021131852DE9400F3B416 /* redball.png in Resources */,
+				CB9021381852DE9400F3B416 /* pixplanet.png in Resources */,
+				CB9021101852DE9400F3B416 /* prancearsm.png in Resources */,
+				CB9020DD1852DE9400F3B416 /* city2-low.png in Resources */,
+				CB9021501852DE9400F3B416 /* pvaders16.fnt in Resources */,
+				CB9021611852DE9400F3B416 /* sky-low.png in Resources */,
+				CB1077F41851AA6300A0D2FB /* InfoPlist.strings in Resources */,
+				CB9020F71852DE9400F3B416 /* effectring6.png in Resources */,
+				CB90214A1852DE9400F3B416 /* pvaders.hiero in Resources */,
+				CB9020CC1852DE9400F3B416 /* BallDoubleHollow.png in Resources */,
+				CB9020DF1852DE9400F3B416 /* city3-low.png in Resources */,
+				CB9021201852DE9400F3B416 /* invader32.png in Resources */,
+				CB9020E01852DE9400F3B416 /* city3.png in Resources */,
+				CB90215E1852DE9400F3B416 /* shield32.png in Resources */,
+				CB90216A1852DE9400F3B416 /* solvalou.png in Resources */,
+				CB9021081852DE9400F3B416 /* bluePill2x.png in Resources */,
+				CB9021471852DE9400F3B416 /* powerupParticle.png in Resources */,
+				CB90211A1852DE9400F3B416 /* style.css in Resources */,
+				CB9021191852DE9400F3B416 /* smcity4.png in Resources */,
+				CB9021281852DE9400F3B416 /* mine-explosion-iphone.plist in Resources */,
+				CB9021791852DE9400F3B416 /* warp.wav in Resources */,
+				CB9021511852DE9400F3B416 /* pvaders16.png in Resources */,
+				CB90215D1852DE9400F3B416 /* redPill.png in Resources */,
+				CB9020ED1852DE9400F3B416 /* draftloop-03.mp3 in Resources */,
+				CB9021751852DE9400F3B416 /* textbubblewedge-low.png in Resources */,
+				CB9021271852DE9400F3B416 /* magPill.png in Resources */,
+				CB9020EB1852DE9400F3B416 /* draftloop-01.mp3 in Resources */,
+				CB90215C1852DE9400F3B416 /* redPill-low.png in Resources */,
+				CB9021111852DE9400F3B416 /* prancesm.png in Resources */,
+				CB90214C1852DE9400F3B416 /* pvaders8.fnt in Resources */,
+				CB90217A1852DE9400F3B416 /* yellowPill.png in Resources */,
+				CB9021251852DE9400F3B416 /* lose.wav in Resources */,
+				CB9020DE1852DE9400F3B416 /* city2.png in Resources */,
+				CB9020F61852DE9400F3B416 /* effectring5.png in Resources */,
+				CB9020F91852DE9400F3B416 /* expand.wav in Resources */,
+				CB9021661852DE9400F3B416 /* smallExplosion.plist in Resources */,
+				CB9020E91852DE9400F3B416 /* DawdleHurt.wav in Resources */,
+				CB90212C1852DE9400F3B416 /* mountains1.png in Resources */,
+				CB90213C1852DE9400F3B416 /* Pong.cfxr in Resources */,
+				CB9020FD1852DE9400F3B416 /* EyeUnfreeze.wav in Resources */,
+				CB9021351852DE9400F3B416 /* Paddle.png in Resources */,
+				CB9020DB1852DE9400F3B416 /* city1-low.png in Resources */,
+				CB9020F81852DE9400F3B416 /* effectring7.png in Resources */,
+				CB90215A1852DE9400F3B416 /* quarterplanet.png in Resources */,
+				CB9021161852DE9400F3B416 /* smcity1.png in Resources */,
+				CB90213E1852DE9400F3B416 /* pongvaders-low.plist in Resources */,
+				CB9021761852DE9400F3B416 /* textbubblewedge.png in Resources */,
+				CB9020EE1852DE9400F3B416 /* draftloop-04.mp3 in Resources */,
+				CB90212D1852DE9400F3B416 /* mountains2-low.png in Resources */,
+				CB9020FC1852DE9400F3B416 /* EyeHurt.wav in Resources */,
+				CB9021341852DE9400F3B416 /* Paddle-low.png in Resources */,
+				CB9021361852DE9400F3B416 /* paddle.wav in Resources */,
+				CB90216F1852DE9400F3B416 /* stars2.zss in Resources */,
+				CB90210C1852DE9400F3B416 /* help.html in Resources */,
+				CB9020C71852DE9400F3B416 /* apLogo.png in Resources */,
+				CB90211D1852DE9400F3B416 /* homing.wav in Resources */,
+				CB9020CB1852DE9400F3B416 /* BallDouble.png in Resources */,
+				CB9021531852DE9400F3B416 /* pvaders24.png in Resources */,
+				CB9021781852DE9400F3B416 /* wail.wav in Resources */,
+				CB9021151852DE9400F3B416 /* slice.png in Resources */,
+				CB9021021852DE9400F3B416 /* fuzz.mp3 in Resources */,
+				CB9020E71852DE9400F3B416 /* Release.xcconfig in Resources */,
+				CB9021481852DE9400F3B416 /* prance1.png in Resources */,
+				CB9021041852DE9400F3B416 /* greenPill-low.png in Resources */,
+				CB9021731852DE9400F3B416 /* textbubble.png in Resources */,
+				CB9021321852DE9400F3B416 /* oldstreak.png in Resources */,
+				CB9021231852DE9400F3B416 /* jon-bobble-iphone.png in Resources */,
+				CB90210E1852DE9400F3B416 /* lines.png in Resources */,
+				CB9020D71852DE9400F3B416 /* boom.wav in Resources */,
+				CB9020C81852DE9400F3B416 /* arrow-low.png in Resources */,
+				CB90214D1852DE9400F3B416 /* pvaders8.png in Resources */,
+				CB9021691852DE9400F3B416 /* solvalou.fnt in Resources */,
+				CB9020E21852DE9400F3B416 /* city4.png in Resources */,
+				CB90216D1852DE9400F3B416 /* stars.png in Resources */,
+				CB9021451852DE9400F3B416 /* powerup.wav in Resources */,
+				CB9020FF1852DE9400F3B416 /* fall.wav in Resources */,
+				CB90216B1852DE9400F3B416 /* speech.wav in Resources */,
+				CB90211F1852DE9400F3B416 /* intro.mp3 in Resources */,
+				CB9020EA1852DE9400F3B416 /* DawdleWail.wav in Resources */,
+				CB9020E51852DE9400F3B416 /* Base.xcconfig in Resources */,
+				CB9020CD1852DE9400F3B416 /* blip.wav in Resources */,
+				CB90211E1852DE9400F3B416 /* hsLogo.png in Resources */,
+				CB9021551852DE9400F3B416 /* pvaders32.png in Resources */,
+				CB9020D91852DE9400F3B416 /* boss21.png in Resources */,
+				CB90215B1852DE9400F3B416 /* redpaddle.wav in Resources */,
+				CB9021681852DE9400F3B416 /* solvalou_combat_aircraft__solid.ttf in Resources */,
+				CB9021121852DE9400F3B416 /* pvaders-webfont.svg in Resources */,
+				CB9020E61852DE9400F3B416 /* Debug.xcconfig in Resources */,
+				CB9021051852DE9400F3B416 /* greenPill.png in Resources */,
+				CB9021061852DE9400F3B416 /* greenshot.wav in Resources */,
+				CB9021671852DE9400F3B416 /* smallExplosion.png in Resources */,
+				CB9021301852DE9400F3B416 /* OFGameCenter.plist in Resources */,
+				CB9020C91852DE9400F3B416 /* arrow.png in Resources */,
+				CB9021331852DE9400F3B416 /* Paddle-low-half.png in Resources */,
+				CB9020E41852DE9400F3B416 /* cole-waddle-iphone.png in Resources */,
+				CB90213F1852DE9400F3B416 /* pongvaders-low.png in Resources */,
+				CB9021411852DE9400F3B416 /* pongvaders.plist in Resources */,
+				CB90213D1852DE9400F3B416 /* pongvaders sound effects round infinity.cfxr in Resources */,
+				CB90212A1852DE9400F3B416 /* mine.wav in Resources */,
+				CB9020F01852DE9400F3B416 /* effectring0.png in Resources */,
+				CB90210F1852DE9400F3B416 /* magPill2x.png in Resources */,
+				CB9020F21852DE9400F3B416 /* effectring2.png in Resources */,
+				CB9021391852DE9400F3B416 /* pixplanet.pxi in Resources */,
+				CB9020EF1852DE9400F3B416 /* dynamic1.png in Resources */,
+				CB9020FA1852DE9400F3B416 /* explosion.plist in Resources */,
+				CB1077FC1851AA6300A0D2FB /* Images.xcassets in Resources */,
+				CB90214F1852DE9400F3B416 /* pvaders12.png in Resources */,
+				CB90215F1852DE9400F3B416 /* shield64.png in Resources */,
+				CB90211C1852DE9400F3B416 /* waddlesm.png in Resources */,
+				CB9021651852DE9400F3B416 /* smallExplosion-iphone.png in Resources */,
+				CB9021721852DE9400F3B416 /* textbubble-low.png in Resources */,
+				CB9020CF1852DE9400F3B416 /* bluePill-low.png in Resources */,
+				CB9021431852DE9400F3B416 /* pongvaders.zss in Resources */,
+				CB90213A1852DE9400F3B416 /* pixplanet2.png in Resources */,
+				CB9020FE1852DE9400F3B416 /* EyeWail.wav in Resources */,
+				CB9021031852DE9400F3B416 /* fuzz.wav in Resources */,
+				CB9021621852DE9400F3B416 /* sky.png in Resources */,
+				CB9021311852DE9400F3B416 /* oldpowerupParticle.png in Resources */,
+				CB9020E31852DE9400F3B416 /* cole-waddle-ipad.png in Resources */,
+				CB90211B1852DE9400F3B416 /* waddlearsm.png in Resources */,
+				CB9021561852DE9400F3B416 /* pvTitle.png in Resources */,
+				CB9021181852DE9400F3B416 /* smcity3.png in Resources */,
+				CB9020FB1852DE9400F3B416 /* explosion.png in Resources */,
+				CB9021601852DE9400F3B416 /* shoot.wav in Resources */,
+				CB9021711852DE9400F3B416 /* streak.png in Resources */,
+				CB9021461852DE9400F3B416 /* powerupParticle.plist in Resources */,
+				CB9021641852DE9400F3B416 /* smallExplosion-iphone.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB1077FF1851AA6300A0D2FB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB10780D1851AA6300A0D2FB /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		76646B34A4A3440D8ABB3DE8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E0558F7B20944896BBB75863 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CB1077E21851AA6300A0D2FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB1077FA1851AA6300A0D2FB /* BVAppDelegate.m in Sources */,
+				CB1077F61851AA6300A0D2FB /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB1077FD1851AA6300A0D2FB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB10780F1851AA6300A0D2FB /* BreakVadersTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CB1078071851AA6300A0D2FB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CB1077E51851AA6300A0D2FB /* BreakVaders */;
+			targetProxy = CB1078061851AA6300A0D2FB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CB1077F21851AA6300A0D2FB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB1077F31851AA6300A0D2FB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CB10780B1851AA6300A0D2FB /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB10780C1851AA6300A0D2FB /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CB1078101851AA6300A0D2FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CB1078111851AA6300A0D2FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CB1078131851AA6300A0D2FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B130CE315A73448F97C10FB9 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BreakVaders/BreakVaders-Prefix.pch";
+				INFOPLIST_FILE = "BreakVaders/BreakVaders-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		CB1078141851AA6300A0D2FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B130CE315A73448F97C10FB9 /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BreakVaders/BreakVaders-Prefix.pch";
+				INFOPLIST_FILE = "BreakVaders/BreakVaders-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		CB1078161851AA6300A0D2FB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BreakVaders.app/BreakVaders";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BreakVaders/BreakVaders-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "BreakVadersTests/BreakVadersTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		CB1078171851AA6300A0D2FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BreakVaders.app/BreakVaders";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BreakVaders/BreakVaders-Prefix.pch";
+				INFOPLIST_FILE = "BreakVadersTests/BreakVadersTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CB1077E11851AA6300A0D2FB /* Build configuration list for PBXProject "BreakVaders" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB1078101851AA6300A0D2FB /* Debug */,
+				CB1078111851AA6300A0D2FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB1078121851AA6300A0D2FB /* Build configuration list for PBXNativeTarget "BreakVaders" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB1078131851AA6300A0D2FB /* Debug */,
+				CB1078141851AA6300A0D2FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CB1078151851AA6300A0D2FB /* Build configuration list for PBXNativeTarget "BreakVadersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB1078161851AA6300A0D2FB /* Debug */,
+				CB1078171851AA6300A0D2FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CB1077DE1851AA6300A0D2FB /* Project object */;
+}

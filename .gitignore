@@ -9,6 +9,9 @@ xcuserdata/
 *.xcodeproj/project.xcworkspace/contents.xcworkspacedata
 *.xcuserstate
 
+/* LOCAL */
+BVLocalOptions.h
+
 /* Peak */
 PEAKSAVE*
 
