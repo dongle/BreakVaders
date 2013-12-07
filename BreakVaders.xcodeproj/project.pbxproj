@@ -185,6 +185,63 @@
 		CB90217A1852DE9400F3B416 /* yellowPill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C61852DE9400F3B416 /* yellowPill.png */; };
 		CBFA56461852E33D00879246 /* BVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */; };
 		CBFA56481852E36100879246 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F51851AA6300A0D2FB /* main.m */; };
+		CBFA56C21852F41100879246 /* AABBQueryCallback.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564B1852F41100879246 /* AABBQueryCallback.mm */; };
+		CBFA56C31852F41100879246 /* ADMBrain.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564D1852F41100879246 /* ADMBrain.mm */; };
+		CBFA56C41852F41100879246 /* ADMBrainSeg.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564F1852F41100879246 /* ADMBrainSeg.mm */; };
+		CBFA56C51852F41100879246 /* ADMBrainTail.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56511852F41100879246 /* ADMBrainTail.mm */; };
+		CBFA56C61852F41100879246 /* Ball.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56531852F41100879246 /* Ball.mm */; };
+		CBFA56C71852F41100879246 /* BeatEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56551852F41100879246 /* BeatEvents.m */; };
+		CBFA56C81852F41100879246 /* BeatNode.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56571852F41100879246 /* BeatNode.m */; };
+		CBFA56C91852F41100879246 /* BeatResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56591852F41100879246 /* BeatResponder.m */; };
+		CBFA56CA1852F41100879246 /* BeatSequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA565B1852F41100879246 /* BeatSequencer.m */; };
+		CBFA56CB1852F41100879246 /* BlockFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA565D1852F41100879246 /* BlockFleet.mm */; };
+		CBFA56CC1852F41100879246 /* BlockFleets.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA565F1852F41100879246 /* BlockFleets.mm */; };
+		CBFA56CD1852F41100879246 /* Boss2Fleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56611852F41100879246 /* Boss2Fleet.mm */; };
+		CBFA56D01852F41100879246 /* CDRBobble.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56671852F41100879246 /* CDRBobble.mm */; };
+		CBFA56D11852F41100879246 /* CircleFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56691852F41100879246 /* CircleFleet.mm */; };
+		CBFA56D21852F41100879246 /* ColumnFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA566B1852F41100879246 /* ColumnFleet.mm */; };
+		CBFA56D31852F41100879246 /* ContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA566D1852F41100879246 /* ContactListener.mm */; };
+		CBFA56D41852F41100879246 /* CPTDawdle.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA566F1852F41100879246 /* CPTDawdle.mm */; };
+		CBFA56D51852F41100879246 /* DynamicInvader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56711852F41100879246 /* DynamicInvader.mm */; };
+		CBFA56D61852F41100879246 /* DynamicLineFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56731852F41100879246 /* DynamicLineFleet.mm */; };
+		CBFA56D71852F41100879246 /* ENSPrance.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56751852F41100879246 /* ENSPrance.mm */; };
+		CBFA56D81852F41100879246 /* Fleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56771852F41100879246 /* Fleet.mm */; };
+		CBFA56D91852F41100879246 /* GameState.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56791852F41100879246 /* GameState.mm */; };
+		CBFA56DA1852F41100879246 /* GameStates.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA567B1852F41100879246 /* GameStates.mm */; };
+		CBFA56DC1852F41100879246 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA567F1852F41100879246 /* Info.m */; };
+		CBFA56DD1852F41100879246 /* Info.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBFA56801852F41100879246 /* Info.xib */; };
+		CBFA56DE1852F41100879246 /* Invader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56821852F41100879246 /* Invader.mm */; };
+		CBFA56DF1852F41100879246 /* LineFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56841852F41100879246 /* LineFleet.mm */; };
+		CBFA56E01852F41100879246 /* LTWaddle.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56861852F41100879246 /* LTWaddle.mm */; };
+		CBFA56E11852F41100879246 /* ModalUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56881852F41100879246 /* ModalUIView.m */; };
+		CBFA56E21852F41100879246 /* ModalWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA568A1852F41100879246 /* ModalWebView.m */; };
+		CBFA56E31852F41100879246 /* MultiBreakoutAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA568C1852F41100879246 /* MultiBreakoutAppDelegate.mm */; };
+		CBFA56E41852F41100879246 /* MultiBrickScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA568E1852F41100879246 /* MultiBrickScene.mm */; };
+		CBFA56E51852F41100879246 /* NamedParticleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56901852F41100879246 /* NamedParticleSystem.m */; };
+		CBFA56E61852F41100879246 /* OverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56921852F41100879246 /* OverlayViewController.m */; };
+		CBFA56E71852F41100879246 /* Paddle.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56941852F41100879246 /* Paddle.mm */; };
+		CBFA56E81852F41100879246 /* PixelLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56961852F41100879246 /* PixelLabel.m */; };
+		CBFA56E91852F41100879246 /* Planet.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56981852F41100879246 /* Planet.m */; };
+		CBFA56EA1852F41100879246 /* Player.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569A1852F41100879246 /* Player.mm */; };
+		CBFA56EB1852F41100879246 /* PongVaderScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569C1852F41100879246 /* PongVaderScene.mm */; };
+		CBFA56EC1852F41100879246 /* Powerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569E1852F41100879246 /* Powerup.mm */; };
+		CBFA56ED1852F41100879246 /* Reachable.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A01852F41100879246 /* Reachable.m */; };
+		CBFA56EE1852F41100879246 /* Rock.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A21852F41100879246 /* Rock.mm */; };
+		CBFA56EF1852F41100879246 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A41852F41100879246 /* SettingsManager.m */; };
+		CBFA56F01852F41100879246 /* ShieldBoss.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A61852F41100879246 /* ShieldBoss.mm */; };
+		CBFA56F11852F41100879246 /* ShieldBossFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A81852F41100879246 /* ShieldBossFleet.mm */; };
+		CBFA56F21852F41100879246 /* ShieldInvader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56AA1852F41100879246 /* ShieldInvader.mm */; };
+		CBFA56F31852F41100879246 /* SNEye.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56AD1852F41100879246 /* SNEye.mm */; };
+		CBFA56F41852F41100879246 /* SpriteBody.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56AF1852F41100879246 /* SpriteBody.mm */; };
+		CBFA56F51852F41100879246 /* StarField.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B11852F41100879246 /* StarField.m */; };
+		CBFA56F61852F41100879246 /* StaticSpriteBody.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B31852F41100879246 /* StaticSpriteBody.mm */; };
+		CBFA56F71852F41100879246 /* StationaryInvader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B51852F41100879246 /* StationaryInvader.mm */; };
+		CBFA56F81852F41100879246 /* TouchedSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B71852F41100879246 /* TouchedSprite.mm */; };
+		CBFA56F91852F41100879246 /* TriangleFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B91852F41100879246 /* TriangleFleet.mm */; };
+		CBFA56FA1852F41100879246 /* UFO.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BB1852F41100879246 /* UFO.mm */; };
+		CBFA56FB1852F41100879246 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BD1852F41100879246 /* Utils.m */; };
+		CBFA56FC1852F41100879246 /* VictoryScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BF1852F41100879246 /* VictoryScreen.mm */; };
+		CBFA56FD1852F41100879246 /* XFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56C11852F41100879246 /* XFleet.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -381,6 +438,121 @@
 		CB9020C41852DE9400F3B416 /* wail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = wail.wav; path = Resources/wail.wav; sourceTree = "<group>"; };
 		CB9020C51852DE9400F3B416 /* warp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = warp.wav; path = Resources/warp.wav; sourceTree = "<group>"; };
 		CB9020C61852DE9400F3B416 /* yellowPill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yellowPill.png; path = Resources/yellowPill.png; sourceTree = "<group>"; };
+		CBFA564A1852F41100879246 /* AABBQueryCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AABBQueryCallback.h; path = Classes/AABBQueryCallback.h; sourceTree = "<group>"; };
+		CBFA564B1852F41100879246 /* AABBQueryCallback.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AABBQueryCallback.mm; path = Classes/AABBQueryCallback.mm; sourceTree = "<group>"; };
+		CBFA564C1852F41100879246 /* ADMBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADMBrain.h; path = Classes/ADMBrain.h; sourceTree = "<group>"; };
+		CBFA564D1852F41100879246 /* ADMBrain.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ADMBrain.mm; path = Classes/ADMBrain.mm; sourceTree = "<group>"; };
+		CBFA564E1852F41100879246 /* ADMBrainSeg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADMBrainSeg.h; path = Classes/ADMBrainSeg.h; sourceTree = "<group>"; };
+		CBFA564F1852F41100879246 /* ADMBrainSeg.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ADMBrainSeg.mm; path = Classes/ADMBrainSeg.mm; sourceTree = "<group>"; };
+		CBFA56501852F41100879246 /* ADMBrainTail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADMBrainTail.h; path = Classes/ADMBrainTail.h; sourceTree = "<group>"; };
+		CBFA56511852F41100879246 /* ADMBrainTail.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ADMBrainTail.mm; path = Classes/ADMBrainTail.mm; sourceTree = "<group>"; };
+		CBFA56521852F41100879246 /* Ball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Ball.h; path = Classes/Ball.h; sourceTree = "<group>"; };
+		CBFA56531852F41100879246 /* Ball.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Ball.mm; path = Classes/Ball.mm; sourceTree = "<group>"; };
+		CBFA56541852F41100879246 /* BeatEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BeatEvents.h; path = Classes/BeatEvents.h; sourceTree = "<group>"; };
+		CBFA56551852F41100879246 /* BeatEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BeatEvents.m; path = Classes/BeatEvents.m; sourceTree = "<group>"; };
+		CBFA56561852F41100879246 /* BeatNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BeatNode.h; path = Classes/BeatNode.h; sourceTree = "<group>"; };
+		CBFA56571852F41100879246 /* BeatNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BeatNode.m; path = Classes/BeatNode.m; sourceTree = "<group>"; };
+		CBFA56581852F41100879246 /* BeatResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BeatResponder.h; path = Classes/BeatResponder.h; sourceTree = "<group>"; };
+		CBFA56591852F41100879246 /* BeatResponder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BeatResponder.m; path = Classes/BeatResponder.m; sourceTree = "<group>"; };
+		CBFA565A1852F41100879246 /* BeatSequencer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BeatSequencer.h; path = Classes/BeatSequencer.h; sourceTree = "<group>"; };
+		CBFA565B1852F41100879246 /* BeatSequencer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BeatSequencer.m; path = Classes/BeatSequencer.m; sourceTree = "<group>"; };
+		CBFA565C1852F41100879246 /* BlockFleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlockFleet.h; path = Classes/BlockFleet.h; sourceTree = "<group>"; };
+		CBFA565D1852F41100879246 /* BlockFleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BlockFleet.mm; path = Classes/BlockFleet.mm; sourceTree = "<group>"; };
+		CBFA565E1852F41100879246 /* BlockFleets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlockFleets.h; path = Classes/BlockFleets.h; sourceTree = "<group>"; };
+		CBFA565F1852F41100879246 /* BlockFleets.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BlockFleets.mm; path = Classes/BlockFleets.mm; sourceTree = "<group>"; };
+		CBFA56601852F41100879246 /* Boss2Fleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Boss2Fleet.h; path = Classes/Boss2Fleet.h; sourceTree = "<group>"; };
+		CBFA56611852F41100879246 /* Boss2Fleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Boss2Fleet.mm; path = Classes/Boss2Fleet.mm; sourceTree = "<group>"; };
+		CBFA56661852F41100879246 /* CDRBobble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDRBobble.h; path = Classes/CDRBobble.h; sourceTree = "<group>"; };
+		CBFA56671852F41100879246 /* CDRBobble.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CDRBobble.mm; path = Classes/CDRBobble.mm; sourceTree = "<group>"; };
+		CBFA56681852F41100879246 /* CircleFleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CircleFleet.h; path = Classes/CircleFleet.h; sourceTree = "<group>"; };
+		CBFA56691852F41100879246 /* CircleFleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CircleFleet.mm; path = Classes/CircleFleet.mm; sourceTree = "<group>"; };
+		CBFA566A1852F41100879246 /* ColumnFleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColumnFleet.h; path = Classes/ColumnFleet.h; sourceTree = "<group>"; };
+		CBFA566B1852F41100879246 /* ColumnFleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ColumnFleet.mm; path = Classes/ColumnFleet.mm; sourceTree = "<group>"; };
+		CBFA566C1852F41100879246 /* ContactListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ContactListener.h; path = Classes/ContactListener.h; sourceTree = "<group>"; };
+		CBFA566D1852F41100879246 /* ContactListener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ContactListener.mm; path = Classes/ContactListener.mm; sourceTree = "<group>"; };
+		CBFA566E1852F41100879246 /* CPTDawdle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CPTDawdle.h; path = Classes/CPTDawdle.h; sourceTree = "<group>"; };
+		CBFA566F1852F41100879246 /* CPTDawdle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = CPTDawdle.mm; path = Classes/CPTDawdle.mm; sourceTree = "<group>"; };
+		CBFA56701852F41100879246 /* DynamicInvader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicInvader.h; path = Classes/DynamicInvader.h; sourceTree = "<group>"; };
+		CBFA56711852F41100879246 /* DynamicInvader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DynamicInvader.mm; path = Classes/DynamicInvader.mm; sourceTree = "<group>"; };
+		CBFA56721852F41100879246 /* DynamicLineFleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DynamicLineFleet.h; path = Classes/DynamicLineFleet.h; sourceTree = "<group>"; };
+		CBFA56731852F41100879246 /* DynamicLineFleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DynamicLineFleet.mm; path = Classes/DynamicLineFleet.mm; sourceTree = "<group>"; };
+		CBFA56741852F41100879246 /* ENSPrance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENSPrance.h; path = Classes/ENSPrance.h; sourceTree = "<group>"; };
+		CBFA56751852F41100879246 /* ENSPrance.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ENSPrance.mm; path = Classes/ENSPrance.mm; sourceTree = "<group>"; };
+		CBFA56761852F41100879246 /* Fleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Fleet.h; path = Classes/Fleet.h; sourceTree = "<group>"; };
+		CBFA56771852F41100879246 /* Fleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Fleet.mm; path = Classes/Fleet.mm; sourceTree = "<group>"; };
+		CBFA56781852F41100879246 /* GameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameState.h; path = Classes/GameState.h; sourceTree = "<group>"; };
+		CBFA56791852F41100879246 /* GameState.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GameState.mm; path = Classes/GameState.mm; sourceTree = "<group>"; };
+		CBFA567A1852F41100879246 /* GameStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GameStates.h; path = Classes/GameStates.h; sourceTree = "<group>"; };
+		CBFA567B1852F41100879246 /* GameStates.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GameStates.mm; path = Classes/GameStates.mm; sourceTree = "<group>"; };
+		CBFA567E1852F41100879246 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Info.h; path = Classes/Info.h; sourceTree = "<group>"; };
+		CBFA567F1852F41100879246 /* Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Info.m; path = Classes/Info.m; sourceTree = "<group>"; };
+		CBFA56801852F41100879246 /* Info.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Info.xib; path = Classes/Info.xib; sourceTree = "<group>"; };
+		CBFA56811852F41100879246 /* Invader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Invader.h; path = Classes/Invader.h; sourceTree = "<group>"; };
+		CBFA56821852F41100879246 /* Invader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Invader.mm; path = Classes/Invader.mm; sourceTree = "<group>"; };
+		CBFA56831852F41100879246 /* LineFleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LineFleet.h; path = Classes/LineFleet.h; sourceTree = "<group>"; };
+		CBFA56841852F41100879246 /* LineFleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LineFleet.mm; path = Classes/LineFleet.mm; sourceTree = "<group>"; };
+		CBFA56851852F41100879246 /* LTWaddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LTWaddle.h; path = Classes/LTWaddle.h; sourceTree = "<group>"; };
+		CBFA56861852F41100879246 /* LTWaddle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = LTWaddle.mm; path = Classes/LTWaddle.mm; sourceTree = "<group>"; };
+		CBFA56871852F41100879246 /* ModalUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalUIView.h; path = Classes/ModalUIView.h; sourceTree = "<group>"; };
+		CBFA56881852F41100879246 /* ModalUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalUIView.m; path = Classes/ModalUIView.m; sourceTree = "<group>"; };
+		CBFA56891852F41100879246 /* ModalWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalWebView.h; path = Classes/ModalWebView.h; sourceTree = "<group>"; };
+		CBFA568A1852F41100879246 /* ModalWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalWebView.m; path = Classes/ModalWebView.m; sourceTree = "<group>"; };
+		CBFA568B1852F41100879246 /* MultiBreakoutAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiBreakoutAppDelegate.h; path = Classes/MultiBreakoutAppDelegate.h; sourceTree = "<group>"; };
+		CBFA568C1852F41100879246 /* MultiBreakoutAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MultiBreakoutAppDelegate.mm; path = Classes/MultiBreakoutAppDelegate.mm; sourceTree = "<group>"; };
+		CBFA568D1852F41100879246 /* MultiBrickScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiBrickScene.h; path = Classes/MultiBrickScene.h; sourceTree = "<group>"; };
+		CBFA568E1852F41100879246 /* MultiBrickScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MultiBrickScene.mm; path = Classes/MultiBrickScene.mm; sourceTree = "<group>"; };
+		CBFA568F1852F41100879246 /* NamedParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NamedParticleSystem.h; path = Classes/NamedParticleSystem.h; sourceTree = "<group>"; };
+		CBFA56901852F41100879246 /* NamedParticleSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NamedParticleSystem.m; path = Classes/NamedParticleSystem.m; sourceTree = "<group>"; };
+		CBFA56911852F41100879246 /* OverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OverlayViewController.h; path = Classes/OverlayViewController.h; sourceTree = "<group>"; };
+		CBFA56921852F41100879246 /* OverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OverlayViewController.m; path = Classes/OverlayViewController.m; sourceTree = "<group>"; };
+		CBFA56931852F41100879246 /* Paddle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Paddle.h; path = Classes/Paddle.h; sourceTree = "<group>"; };
+		CBFA56941852F41100879246 /* Paddle.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Paddle.mm; path = Classes/Paddle.mm; sourceTree = "<group>"; };
+		CBFA56951852F41100879246 /* PixelLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PixelLabel.h; path = Classes/PixelLabel.h; sourceTree = "<group>"; };
+		CBFA56961852F41100879246 /* PixelLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PixelLabel.m; path = Classes/PixelLabel.m; sourceTree = "<group>"; };
+		CBFA56971852F41100879246 /* Planet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Planet.h; path = Classes/Planet.h; sourceTree = "<group>"; };
+		CBFA56981852F41100879246 /* Planet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Planet.m; path = Classes/Planet.m; sourceTree = "<group>"; };
+		CBFA56991852F41100879246 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Classes/Player.h; sourceTree = "<group>"; };
+		CBFA569A1852F41100879246 /* Player.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Player.mm; path = Classes/Player.mm; sourceTree = "<group>"; };
+		CBFA569B1852F41100879246 /* PongVaderScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PongVaderScene.h; path = Classes/PongVaderScene.h; sourceTree = "<group>"; };
+		CBFA569C1852F41100879246 /* PongVaderScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PongVaderScene.mm; path = Classes/PongVaderScene.mm; sourceTree = "<group>"; };
+		CBFA569D1852F41100879246 /* Powerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Powerup.h; path = Classes/Powerup.h; sourceTree = "<group>"; };
+		CBFA569E1852F41100879246 /* Powerup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Powerup.mm; path = Classes/Powerup.mm; sourceTree = "<group>"; };
+		CBFA569F1852F41100879246 /* Reachable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachable.h; path = Classes/Reachable.h; sourceTree = "<group>"; };
+		CBFA56A01852F41100879246 /* Reachable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachable.m; path = Classes/Reachable.m; sourceTree = "<group>"; };
+		CBFA56A11852F41100879246 /* Rock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Rock.h; path = Classes/Rock.h; sourceTree = "<group>"; };
+		CBFA56A21852F41100879246 /* Rock.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Rock.mm; path = Classes/Rock.mm; sourceTree = "<group>"; };
+		CBFA56A31852F41100879246 /* SettingsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsManager.h; path = Classes/SettingsManager.h; sourceTree = "<group>"; };
+		CBFA56A41852F41100879246 /* SettingsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsManager.m; path = Classes/SettingsManager.m; sourceTree = "<group>"; };
+		CBFA56A51852F41100879246 /* ShieldBoss.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShieldBoss.h; path = Classes/ShieldBoss.h; sourceTree = "<group>"; };
+		CBFA56A61852F41100879246 /* ShieldBoss.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ShieldBoss.mm; path = Classes/ShieldBoss.mm; sourceTree = "<group>"; };
+		CBFA56A71852F41100879246 /* ShieldBossFleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShieldBossFleet.h; path = Classes/ShieldBossFleet.h; sourceTree = "<group>"; };
+		CBFA56A81852F41100879246 /* ShieldBossFleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ShieldBossFleet.mm; path = Classes/ShieldBossFleet.mm; sourceTree = "<group>"; };
+		CBFA56A91852F41100879246 /* ShieldInvader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShieldInvader.h; path = Classes/ShieldInvader.h; sourceTree = "<group>"; };
+		CBFA56AA1852F41100879246 /* ShieldInvader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ShieldInvader.mm; path = Classes/ShieldInvader.mm; sourceTree = "<group>"; };
+		CBFA56AB1852F41100879246 /* Shooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Shooter.h; path = Classes/Shooter.h; sourceTree = "<group>"; };
+		CBFA56AC1852F41100879246 /* SNEye.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SNEye.h; path = Classes/SNEye.h; sourceTree = "<group>"; };
+		CBFA56AD1852F41100879246 /* SNEye.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SNEye.mm; path = Classes/SNEye.mm; sourceTree = "<group>"; };
+		CBFA56AE1852F41100879246 /* SpriteBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteBody.h; path = Classes/SpriteBody.h; sourceTree = "<group>"; };
+		CBFA56AF1852F41100879246 /* SpriteBody.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SpriteBody.mm; path = Classes/SpriteBody.mm; sourceTree = "<group>"; };
+		CBFA56B01852F41100879246 /* StarField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StarField.h; path = Classes/StarField.h; sourceTree = "<group>"; };
+		CBFA56B11852F41100879246 /* StarField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StarField.m; path = Classes/StarField.m; sourceTree = "<group>"; };
+		CBFA56B21852F41100879246 /* StaticSpriteBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StaticSpriteBody.h; path = Classes/StaticSpriteBody.h; sourceTree = "<group>"; };
+		CBFA56B31852F41100879246 /* StaticSpriteBody.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = StaticSpriteBody.mm; path = Classes/StaticSpriteBody.mm; sourceTree = "<group>"; };
+		CBFA56B41852F41100879246 /* StationaryInvader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StationaryInvader.h; path = Classes/StationaryInvader.h; sourceTree = "<group>"; };
+		CBFA56B51852F41100879246 /* StationaryInvader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = StationaryInvader.mm; path = Classes/StationaryInvader.mm; sourceTree = "<group>"; };
+		CBFA56B61852F41100879246 /* TouchedSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchedSprite.h; path = Classes/TouchedSprite.h; sourceTree = "<group>"; };
+		CBFA56B71852F41100879246 /* TouchedSprite.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TouchedSprite.mm; path = Classes/TouchedSprite.mm; sourceTree = "<group>"; };
+		CBFA56B81852F41100879246 /* TriangleFleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TriangleFleet.h; path = Classes/TriangleFleet.h; sourceTree = "<group>"; };
+		CBFA56B91852F41100879246 /* TriangleFleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = TriangleFleet.mm; path = Classes/TriangleFleet.mm; sourceTree = "<group>"; };
+		CBFA56BA1852F41100879246 /* UFO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UFO.h; path = Classes/UFO.h; sourceTree = "<group>"; };
+		CBFA56BB1852F41100879246 /* UFO.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = UFO.mm; path = Classes/UFO.mm; sourceTree = "<group>"; };
+		CBFA56BC1852F41100879246 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Classes/Utils.h; sourceTree = "<group>"; };
+		CBFA56BD1852F41100879246 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = Classes/Utils.m; sourceTree = "<group>"; };
+		CBFA56BE1852F41100879246 /* VictoryScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VictoryScreen.h; path = Classes/VictoryScreen.h; sourceTree = "<group>"; };
+		CBFA56BF1852F41100879246 /* VictoryScreen.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VictoryScreen.mm; path = Classes/VictoryScreen.mm; sourceTree = "<group>"; };
+		CBFA56C01852F41100879246 /* XFleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XFleet.h; path = Classes/XFleet.h; sourceTree = "<group>"; };
+		CBFA56C11852F41100879246 /* XFleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = XFleet.mm; path = Classes/XFleet.mm; sourceTree = "<group>"; };
+		CBFA57021852F5F700879246 /* GameSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GameSettings.h; path = Classes/GameSettings.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -445,8 +617,10 @@
 		CB1077EF1851AA6300A0D2FB /* BreakVaders */ = {
 			isa = PBXGroup;
 			children = (
+				CBFA56491852F40000879246 /* PV files */,
 				CB1077F81851AA6300A0D2FB /* BVAppDelegate.h */,
 				CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */,
+				CBFA57021852F5F700879246 /* GameSettings.h */,
 			);
 			name = BreakVaders;
 			sourceTree = "<group>";
@@ -671,6 +845,159 @@
 			path = Resources/help;
 			sourceTree = "<group>";
 		};
+		CBFA56491852F40000879246 /* PV files */ = {
+			isa = PBXGroup;
+			children = (
+				CBFA56FE1852F44F00879246 /* Bosses */,
+				CBFA57011852F4B800879246 /* Fleets */,
+				CBFA56FF1852F45500879246 /* Enemies */,
+				CBFA57001852F45B00879246 /* Other game entities */,
+				CBFA564A1852F41100879246 /* AABBQueryCallback.h */,
+				CBFA564B1852F41100879246 /* AABBQueryCallback.mm */,
+				CBFA56541852F41100879246 /* BeatEvents.h */,
+				CBFA56551852F41100879246 /* BeatEvents.m */,
+				CBFA56561852F41100879246 /* BeatNode.h */,
+				CBFA56571852F41100879246 /* BeatNode.m */,
+				CBFA56581852F41100879246 /* BeatResponder.h */,
+				CBFA56591852F41100879246 /* BeatResponder.m */,
+				CBFA565A1852F41100879246 /* BeatSequencer.h */,
+				CBFA565B1852F41100879246 /* BeatSequencer.m */,
+				CBFA566C1852F41100879246 /* ContactListener.h */,
+				CBFA566D1852F41100879246 /* ContactListener.mm */,
+				CBFA56781852F41100879246 /* GameState.h */,
+				CBFA56791852F41100879246 /* GameState.mm */,
+				CBFA567A1852F41100879246 /* GameStates.h */,
+				CBFA567B1852F41100879246 /* GameStates.mm */,
+				CBFA567E1852F41100879246 /* Info.h */,
+				CBFA567F1852F41100879246 /* Info.m */,
+				CBFA56801852F41100879246 /* Info.xib */,
+				CBFA56871852F41100879246 /* ModalUIView.h */,
+				CBFA56881852F41100879246 /* ModalUIView.m */,
+				CBFA56891852F41100879246 /* ModalWebView.h */,
+				CBFA568A1852F41100879246 /* ModalWebView.m */,
+				CBFA568B1852F41100879246 /* MultiBreakoutAppDelegate.h */,
+				CBFA568C1852F41100879246 /* MultiBreakoutAppDelegate.mm */,
+				CBFA568D1852F41100879246 /* MultiBrickScene.h */,
+				CBFA568E1852F41100879246 /* MultiBrickScene.mm */,
+				CBFA568F1852F41100879246 /* NamedParticleSystem.h */,
+				CBFA56901852F41100879246 /* NamedParticleSystem.m */,
+				CBFA56911852F41100879246 /* OverlayViewController.h */,
+				CBFA56921852F41100879246 /* OverlayViewController.m */,
+				CBFA56931852F41100879246 /* Paddle.h */,
+				CBFA56941852F41100879246 /* Paddle.mm */,
+				CBFA56951852F41100879246 /* PixelLabel.h */,
+				CBFA56961852F41100879246 /* PixelLabel.m */,
+				CBFA56971852F41100879246 /* Planet.h */,
+				CBFA56981852F41100879246 /* Planet.m */,
+				CBFA56991852F41100879246 /* Player.h */,
+				CBFA569A1852F41100879246 /* Player.mm */,
+				CBFA569B1852F41100879246 /* PongVaderScene.h */,
+				CBFA569C1852F41100879246 /* PongVaderScene.mm */,
+				CBFA569D1852F41100879246 /* Powerup.h */,
+				CBFA569E1852F41100879246 /* Powerup.mm */,
+				CBFA569F1852F41100879246 /* Reachable.h */,
+				CBFA56A01852F41100879246 /* Reachable.m */,
+				CBFA56A11852F41100879246 /* Rock.h */,
+				CBFA56A21852F41100879246 /* Rock.mm */,
+				CBFA56A31852F41100879246 /* SettingsManager.h */,
+				CBFA56A41852F41100879246 /* SettingsManager.m */,
+				CBFA56B01852F41100879246 /* StarField.h */,
+				CBFA56B11852F41100879246 /* StarField.m */,
+				CBFA56B61852F41100879246 /* TouchedSprite.h */,
+				CBFA56B71852F41100879246 /* TouchedSprite.mm */,
+				CBFA56BC1852F41100879246 /* Utils.h */,
+				CBFA56BD1852F41100879246 /* Utils.m */,
+				CBFA56BE1852F41100879246 /* VictoryScreen.h */,
+				CBFA56BF1852F41100879246 /* VictoryScreen.mm */,
+			);
+			name = "PV files";
+			sourceTree = "<group>";
+		};
+		CBFA56FE1852F44F00879246 /* Bosses */ = {
+			isa = PBXGroup;
+			children = (
+				CBFA564C1852F41100879246 /* ADMBrain.h */,
+				CBFA564D1852F41100879246 /* ADMBrain.mm */,
+				CBFA564E1852F41100879246 /* ADMBrainSeg.h */,
+				CBFA564F1852F41100879246 /* ADMBrainSeg.mm */,
+				CBFA56501852F41100879246 /* ADMBrainTail.h */,
+				CBFA56511852F41100879246 /* ADMBrainTail.mm */,
+				CBFA56601852F41100879246 /* Boss2Fleet.h */,
+				CBFA56611852F41100879246 /* Boss2Fleet.mm */,
+				CBFA56A51852F41100879246 /* ShieldBoss.h */,
+				CBFA56A61852F41100879246 /* ShieldBoss.mm */,
+				CBFA56A71852F41100879246 /* ShieldBossFleet.h */,
+				CBFA56A81852F41100879246 /* ShieldBossFleet.mm */,
+				CBFA56AC1852F41100879246 /* SNEye.h */,
+				CBFA56AD1852F41100879246 /* SNEye.mm */,
+			);
+			name = Bosses;
+			sourceTree = "<group>";
+		};
+		CBFA56FF1852F45500879246 /* Enemies */ = {
+			isa = PBXGroup;
+			children = (
+				CBFA56661852F41100879246 /* CDRBobble.h */,
+				CBFA56671852F41100879246 /* CDRBobble.mm */,
+				CBFA566E1852F41100879246 /* CPTDawdle.h */,
+				CBFA566F1852F41100879246 /* CPTDawdle.mm */,
+				CBFA56701852F41100879246 /* DynamicInvader.h */,
+				CBFA56711852F41100879246 /* DynamicInvader.mm */,
+				CBFA56741852F41100879246 /* ENSPrance.h */,
+				CBFA56751852F41100879246 /* ENSPrance.mm */,
+				CBFA56811852F41100879246 /* Invader.h */,
+				CBFA56821852F41100879246 /* Invader.mm */,
+				CBFA56851852F41100879246 /* LTWaddle.h */,
+				CBFA56861852F41100879246 /* LTWaddle.mm */,
+				CBFA56A91852F41100879246 /* ShieldInvader.h */,
+				CBFA56AA1852F41100879246 /* ShieldInvader.mm */,
+				CBFA56B21852F41100879246 /* StaticSpriteBody.h */,
+				CBFA56B31852F41100879246 /* StaticSpriteBody.mm */,
+				CBFA56B41852F41100879246 /* StationaryInvader.h */,
+				CBFA56B51852F41100879246 /* StationaryInvader.mm */,
+				CBFA56AB1852F41100879246 /* Shooter.h */,
+				CBFA56AE1852F41100879246 /* SpriteBody.h */,
+				CBFA56AF1852F41100879246 /* SpriteBody.mm */,
+				CBFA56BA1852F41100879246 /* UFO.h */,
+				CBFA56BB1852F41100879246 /* UFO.mm */,
+			);
+			name = Enemies;
+			sourceTree = "<group>";
+		};
+		CBFA57001852F45B00879246 /* Other game entities */ = {
+			isa = PBXGroup;
+			children = (
+				CBFA56521852F41100879246 /* Ball.h */,
+				CBFA56531852F41100879246 /* Ball.mm */,
+			);
+			name = "Other game entities";
+			sourceTree = "<group>";
+		};
+		CBFA57011852F4B800879246 /* Fleets */ = {
+			isa = PBXGroup;
+			children = (
+				CBFA565C1852F41100879246 /* BlockFleet.h */,
+				CBFA565D1852F41100879246 /* BlockFleet.mm */,
+				CBFA565E1852F41100879246 /* BlockFleets.h */,
+				CBFA565F1852F41100879246 /* BlockFleets.mm */,
+				CBFA56681852F41100879246 /* CircleFleet.h */,
+				CBFA56691852F41100879246 /* CircleFleet.mm */,
+				CBFA566A1852F41100879246 /* ColumnFleet.h */,
+				CBFA566B1852F41100879246 /* ColumnFleet.mm */,
+				CBFA56721852F41100879246 /* DynamicLineFleet.h */,
+				CBFA56731852F41100879246 /* DynamicLineFleet.mm */,
+				CBFA56761852F41100879246 /* Fleet.h */,
+				CBFA56771852F41100879246 /* Fleet.mm */,
+				CBFA56831852F41100879246 /* LineFleet.h */,
+				CBFA56841852F41100879246 /* LineFleet.mm */,
+				CBFA56B81852F41100879246 /* TriangleFleet.h */,
+				CBFA56B91852F41100879246 /* TriangleFleet.mm */,
+				CBFA56C01852F41100879246 /* XFleet.h */,
+				CBFA56C11852F41100879246 /* XFleet.mm */,
+			);
+			name = Fleets;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -834,6 +1161,7 @@
 				CB9020F81852DE9400F3B416 /* effectring7.png in Resources */,
 				CB90215A1852DE9400F3B416 /* quarterplanet.png in Resources */,
 				CB9021161852DE9400F3B416 /* smcity1.png in Resources */,
+				CBFA56DD1852F41100879246 /* Info.xib in Resources */,
 				CB90213E1852DE9400F3B416 /* pongvaders-low.plist in Resources */,
 				CB9021761852DE9400F3B416 /* textbubblewedge.png in Resources */,
 				CB9020EE1852DE9400F3B416 /* draftloop-04.mp3 in Resources */,
@@ -967,8 +1295,64 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBFA56CD1852F41100879246 /* Boss2Fleet.mm in Sources */,
+				CBFA56C71852F41100879246 /* BeatEvents.m in Sources */,
+				CBFA56F41852F41100879246 /* SpriteBody.mm in Sources */,
+				CBFA56F21852F41100879246 /* ShieldInvader.mm in Sources */,
+				CBFA56D61852F41100879246 /* DynamicLineFleet.mm in Sources */,
 				CBFA56481852E36100879246 /* main.m in Sources */,
+				CBFA56EC1852F41100879246 /* Powerup.mm in Sources */,
+				CBFA56E01852F41100879246 /* LTWaddle.mm in Sources */,
+				CBFA56E61852F41100879246 /* OverlayViewController.m in Sources */,
+				CBFA56FD1852F41100879246 /* XFleet.mm in Sources */,
+				CBFA56F11852F41100879246 /* ShieldBossFleet.mm in Sources */,
+				CBFA56F91852F41100879246 /* TriangleFleet.mm in Sources */,
+				CBFA56C31852F41100879246 /* ADMBrain.mm in Sources */,
+				CBFA56C41852F41100879246 /* ADMBrainSeg.mm in Sources */,
+				CBFA56CB1852F41100879246 /* BlockFleet.mm in Sources */,
+				CBFA56ED1852F41100879246 /* Reachable.m in Sources */,
+				CBFA56DF1852F41100879246 /* LineFleet.mm in Sources */,
+				CBFA56FA1852F41100879246 /* UFO.mm in Sources */,
+				CBFA56D81852F41100879246 /* Fleet.mm in Sources */,
+				CBFA56FB1852F41100879246 /* Utils.m in Sources */,
+				CBFA56E21852F41100879246 /* ModalWebView.m in Sources */,
+				CBFA56CC1852F41100879246 /* BlockFleets.mm in Sources */,
+				CBFA56F81852F41100879246 /* TouchedSprite.mm in Sources */,
+				CBFA56C81852F41100879246 /* BeatNode.m in Sources */,
+				CBFA56D91852F41100879246 /* GameState.mm in Sources */,
+				CBFA56D21852F41100879246 /* ColumnFleet.mm in Sources */,
+				CBFA56C61852F41100879246 /* Ball.mm in Sources */,
+				CBFA56D41852F41100879246 /* CPTDawdle.mm in Sources */,
+				CBFA56D11852F41100879246 /* CircleFleet.mm in Sources */,
+				CBFA56C21852F41100879246 /* AABBQueryCallback.mm in Sources */,
+				CBFA56F51852F41100879246 /* StarField.m in Sources */,
+				CBFA56E31852F41100879246 /* MultiBreakoutAppDelegate.mm in Sources */,
+				CBFA56CA1852F41100879246 /* BeatSequencer.m in Sources */,
+				CBFA56EF1852F41100879246 /* SettingsManager.m in Sources */,
+				CBFA56E51852F41100879246 /* NamedParticleSystem.m in Sources */,
+				CBFA56E41852F41100879246 /* MultiBrickScene.mm in Sources */,
+				CBFA56D01852F41100879246 /* CDRBobble.mm in Sources */,
+				CBFA56EE1852F41100879246 /* Rock.mm in Sources */,
+				CBFA56F61852F41100879246 /* StaticSpriteBody.mm in Sources */,
+				CBFA56DA1852F41100879246 /* GameStates.mm in Sources */,
+				CBFA56FC1852F41100879246 /* VictoryScreen.mm in Sources */,
+				CBFA56E91852F41100879246 /* Planet.m in Sources */,
 				CBFA56461852E33D00879246 /* BVAppDelegate.m in Sources */,
+				CBFA56D31852F41100879246 /* ContactListener.mm in Sources */,
+				CBFA56D71852F41100879246 /* ENSPrance.mm in Sources */,
+				CBFA56E11852F41100879246 /* ModalUIView.m in Sources */,
+				CBFA56F71852F41100879246 /* StationaryInvader.mm in Sources */,
+				CBFA56F31852F41100879246 /* SNEye.mm in Sources */,
+				CBFA56F01852F41100879246 /* ShieldBoss.mm in Sources */,
+				CBFA56D51852F41100879246 /* DynamicInvader.mm in Sources */,
+				CBFA56E81852F41100879246 /* PixelLabel.m in Sources */,
+				CBFA56C91852F41100879246 /* BeatResponder.m in Sources */,
+				CBFA56EA1852F41100879246 /* Player.mm in Sources */,
+				CBFA56DC1852F41100879246 /* Info.m in Sources */,
+				CBFA56DE1852F41100879246 /* Invader.mm in Sources */,
+				CBFA56E71852F41100879246 /* Paddle.mm in Sources */,
+				CBFA56EB1852F41100879246 /* PongVaderScene.mm in Sources */,
+				CBFA56C51852F41100879246 /* ADMBrainTail.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
