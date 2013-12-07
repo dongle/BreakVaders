@@ -12,8 +12,6 @@
 		CB1077EC1851AA6300A0D2FB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1077EB1851AA6300A0D2FB /* CoreGraphics.framework */; };
 		CB1077EE1851AA6300A0D2FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1077ED1851AA6300A0D2FB /* UIKit.framework */; };
 		CB1077F41851AA6300A0D2FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB1077F21851AA6300A0D2FB /* InfoPlist.strings */; };
-		CB1077F61851AA6300A0D2FB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F51851AA6300A0D2FB /* main.m */; };
-		CB1077FA1851AA6300A0D2FB /* BVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */; };
 		CB1077FC1851AA6300A0D2FB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB1077FB1851AA6300A0D2FB /* Images.xcassets */; };
 		CB1078031851AA6300A0D2FB /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1078021851AA6300A0D2FB /* XCTest.framework */; };
 		CB1078041851AA6300A0D2FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1077E91851AA6300A0D2FB /* Foundation.framework */; };
@@ -185,6 +183,8 @@
 		CB9021781852DE9400F3B416 /* wail.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C41852DE9400F3B416 /* wail.wav */; };
 		CB9021791852DE9400F3B416 /* warp.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C51852DE9400F3B416 /* warp.wav */; };
 		CB90217A1852DE9400F3B416 /* yellowPill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C61852DE9400F3B416 /* yellowPill.png */; };
+		CBFA56461852E33D00879246 /* BVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */; };
+		CBFA56481852E36100879246 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F51851AA6300A0D2FB /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -448,7 +448,7 @@
 				CB1077F81851AA6300A0D2FB /* BVAppDelegate.h */,
 				CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */,
 			);
-			path = BreakVaders;
+			name = BreakVaders;
 			sourceTree = "<group>";
 		};
 		CB1077F01851AA6300A0D2FB /* Supporting Files */ = {
@@ -460,7 +460,6 @@
 				CB1077F71851AA6300A0D2FB /* BreakVaders-Prefix.pch */,
 			);
 			name = "Supporting Files";
-			path = BreakVaders;
 			sourceTree = "<group>";
 		};
 		CB1078081851AA6300A0D2FB /* BreakVadersTests */ = {
@@ -968,8 +967,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB1077FA1851AA6300A0D2FB /* BVAppDelegate.m in Sources */,
-				CB1077F61851AA6300A0D2FB /* main.m in Sources */,
+				CBFA56481852E36100879246 /* main.m in Sources */,
+				CBFA56461852E33D00879246 /* BVAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1092,8 +1091,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BreakVaders/BreakVaders-Prefix.pch";
-				INFOPLIST_FILE = "BreakVaders/BreakVaders-Info.plist";
+				GCC_PREFIX_HEADER = "BreakVaders-Prefix.pch";
+				INFOPLIST_FILE = "BreakVaders-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1106,8 +1105,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BreakVaders/BreakVaders-Prefix.pch";
-				INFOPLIST_FILE = "BreakVaders/BreakVaders-Info.plist";
+				GCC_PREFIX_HEADER = "BreakVaders-Prefix.pch";
+				INFOPLIST_FILE = "BreakVaders-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
