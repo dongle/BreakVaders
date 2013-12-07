@@ -1,0 +1,32 @@
+//
+//  ModalUIView.h
+//  Toe2Toe
+//
+//  Created by Cole Krumbholz on 3/25/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+
+@interface ModalUIView : NSObject {
+	UIViewController *parentvc;
+	UIView *content;
+	NSValue *doneSelector;
+	NSObject *doneObject;
+}
+
+- (void) launchWithTitle: (NSString *) title 
+				 andView: (UIView *) view 
+		  fromController: (UIViewController *) parent 
+			  useSpinner: (BOOL) spinner 
+		 whenDonePerform: (SEL) selector 
+					  on: (NSObject *) object;
+
+- (void) dismiss;
+
+@end
+
+@interface ModalViewController : UIViewController {
+}
+@end

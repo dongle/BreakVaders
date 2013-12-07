@@ -1,0 +1,105 @@
+@font-face {
+	font-family: 'pvaders';
+	src: url('pvaders-webfont.svg#webfontM11EaI8J') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+body {
+	color: white;
+	background-color: #000;
+	font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+.quote {
+	font-family: 'pvaders';
+	font-weight: bold;
+	font-size: larger;
+	margin-bottom: 5px;
+	margin-left: 1em;
+	text-align: justify;
+	margin-right: 1em;
+}
+
+.title {
+	font-family: 'pvaders';
+	text-shadow: red 2px 2px 1px;
+	border-bottom: thin solid red;
+	font-weight: bold;
+	font-size: larger;
+	margin-bottom: 5px;
+}
+
+.textblock {
+	margin-bottom: 1em;
+	margin-left: 5px;
+}
+
+.opt {
+	text-shadow: red 1px 1px 1px;
+}
+
+.imageblock {
+	width: 100%;
+	background-image: url(lines.png);
+	text-align: right;
+	margin-top: 1.8em;
+	margin-bottom: 1em;
+}
+
+.imggroup {
+	width: 100%;
+}
+
+.imggroup img {
+	float: left;
+	padding-right: 20px;
+}
+
+.subtitle {
+	font-family: 'pvaders';
+	font-size: smaller;
+}
+
+.button {
+	/*background-color: #2C2C2C;*/
+	background-color: #C51919;	
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom:  5px;
+	-webkit-border-radius: 5px;   /* for Safari */
+    -moz-border-radius: 5px;
+	height: 38px;
+	width:  220px;
+	margin-left: 1em;
+	display: inline-block;
+
+	text-decoration: none;
+	font-family: 'pvaders';
+	font-weight: bold;
+	color: #fff;
+	font-size: larger;
+	vertical-align: middle;
+}
+
+.button:active {
+	background-color: #2C2C2C;
+	text-align: center;
+	padding-top: 10px;
+	padding-bottom:  5px;
+	-webkit-border-radius: 5px;   /* for Safari */
+    -moz-border-radius: 5px;
+	height: 38px;
+	width:  220px;
+	margin-left: 2em;
+	display: inline-block;
+
+	text-decoration: none;
+	font-family: 'pvaders';
+	font-weight: bold;
+	color: #fff;
+	font-size: larger;
+	vertical-align: middle;
+}
+
