@@ -8,8 +8,6 @@
 
 #import "Ball.h"
 #import "Invader.h"
-#import "OpenFeint.h"
-#import "OFAchievement.h"
 #import "PongVaderScene.h"
 #import "SimpleAudioEngine.h"
 
@@ -179,12 +177,14 @@
 	[self setColor:ccc3(255, 0, 0)];
 	
 	if (_IPAD) {
-		streak = [CCMotionStreak streakWithFade:.5 minSeg:3 image:@"Ball.png" width:16 length:16 color:ccc4(255,0,0,128)];
-		ribbon = [CCRibbon ribbonWithWidth:8 image:@"Ball.png" length:16 color:ccc4(128,128,128,128) fade:RIBBON_FADE_TIME];
+//		streak = [CCMotionStreak streakWithFade:.5 minSeg:3 image:@"Ball.png" width:16 length:16 color:ccc4(255,0,0,128)];
+        streak = [CCMotionStreak streakWithFade:.5 minSeg:3 width:16 color:ccc3(255, 0, 0) textureFilename:@"Ball.png"];
+//		ribbon = [CCMotionStreak streakWithWidth:8 image:@"Ball.png" length:16 color:ccc4(128,128,128,128) fade:RIBBON_FADE_TIME];
+        ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
 	}
 	else {
-		streak = [CCMotionStreak streakWithFade:.5 minSeg:3 image:@"Ball.png" width:8 length:8 color:ccc4(255,0,0,128)];
-		ribbon = [CCRibbon ribbonWithWidth:8 image:@"Ball.png" length:8 color:ccc4(128,128,128,128) fade:RIBBON_FADE_TIME];
+        streak = [CCMotionStreak streakWithFade:.5 minSeg:3 width:8 color:ccc3(255, 0, 0) textureFilename:@"Ball.png"];
+        ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
 	}
 	
 	streak.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
