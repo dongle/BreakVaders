@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Crittercism.h"
 
 @interface OverlayViewController : UIViewController {
 	UIWindow *window, *prevWindow;
