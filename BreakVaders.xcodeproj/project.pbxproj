@@ -185,61 +185,60 @@
 		CB90217A1852DE9400F3B416 /* yellowPill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C61852DE9400F3B416 /* yellowPill.png */; };
 		CBFA56461852E33D00879246 /* BVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */; };
 		CBFA56481852E36100879246 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F51851AA6300A0D2FB /* main.m */; };
-		CBFA56C21852F41100879246 /* AABBQueryCallback.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564B1852F41100879246 /* AABBQueryCallback.mm */; };
-		CBFA56C31852F41100879246 /* ADMBrain.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564D1852F41100879246 /* ADMBrain.mm */; };
-		CBFA56C41852F41100879246 /* ADMBrainSeg.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564F1852F41100879246 /* ADMBrainSeg.mm */; };
-		CBFA56C51852F41100879246 /* ADMBrainTail.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56511852F41100879246 /* ADMBrainTail.mm */; };
-		CBFA56C61852F41100879246 /* Ball.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56531852F41100879246 /* Ball.mm */; };
-		CBFA56C71852F41100879246 /* BeatEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56551852F41100879246 /* BeatEvents.m */; };
-		CBFA56C81852F41100879246 /* BeatNode.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56571852F41100879246 /* BeatNode.m */; };
-		CBFA56C91852F41100879246 /* BeatResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56591852F41100879246 /* BeatResponder.m */; };
-		CBFA56CA1852F41100879246 /* BeatSequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA565B1852F41100879246 /* BeatSequencer.m */; };
-		CBFA56CB1852F41100879246 /* BlockFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA565D1852F41100879246 /* BlockFleet.mm */; };
-		CBFA56CC1852F41100879246 /* BlockFleets.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA565F1852F41100879246 /* BlockFleets.mm */; };
-		CBFA56CD1852F41100879246 /* Boss2Fleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56611852F41100879246 /* Boss2Fleet.mm */; };
-		CBFA56D01852F41100879246 /* CDRBobble.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56671852F41100879246 /* CDRBobble.mm */; };
-		CBFA56D11852F41100879246 /* CircleFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56691852F41100879246 /* CircleFleet.mm */; };
-		CBFA56D21852F41100879246 /* ColumnFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA566B1852F41100879246 /* ColumnFleet.mm */; };
-		CBFA56D31852F41100879246 /* ContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA566D1852F41100879246 /* ContactListener.mm */; };
-		CBFA56D41852F41100879246 /* CPTDawdle.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA566F1852F41100879246 /* CPTDawdle.mm */; };
-		CBFA56D51852F41100879246 /* DynamicInvader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56711852F41100879246 /* DynamicInvader.mm */; };
-		CBFA56D61852F41100879246 /* DynamicLineFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56731852F41100879246 /* DynamicLineFleet.mm */; };
-		CBFA56D71852F41100879246 /* ENSPrance.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56751852F41100879246 /* ENSPrance.mm */; };
-		CBFA56D81852F41100879246 /* Fleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56771852F41100879246 /* Fleet.mm */; };
-		CBFA56D91852F41100879246 /* GameState.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56791852F41100879246 /* GameState.mm */; };
-		CBFA56DA1852F41100879246 /* GameStates.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA567B1852F41100879246 /* GameStates.mm */; };
-		CBFA56DC1852F41100879246 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA567F1852F41100879246 /* Info.m */; };
+		CBFA56C21852F41100879246 /* AABBQueryCallback.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564B1852F41100879246 /* AABBQueryCallback.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56C31852F41100879246 /* ADMBrain.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564D1852F41100879246 /* ADMBrain.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56C41852F41100879246 /* ADMBrainSeg.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564F1852F41100879246 /* ADMBrainSeg.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56C51852F41100879246 /* ADMBrainTail.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56511852F41100879246 /* ADMBrainTail.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56C61852F41100879246 /* Ball.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56531852F41100879246 /* Ball.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56C71852F41100879246 /* BeatEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56551852F41100879246 /* BeatEvents.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56C81852F41100879246 /* BeatNode.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56571852F41100879246 /* BeatNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56C91852F41100879246 /* BeatResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56591852F41100879246 /* BeatResponder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56CA1852F41100879246 /* BeatSequencer.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA565B1852F41100879246 /* BeatSequencer.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56CB1852F41100879246 /* BlockFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA565D1852F41100879246 /* BlockFleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56CC1852F41100879246 /* BlockFleets.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA565F1852F41100879246 /* BlockFleets.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56CD1852F41100879246 /* Boss2Fleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56611852F41100879246 /* Boss2Fleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56D01852F41100879246 /* CDRBobble.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56671852F41100879246 /* CDRBobble.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56D11852F41100879246 /* CircleFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56691852F41100879246 /* CircleFleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56D21852F41100879246 /* ColumnFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA566B1852F41100879246 /* ColumnFleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56D31852F41100879246 /* ContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA566D1852F41100879246 /* ContactListener.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56D41852F41100879246 /* CPTDawdle.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA566F1852F41100879246 /* CPTDawdle.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56D51852F41100879246 /* DynamicInvader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56711852F41100879246 /* DynamicInvader.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56D61852F41100879246 /* DynamicLineFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56731852F41100879246 /* DynamicLineFleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56D71852F41100879246 /* ENSPrance.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56751852F41100879246 /* ENSPrance.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56D81852F41100879246 /* Fleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56771852F41100879246 /* Fleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56D91852F41100879246 /* GameState.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56791852F41100879246 /* GameState.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56DA1852F41100879246 /* GameStates.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA567B1852F41100879246 /* GameStates.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56DC1852F41100879246 /* Info.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA567F1852F41100879246 /* Info.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CBFA56DD1852F41100879246 /* Info.xib in Resources */ = {isa = PBXBuildFile; fileRef = CBFA56801852F41100879246 /* Info.xib */; };
-		CBFA56DE1852F41100879246 /* Invader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56821852F41100879246 /* Invader.mm */; };
-		CBFA56DF1852F41100879246 /* LineFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56841852F41100879246 /* LineFleet.mm */; };
-		CBFA56E01852F41100879246 /* LTWaddle.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56861852F41100879246 /* LTWaddle.mm */; };
-		CBFA56E11852F41100879246 /* ModalUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56881852F41100879246 /* ModalUIView.m */; };
-		CBFA56E21852F41100879246 /* ModalWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA568A1852F41100879246 /* ModalWebView.m */; };
-		CBFA56E41852F41100879246 /* MultiBrickScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA568E1852F41100879246 /* MultiBrickScene.mm */; };
-		CBFA56E51852F41100879246 /* NamedParticleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56901852F41100879246 /* NamedParticleSystem.m */; };
-		CBFA56E61852F41100879246 /* OverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56921852F41100879246 /* OverlayViewController.m */; };
-		CBFA56E71852F41100879246 /* Paddle.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56941852F41100879246 /* Paddle.mm */; };
-		CBFA56E81852F41100879246 /* PixelLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56961852F41100879246 /* PixelLabel.m */; };
-		CBFA56E91852F41100879246 /* Planet.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56981852F41100879246 /* Planet.m */; };
-		CBFA56EA1852F41100879246 /* Player.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569A1852F41100879246 /* Player.mm */; };
-		CBFA56EB1852F41100879246 /* PongVaderScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569C1852F41100879246 /* PongVaderScene.mm */; };
-		CBFA56EC1852F41100879246 /* Powerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569E1852F41100879246 /* Powerup.mm */; };
-		CBFA56EE1852F41100879246 /* Rock.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A21852F41100879246 /* Rock.mm */; };
-		CBFA56EF1852F41100879246 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A41852F41100879246 /* SettingsManager.m */; };
-		CBFA56F01852F41100879246 /* ShieldBoss.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A61852F41100879246 /* ShieldBoss.mm */; };
-		CBFA56F11852F41100879246 /* ShieldBossFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A81852F41100879246 /* ShieldBossFleet.mm */; };
-		CBFA56F21852F41100879246 /* ShieldInvader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56AA1852F41100879246 /* ShieldInvader.mm */; };
-		CBFA56F31852F41100879246 /* SNEye.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56AD1852F41100879246 /* SNEye.mm */; };
-		CBFA56F41852F41100879246 /* SpriteBody.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56AF1852F41100879246 /* SpriteBody.mm */; };
-		CBFA56F51852F41100879246 /* StarField.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B11852F41100879246 /* StarField.m */; };
-		CBFA56F61852F41100879246 /* StaticSpriteBody.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B31852F41100879246 /* StaticSpriteBody.mm */; };
-		CBFA56F71852F41100879246 /* StationaryInvader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B51852F41100879246 /* StationaryInvader.mm */; };
-		CBFA56F81852F41100879246 /* TouchedSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B71852F41100879246 /* TouchedSprite.mm */; };
-		CBFA56F91852F41100879246 /* TriangleFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B91852F41100879246 /* TriangleFleet.mm */; };
-		CBFA56FA1852F41100879246 /* UFO.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BB1852F41100879246 /* UFO.mm */; };
-		CBFA56FB1852F41100879246 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BD1852F41100879246 /* Utils.m */; };
-		CBFA56FC1852F41100879246 /* VictoryScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BF1852F41100879246 /* VictoryScreen.mm */; };
-		CBFA56FD1852F41100879246 /* XFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56C11852F41100879246 /* XFleet.mm */; };
+		CBFA56DE1852F41100879246 /* Invader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56821852F41100879246 /* Invader.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56DF1852F41100879246 /* LineFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56841852F41100879246 /* LineFleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56E01852F41100879246 /* LTWaddle.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56861852F41100879246 /* LTWaddle.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56E11852F41100879246 /* ModalUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56881852F41100879246 /* ModalUIView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56E21852F41100879246 /* ModalWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA568A1852F41100879246 /* ModalWebView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56E51852F41100879246 /* NamedParticleSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56901852F41100879246 /* NamedParticleSystem.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56E61852F41100879246 /* OverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56921852F41100879246 /* OverlayViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56E71852F41100879246 /* Paddle.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56941852F41100879246 /* Paddle.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56E81852F41100879246 /* PixelLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56961852F41100879246 /* PixelLabel.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56E91852F41100879246 /* Planet.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56981852F41100879246 /* Planet.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56EA1852F41100879246 /* Player.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569A1852F41100879246 /* Player.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56EB1852F41100879246 /* PongVaderScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569C1852F41100879246 /* PongVaderScene.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56EC1852F41100879246 /* Powerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA569E1852F41100879246 /* Powerup.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56EE1852F41100879246 /* Rock.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A21852F41100879246 /* Rock.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56EF1852F41100879246 /* SettingsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A41852F41100879246 /* SettingsManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56F01852F41100879246 /* ShieldBoss.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A61852F41100879246 /* ShieldBoss.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56F11852F41100879246 /* ShieldBossFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56A81852F41100879246 /* ShieldBossFleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56F21852F41100879246 /* ShieldInvader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56AA1852F41100879246 /* ShieldInvader.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56F31852F41100879246 /* SNEye.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56AD1852F41100879246 /* SNEye.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56F41852F41100879246 /* SpriteBody.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56AF1852F41100879246 /* SpriteBody.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56F51852F41100879246 /* StarField.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B11852F41100879246 /* StarField.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56F61852F41100879246 /* StaticSpriteBody.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B31852F41100879246 /* StaticSpriteBody.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56F71852F41100879246 /* StationaryInvader.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B51852F41100879246 /* StationaryInvader.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56F81852F41100879246 /* TouchedSprite.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B71852F41100879246 /* TouchedSprite.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56F91852F41100879246 /* TriangleFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B91852F41100879246 /* TriangleFleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56FA1852F41100879246 /* UFO.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BB1852F41100879246 /* UFO.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56FB1852F41100879246 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BD1852F41100879246 /* Utils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56FC1852F41100879246 /* VictoryScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BF1852F41100879246 /* VictoryScreen.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		CBFA56FD1852F41100879246 /* XFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56C11852F41100879246 /* XFleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -495,8 +494,6 @@
 		CBFA56881852F41100879246 /* ModalUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalUIView.m; path = Classes/ModalUIView.m; sourceTree = "<group>"; };
 		CBFA56891852F41100879246 /* ModalWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModalWebView.h; path = Classes/ModalWebView.h; sourceTree = "<group>"; };
 		CBFA568A1852F41100879246 /* ModalWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModalWebView.m; path = Classes/ModalWebView.m; sourceTree = "<group>"; };
-		CBFA568D1852F41100879246 /* MultiBrickScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MultiBrickScene.h; path = Classes/MultiBrickScene.h; sourceTree = "<group>"; };
-		CBFA568E1852F41100879246 /* MultiBrickScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = MultiBrickScene.mm; path = Classes/MultiBrickScene.mm; sourceTree = "<group>"; };
 		CBFA568F1852F41100879246 /* NamedParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NamedParticleSystem.h; path = Classes/NamedParticleSystem.h; sourceTree = "<group>"; };
 		CBFA56901852F41100879246 /* NamedParticleSystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NamedParticleSystem.m; path = Classes/NamedParticleSystem.m; sourceTree = "<group>"; };
 		CBFA56911852F41100879246 /* OverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OverlayViewController.h; path = Classes/OverlayViewController.h; sourceTree = "<group>"; };
@@ -869,8 +866,6 @@
 				CBFA56881852F41100879246 /* ModalUIView.m */,
 				CBFA56891852F41100879246 /* ModalWebView.h */,
 				CBFA568A1852F41100879246 /* ModalWebView.m */,
-				CBFA568D1852F41100879246 /* MultiBrickScene.h */,
-				CBFA568E1852F41100879246 /* MultiBrickScene.mm */,
 				CBFA568F1852F41100879246 /* NamedParticleSystem.h */,
 				CBFA56901852F41100879246 /* NamedParticleSystem.m */,
 				CBFA56911852F41100879246 /* OverlayViewController.h */,
@@ -1318,7 +1313,6 @@
 				CBFA56CA1852F41100879246 /* BeatSequencer.m in Sources */,
 				CBFA56EF1852F41100879246 /* SettingsManager.m in Sources */,
 				CBFA56E51852F41100879246 /* NamedParticleSystem.m in Sources */,
-				CBFA56E41852F41100879246 /* MultiBrickScene.mm in Sources */,
 				CBFA56D01852F41100879246 /* CDRBobble.mm in Sources */,
 				CBFA56EE1852F41100879246 /* Rock.mm in Sources */,
 				CBFA56F61852F41100879246 /* StaticSpriteBody.mm in Sources */,
