@@ -56,7 +56,7 @@ static int numLevels = 33;
 @end
 
 /*
-@implementation CCBitmapFontAtlas (GetRect) 
+@implementation CCLabelBMFont (GetRect) 
 -(CGRect) getRect {
 	return CGRectMake(self.position.x - (self.contentSize.width/2*self.scale),
 					  self.position.y - (self.contentSize.height/2*self.scale),
@@ -65,11 +65,11 @@ static int numLevels = 33;
 @end
 */
 
-@interface CCBitmapFontAtlas (PVAccess)
+@interface CCLabelBMFont (PVAccess)
 - (NSString *) getString;
 @end
 
-@implementation CCBitmapFontAtlas (PVAccess)
+@implementation CCLabelBMFont (PVAccess)
 
 - (NSString *) getString {
 	return string_;
@@ -82,8 +82,8 @@ static int numLevels = 33;
 @synthesize selected, selectable, labelname, node;
 - (void) setString:(NSString*)str {
 	self.labelname = str;
-	if ([node isKindOfClass:[CCBitmapFontAtlas class]])
-		[(CCBitmapFontAtlas *)node setString:str];
+	if ([node isKindOfClass:[CCLabelBMFont class]])
+		[(CCLabelBMFont *)node setString:str];
 }
 -(void) dealloc {
 	[node release];
@@ -104,8 +104,8 @@ static int numLevels = 33;
 					  node.contentSize.height*node.scale + labelPadding * 2);
 }
 - (void) setNode:(CCNode *) innode {
-	if (!self.labelname && [innode isKindOfClass:[CCBitmapFontAtlas class]])
-		self.labelname = [(CCBitmapFontAtlas*) innode getString];
+	if (!self.labelname && [innode isKindOfClass:[CCLabelBMFont class]])
+		self.labelname = [(CCLabelBMFont*) innode getString];
 	[node autorelease];
 	node = [innode retain];
 }
@@ -471,7 +471,7 @@ static int _hfAdCount = 0;
 			}
 			
 			
-			CCBitmapFontAtlas *bmlabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:menuText[i] fntFile:font];
+			CCLabelBMFont *bmlabel = [CCLabelBMFont bitmapFontAtlasWithString:menuText[i] fntFile:font];
 			
 			bmlabel.color = menuColor[i];
 			bmlabel.position = menuPos[i];
@@ -835,7 +835,7 @@ static int _hfAdCount = 0;
 		
 		for (int i=0; i<11; i++) {
 			SelectedNode *_label = [[[SelectedNode alloc] init] autorelease];
-			CCBitmapFontAtlas *bmlabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:_IPAD?menuTextiPad[i]:menuTextiPhn[i] fntFile:(i==7)?pv.largeFont:pv.mediumFont];
+			CCLabelBMFont *bmlabel = [CCLabelBMFont bitmapFontAtlasWithString:_IPAD?menuTextiPad[i]:menuTextiPhn[i] fntFile:(i==7)?pv.largeFont:pv.mediumFont];
 			
 			_label.selectable = menuSel[i];			
 			bmlabel.color = menuColor[i];
@@ -894,8 +894,8 @@ static int _hfAdCount = 0;
 			[_labels addObject:_label];
 		}
 		
-		// ptype[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"HUMAN" fntFile:pv.mediumFont] retain];
-		// ptype[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"HUMAN" fntFile:pv.mediumFont] retain];
+		// ptype[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"HUMAN" fntFile:pv.mediumFont] retain];
+		// ptype[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"HUMAN" fntFile:pv.mediumFont] retain];
 		// ptype[0].color = ccc3(255, 64, 64);
 		// ptype[1].color = ccc3(255, 64, 64);
 
@@ -1130,7 +1130,7 @@ static int _hfAdCount = 0;
 		
 		for (int i=0; i<8; i++) {
 			SelectedNode *_label = [[[SelectedNode alloc] init] autorelease];
-			CCBitmapFontAtlas *bmlabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:_IPAD?menuTextiPad[i]:menuTextiPhn[i] fntFile:(i==7)?pv.largeFont:pv.mediumFont];
+			CCLabelBMFont *bmlabel = [CCLabelBMFont bitmapFontAtlasWithString:_IPAD?menuTextiPad[i]:menuTextiPhn[i] fntFile:(i==7)?pv.largeFont:pv.mediumFont];
 			
 			_label.selectable = menuSel[i];			
 			bmlabel.color = menuColor[i];
@@ -1340,7 +1340,7 @@ static int _hfAdCount = 0;
 		
 		for (int i=0; i<menuitems; i++) {			
 			SelectedNode *_label = [[[SelectedNode alloc] init] autorelease];
-			CCBitmapFontAtlas *bmlabel = [CCBitmapFontAtlas bitmapFontAtlasWithString:menuText[i] fntFile:pv.mediumFont];
+			CCLabelBMFont *bmlabel = [CCLabelBMFont bitmapFontAtlasWithString:menuText[i] fntFile:pv.mediumFont];
 
 			_label.selectable = menuSel[i];
 			bmlabel.color = menuColor[i];
@@ -1374,8 +1374,8 @@ static int _hfAdCount = 0;
 			[_labels addObject:_label];
 		}
 		
-		scores[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
-		scores[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
+		scores[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
+		scores[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
 
 		scores[0].rotation = 0;
 		scores[1].rotation = 180;
@@ -1383,8 +1383,8 @@ static int _hfAdCount = 0;
 		[scores[1] setAnchorPoint:ccp(0, 0.5f)];
 		
 		// points labels
-		scoreLabels[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
-		scoreLabels[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
+		scoreLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
+		scoreLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
 
 		scoreLabels[0].rotation = 0;
 		scoreLabels[1].rotation = 180;
@@ -1392,8 +1392,8 @@ static int _hfAdCount = 0;
 		[scoreLabels[1] setAnchorPoint:ccp(0, 0.5f)];
 	
 		// max chains
-		maxChains[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"MAX CHAIN: 0" fntFile:pv.mediumFont] retain];
-		maxChains[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"MAX CHAIN: 0" fntFile:pv.mediumFont] retain];
+		maxChains[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX CHAIN: 0" fntFile:pv.mediumFont] retain];
+		maxChains[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX CHAIN: 0" fntFile:pv.mediumFont] retain];
 		
 		maxChains[0].rotation = 0;
 		maxChains[1].rotation = 180;
@@ -1413,8 +1413,8 @@ static int _hfAdCount = 0;
 		int combChain = (p1h?pv.player[0].maxChain:0) + (p2h?pv.player[1].maxChain:0);
 		int combScore = (p1h?pv.player[0].score:0) + (p2h?pv.player[1].score:0);
 		
-		combinedChain = [[CCBitmapFontAtlas bitmapFontAtlasWithString:[NSString stringWithFormat:@"COMBINED CHAIN: %d", combChain] fntFile:pv.mediumFont] retain];
-		combinedScore = [[CCBitmapFontAtlas bitmapFontAtlasWithString:[NSString stringWithFormat:@"COMBINED SCORE: %d", combScore] fntFile:pv.mediumFont] retain];
+		combinedChain = [[CCLabelBMFont bitmapFontAtlasWithString:[NSString stringWithFormat:@"COMBINED CHAIN: %d", combChain] fntFile:pv.mediumFont] retain];
+		combinedScore = [[CCLabelBMFont bitmapFontAtlasWithString:[NSString stringWithFormat:@"COMBINED SCORE: %d", combScore] fntFile:pv.mediumFont] retain];
 
 		combinedChain.color = ccc3(255,0,0);
 		combinedScore.color = ccc3(255,0,0);
@@ -1790,14 +1790,14 @@ static int _hfAdCount = 0;
 				
 		
 		if (_IPAD) {
-			_label[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[0] = [[CCLabelBMFont bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
 			_label[0].position = ccp(winSize.width/2+1000, winSize.height/2-(l2?200:250));
 
 			[_label[0] runAction:
 			 [CCEaseExponentialOut actionWithAction:
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-(l2?200:250))]]];
 			
-			_label[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[1] = [[CCLabelBMFont bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
 			_label[1].position = ccp(winSize.width/2-1000, winSize.height/2+(l2?200:250));
 			_label[1].rotation = 180;
 			[_label[1] runAction:
@@ -1805,13 +1805,13 @@ static int _hfAdCount = 0;
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2+(l2?200:250))]]];
 			
 			if (l2) {
-				_label[2] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[2] = [[CCLabelBMFont bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
 				_label[2].position = ccp(winSize.width/2+1000, winSize.height/2-250);
 				[_label[2] runAction:
 				 [CCEaseExponentialOut actionWithAction:
 				  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-250)]]];
 				
-				_label[3] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[3] = [[CCLabelBMFont bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
 				_label[3].position = ccp(winSize.width/2-1000, winSize.height/2+250);
 				_label[3].rotation = 180;
 				[_label[3] runAction:
@@ -1820,13 +1820,13 @@ static int _hfAdCount = 0;
 			}
 		}
 		else {
-			_label[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[0] = [[CCLabelBMFont bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
 			_label[0].position = ccp(winSize.width/2+1000, winSize.height/2-125);
 			[_label[0] runAction:
 			 [CCEaseExponentialOut actionWithAction:
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-125)]]];
 			
-			_label[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[1] = [[CCLabelBMFont bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
 			_label[1].position = ccp(winSize.width/2-1000, winSize.height/2+125);
 			_label[1].rotation = 180;
 			[_label[1] runAction:
@@ -1834,13 +1834,13 @@ static int _hfAdCount = 0;
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2+125)]]];
 			
 			if (l2) {
-				_label[2] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[2] = [[CCLabelBMFont bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
 				_label[2].position = ccp(winSize.width/2+1000, winSize.height/2-150);
 				[_label[2] runAction:
 				 [CCEaseExponentialOut actionWithAction:
 				  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-150)]]];
 				
-				_label[3] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[3] = [[CCLabelBMFont bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
 				_label[3].position = ccp(winSize.width/2-1000, winSize.height/2+150);
 				_label[3].rotation = 180;
 				[_label[3] runAction:
@@ -2159,14 +2159,14 @@ static int _hfAdCount = 0;
 		PongVader *pv = [PongVader getInstance];
 		
 		if (_IPAD) {
-			_label[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[0] = [[CCLabelBMFont bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
 			_label[0].position = ccp(winSize.width/2+1000, winSize.height/2-(l2?200:250));
 			
 			[_label[0] runAction:
 			 [CCEaseExponentialOut actionWithAction:
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-(l2?200:250))]]];
 			
-			_label[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[1] = [[CCLabelBMFont bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
 			_label[1].position = ccp(winSize.width/2-1000, winSize.height/2+(l2?200:250));
 			_label[1].rotation = 180;
 			[_label[1] runAction:
@@ -2174,13 +2174,13 @@ static int _hfAdCount = 0;
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2+(l2?200:250))]]];
 			
 			if (l2) {
-				_label[2] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[2] = [[CCLabelBMFont bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
 				_label[2].position = ccp(winSize.width/2+1000, winSize.height/2-250);
 				[_label[2] runAction:
 				 [CCEaseExponentialOut actionWithAction:
 				  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-250)]]];
 				
-				_label[3] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[3] = [[CCLabelBMFont bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
 				_label[3].position = ccp(winSize.width/2-1000, winSize.height/2+250);
 				_label[3].rotation = 180;
 				[_label[3] runAction:
@@ -2189,13 +2189,13 @@ static int _hfAdCount = 0;
 			}
 		}
 		else {
-			_label[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[0] = [[CCLabelBMFont bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
 			_label[0].position = ccp(winSize.width/2+1000, winSize.height/2-125);
 			[_label[0] runAction:
 			 [CCEaseExponentialOut actionWithAction:
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-125)]]];
 			
-			_label[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[1] = [[CCLabelBMFont bitmapFontAtlasWithString:l1 fntFile:pv.mediumFont] retain];
 			_label[1].position = ccp(winSize.width/2-1000, winSize.height/2+125);
 			_label[1].rotation = 180;
 			[_label[1] runAction:
@@ -2203,13 +2203,13 @@ static int _hfAdCount = 0;
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2+125)]]];
 			
 			if (l2) {
-				_label[2] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[2] = [[CCLabelBMFont bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
 				_label[2].position = ccp(winSize.width/2+1000, winSize.height/2-150);
 				[_label[2] runAction:
 				 [CCEaseExponentialOut actionWithAction:
 				  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-150)]]];
 				
-				_label[3] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[3] = [[CCLabelBMFont bitmapFontAtlasWithString:l2 fntFile:pv.mediumFont] retain];
 				_label[3].position = ccp(winSize.width/2-1000, winSize.height/2+150);
 				_label[3].rotation = 180;
 				[_label[3] runAction:
@@ -2415,8 +2415,8 @@ static int _hfAdCount = 0;
 		CGSize winSize = [[CCDirector sharedDirector] winSize];
 		PongVader *pv = [PongVader getInstance];
 		
-		scores[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
-		scores[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
+		scores[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
+		scores[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
 		
 		scores[0].rotation = 0;
 		scores[1].rotation = 180;
@@ -2427,8 +2427,8 @@ static int _hfAdCount = 0;
 		lastScores[1] = 0;
 		
 		// points labels
-		scoreLabels[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
-		scoreLabels[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
+		scoreLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
+		scoreLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
 		
 		scoreLabels[0].rotation = 0;
 		scoreLabels[1].rotation = 180;
@@ -2436,8 +2436,8 @@ static int _hfAdCount = 0;
 		[scoreLabels[1] setAnchorPoint:ccp(0, 0.5f)];
 		
 //		// max chains
-//		maxChains[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"MAX: 0" fntFile:pv.mediumFont] retain];
-//		maxChains[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"MAX: 0" fntFile:pv.mediumFont] retain];
+//		maxChains[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX: 0" fntFile:pv.mediumFont] retain];
+//		maxChains[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX: 0" fntFile:pv.mediumFont] retain];
 //		maxChains[0].position = ccp(200, 65);
 //		maxChains[1].position = ccp(winSize.width-200, winSize.height-65);
 //		maxChains[0].rotation = 0;
@@ -2446,16 +2446,16 @@ static int _hfAdCount = 0;
 //		[maxChains[1] setAnchorPoint:ccp(1, 0.5f)];
 		
 		// current chains
-		curChains[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"CHAIN: 0" fntFile:pv.mediumFont] retain];
-		curChains[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"CHAIN: 0" fntFile:pv.mediumFont] retain];
+		curChains[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"CHAIN: 0" fntFile:pv.mediumFont] retain];
+		curChains[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"CHAIN: 0" fntFile:pv.mediumFont] retain];
 		
 		curChains[0].rotation = 0;
 		curChains[1].rotation = 180;
 		[curChains[0] setAnchorPoint:ccp(0, 0.5f)];
 		[curChains[1] setAnchorPoint:ccp(0, 0.5f)];
 		
-		//pauseLabels[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"=" fntFile:pv.largeFont] retain];
-		//pauseLabels[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"=" fntFile:pv.largeFont] retain];
+		//pauseLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"=" fntFile:pv.largeFont] retain];
+		//pauseLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"=" fntFile:pv.largeFont] retain];
 		//pauseLabels[0].rotation = 90;
 		//pauseLabels[1].rotation = 270;
 		
@@ -2471,12 +2471,12 @@ static int _hfAdCount = 0;
 		[pauseLabels[1] setAnchorPoint:ccp(0, 0.5f)];
 		
 		if _IPAD{
-			bulletLabels[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"TILT IPAD TO STEER BALL" fntFile:pv.mediumFont] retain];
-			bulletLabels[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"TILT IPAD TO STEER BALL" fntFile:pv.mediumFont] retain];
+			bulletLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT IPAD TO STEER BALL" fntFile:pv.mediumFont] retain];
+			bulletLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT IPAD TO STEER BALL" fntFile:pv.mediumFont] retain];
 		}
 		else {
-			bulletLabels[0] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"TILT TO STEER BALL" fntFile:pv.mediumFont] retain];
-			bulletLabels[1] = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"TILT TO STEER BALL" fntFile:pv.mediumFont] retain];
+			bulletLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT TO STEER BALL" fntFile:pv.mediumFont] retain];
+			bulletLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT TO STEER BALL" fntFile:pv.mediumFont] retain];
 		}
 		bulletLabels[0].color = ccc3(255,0,0);
 		bulletLabels[1].color = ccc3(255,0,0);
@@ -2731,13 +2731,13 @@ static int _hfAdCount = 0;
 		PongVader *pv = [PongVader getInstance];
 		
 		//skiplabel = [[SelectedNode alloc] init];
-//		CCBitmapFontAtlas *labelnode = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"SKIP" fntFile:pv.largeFont] retain];
+//		CCLabelBMFont *labelnode = [[CCLabelBMFont bitmapFontAtlasWithString:@"SKIP" fntFile:pv.largeFont] retain];
 //		labelnode.color = ccc3(255, 255, 255);
 //		labelnode.position = SKIP_POS;
 //		skiplabel.selectable = YES;
 //		skiplabel.node = labelnode;
 		
-		skiplabel = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"SKIP" fntFile:pv.largeFont] retain];
+		skiplabel = [[CCLabelBMFont bitmapFontAtlasWithString:@"SKIP" fntFile:pv.largeFont] retain];
 		skiplabel.position = SKIP_POS;
 		skiplabel.color = ccc3(255, 255, 255);
 				
@@ -2882,7 +2882,7 @@ static int _hfAdCount = 0;
 	textWedge.position = tbs;
 	
 	for (int i=0; i<[[messageLabel children] count]; i++) {
-		CCBitmapFontAtlas *line = [[messageLabel children] objectAtIndex:i];
+		CCLabelBMFont *line = [[messageLabel children] objectAtIndex:i];
 		
 		if (speaker == 1) {
 			line.color = ccc3(0, 0, 0);	
@@ -3024,21 +3024,21 @@ static int _hfAdCount = 0;
 		pvLogo.position = ccp(ssz.width/2, 0);
 		pvLogo.scale = 2.0;
 		
-		producedBy = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"PRODUCED BY" fntFile:pv.largeFont];
+		producedBy = [CCLabelBMFont bitmapFontAtlasWithString:@"PRODUCED BY" fntFile:pv.largeFont];
 		producedBy.position = ccp(ssz.width/2, pvLogo.position.y - ((pvLogo.contentSize.height) + vPadSmall + (_IPAD? 200 : 400)));
 		producedBy.color = ccc3(255, 255, 255);
 		
 		kdcLogo = [CCSprite spriteWithFile:@"kdcLogo.png"];
 		kdcLogo.position = ccp(ssz.width/2, producedBy.position.y - ((producedBy.contentSize.height) + vPadSmall * 2.5));
 		
-		artBy = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"ART BY" fntFile:pv.largeFont];
+		artBy = [CCLabelBMFont bitmapFontAtlasWithString:@"ART BY" fntFile:pv.largeFont];
 		artBy.position = ccp(ssz.width/2, kdcLogo.position.y - ((kdcLogo.contentSize.height) + vPadSmall));
 		artBy.color = ccc3(255, 255, 255);
 		
 		apLogo = [CCSprite spriteWithFile:@"apLogo.png"];
 		apLogo.position = ccp(ssz.width/2, artBy.position.y - ((artBy.contentSize.height) + vPadSmall));
 		
-		musicBy = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"MUSIC BY" fntFile:pv.largeFont];
+		musicBy = [CCLabelBMFont bitmapFontAtlasWithString:@"MUSIC BY" fntFile:pv.largeFont];
 		musicBy.position = ccp(ssz.width/2, apLogo.position.y - ((apLogo.contentSize.height) + vPadSmall));
 		musicBy.color = ccc3(255, 255, 255);
 		
@@ -3046,25 +3046,25 @@ static int _hfAdCount = 0;
 		nsLogo.position = ccp(ssz.width/2, musicBy.position.y - ((musicBy.contentSize.height) + vPadSmall));
 		
 		// STARRING
-		starring = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"STARRING" fntFile:pv.largeFont];
+		starring = [CCLabelBMFont bitmapFontAtlasWithString:@"STARRING" fntFile:pv.largeFont];
 		starring.position = ccp(ssz.width/2, nsLogo.position.y - ((nsLogo.contentSize.height) + vPadLarge));
 		starring.color = ccc3(255, 255, 255);
 		
-		ensign = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"ENSIGN PRANCE" fntFile:pv.mediumFont];
+		ensign = [CCLabelBMFont bitmapFontAtlasWithString:@"ENSIGN PRANCE" fntFile:pv.mediumFont];
 		ensign.position = ccp(ssz.width/2, starring.position.y - ((starring.contentSize.height) + vPadSmall));
 		ensign.color = ccc3(255, 255, 255);
 		
 		ensPrance = (Invader *) [ENSPrance spriteBodyAt: ccp(ssz.width/2, ensign.position.y - ((ensign.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		[ensPrance promote: 1];
 		
-		lieutenant = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"LIEUTENANT WADDLE" fntFile:pv.mediumFont];
+		lieutenant = [CCLabelBMFont bitmapFontAtlasWithString:@"LIEUTENANT WADDLE" fntFile:pv.mediumFont];
 		lieutenant.position = ccp(ssz.width/2, ensPrance.position.y - ((ensPrance.contentSize.height) + vPadSmall));
 		lieutenant.color = ccc3(255, 255, 255);
 		
 		ltWaddle = (Invader *) [LTWaddle spriteBodyAt: ccp(ssz.width/2, lieutenant.position.y - ((lieutenant.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		[ltWaddle promote: 1];
 		
-		commander = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"COMMANDER BOBBLE" fntFile:pv.mediumFont];
+		commander = [CCLabelBMFont bitmapFontAtlasWithString:@"COMMANDER BOBBLE" fntFile:pv.mediumFont];
 		commander.position = ccp(ssz.width/2, ltWaddle.position.y - ((ltWaddle.contentSize.height) + vPadSmall));
 		commander.color = ccc3(255, 255, 255);
 		
@@ -3074,17 +3074,17 @@ static int _hfAdCount = 0;
 
 		
 		// SUPPORTED BY
-		supportedBy = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"SUPPORTED BY" fntFile:pv.largeFont];
+		supportedBy = [CCLabelBMFont bitmapFontAtlasWithString:@"SUPPORTED BY" fntFile:pv.largeFont];
 		supportedBy.position = ccp(ssz.width/2, cdrBobble.position.y - ((cdrBobble.contentSize.height) + vPadLarge));
 		supportedBy.color = ccc3(255, 255, 255);
 		
-		tank = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"TANK" fntFile:pv.mediumFont];
+		tank = [CCLabelBMFont bitmapFontAtlasWithString:@"TANK" fntFile:pv.mediumFont];
 		tank.position = ccp(ssz.width/2, supportedBy.position.y - ((supportedBy.contentSize.height) + vPadSmall));
 		tank.color = ccc3(255, 255, 255);
 		
 		shieldvader = (Invader *) [ShieldInvader spriteBodyAt: ccp(ssz.width/2, tank.position.y - ((tank.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
-		sweetCheeks = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"SWEET CHEEKS" fntFile:pv.mediumFont];
+		sweetCheeks = [CCLabelBMFont bitmapFontAtlasWithString:@"SWEET CHEEKS" fntFile:pv.mediumFont];
 		sweetCheeks.position = ccp(ssz.width/2, shieldvader.position.y - ((shieldvader.contentSize.height) + vPadSmall));
 		sweetCheeks.color = ccc3(255, 255, 255);	
 		
@@ -3092,23 +3092,23 @@ static int _hfAdCount = 0;
 		
 		// CAMEOS
 		
-		cameos = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"CAMEOS" fntFile:pv.largeFont];
+		cameos = [CCLabelBMFont bitmapFontAtlasWithString:@"CAMEOS" fntFile:pv.largeFont];
 		cameos.position = ccp(ssz.width/2, redvader.position.y - ((redvader.contentSize.height) + vPadLarge));
 		cameos.color = ccc3(255, 255, 255);
 
-		seaman = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"SEAMAN EYE" fntFile:pv.mediumFont];
+		seaman = [CCLabelBMFont bitmapFontAtlasWithString:@"SEAMAN EYE" fntFile:pv.mediumFont];
 		seaman.position = ccp(ssz.width/2, cameos.position.y - ((cameos.contentSize.height) + vPadSmall));
 		seaman.color = ccc3(255, 255, 255);
 		
 		smnEye = (Invader *) [SNEye spriteBodyAt: ccp(ssz.width/2, seaman.position.y - ((seaman.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
-		captain = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"CAPTAIN DAWDLE" fntFile:pv.mediumFont] ;
+		captain = [CCLabelBMFont bitmapFontAtlasWithString:@"CAPTAIN DAWDLE" fntFile:pv.mediumFont] ;
 		captain.position = ccp(ssz.width/2, smnEye.position.y - ((smnEye.contentSize.height) + vPadSmall));
 		captain.color = ccc3(255, 255, 255);
 		
 		cptDawdle = (Invader *) [CPTDawdle spriteBodyAt: ccp(ssz.width/2, captain.position.y - ((captain.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
-		admiral = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"ADMIRAL BRAIN" fntFile:pv.mediumFont] ;
+		admiral = [CCLabelBMFont bitmapFontAtlasWithString:@"ADMIRAL BRAIN" fntFile:pv.mediumFont] ;
 		admiral.position = ccp(ssz.width/2, cptDawdle.position.y - ((cptDawdle.contentSize.height) + vPadSmall));
 		admiral.color = ccc3(255, 255, 255);
 		
@@ -3116,18 +3116,18 @@ static int _hfAdCount = 0;
 		
 		// DISCLAIMER
 		
-		humaneNotice1 = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"NO ALIENS WERE HARMED" fntFile:pv.largeFont];
+		humaneNotice1 = [CCLabelBMFont bitmapFontAtlasWithString:@"NO ALIENS WERE HARMED" fntFile:pv.largeFont];
 		humaneNotice1.position = ccp(ssz.width/2, admBrain.position.y - ((admBrain.contentSize.height) + vPadLarge));
 		humaneNotice1.color = ccc3(255, 255, 255);
 		
-		humaneNotice2 = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"MAKING THIS GAME" fntFile:pv.largeFont];
+		humaneNotice2 = [CCLabelBMFont bitmapFontAtlasWithString:@"MAKING THIS GAME" fntFile:pv.largeFont];
 		humaneNotice2.position = ccp(ssz.width/2, humaneNotice1.position.y - ((humaneNotice1.contentSize.height) + vPadSmall));
 		humaneNotice2.color = ccc3(255, 255, 255);
 		
 		humaneLogo = [CCSprite spriteWithFile:@"hsLogo.png"];
 		humaneLogo.position = ccp(ssz.width/2, humaneNotice2.position.y - ((humaneNotice2.contentSize.height) + vPadLarge *2.0));
 		
-		humaneTitle = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"GALACTIC HUMANE SOCIETY" fntFile:pv.largeFont];
+		humaneTitle = [CCLabelBMFont bitmapFontAtlasWithString:@"GALACTIC HUMANE SOCIETY" fntFile:pv.largeFont];
 		humaneTitle.position = ccp(ssz.width/2, humaneLogo.position.y - ((humaneLogo.contentSize.height) + vPadLarge));
 		humaneTitle.color = ccc3(255, 255, 255);		
 
@@ -3329,7 +3329,7 @@ static int _hfAdCount = 0;
 		pad1x = pad2x = [CCDirector sharedDirector].winSize.width / 2.0;
 		
 		PongVader *pv = [PongVader getInstance];
-		tutorialLabel = [[CCBitmapFontAtlas bitmapFontAtlasWithString:@"TUTORIAL" fntFile:pv.largeFont] retain];
+		tutorialLabel = [[CCLabelBMFont bitmapFontAtlasWithString:@"TUTORIAL" fntFile:pv.largeFont] retain];
 		tutorialLabel.position = TUTLABEL_POS;
 		tutorialLabel.color = ccc3(255, 0, 0);
 		

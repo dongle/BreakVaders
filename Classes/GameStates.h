@@ -49,24 +49,24 @@
 
 @interface StateSettingsMenu : StateMenu  {
 	CCSprite *arrow[3];
-	// CCBitmapFontAtlas *ptype[2];
+	// CCLabelBMFont *ptype[2];
 }
 @end
 
 @interface StatePausedMenu : StateMenu {
 	CCSprite *arrow[3];
-	// CCBitmapFontAtlas *ptype[2];
+	// CCLabelBMFont *ptype[2];
 	CCColorLayer *flash;
 }
 @end
 
 @interface StateLoseMenu : StateMenu {
-	CCBitmapFontAtlas *scores[2];
-	CCBitmapFontAtlas *scoreLabels[2];
-	CCBitmapFontAtlas *maxChains[2];
-	CCBitmapFontAtlas *curChains[2];
-	CCBitmapFontAtlas *combinedChain;
-	CCBitmapFontAtlas *combinedScore;
+	CCLabelBMFont *scores[2];
+	CCLabelBMFont *scoreLabels[2];
+	CCLabelBMFont *maxChains[2];
+	CCLabelBMFont *curChains[2];
+	CCLabelBMFont *combinedChain;
+	CCLabelBMFont *combinedScore;
 	
 	UIAlertView * signupAlert;
 	UIAlertView * appStoreAlert;
@@ -85,7 +85,7 @@
 @end
 
 @interface StateGetReady : GameState {
-	CCBitmapFontAtlas *_label[4];
+	CCLabelBMFont *_label[4];
 	BOOL shouldClearFirst;
 }
 @property (readwrite, assign) BOOL shouldClearFirst;
@@ -93,12 +93,12 @@
 
 @interface StatePlaying : GameState
 {
-	CCBitmapFontAtlas *scores[2];
-	CCBitmapFontAtlas *scoreLabels[2];
-	CCBitmapFontAtlas *maxChains[2];
-	CCBitmapFontAtlas *curChains[2];
-	CCBitmapFontAtlas *bulletLabels[2];
-	//CCBitmapFontAtlas *pauseLabels[2];
+	CCLabelBMFont *scores[2];
+	CCLabelBMFont *scoreLabels[2];
+	CCLabelBMFont *maxChains[2];
+	CCLabelBMFont *curChains[2];
+	CCLabelBMFont *bulletLabels[2];
+	//CCLabelBMFont *pauseLabels[2];
 	CCSprite *pauseLabels[2];
 	BOOL hasEnteredBulletTime;
 	BOOL btLabelDisplayed;
@@ -112,7 +112,7 @@
 
 @interface StatePostPlaying : GameState
 {
-	CCBitmapFontAtlas *_label[4];
+	CCLabelBMFont *_label[4];
 }
 - (id) initWithString1: (NSString *) l1 andString2: (NSString *) l2;
 @end
@@ -139,7 +139,7 @@
 	CCSprite *textWedge;	
 	CCSprite *ltrbox[2];
 	//SelectedNode *skiplabel;
-	CCBitmapFontAtlas *skiplabel;
+	CCLabelBMFont *skiplabel;
 }
 - (GameState *) doAction: (int) action;
 - (void) placeBubble:(CGPoint) p rlen: (float) rowlength rc:(int) rowcount;
@@ -156,12 +156,12 @@
 	CCSprite *jonvader, *colevader;
 	
 	// captions
-	CCBitmapFontAtlas *producedBy, *artBy, *musicBy, *starring, *supportedBy;
-	CCBitmapFontAtlas *cameos, *humaneNotice1, *humaneNotice2, *humaneTitle;
+	CCLabelBMFont *producedBy, *artBy, *musicBy, *starring, *supportedBy;
+	CCLabelBMFont *cameos, *humaneNotice1, *humaneNotice2, *humaneTitle;
 	
 	// labels
-	CCBitmapFontAtlas *ensign, *lieutenant, *commander, *tank, *sweetCheeks;
-	CCBitmapFontAtlas *seaman, *captain, *admiral;
+	CCLabelBMFont *ensign, *lieutenant, *commander, *tank, *sweetCheeks;
+	CCLabelBMFont *seaman, *captain, *admiral;
 	
 	// characters
 	Invader *ensPrance, *ltWaddle, *cdrBobble, *shieldvader, *redvader;
@@ -175,7 +175,7 @@
 	CGPoint powerupSpawn, i1, i2;
 	BOOL viewReset;
 	
-	CCBitmapFontAtlas *tutorialLabel;
+	CCLabelBMFont *tutorialLabel;
 	
 	Invader *invader1, *invader2;
 }

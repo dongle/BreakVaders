@@ -15,7 +15,7 @@
 #define CGPointAdd(v1, v2) (CGPointMake(v1.x+v2.x, v1.y+v2.y))
 #define CGPointSub(v1, v2) (CGPointMake(v1.x-v2.x, v1.y-v2.y))
 
-@interface CCBitmapFontAtlas (GetRect)
+@interface CCLabelBMFont (GetRect)
 - (CGRect) getRect;
 @end
 

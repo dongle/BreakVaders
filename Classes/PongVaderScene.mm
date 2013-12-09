@@ -326,9 +326,9 @@ static PongVader *_globalSceneInst = nil;
 		
 		// preload fonts and set alias tex params
 		
-		CCBitmapFontAtlas * smAtlas = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"tmp" fntFile:smallFont];
-		CCBitmapFontAtlas * mdAtlas = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"tmp" fntFile:mediumFont];
-		CCBitmapFontAtlas * lgAtlas = [CCBitmapFontAtlas bitmapFontAtlasWithString:@"tmp" fntFile:largeFont];
+		CCLabelBMFont * smAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:smallFont];
+		CCLabelBMFont * mdAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:mediumFont];
+		CCLabelBMFont * lgAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:largeFont];
 		[smAtlas.texture setAliasTexParameters];
 		[mdAtlas.texture setAliasTexParameters];
 		[lgAtlas.texture setAliasTexParameters];

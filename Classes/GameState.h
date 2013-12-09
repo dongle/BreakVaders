@@ -68,7 +68,7 @@
 @end
 
 @interface GameState(PongVadersSpecific)
-- (void) cleanupLabel: (CCBitmapFontAtlas *) label;
+- (void) cleanupLabel: (CCLabelBMFont *) label;
 - (int) getPowerup;
 - (int) getPowerupChance;
 @end

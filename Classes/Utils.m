@@ -9,7 +9,7 @@
 #import "Utils.h"
 #import "GameSettings.h"
 
-@implementation CCBitmapFontAtlas (GetRect) 
+@implementation CCLabelBMFont (GetRect) 
 
 -(CGRect) getRect {
 	return CGRectMake(self.position.x - ((self.anchorPoint.x*self.contentSize.width*self.scale) ),
@@ -138,7 +138,7 @@
 	while (index <= [text length]) {
 
 		if (index == [text length]) {
-			CCBitmapFontAtlas *tip = [CCBitmapFontAtlas bitmapFontAtlasWithString:[NSString stringWithString:line]
+			CCLabelBMFont *tip = [CCLabelBMFont bitmapFontAtlasWithString:[NSString stringWithString:line]
 																		  fntFile:fnt];
 			[container addChild:tip];
 			if ([tip getRect].size.width > maxWidth) maxWidth = [tip getRect].size.width;
@@ -159,7 +159,7 @@
 			isNewLine = NO;
 		
 		if ((lineChars >= length && isSpace) || isNewLine) {
-			CCBitmapFontAtlas *tip = [CCBitmapFontAtlas bitmapFontAtlasWithString:[NSString stringWithString:line]
+			CCLabelBMFont *tip = [CCLabelBMFont bitmapFontAtlasWithString:[NSString stringWithString:line]
 																		  fntFile:fnt];
 			[container addChild:tip];
 			if ([tip getRect].size.width > maxWidth) maxWidth = [tip getRect].size.width;
@@ -173,7 +173,7 @@
 	}
 
 	for (int i=0; i<[[container children] count]; i++) {
-		CCBitmapFontAtlas *line = [[container children] objectAtIndex:i];
+		CCLabelBMFont *line = [[container children] objectAtIndex:i];
 		line.color = col;
 		CGSize sz = [line getRect].size;
 		line.position = ccp((sz.width - maxWidth)/2.0, -i*height + height*(numLines-1)/2.0);
