@@ -1159,7 +1159,7 @@ static int _hfAdCount = 0;
 			arrow[2] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
 		}
 		
-		flash = [[CCColorLayer layerWithColor:ccc4(0, 0, 0, 128) width: winSize.width height: winSize.height] retain];
+		flash = [[CCLayerColor layerWithColor:ccc4(0, 0, 0, 128) width: winSize.width height: winSize.height] retain];
 		
 	}
 	return self;

@@ -56,7 +56,7 @@
 @interface StatePausedMenu : StateMenu {
 	CCSprite *arrow[3];
 	// CCLabelBMFont *ptype[2];
-	CCColorLayer *flash;
+	CCLayerColor *flash;
 }
 @end
 

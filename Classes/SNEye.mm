@@ -144,7 +144,7 @@
 	invader.fragment3 = [CCSprite spriteWithSpriteFrameName:@"boss_fragment.png"];
 	invader.fragment4 = [CCSprite spriteWithSpriteFrameName:@"boss_fragment.png"];
 	
-	invader.flash = [CCColorLayer layerWithColor:ccc4(255, 255, 255, 0) width: ssz.width height: ssz.height];
+	invader.flash = [CCLayerColor layerWithColor:ccc4(255, 255, 255, 0) width: ssz.width height: ssz.height];
 	
 	[pv addChild: invader.flash z: 0];
 	

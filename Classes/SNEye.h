@@ -30,7 +30,7 @@
 	BOOL shaking, frozen, preShoot;
 	ccTime shakeTime, explosionTime, frozenTime;
 	CCSprite *fragment1, *fragment2, *fragment3, *fragment4;
-	CCColorLayer *flash;
+	CCLayerColor *flash;
 }
 
 @property (readwrite, assign) BOOL frozen, shaking, preShoot;
