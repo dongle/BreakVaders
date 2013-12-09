@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CCQuadParticleSystem.h"
+#import "CCParticleSystemQuad.h"
 
-@interface NamedParticleSystem : CCQuadParticleSystem {
+@interface NamedParticleSystem : CCParticleSystemQuad {
 	NSString *pFile;
 }
 
