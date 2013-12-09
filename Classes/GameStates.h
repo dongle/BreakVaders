@@ -14,8 +14,6 @@
 #import "GameSettings.h"
 #import "SpriteBody.h"
 #import "Invader.h"
-#import "Crittercism.h"
-#import "StoreObserver.h"
 #import "AdLoader.h"
 
 @interface SelectedNode : NSObject
@@ -28,27 +26,6 @@
 @property (readwrite, assign) BOOL selected;
 @property (readwrite, assign) BOOL selectable;
 @property (nonatomic, retain) CCNode *node;
-@end
-
-
-@interface StateAd : GameState {
-	BOOL _hasShownAd;
-	BOOL _highFreq;
-	GameState *nState;
-}
-
-@property (nonatomic, retain) GameState *nState;
-
-- (id) initWithHighFreq: (BOOL) hf nextState: (GameState *) ns;
-- (void) afterAd;
-
-@end
-
-@interface StatePurchase : GameState <StoreResponder> {
-	Class nState;
-}
-@property (nonatomic, retain) Class nState;
-- (id) initWithNextState: (Class) ns;
 @end
 
 @interface StateMenu : GameState {
@@ -65,10 +42,8 @@
 - (void) provideContent: (NSString*) productID;
 @end
 
-@interface StateMainMenu : StateMenu <UIActionSheetDelegate, CrittercismDelegate> {
-	UIAlertView * appStoreAlert;
-	UIAlertView * signupAlert;
-	UIAlertView * newContentAlert;
+@interface StateMainMenu : StateMenu {
+
 }
 
 @end
