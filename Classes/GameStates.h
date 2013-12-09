@@ -14,7 +14,6 @@
 #import "GameSettings.h"
 #import "SpriteBody.h"
 #import "Invader.h"
-#import "AdLoader.h"
 
 @interface SelectedNode : NSObject
 {
