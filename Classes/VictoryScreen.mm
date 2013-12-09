@@ -37,7 +37,7 @@
 	if( (self=[super initWithColor:ccc4(0,0,0,255)] )) {
 		
 		CGSize winSize = [[CCDirector sharedDirector] winSize];
-		self.label = [CCLabel labelWithString:@"" fontName:@"Arial" fontSize:32];
+		_label = [CCLabelTTF labelWithString:@"" fontName:@"Arial" fontSize:32];
 		_label.color = ccc3(255,255,255);
 		_label.position = ccp(winSize.width/2, winSize.height/2);
 		[self addChild:_label];

@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface VictoryLayer : CCColorLayer {
-	CCLabel *_label;
+@interface VictoryLayer : CCLayerColor {
+	CCLabelTTF *_label;
 }
 
-@property (nonatomic, retain) CCLabel *label;
+@property (nonatomic, retain) CCLabelTTF *label;
 
 @end
 
