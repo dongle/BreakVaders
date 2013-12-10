@@ -15,10 +15,13 @@
 #import "GameSettings.h"
 
 @implementation ADMBrain
-@synthesize tail, fleet, paused, upsidedown;
+@synthesize tail = _tail;
+@synthesize fleet = _fleet;
+@synthesize paused = _paused;
+@synthesize upsidedown = _upsidedown;
 
 - (void) dealloc {
-	[tail release];
+	[_tail release];
 	[super dealloc];
 }
 
@@ -90,30 +93,30 @@
 	
 	invader.world = w;
 	
-	invader->bdir = CGNormalize(ccp(-1, 2));
+	invader->_bdir = CGNormalize(ccp(-1, 2));
 	
 	if _IPAD {
-		invader->bspeed = BRAIN_INIT_SPD; //pixels per second
-		invader->xmax = 668;
-		invader->xmin = 100;
-		invader->ymax = 724;
-		invader->ymin = 300;
-		invader->segcount = BRAIN_MAX_SEGS;
+		invader->_bspeed = BRAIN_INIT_SPD; //pixels per second
+		invader->_xmax = 668;
+		invader->_xmin = 100;
+		invader->_ymax = 724;
+		invader->_ymin = 300;
+		invader->_segcount = BRAIN_MAX_SEGS;
 		invader.health = BRAIN_MAX_HEALTH;
 	}
 	
 	else {
-		invader->bspeed = BRAIN_INIT_SPD_IPHONE; //pixels per second
-		invader->xmax = 270;
-		invader->xmin = 50;
-		invader->ymax = 330;
-		invader->ymin = 150;
-		invader->segcount = BRAIN_MAX_SEGS_IPHONE;
+		invader->_bspeed = BRAIN_INIT_SPD_IPHONE; //pixels per second
+		invader->_xmax = 270;
+		invader->_xmin = 50;
+		invader->_ymax = 330;
+		invader->_ymin = 150;
+		invader->_segcount = BRAIN_MAX_SEGS_IPHONE;
 		invader.health = BRAIN_MAX_HEALTH_IPHONE;
 	}
 	
-	printf("brain segcount: %d", invader->segcount);
-	invader->paused = NO;
+	printf("brain segcount: %d", invader->_segcount);
+	invader->_paused = NO;
 	
 	NSMutableArray *animFrames = [NSMutableArray array];
 	int maxSegs;
@@ -138,16 +141,16 @@
 	invader.idle = [CCAnimation animationWithName:@"idle" delay:GAME_SPB/8.0f frames:animFrames];
 
 	for (int i=0; i<=maxSegs; i++) {
-		invader->prevs[i] = p;
+		invader->_prevs[i] = p;
 	}
 	
 	if (w) [invader createBodyInWorld: w];
 	
 	if _IPAD {
-		invader->scaleFactor = 1;
+		invader->_scaleFactor = 1;
 	}
 	else {
-		invader->scaleFactor = .5;	
+		invader->_scaleFactor = .5;
 	}
 
 	return invader;
@@ -164,94 +167,94 @@
 */
 
 - (void) doRotate {
-	if (upsidedown) {
+	if (_upsidedown) {
 		self.rotation = 0;
-		b2dBody->SetTransform(b2dBody->GetPosition(), 0);
+		_b2dBody->SetTransform(_b2dBody->GetPosition(), 0);
 	} else {
 		self.rotation = 180;
-		b2dBody->SetTransform(b2dBody->GetPosition(), RADIANS(180));
+		_b2dBody->SetTransform(_b2dBody->GetPosition(), RADIANS(180));
 	}
-	upsidedown = !upsidedown;
+	_upsidedown = !_upsidedown;
 }
 
 -(void) tick: (ccTime)dt {
 	
-	if (paused) {
+	if (_paused) {
 		return;
 	}
 	
-	if (shaking) {
-		b2Vec2 vec = b2dBody->GetPosition();
+	if (_shaking) {
+		b2Vec2 vec = _b2dBody->GetPosition();
 		int deltaPos = arc4random() % 10;
 		self.position = ccp(vec.x*PTM_RATIO + deltaPos, vec.y*PTM_RATIO + deltaPos);
-		shakeTime+=dt;
-		if (shakeTime > 1) {
-			shaking = NO;
-			shakeTime = 0;
+		_shakeTime+=dt;
+		if (_shakeTime > 1) {
+			_shaking = NO;
+			_shakeTime = 0;
 			self.position = ccp(vec.x*PTM_RATIO, vec.y*PTM_RATIO);
 			//[self doRotate];
 		}
 	} else [super tick:dt];
 	
 	CGPoint N = ccp(0,0);
-	if ((self.position.x > xmax) && (bdir.x>0)) N = ccp(-1, 0);
-	if ((self.position.x < xmin) && (bdir.x<0)) N = ccp( 1, 0);
-	if ((self.position.y > ymax) && (bdir.y>0)) N = ccp( 0,-1);
-	if ((self.position.y < ymin) && (bdir.y<0)) N = ccp( 0, 1);
+	if ((self.position.x > _xmax) && (_bdir.x>0)) N = ccp(-1, 0);
+	if ((self.position.x < _xmin) && (_bdir.x<0)) N = ccp( 1, 0);
+	if ((self.position.y > _ymax) && (_bdir.y>0)) N = ccp( 0,-1);
+	if ((self.position.y < _ymin) && (_bdir.y<0)) N = ccp( 0, 1);
 
 	if ((N.x != 0) || (N.y != 0)) {
-		CGFloat d = CGDotProduct(bdir, N);
-		bdir = ccp(bdir.x-2*N.x*d,bdir.y-2*N.y*d);
+		CGFloat d = CGDotProduct(_bdir, N);
+		_bdir = ccp(_bdir.x-2*N.x*d,_bdir.y-2*N.y*d);
 
-		if ((bdir.y > 0) && (self.rotation == 180)) {
+		if ((_bdir.y > 0) && (self.rotation == 180)) {
 			[self doRotate];
 		}
-		if ((bdir.y < 0) && (self.rotation == 0)) {
+		if ((_bdir.y < 0) && (self.rotation == 0)) {
 			[self doRotate];
 		}
 	}
 	
-	if (!paused)
-		self.position = ccp(self.position.x + bdir.x*bspeed*dt,
-							self.position.y + bdir.y*bspeed*dt);
+	if (!_paused)
+		self.position = ccp(self.position.x + _bdir.x*_bspeed*dt,
+							self.position.y + _bdir.y*_bspeed*dt);
 
-	if ([Utils distanceFrom:self.position to:prevs[0]] > (BRAIN_SEG_DIST * scaleFactor)) {
-		for (int i=segcount; i>0; i--) {
-			prevs[i] = prevs[i-1];
+	if ([Utils distanceFrom:self.position to:_prevs[0]] > (BRAIN_SEG_DIST * _scaleFactor)) {
+		for (int i=_segcount; i>0; i--) {
+			_prevs[i] = _prevs[i-1];
 		}
-		prevs[0] = self.position;
+		_prevs[0] = self.position;
 	}
 	
 	// determine closest ball to tail
 	PongVader *pv = [PongVader getInstance];
-	Ball *closest = [pv closestBallTo: segs[segcount/2].position maxDist:segcount*(BRAIN_SEG_DIST * scaleFactor)*1.2];
-	CGPoint cp = closest?closest.position:prevs[segcount];
+	Ball *closest = [pv closestBallTo: _segs[_segcount/2].position maxDist:_segcount*(BRAIN_SEG_DIST * _scaleFactor)*1.2];
+	CGPoint cp = closest?closest.position:_prevs[_segcount];
 	float seekfac = closest?BRAIN_SEEK_FAC:0;
 	
-	for (int i=0; i<segcount; i++) {
-		float frac = i/(float)segcount;
+	for (int i=0; i<_segcount; i++) {
+		float frac = i/(float)_segcount;
 		float angle = M_PI*frac/2.0;
 		float segwt = 1-cos(angle);
 		//float seekweight = (1-BRAIN_SMOOTH_FAC) * (BRAIN_SEEK_FAC-(segcount-i)*BRAIN_WHIP_FAC);
 		
-		segs[(segcount-1)-i].position = ccp(
-			BRAIN_SMOOTH_FAC*segs[(segcount-1)-i].position.x+(1-BRAIN_SMOOTH_FAC)*(1-seekfac*segwt)*prevs[i].x+(1-BRAIN_SMOOTH_FAC)*seekfac*segwt*cp.x,
-			BRAIN_SMOOTH_FAC*segs[(segcount-1)-i].position.y+(1-BRAIN_SMOOTH_FAC)*(1-seekfac*segwt)*prevs[i].y+(1-BRAIN_SMOOTH_FAC)*seekfac*segwt*cp.y);
+		_segs[(_segcount-1)-i].position = ccp(
+			BRAIN_SMOOTH_FAC*_segs[(_segcount-1)-i].position.x+(1-BRAIN_SMOOTH_FAC)*(1-seekfac*segwt)*_prevs[i].x+(1-BRAIN_SMOOTH_FAC)*seekfac*segwt*cp.x,
+			BRAIN_SMOOTH_FAC*_segs[(_segcount-1)-i].position.y+(1-BRAIN_SMOOTH_FAC)*(1-seekfac*segwt)*_prevs[i].y+(1-BRAIN_SMOOTH_FAC)*seekfac*segwt*cp.y);
 			//(segs[(segcount-1)-i].position.y*2+prevs[i].y)/3.0);
 	}
 	
 	//float seekweight = (1-BRAIN_SMOOTH_FAC) * BRAIN_SEEK_FAC;
 
-	tail.position = ccp(
-		BRAIN_SMOOTH_FAC*tail.position.x+(1-BRAIN_SMOOTH_FAC)*(1-seekfac)*prevs[segcount].x+(1-BRAIN_SMOOTH_FAC)*seekfac*cp.x,
-		BRAIN_SMOOTH_FAC*tail.position.y+(1-BRAIN_SMOOTH_FAC)*(1-seekfac)*prevs[segcount].y+(1-BRAIN_SMOOTH_FAC)*seekfac*cp.y);
+	_tail.position = ccp(
+		BRAIN_SMOOTH_FAC*_tail.position.x+(1-BRAIN_SMOOTH_FAC)*(1-seekfac)*_prevs[_segcount].x+(1-BRAIN_SMOOTH_FAC)*seekfac*cp.x,
+		BRAIN_SMOOTH_FAC*_tail.position.y+(1-BRAIN_SMOOTH_FAC)*(1-seekfac)*_prevs[_segcount].y+(1-BRAIN_SMOOTH_FAC)*seekfac*cp.y);
 		//(tail.position.y*2+prevs[segcount].y)/3.0);
 }
 
 - (Ball *) ballWithDirection: (CGPoint) dir {
 	CGPoint pos = ccp(self.position.x, self.position.y);
-	if (upsidedown) pos.y += 32 * scaleFactor; else pos.y -= 32 * scaleFactor;
-	return (Ball *) [Ball spriteBodyAt:pos withForce: dir inWorld:world];
+	if (_upsidedown) pos.y += 32 * _scaleFactor; else pos.y -= 32 * _scaleFactor;
+	return (Ball *) [Ball spriteBodyAt:pos withForce: dir inWorld:_world];
 }
 
 - (void) nowShoot: (NSNumber *) ang {
@@ -264,8 +267,8 @@
 	
 	float magnitude =[[PongVader getInstance] randBallMagnitude];
 	int angle = [ang intValue];
-	if (upsidedown) angle +=180;
-	CGPoint vel = shaking?ccp(0,0):ccp(bdir.x*bspeed/(4*PTM_RATIO), bdir.y*bspeed/(4*PTM_RATIO));
+	if (_upsidedown) angle +=180;
+	CGPoint vel = _shaking?ccp(0,0):ccp(_bdir.x*_bspeed/(4*PTM_RATIO), _bdir.y*_bspeed/(4*PTM_RATIO));
 	CGPoint force = ccp(magnitude*sin(RADIANS(angle))+vel.x, magnitude*cos(RADIANS(angle))+vel.y);
 	
 	if (!_IPAD) {
@@ -280,13 +283,13 @@
 }
 
 - (void) unpause {
-	paused = NO;
+	_paused = NO;
 }
 
 - (void) shoot {
 	//	paused = YES;
 	
-	NSUInteger beat = fleet.lastBeat + 1;
+	NSUInteger beat = _fleet.lastBeat + 1;
 	
 	//float pulse = -sin(2*M_PI*fleet.lastBeat/(32.0*3))-sin(2*M_PI*fleet.lastBeat/(32.0*2));
 	float pulse = -sin(2*M_PI*(8+2*beat)/(32.0*3));
@@ -299,15 +302,15 @@
 	int speed = 2+arc4random()%2;
 	int nshots;
 	if _IPAD {
-		nshots = 2+(int)((BRAIN_MAX_SEGS-segcount)/2.0)+(int)(pulse*pulsefac)+arc4random()%2; //(2+(BRAIN_MAX_SEGS-segcount)/3);
+		nshots = 2+(int)((BRAIN_MAX_SEGS-_segcount)/2.0)+(int)(pulse*pulsefac)+arc4random()%2; //(2+(BRAIN_MAX_SEGS-segcount)/3);
 	}
 	else {
-		nshots = 2+(int)((BRAIN_MAX_SEGS_IPHONE-segcount)/2.0)+(int)(pulse*pulsefac)+arc4random()%2;
+		nshots = 2+(int)((BRAIN_MAX_SEGS_IPHONE-_segcount)/2.0)+(int)(pulse*pulsefac)+arc4random()%2;
 	}
 	
 	float delay = (15*speed)/[BeatSequencer getInstance].bpmin;
 	
-	printf("                             segs: %d, base %2d, (measure: %2d.%d) pulse: %2d, nshots: %2d\n", segcount, 2+((BRAIN_MAX_SEGS-segcount)/2), 1+(beat/8)/4, 1+(beat/8)%4, (int)(pulse*pulsefac), nshots);
+	printf("                             segs: %d, base %2d, (measure: %2d.%d) pulse: %2d, nshots: %2d\n", _segcount, 2+((BRAIN_MAX_SEGS-_segcount)/2), 1+(beat/8)/4, 1+(beat/8)%4, (int)(pulse*pulsefac), nshots);
 	
 	for (int i=1; i<nshots; i++) {
 		[self performSelector:@selector(nowShoot:) withObject:[NSNumber numberWithInt:angle+i*10] afterDelay:i*delay];
@@ -317,7 +320,7 @@
 
 - (BOOL) doHitFrom: (Ball *) ball withDamage: (int) damage {
 	
-	if (shaking) return YES;
+	if (_shaking) return YES;
 	
 	//debug :
 	if (ball == nil) { // ball should only be nil in the case of DEBUG_SKIPLEVEL
@@ -326,28 +329,28 @@
 	}
 	
 	if ([ball isHot] &&
-		((!upsidedown && (ball.position.y > (self.position.y-(25 * scaleFactor)))) || 
-		 (upsidedown && (ball.position.y < (self.position.y+(25 * scaleFactor)))))) {
+		((!_upsidedown && (ball.position.y > (self.position.y-(25 * _scaleFactor)))) ||
+		 (_upsidedown && (ball.position.y < (self.position.y+(25 * _scaleFactor)))))) {
 			
 			[[SimpleAudioEngine sharedEngine] playEffect:@"wail.wav"];
 			[super doHitFrom:ball withDamage:1];
 			
-			printf("bosshealth: %d\n", health);
+			printf("bosshealth: %d\n", _health);
 				   
 			if (![self isDead]) {
-				segs[segcount-1].health -= 1;
+				_segs[_segcount-1].health -= 1;
 				
-				if (segs[segcount-1].health <= 0) {
-					shaking = YES;
-					segcount --;
-					bspeed += BRAIN_SPD_INC * scaleFactor;
+				if (_segs[_segcount-1].health <= 0) {
+					_shaking = YES;
+					_segcount --;
+					_bspeed += BRAIN_SPD_INC * _scaleFactor;
 				}
 				
 			} else {
-				for (int i=0; i<segcount; i++) {
-					segs[i].health -=1;
+				for (int i=0; i<_segcount; i++) {
+					_segs[i].health -=1;
 				}
-				tail.health -=1;
+				_tail.health -=1;
 			}
 		}
 		
@@ -357,21 +360,21 @@
 -(BOOL) isBoss {return YES;}
 
 - (void) reset {
-	health = BRAIN_MAX_HEALTH;
+	_health = BRAIN_MAX_HEALTH;
 	self.rotation = 0;
-	b2dBody->SetTransform(b2dBody->GetPosition(), 0);
-	upsidedown = NO;
-	bdir = CGNormalize(ccp(-1, 2));
-	bspeed = BRAIN_INIT_SPD * scaleFactor; //pixels per second
+	_b2dBody->SetTransform(_b2dBody->GetPosition(), 0);
+	_upsidedown = NO;
+	_bdir = CGNormalize(ccp(-1, 2));
+	_bspeed = BRAIN_INIT_SPD * _scaleFactor; //pixels per second
 	if _IPAD {
-		segcount = BRAIN_MAX_SEGS;
-		health = BRAIN_MAX_HEALTH;
+		_segcount = BRAIN_MAX_SEGS;
+		_health = BRAIN_MAX_HEALTH;
 	}
 	else {
-		segcount = BRAIN_MAX_SEGS_IPHONE;	
-		health = BRAIN_MAX_HEALTH_IPHONE;
+		_segcount = BRAIN_MAX_SEGS_IPHONE;
+		_health = BRAIN_MAX_HEALTH_IPHONE;
 	}
-	paused = NO;
+	_paused = NO;
 }
 
 @end

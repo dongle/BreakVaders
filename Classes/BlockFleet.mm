@@ -91,10 +91,10 @@ BOOL shouldAnimateReveal(char invType) {
 		   difficulty: (int) level 
 {
 	if ((self = [super init])) {
-		dimensions = dims;
-		spacing = space;
-		origin = atorigin;
-		score = [scoretoplay retain];
+		_dimensions = dims;
+		_spacing = space;
+		_origin = atorigin;
+		_score = [scoretoplay retain];
 		PongVader *pv = [PongVader getInstance];
 		//float left = screenSize.width / 2.0 - (size-1) * spacing / 2.0;
 		for(int i = 0; i < dims.x*dims.y; i++) {
@@ -118,7 +118,7 @@ BOOL shouldAnimateReveal(char invType) {
 			}
 			invader.scale = BLOCKFLEET_START_SIZE;
 			if (isInvUpsideDown(config[i])) invader.rotation = 180;
-			[invaders addObject:invader];
+			[_invaders addObject:invader];
 			
 			if (char2class(config[i]) == [DynamicInvader class]) {
 				[self designateAsNuke: (DynamicInvader*)invader at:pos];
@@ -138,26 +138,26 @@ BOOL shouldAnimateReveal(char invType) {
 
 - (void) dealloc {
 	// all invaders created by a fleet are managed by PV
-	[score release];
+	[_score release];
 	[super dealloc];
 }
 
 - (BOOL) shouldRespondToBeat:(NSUInteger)beat {
-	if ([score length] == 0) return NO;
-	return [score UTF8String][beat % [score length]] != 'x';
+	if ([_score length] == 0) return NO;
+	return [_score UTF8String][beat % [_score length]] != 'x';
 }
 
 - (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time {
-	char dowhat = [score UTF8String][beat % [score length]];
+	char dowhat = [_score UTF8String][beat % [_score length]];
 	if (dowhat == 'm') {
 		[self moveFleet];
 	} else if (dowhat == 's') {
-		if (shouldShoot) [self shoot];
+		if (_shouldShoot) [self shoot];
 	} else if (dowhat == 'b') {
 		[self moveFleet];
-		if (shouldShoot) [self shoot];
+		if (_shouldShoot) [self shoot];
 	}
-	lastBeat = beat;
+	_lastBeat = beat;
 }
 
 - (void) moveFleet {
@@ -180,7 +180,7 @@ BOOL shouldAnimateReveal(char invType) {
 }
 */
 - (void) makePhysical {
-	for (SpriteBody<Shooter> *invader in invaders) {
+	for (SpriteBody<Shooter> *invader in _invaders) {
 		[invader makeActive];
 	}
 }

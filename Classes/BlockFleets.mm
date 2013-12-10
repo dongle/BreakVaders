@@ -27,9 +27,9 @@
 {
 	if ((self = [super initWithConfig:config andDims:dims withSpacing: space atOrigin:atorigin fromRight:fromright playing:scoretoplay difficulty:level])) 
 	{
-		direction = dir;
-		step = s;
-		maxWidth = width;
+		_direction = dir;
+		_step = s;
+		_maxWidth = width;
 	}
 	return self;
 }
@@ -41,7 +41,7 @@
 	
 	// note step / iphone/ipad diffs
 	
-	if ([invaders count] == 0) return;
+	if ([_invaders count] == 0) return;
 	
 	//int newstep = step;
 		
@@ -58,22 +58,22 @@
 //		}
 //	}
 	
-	if ((direction.x > 0) && ([self mostRight] >= (origin.x - step + maxWidth / 2.0))) {
-		direction = ccp(-1, 0);
+	if ((_direction.x > 0) && ([self mostRight] >= (_origin.x - _step + _maxWidth / 2.0))) {
+		_direction = ccp(-1, 0);
 	}
-	else if ((direction.x < 0) && ([self mostLeft] <= (origin.x + step - maxWidth / 2.0))) {
-		direction = ccp(1, 0);
+	else if ((_direction.x < 0) && ([self mostLeft] <= (_origin.x + _step - _maxWidth / 2.0))) {
+		_direction = ccp(1, 0);
 	}
-	if ((direction.y > 0) && ([self highest] >= (origin.y - step + maxWidth / 2.0))) {
-		direction = ccp(0, -1);
+	if ((_direction.y > 0) && ([self highest] >= (_origin.y - _step + _maxWidth / 2.0))) {
+		_direction = ccp(0, -1);
 	}
-	else if ((direction.y < 0) && ([self lowest] <= (origin.y + step - maxWidth / 2.0))) {
-		direction = ccp(0, 1);
+	else if ((_direction.y < 0) && ([self lowest] <= (_origin.y + _step - _maxWidth / 2.0))) {
+		_direction = ccp(0, 1);
 	}
 	
 	
 	for (Invader *invader in self.invaders) {
-		[invader moveWithDir:direction andDistance: step];
+		[invader moveWithDir:_direction andDistance: _step];
 	}
 }
 
@@ -91,12 +91,12 @@
 {
 	if ((self = [super initWithConfig:config andDims:dims withSpacing:space atOrigin:atorigin fromRight:fromright playing:scoretoplay difficulty:level])) 
 	{
-		memcpy(cycle, cyclemap, dims.x*dims.y);
-		memset(positions, 0, dims.x*dims.y);
+		memcpy(_cycle, cyclemap, dims.x*dims.y);
+		memset(_positions, 0, dims.x*dims.y);
 		int invIter = 0;
 		for (int i=0; i<dims.x*dims.y; i++) {
 			if (char2class(config[i])) {
-				positions[0][i] = [invaders objectAtIndex:invIter++];
+				_positions[0][i] = [_invaders objectAtIndex:invIter++];
 			}
 		}
 	}
@@ -105,26 +105,26 @@
 
 - (void) moveFleet {
 
-	for (int i=0; i<dimensions.x*dimensions.y; i++) {
-		SpriteBody<Shooter> *thing = positions[posBuf][i];
-		if (thing && [thing isKindOfClass:[Invader class]] && (cycle[i] != i)) {
-			CGPoint pos = ccp(origin.x - dimensions.x*spacing/2.0 + (cycle[i]%(int)dimensions.x)*spacing + spacing / 2.0,
-							  origin.y + dimensions.y*spacing/2.0 - (cycle[i]/(int)dimensions.x)*spacing - spacing / 2.0);
+	for (int i=0; i<_dimensions.x*_dimensions.y; i++) {
+		SpriteBody<Shooter> *thing = _positions[_posBuf][i];
+		if (thing && [thing isKindOfClass:[Invader class]] && (_cycle[i] != i)) {
+			CGPoint pos = ccp(_origin.x - _dimensions.x*_spacing/2.0 + (_cycle[i]%(int)_dimensions.x)*_spacing + _spacing / 2.0,
+							  _origin.y + _dimensions.y*_spacing/2.0 - (_cycle[i]/(int)_dimensions.x)*_spacing - _spacing / 2.0);
 			[(Invader *)thing moveWithPos:pos];
-			positions[!posBuf][(int)cycle[i]] = positions[posBuf][i];
-			positions[posBuf][i] = nil;
+			_positions[!_posBuf][(int)_cycle[i]] = _positions[_posBuf][i];
+			_positions[_posBuf][i] = nil;
 		}
 	}
 	
-	posBuf = posBuf?0:1;
+	_posBuf = _posBuf?0:1;
 }
 
 - (void) removeInvader:(SpriteBody <Shooter>*)inv {
-	for (int i=0; i<dimensions.x*dimensions.y; i++) {
-		if (positions[posBuf][i] == inv) 
-			positions[posBuf][i] = nil;
-		if (positions[!posBuf][i] == inv) 
-			positions[!posBuf][i] = nil;
+	for (int i=0; i<_dimensions.x*_dimensions.y; i++) {
+		if (_positions[_posBuf][i] == inv)
+			_positions[_posBuf][i] = nil;
+		if (_positions[!_posBuf][i] == inv)
+			_positions[!_posBuf][i] = nil;
 	}
 	[super removeInvader:inv];
 }

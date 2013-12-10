@@ -10,7 +10,7 @@
 #import "CCParticleSystemQuad.h"
 
 @interface NamedParticleSystem : CCParticleSystemQuad {
-	NSString *pFile;
+	NSString *_pFile;
 }
 
 @property (nonatomic, retain) NSString *pFile;

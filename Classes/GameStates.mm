@@ -14,9 +14,8 @@
 // game entities and such
 #import "BlockFleets.h"
 #import "Boss2Fleet.h"
-#import "MultiBreakoutAppDelegate.h"
+#import "BVAppDelegate.h"
 #import "OverlayViewController.h"
-#import "Reachable.h"
 #import "ENSPrance.h"
 #import "LTWaddle.h"
 #import	"CDRBobble.h"
@@ -25,16 +24,6 @@
 #import "ADMBrain.h"
 #import "SNEye.h"
 #import "CPTDawdle.h"
-
-// OF
-#import "OpenFeint.h"
-#import "OFInvite.h"
-#import "OFInviteDefinition.h"
-#import "OFRequestHandle.h"
-#import "OFSocialNotificationService.h"
-#import "OFAchievementService.h"
-
-#import "FlurryAPI.h"
 
 // -------------- defs and globals
 
@@ -72,22 +61,27 @@ static int numLevels = 33;
 @implementation CCLabelBMFont (PVAccess)
 
 - (NSString *) getString {
-	return string_;
+	return _string;
 }
 
 @end
 
 
 @implementation SelectedNode
-@synthesize selected, selectable, labelname, node;
+
+@synthesize selected = _selected;
+@synthesize selectable = _selectable;
+@synthesize labelname = _labelname;
+@synthesize node = _node;
+
 - (void) setString:(NSString*)str {
 	self.labelname = str;
-	if ([node isKindOfClass:[CCLabelBMFont class]])
-		[(CCLabelBMFont *)node setString:str];
+	if ([_node isKindOfClass:[CCLabelBMFont class]])
+		[(CCLabelBMFont *)_node setString:str];
 }
 -(void) dealloc {
-	[node release];
-	[labelname release];
+	[_node release];
+	[_labelname release];
 	[super dealloc];
 }
 -(CGRect) getRect {
@@ -98,142 +92,30 @@ static int numLevels = 33;
 	else {
 		labelPadding = 10;
 	}
-	return CGRectMake(node.position.x - ((node.anchorPoint.x*node.contentSize.width*node.scale) + labelPadding),
-					  node.position.y - ((node.anchorPoint.y*node.contentSize.height*node.scale) + labelPadding),
-					  node.contentSize.width*node.scale + labelPadding * 2,
-					  node.contentSize.height*node.scale + labelPadding * 2);
+	return CGRectMake(_node.position.x - ((_node.anchorPoint.x*_node.contentSize.width*_node.scale) + labelPadding),
+					  _node.position.y - ((_node.anchorPoint.y*_node.contentSize.height*_node.scale) + labelPadding),
+					  _node.contentSize.width*_node.scale + labelPadding * 2,
+					  _node.contentSize.height*_node.scale + labelPadding * 2);
 }
 - (void) setNode:(CCNode *) innode {
 	if (!self.labelname && [innode isKindOfClass:[CCLabelBMFont class]])
 		self.labelname = [(CCLabelBMFont*) innode getString];
-	[node autorelease];
-	node = [innode retain];
+	[_node autorelease];
+	_node = [innode retain];
 }
-@end
-
-@implementation StateAd
-@synthesize nState;
-
-// set nextState value
-- (id) initWithHighFreq: (BOOL) hf nextState: (GameState *) ns {
-	if ((self=[super init])) {
-		_highFreq = hf;
-		nState = [ns retain];
-	}
-	return self;
-}
-
-- (void) dealloc {
-	[nState release];
-	[super dealloc];
-}
-
-- (void) afterAd {
-	
-}
-
-static int _hfAdCount = 0;
-
-- (void) enter {
-	if (_highFreq) _hfAdCount++;
-	_hasShownAd = NO;
-}
-
-- (GameState *) doTimer: (CFTimeInterval) dTime {
-	if (!_hasShownAd) {
-		_hasShownAd = YES;
-		if (!_highFreq || (_hfAdCount > 1)) {
-			[[AdLoader sharedLoader] showAd: [Reachable connectedToNetwork]
-								   highFreq: _highFreq
-								thenPerform: nil
-										 on: nil];
-		} 
-	}
-	
-	return nState;
-}
-
-@end
-
-// -------------------------------
-
-@implementation StatePurchase
-@synthesize nState;
-
-// set nextState value
-- (id) initWithNextState: (Class) ns {
-	if ((self=[super init])) {
-		nState = [ns retain];
-	}
-	return self;
-}
-
-- (void) dealloc {
-	[nState release];
-	[super dealloc];
-}
-
-- (void) enter {
-	[[StoreObserver getInstance] addResponder: self];
-	
-	if (![Reachable connectedToNetwork]) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Not connected to network" 
-														 message:@"You must be connected to the network in order to purchase more levels." 
-														delegate:nil 
-											   cancelButtonTitle:@"OK" 
-											   otherButtonTitles:nil] autorelease];
-		[alert show];
-		[self changeTo:[[[nState alloc] init] autorelease] after:0.5];
-	} else if ([[[PongVader getInstance].settings get:@"EpisodesProduct"] isEqualToString: @""]) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Still loading..." 
-														 message:@"PongVaders Episodes One and Two are still loading. Please try your puchase again soon." 
-														delegate:nil 
-											   cancelButtonTitle:@"OK" 
-											   otherButtonTitles:nil] autorelease];
-		[alert show];
-		[self changeTo:[[[nState alloc] init] autorelease] after:0.5];
-	} else {
-		[[StoreObserver getInstance] makePurchase:[[PongVader getInstance].settings get:@"EpisodesProduct"]];
-	}
-}
-
-- (void) leave {
-	[[StoreObserver getInstance] removeResponder: self];
-}
-
-- (void) provideContent: (NSString*) productID 
-{
-	PongVader *pv = [PongVader getInstance];
-	if ([productID isEqualToString: [pv.settings get:@"EpisodesProduct"]]) {
-		[pv.settings set:@"EpisodesBought" toInt: 1];
-	}
-	[self changeTo:[[[nState alloc] init] autorelease] after:0.5];
-}
-
-- (void) transactionCancelled {
-	[self changeTo:[[[nState alloc] init] autorelease] after:0.5];
-}
-
-- (void) transactionFailed {
-	[self changeTo:[[[nState alloc] init] autorelease] after:0.5];
-}
-
-- (GameState *) doTimer:(CFTimeInterval)dTime {
-	return self;
-}
-
 @end
 
 // -------------------------------
 
 @implementation StateMenu
-@synthesize shouldClearFirst;
+
+@synthesize shouldClearFirst = _shouldClearFirst;
 
 - (id) init {
 	if ((self = [super init])) {
 		_labels = [[NSMutableArray array] retain];
-		setupTitle = YES;
-		shouldClearFirst = YES;
+		_setupTitle = YES;
+		_shouldClearFirst = YES;
 	}
 	return self;
 }
@@ -257,43 +139,43 @@ static int _hfAdCount = 0;
 	PongVader *pv = [PongVader getInstance];
 	for (SelectedNode *_label in _labels) [pv addChild:_label.node];
 
-	if (shouldClearFirst) {
+	if (_shouldClearFirst) {
 		[pv clearScene];
 		[pv resetScene];
 		[pv showPaddles:NO];
 	}
 	[pv clearTouches];
 	
-	if ((![lastState isKindOfClass:[StateMenu class]] && shouldClearFirst) || ([lastState isKindOfClass:[StatePausedMenu class]])){
+	if ((![_lastState isKindOfClass:[StateMenu class]] && _shouldClearFirst) || ([_lastState isKindOfClass:[StatePausedMenu class]])){
 		[[BeatSequencer getInstance] addResponder:pv.starfield];
 		[[BeatSequencer getInstance] startWithSong:pv.track2 andBPM:114 shifted: -0.1];
 	}
 
 	// set up logo
-	if (setupTitle) {
+	if (_setupTitle) {
 		CGSize ssz = [CCDirector sharedDirector].winSize;
-		pvTitle = [CCSprite spriteWithFile:@"pvTitle.png"];
+		_pvTitle = [CCSprite spriteWithFile:@"pvTitle.png"];
 		ccTexParams tp = {GL_NEAREST, GL_NEAREST, GL_REPEAT, GL_REPEAT};
-		[pvTitle.texture setTexParameters:&tp];
+		[_pvTitle.texture setTexParameters:&tp];
 		
 		if (_IPAD) {
-			pvTitle.position = ccp(ssz.width/2, ssz.height - 300);
-			pvTitle.scale = 4;
+			_pvTitle.position = ccp(ssz.width/2, ssz.height - 300);
+			_pvTitle.scale = 4;
 		}
 		else {
-			pvTitle.position = ccp(ssz.width/2, ssz.height - 100);
-			pvTitle.scale = 2;
+			_pvTitle.position = ccp(ssz.width/2, ssz.height - 100);
+			_pvTitle.scale = 2;
 		}
 		
-		[pv addChild:pvTitle];
+		[pv addChild:_pvTitle];
 	}
 }
 
 - (void) leave {
 
-	if ((![nextState isKindOfClass:[StateMenu class]] && shouldClearFirst) || 
-		[lastState isKindOfClass:[StatePausedMenu class]] ||
-		[lastState isKindOfClass:[StateMovie class]]) 
+	if ((![_nextState isKindOfClass:[StateMenu class]] && _shouldClearFirst) ||
+		[_lastState isKindOfClass:[StatePausedMenu class]] ||
+		[_lastState isKindOfClass:[StateMovie class]])
 	{
 		[[BeatSequencer getInstance] end];
 		[[BeatSequencer getInstance] clearResponders];
@@ -304,15 +186,15 @@ static int _hfAdCount = 0;
 	PongVader *pv = [PongVader getInstance];
 	for (SelectedNode *_label in _labels) [pv removeChild:_label.node cleanup:YES];
 	
-	if (setupTitle) {
-		[pv removeChild:pvTitle cleanup:YES];
+	if (_setupTitle) {
+		[pv removeChild:_pvTitle cleanup:YES];
 	}
 }
 
 
 - (void) leaving {
-	if (![nextState isKindOfClass:[StateMenu class]] && shouldClearFirst) {
-		id action = [CCPropertyAction actionWithDuration:MUSIC_FADE_TIME key:@"BackgroundVolume" from:1.0 to:0.0];
+	if (![_nextState isKindOfClass:[StateMenu class]] && _shouldClearFirst) {
+		id action = [CCActionTween actionWithDuration:MUSIC_FADE_TIME key:@"BackgroundVolume" from:1.0 to:0.0];
 		[[PongVader getInstance] runAction:action];
 	}
 }
@@ -455,7 +337,6 @@ static int _hfAdCount = 0;
 		
 		
 		int maxLabels = 5;
-		if (PV_UNIVERSAL && !BOUGHT_FULLGAME && ![pv.settings getInt:@"EpisodesBought"]) maxLabels = 4;
 		
 		for (int i=0; i<maxLabels; i++) {
 			NSString *font = pv.mediumFont;
@@ -500,35 +381,6 @@ static int _hfAdCount = 0;
 			
 			[_labels addObject:_label];
 		}
-		
-		if (PV_UNIVERSAL && !BOUGHT_FULLGAME && ![pv.settings getInt:@"EpisodesBought"]) {
-			CCSprite *splabel = [CCSprite spriteWithFile:_IPAD?@"morelevels2.png":@"morelevels.png"];
-
-			splabel.position = ccp(winSize.width/2, menuPos[4].y);			
-			splabel.rotation = -8;
-
-			SelectedNode *_label = [[[SelectedNode alloc] init] autorelease];
-			_label.node = splabel;
-			_label.selectable = YES;
-			_label.labelname = @"BUY";
-			
-			[_labels addObject:_label];
-		}
-		
-		signupAlert = [[UIAlertView alloc] initWithTitle:@"Join our forum…" 
-												 message:@"You've played this game a lot. You're awesome. We'd like you to join a private forum to discuss game design and hang out."
-												delegate:self 
-									   cancelButtonTitle:@"Cancel" 
-									   otherButtonTitles:nil];
-		[signupAlert addButtonWithTitle:@"Let's do this."];
-
-		appStoreAlert = [[UIAlertView alloc] initWithTitle:@"To the App Store…" 
-												   message:@"Since you've played this game a few times, could you kindly give us a review? More love leads to more games, you know."
-												  delegate:self
-										 cancelButtonTitle:@"Cancel"
-										 otherButtonTitles:nil];
-		[appStoreAlert addButtonWithTitle:@"Let's do this."];	
-
 	}
 	return self;
 }
@@ -536,36 +388,27 @@ static int _hfAdCount = 0;
 - (void) enter {
 	[super enter];
 	PongVader *pv = [PongVader getInstance];
-	if (!pv.sentRequest && [pv.settings getInt:@"TimesRun"] >= 4 && [pv.settings getInt:@"Reviewed"] == 0 && [Reachable connectedToNetwork]) {
-		[pv.settings set:@"Reviewed" toInt:1];
-		pv.sentRequest = YES;
-		[appStoreAlert show];
-	} else if (!pv.sentRequest && [pv.settings getInt:@"TimesRun"] >= 10 && [pv.settings getInt:@"SignedUp"] == 0 && [Reachable connectedToNetwork]) {
-		pv.sentRequest = YES;
-		[pv.settings set:@"SignedUp" toInt:1];
-		[signupAlert show];
-	}
 	
 	// display alert when new content is unlocked
 	if (([pv.settings getInt:@"BeatPrologue"] == 1) && ([pv.settings getInt:@"StartedEpOne"] == 0 && [pv.settings getInt:@"UnlockedEpOneNag"] <= 3)) {
-		newContentAlert = [[[UIAlertView alloc] initWithTitle:@"New Episode Unlocked" 
-													  message:@"Now that you've beaten the prologue, you'll be able to select Episode One when you start a new game." 
-													 delegate:self 
-											cancelButtonTitle:@"Schwing!" 
-											otherButtonTitles:nil] autorelease];
-		[newContentAlert show];
+//		_newContentAlert = [[[UIAlertView alloc] initWithTitle:@"New Episode Unlocked"
+//													  message:@"Now that you've beaten the prologue, you'll be able to select Episode One when you start a new game." 
+//													 delegate:self 
+//											cancelButtonTitle:@"Schwing!" 
+//											otherButtonTitles:nil] autorelease];
+//		[_newContentAlert show];
 		
 		int nagCount = [pv.settings getInt:@"UnlockedEpOneNag"];
 		nagCount++;
 		[pv.settings set:@"UnlockedEpOneNag" toInt:nagCount];
 	}
 	else if (([pv.settings getInt:@"BeatEpOne"] == 1) && ([pv.settings getInt:@"StartedEpTwo"] == 0) && [pv.settings getInt:@"UnlockedEpTwoNag"] <= 3) {
-		newContentAlert = [[[UIAlertView alloc] initWithTitle:@"New Episode Unlocked" 
-													  message:@"Now that you've beaten Episode One, you'll be able to select Episode Two when you start a new game." 
-													 delegate:self 
-											cancelButtonTitle:@"Game on!" 
-											otherButtonTitles:nil] autorelease];
-		[newContentAlert show];
+//		_newContentAlert = [[[UIAlertView alloc] initWithTitle:@"New Episode Unlocked"
+//													  message:@"Now that you've beaten Episode One, you'll be able to select Episode Two when you start a new game." 
+//													 delegate:self 
+//											cancelButtonTitle:@"Game on!" 
+//											otherButtonTitles:nil] autorelease];
+//		[_newContentAlert show];
 		
 		int nagCount = [pv.settings getInt:@"UnlockedEpTwoNag"];
 		nagCount++;
@@ -574,8 +417,6 @@ static int _hfAdCount = 0;
 }
 
 - (void) dealloc {
-	[appStoreAlert release];
-	[signupAlert release];
 	[super dealloc];
 }
 
@@ -586,7 +427,7 @@ static int _hfAdCount = 0;
 		[label.labelname isEqualToString:@"SELECT EPISODE"] || 
 		[label.labelname isEqualToString:@"PLAY"]) 
 	{
-		[FlurryAPI logEvent:@"NEWGAME"];
+//		[FlurryAPI logEvent:@"NEWGAME"];
 		for (int i = 0; i < 2; i++) {
 			[pv.player[i] resetPropsNewGame];
 		}
@@ -603,35 +444,32 @@ static int _hfAdCount = 0;
 		curLevel = [pv.settings getInt:@"lastLevel"];
 		next = [[[StateGetReady alloc] init] autorelease];
 	} else if ([label.labelname isEqualToString:@"FEEDBACK"]) {
-		[FlurryAPI logEvent:@"CLICKED_FEEDBACK"];
-		
-		[[OverlayViewController sharedController] show];
-		
-		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Give Us Feedback"
-																 delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"I love it", @"Give feedback", nil];
-		actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-		OverlayViewController *ovc = [OverlayViewController sharedController];
-		[actionSheet showInView:ovc.view];	// show from our table view (pops up in the middle of the table)
-		[actionSheet release];
+//		[FlurryAPI logEvent:@"CLICKED_FEEDBACK"];
+//		
+//		[[OverlayViewController sharedController] show];
+//		
+//		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Give Us Feedback"
+//																 delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"I love it", @"Give feedback", nil];
+//		actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
+//		OverlayViewController *ovc = [OverlayViewController sharedController];
+//		[actionSheet showInView:ovc.view];	// show from our table view (pops up in the middle of the table)
+//		[actionSheet release];
 
 	} else if ([label.labelname isEqualToString:@"OPENFEINT"]) {
-		[FlurryAPI logEvent:@"CHECKED_OF"];
-		if (!pv.OFstarted) {
-			[pv initOpenFeint];	
-			if ([pv.settings getInt:@"OFwanted"] == 0) {
-				[pv.settings set:@"OFwanted" toInt:1];
-			}
-		}
-		// otherwise
-		else {
-			[OpenFeint launchDashboard];
-		}
+//		[FlurryAPI logEvent:@"CHECKED_OF"];
+//		if (!pv.OFstarted) {
+//			[pv initOpenFeint];	
+//			if ([pv.settings getInt:@"OFwanted"] == 0) {
+//				[pv.settings set:@"OFwanted" toInt:1];
+//			}
+//		}
+//		// otherwise
+//		else {
+//			[OpenFeint launchDashboard];
+//		}
 	} else if ([label.labelname isEqualToString:@"MORE BY KODUCO"]) {
-		[FlurryAPI logEvent:@"CHECKED_MORE"];
-		next = [[[StateMoreGames alloc] init] autorelease];
-	}
-	else if ([label.labelname isEqualToString:@"BUY"]) {
-		next = [[[StatePurchase alloc] initWithNextState:[self class]] autorelease];
+//		[FlurryAPI logEvent:@"CHECKED_MORE"];
+//		next = [[[StateMoreGames alloc] init] autorelease];
 	}
 	
 	//else if ([label.labelname isEqualToString:@"TURN SCOREBOARDS OFF"]) {
@@ -648,72 +486,10 @@ static int _hfAdCount = 0;
 	return self;
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	if (![Reachable connectedToNetwork]) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Not connected to network" 
-														 message:@"You must be connected to the network to complete this action." 
-														delegate:nil 
-											   cancelButtonTitle:@"OK" 
-											   otherButtonTitles:nil] autorelease];
-		[alert show];
-		return;
-	}		
-	if (alertView == appStoreAlert) {
-		switch(buttonIndex) {
-			case 0:
-				break;
-			case 1:
-				//[FlurryAPI logEvent:@"ILoveThisGame"];
-				[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=388469398&mt=8"]];
-				break;
-		}
-	}
-	else if (alertView == signupAlert) {
-		switch(buttonIndex) {
-			case 0:
-				break;
-			case 1:
-				//[FlurryAPI logEvent:@"ILoveThisGame"];
-				[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://koduco.com/signup"]];
-				break;
-		}
-	}
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	if (buttonIndex == 0) {
-		[[OverlayViewController sharedController] hide];
-		appStoreAlert = [[UIAlertView alloc] initWithTitle:@"To the App Store…" message:@"Since you love this game, could you kindly give us a review? More stars leads to more games, you know." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-		[appStoreAlert addButtonWithTitle:@"Let's do this."];	
-		[appStoreAlert show];
-	}
-	else if (buttonIndex == 1)
-	{
-		[Crittercism sharedInstance].delegate = self;
-		[[Crittercism sharedInstance] showCrittercism];
-	}
-}
-
-- (void)willPresentActionSheet:(UIActionSheet *)actionSheet {
-	
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 2) {
-		[[OverlayViewController sharedController] hide];
-	}
-}
-
-- (void) crittercismDidClose {
-	[[OverlayViewController sharedController] hide];
-}
-
 - (GameState *) doTimer:(CFTimeInterval)dTime {
 	SelectedNode *label = [_labels objectAtIndex:0];
 	if (!label.selected) {
-		label.node.scale = 1.125+(0.125)*sin(timeElapsed*1.5);
+		label.node.scale = 1.125+(0.125)*sin(_timeElapsed*1.5);
 	}
 	return [super doTimer:dTime];
 }
@@ -733,32 +509,17 @@ static int _hfAdCount = 0;
 		//int menuSize[] = {64, 32, 32, 18};
 		BOOL menuSel[11] = {NO, NO, YES, YES, NO, YES, YES, YES, YES, YES, YES};
 		
-		if (!PV_UNIVERSAL || BOUGHT_FULLGAME || [pv.settings getInt:@"EpisodesBought"]) {
-			menuSel[0] = NO;
-			menuSel[1] = NO;
-			menuSel[2] = YES;
-			menuSel[3] = YES;
-			menuSel[4] = NO;
-			menuSel[5] = YES;
-			menuSel[6] = YES;
-			menuSel[7] = YES;
-			menuSel[8] = YES;
-			menuSel[9] = YES;
-			menuSel[10] = YES;
-		}
-		else {
-			menuSel[0] = NO;
-			menuSel[1] = NO;
-			menuSel[2] = YES;
-			menuSel[3] = YES;
-			menuSel[4] = NO;
-			menuSel[5] = YES;
-			menuSel[6] = YES;
-			menuSel[7] = YES;
-			menuSel[8] = YES;
-			menuSel[9] = NO;
-			menuSel[10] = NO;
-		}
+        menuSel[0] = NO;
+        menuSel[1] = NO;
+        menuSel[2] = YES;
+        menuSel[3] = YES;
+        menuSel[4] = NO;
+        menuSel[5] = YES;
+        menuSel[6] = YES;
+        menuSel[7] = YES;
+        menuSel[8] = YES;
+        menuSel[9] = YES;
+        menuSel[10] = YES;
 		
 		CGPoint anchorPoint[] = {
 			ccp(0.5, 0.5),
@@ -866,47 +627,26 @@ static int _hfAdCount = 0;
 			
 			[_labels addObject:_label];
 		}
-		setupTitle = NO;
+		_setupTitle = NO;
 		
 		if _IPAD {
-			arrow[0] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
-			arrow[1] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
-			arrow[2] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
+			_arrow[0] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
+			_arrow[1] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
+			_arrow[2] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
 		}
 		else {
-			arrow[0] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
-			arrow[1] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
-			arrow[2] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
+			_arrow[0] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
+			_arrow[1] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
+			_arrow[2] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
 		}
-		
-		if (PV_UNIVERSAL && (UPGRADE_BUTTON || ![pv.settings getInt:@"EpisodesBought"])) {
-			
-			CCSprite *splabel = [CCSprite spriteWithFile:_IPAD?@"buysmall2.png":@"buysmall.png"];
-			if _IPAD splabel.position = ccp(100+winSize.width/2, 32+winSize.height/2);
-			else splabel.position = ccp(winSize.width/2, -8+winSize.height/2);
-			splabel.rotation = -12;
-			
-			SelectedNode *_label = [[[SelectedNode alloc] init] autorelease];
-			_label.node = splabel;
-			_label.selectable = YES;
-			_label.labelname = @"BUY";
-			
-			[_labels addObject:_label];
-		}
-		
-		// ptype[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"HUMAN" fntFile:pv.mediumFont] retain];
-		// ptype[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"HUMAN" fntFile:pv.mediumFont] retain];
-		// ptype[0].color = ccc3(255, 64, 64);
-		// ptype[1].color = ccc3(255, 64, 64);
-
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[arrow[0] release];
-	[arrow[1] release];
-	[arrow[2] release];
+	[_arrow[0] release];
+	[_arrow[1] release];
+	[_arrow[2] release];
 //	[ptype[0] release];
 //	[ptype[1] release];
 	[super dealloc];
@@ -931,15 +671,15 @@ static int _hfAdCount = 0;
 		p = [[(SelectedNode*)[_labels objectAtIndex:2] node] position];
 //	else
 //		p = [(SelectedNode*)[_labels objectAtIndex:3] position];
-	arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
+	_arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
 //	if ([pv.settings getInt:@"Player2Type"] == 0) 
 //		p = [(SelectedNode*)[_labels objectAtIndex:5] position];
 //	else
 		p = [[(SelectedNode*)[_labels objectAtIndex:6] node] position];
-	arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
+	_arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
 	
 	p = [[(SelectedNode*)[_labels objectAtIndex:8] node] position];
-	arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
+	_arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
 	
 	[pv.settings set:@"Player1Type" toInt:0];
 		[pv.settings set:@"Player2Type" toInt:1];
@@ -958,9 +698,9 @@ static int _hfAdCount = 0;
 //	[ptype[0] setString:[pv.settings get:@"Player1Type"]];
 //	[ptype[1] setString:[pv.settings get:@"Player2Type"]];
 	
-	[pv addChild:arrow[0]];
-	[pv addChild:arrow[1]];
-	[pv addChild:arrow[2]];
+	[pv addChild:_arrow[0]];
+	[pv addChild:_arrow[1]];
+	[pv addChild:_arrow[2]];
 		
 //	[pv addChild:ptype[0]];
 //	[pv addChild:ptype[1]];
@@ -968,9 +708,9 @@ static int _hfAdCount = 0;
 
 - (void) leave {
 	PongVader *pv = [PongVader getInstance];
-	[pv removeChild:arrow[0] cleanup: YES];
-	[pv removeChild:arrow[1] cleanup: YES];
-	[pv removeChild:arrow[2] cleanup: YES];
+	[pv removeChild:_arrow[0] cleanup: YES];
+	[pv removeChild:_arrow[1] cleanup: YES];
+	[pv removeChild:_arrow[2] cleanup: YES];
 //	[pv removeChild:ptype[0] cleanup: YES];
 //	[pv removeChild:ptype[1] cleanup: YES];
 	[super leave];
@@ -992,34 +732,34 @@ static int _hfAdCount = 0;
 	
 	if ([label.labelname isEqualToString:@"HUMAN-1"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:2] node] position];
-		arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
 		[pv.settings set:@"Player1Type" to:@"HUMAN"];
 	} else if ([label.labelname isEqualToString:@"COMPUTER-1"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:3] node] position];
-		arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
 		[pv.settings set:@"Player1Type" to:@"COMPUTER"];
 	} else if ([label.labelname isEqualToString:@"HUMAN-2"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:5] node] position];
-		arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
 		[pv.settings set:@"Player2Type" to:@"HUMAN"];
 	} else if ([label.labelname isEqualToString:@"COMPUTER-2"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:6] node] position];
-		arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
 		[pv.settings set:@"Player2Type" to:@"COMPUTER"];
 	} 
 	else if ([label.labelname isEqualToString:@"PRO"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:8] node] position];
-		arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
 		curLevel = 0;
 	} 
 	else if ([label.labelname isEqualToString:@"EP1"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:9] node] position];
-		arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
 		curLevel = EPISODE_ONE_LEVEL;
 	} 
 	else if ([label.labelname isEqualToString:@"EP2"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:10] node] position];
-		arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
 		curLevel = EPISODE_TWO_LEVEL;
 	} 
 	
@@ -1035,8 +775,6 @@ static int _hfAdCount = 0;
 		} else {
 			next = [[[StateGetReady alloc] init] autorelease];
 		}
-	} else if ([label.labelname isEqualToString:@"BUY"]) {
-		next = [[[StatePurchase alloc] initWithNextState:[self class]] autorelease];
 	}
 	
 	if (next != self) [self changeTo:next after:MENU_TRANSITION_PAUSE];
@@ -1046,7 +784,7 @@ static int _hfAdCount = 0;
 - (GameState *) doTimer:(CFTimeInterval)dTime {
 	SelectedNode *label = [_labels objectAtIndex:7];
 	if (!label.selected) {
-		label.node.scale = 1.125+(0.125)*sin(timeElapsed*1.5);
+		label.node.scale = 1.125+(0.125)*sin(_timeElapsed*1.5);
 	}
 	return [super doTimer:dTime];
 }
@@ -1146,30 +884,30 @@ static int _hfAdCount = 0;
 			
 			[_labels addObject:_label];
 		}
-		setupTitle = NO;
+		_setupTitle = NO;
 		
 		if _IPAD {
-			arrow[0] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
-			arrow[1] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
-			arrow[2] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
+			_arrow[0] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
+			_arrow[1] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
+			_arrow[2] = [[CCSprite spriteWithFile:@"arrow.png"] retain];
 		}
 		else {
-			arrow[0] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
-			arrow[1] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
-			arrow[2] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
+			_arrow[0] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
+			_arrow[1] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
+			_arrow[2] = [[CCSprite spriteWithFile:@"arrow-low.png"] retain];
 		}
 		
-		flash = [[CCLayerColor layerWithColor:ccc4(0, 0, 0, 128) width: winSize.width height: winSize.height] retain];
+		_flash = [[CCLayerColor layerWithColor:ccc4(0, 0, 0, 128) width: winSize.width height: winSize.height] retain];
 		
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[arrow[0] release];
-	[arrow[1] release];
-	[arrow[2] release];
-	[flash release];
+	[_arrow[0] release];
+	[_arrow[1] release];
+	[_arrow[2] release];
+	[_flash release];
 	[super dealloc];
 }
 
@@ -1177,7 +915,7 @@ static int _hfAdCount = 0;
 	CGSize ssz = [CCDirector sharedDirector].winSize;
 	PongVader *pv = [PongVader getInstance];
 	
-	[pv addChild: flash];
+	[pv addChild: _flash];
 	
 	[pv showPaddles:NO];
 	[super enter];
@@ -1196,15 +934,15 @@ static int _hfAdCount = 0;
 		p = [[(SelectedNode*)[_labels objectAtIndex:2] node] position];
 	else
 		p = [[(SelectedNode*)[_labels objectAtIndex:3] node] position];
-	arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
+	_arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
 	if ([pv.settings getInt:@"Player2Type"] == 0) 
 		p = [[(SelectedNode*)[_labels objectAtIndex:5] node] position];
 	else
 		p = [[(SelectedNode*)[_labels objectAtIndex:6] node] position];
-	arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
+	_arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
 	
-	[pv addChild:arrow[0]];
-	[pv addChild:arrow[1]];
+	[pv addChild:_arrow[0]];
+	[pv addChild:_arrow[1]];
 	//[pv addChild:arrow[2]];
 	
 	[[BeatSequencer getInstance] pause];
@@ -1212,14 +950,14 @@ static int _hfAdCount = 0;
 
 - (void) leave {
 	PongVader *pv = [PongVader getInstance];
-	[pv removeChild:arrow[0] cleanup: YES];
-	[pv removeChild:arrow[1] cleanup: YES];
-	[pv removeChild:arrow[2] cleanup: YES];
-	[pv removeChild:flash cleanup:YES];
+	[pv removeChild:_arrow[0] cleanup: YES];
+	[pv removeChild:_arrow[1] cleanup: YES];
+	[pv removeChild:_arrow[2] cleanup: YES];
+	[pv removeChild:_flash cleanup:YES];
 	[pv showPaddles:YES];
 	[[BeatSequencer getInstance] unpause];
 	
-	if ([nextState isKindOfClass:[StateMainMenu class]]) {
+	if ([_nextState isKindOfClass:[StateMainMenu class]]) {
 		[[BeatSequencer getInstance] end];
 		[[BeatSequencer getInstance] clearResponders];
 		[[BeatSequencer getInstance] reset];
@@ -1245,19 +983,19 @@ static int _hfAdCount = 0;
 	
 	if ([label.labelname isEqualToString:@"HUMAN-1"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:2] node] position];
-		arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
 		[pv.settings set:@"Player1Type" to:@"HUMAN"];
 	} else if ([label.labelname isEqualToString:@"COMPUTER-1"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:3] node] position];
-		arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[0].position = ccp(p.x-xOffset, p.y+yOffset);
 		[pv.settings set:@"Player1Type" to:@"COMPUTER"];
 	} else if ([label.labelname isEqualToString:@"HUMAN-2"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:5] node] position];
-		arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
 		[pv.settings set:@"Player2Type" to:@"HUMAN"];
 	} else if ([label.labelname isEqualToString:@"COMPUTER-2"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:6] node] position];
-		arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
+		_arrow[1].position = ccp(p.x-xOffset, p.y+yOffset);
 		[pv.settings set:@"Player2Type" to:@"COMPUTER"];
 	} 
 	
@@ -1282,7 +1020,7 @@ static int _hfAdCount = 0;
 - (GameState *) doTimer:(CFTimeInterval)dTime {
 	SelectedNode *label = [_labels objectAtIndex:7];
 	if (!label.selected) {
-		label.node.scale = 1.125+(0.125)*sin(timeElapsed*1.5);
+		label.node.scale = 1.125+(0.125)*sin(_timeElapsed*1.5);
 	}
 	
 	return self;
@@ -1357,99 +1095,94 @@ static int _hfAdCount = 0;
 			}
 		}
 		
-		if (PV_UNIVERSAL && !BOUGHT_FULLGAME && ![pv.settings getInt:@"EpisodesBought"] &&
-			!(p1h && p2h && [PongVader getInstance].OFstarted))
-		{
-			CCSprite *splabel = [CCSprite spriteWithFile:_IPAD?@"morelevels2.png":@"morelevels.png"];
-			
-			int offset = _IPAD?((menuitems+0.5)*60):((menuitems-0.5)*40);
-			splabel.position = ccp(winSize.width/2, winSize.height/2-offset);
-			splabel.rotation = -8;
-			
-			SelectedNode *_label = [[[SelectedNode alloc] init] autorelease];
-			_label.node = splabel;
-			_label.selectable = YES;
-			_label.labelname = @"BUY";
-			
-			[_labels addObject:_label];
-		}
+//		if (PV_UNIVERSAL && !BOUGHT_FULLGAME && ![pv.settings getInt:@"EpisodesBought"] &&
+//			!(p1h && p2h && [PongVader getInstance].OFstarted))
+//		{
+//			CCSprite *splabel = [CCSprite spriteWithFile:_IPAD?@"morelevels2.png":@"morelevels.png"];
+//			
+//			int offset = _IPAD?((menuitems+0.5)*60):((menuitems-0.5)*40);
+//			splabel.position = ccp(winSize.width/2, winSize.height/2-offset);
+//			splabel.rotation = -8;
+//			
+//			SelectedNode *_label = [[[SelectedNode alloc] init] autorelease];
+//			_label.node = splabel;
+//			_label.selectable = YES;
+//			_label.labelname = @"BUY";
+//			
+//			[_labels addObject:_label];
+//		}
 		
-		scores[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
-		scores[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
+		_scores[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
+		_scores[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
 
-		scores[0].rotation = 0;
-		scores[1].rotation = 180;
-		[scores[0] setAnchorPoint:ccp(0, 0.5f)];
-		[scores[1] setAnchorPoint:ccp(0, 0.5f)];
+		_scores[0].rotation = 0;
+		_scores[1].rotation = 180;
+		[_scores[0] setAnchorPoint:ccp(0, 0.5f)];
+		[_scores[1] setAnchorPoint:ccp(0, 0.5f)];
 		
 		// points labels
-		scoreLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
-		scoreLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
+		_scoreLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
+		_scoreLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
 
-		scoreLabels[0].rotation = 0;
-		scoreLabels[1].rotation = 180;
-		[scoreLabels[0] setAnchorPoint:ccp(0, 0.5f)];
-		[scoreLabels[1] setAnchorPoint:ccp(0, 0.5f)];
+		_scoreLabels[0].rotation = 0;
+		_scoreLabels[1].rotation = 180;
+		[_scoreLabels[0] setAnchorPoint:ccp(0, 0.5f)];
+		[_scoreLabels[1] setAnchorPoint:ccp(0, 0.5f)];
 	
 		// max chains
-		maxChains[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX CHAIN: 0" fntFile:pv.mediumFont] retain];
-		maxChains[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX CHAIN: 0" fntFile:pv.mediumFont] retain];
+		_maxChains[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX CHAIN: 0" fntFile:pv.mediumFont] retain];
+		_maxChains[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX CHAIN: 0" fntFile:pv.mediumFont] retain];
 		
-		maxChains[0].rotation = 0;
-		maxChains[1].rotation = 180;
-		[maxChains[0] setAnchorPoint:ccp(1, 0.5f)];
-		[maxChains[1] setAnchorPoint:ccp(1, 0.5f)];
+		_maxChains[0].rotation = 0;
+		_maxChains[1].rotation = 180;
+		[_maxChains[0] setAnchorPoint:ccp(1, 0.5f)];
+		[_maxChains[1] setAnchorPoint:ccp(1, 0.5f)];
 
 		for (int i=0; i<2; i++) {			
 			int curScore = pv.player[i].score;
 			//int curChain = pv.player[i].chain;
 			int maxChain = pv.player[i].maxChain;
 			
-			[scores[i] setString:[NSString stringWithFormat:@"%d", curScore]];
-			[maxChains[i] setString:[NSString stringWithFormat:@"MAX CHAIN: %d", maxChain]];
+			[_scores[i] setString:[NSString stringWithFormat:@"%d", curScore]];
+			[_maxChains[i] setString:[NSString stringWithFormat:@"MAX CHAIN: %d", maxChain]];
 		}
 		
 		// combined stuff
 		int combChain = (p1h?pv.player[0].maxChain:0) + (p2h?pv.player[1].maxChain:0);
 		int combScore = (p1h?pv.player[0].score:0) + (p2h?pv.player[1].score:0);
 		
-		combinedChain = [[CCLabelBMFont bitmapFontAtlasWithString:[NSString stringWithFormat:@"COMBINED CHAIN: %d", combChain] fntFile:pv.mediumFont] retain];
-		combinedScore = [[CCLabelBMFont bitmapFontAtlasWithString:[NSString stringWithFormat:@"COMBINED SCORE: %d", combScore] fntFile:pv.mediumFont] retain];
+		_combinedChain = [[CCLabelBMFont bitmapFontAtlasWithString:[NSString stringWithFormat:@"COMBINED CHAIN: %d", combChain] fntFile:pv.mediumFont] retain];
+		_combinedScore = [[CCLabelBMFont bitmapFontAtlasWithString:[NSString stringWithFormat:@"COMBINED SCORE: %d", combScore] fntFile:pv.mediumFont] retain];
 
-		combinedChain.color = ccc3(255,0,0);
-		combinedScore.color = ccc3(255,0,0);
+		_combinedChain.color = ccc3(255,0,0);
+		_combinedScore.color = ccc3(255,0,0);
 
 	}
 	CGSize winSize = [[CCDirector sharedDirector] winSize];
 	if (_IPAD) {
-		scores[0].position = ccp(winSize.width-175, 65);
-		scores[1].position = ccp(175, winSize.height-65);
-		scoreLabels[0].position = ccp(winSize.width-175, 90);
-		scoreLabels[1].position = ccp(175, winSize.height-90);
-		maxChains[0].position = ccp(295, 90);
-		maxChains[1].position = ccp(winSize.width-295, winSize.height-90);
-		combinedChain.position = ccp(winSize.width/2, winSize.height/2-250);
-		combinedScore.position = ccp(winSize.width/2, winSize.height/2-300);
+		_scores[0].position = ccp(winSize.width-175, 65);
+		_scores[1].position = ccp(175, winSize.height-65);
+		_scoreLabels[0].position = ccp(winSize.width-175, 90);
+		_scoreLabels[1].position = ccp(175, winSize.height-90);
+		_maxChains[0].position = ccp(295, 90);
+		_maxChains[1].position = ccp(winSize.width-295, winSize.height-90);
+		_combinedChain.position = ccp(winSize.width/2, winSize.height/2-250);
+		_combinedScore.position = ccp(winSize.width/2, winSize.height/2-300);
 	}
 	else {
-		scores[0].position = ccp(winSize.width-100, 25);
-		scores[1].position = ccp(100, winSize.height-25);
-		scoreLabels[0].position = ccp(winSize.width-100, 45);
-		scoreLabels[1].position = ccp(100, winSize.height-45);
-		maxChains[0].position = ccp(180, 45);
-		maxChains[1].position = ccp(winSize.width-180, winSize.height-45);
-		combinedChain.position = ccp(winSize.width/2, winSize.height/2-120);
-		combinedScore.position = ccp(winSize.width/2, winSize.height/2-145);
+		_scores[0].position = ccp(winSize.width-100, 25);
+		_scores[1].position = ccp(100, winSize.height-25);
+		_scoreLabels[0].position = ccp(winSize.width-100, 45);
+		_scoreLabels[1].position = ccp(100, winSize.height-45);
+		_maxChains[0].position = ccp(180, 45);
+		_maxChains[1].position = ccp(winSize.width-180, winSize.height-45);
+		_combinedChain.position = ccp(winSize.width/2, winSize.height/2-120);
+		_combinedScore.position = ccp(winSize.width/2, winSize.height/2-145);
 	}
 	
 	if ([PongVader getInstance].OFstarted) {
 		[[PongVader getInstance] updateOFScores];
 	}
-	
-	signupAlert = [[UIAlertView alloc] initWithTitle:@"Join our forum…" message:@"You've beaten several boss fights. You're awesome. We'd like you to join a private forum to discuss game design and hang out." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-	[signupAlert addButtonWithTitle:@"Let's do this."];
-	appStoreAlert = [[UIAlertView alloc] initWithTitle:@"To the App Store…" message:@"Great job beating that boss! How about taking a quick break to write us a review? We're fighting our own battle, and could really use your help!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-	[appStoreAlert addButtonWithTitle:@"Let's do this."];	
 
 	return self;
 }
@@ -1462,36 +1195,20 @@ static int _hfAdCount = 0;
 	BOOL p2h = [[pv.settings get:@"Player2Type"] isEqualToString:@"HUMAN"];
 
 	if (p1h) {
-		[pv addChild:scores[0]];
-		[pv addChild:scoreLabels[0]];
-		[pv addChild:maxChains[0]];
+		[pv addChild:_scores[0]];
+		[pv addChild:_scoreLabels[0]];
+		[pv addChild:_maxChains[0]];
 	}
 	
 	if (p2h) {
-		[pv addChild:scores[1]];
-		[pv addChild:scoreLabels[1]];
-		[pv addChild:maxChains[1]];
+		[pv addChild:_scores[1]];
+		[pv addChild:_scoreLabels[1]];
+		[pv addChild:_maxChains[1]];
 	}
 	
 	if (p1h && p2h) {
-		[pv addChild:combinedChain];
-		[pv addChild:combinedScore];
-	}
-	
-	if (pv.gameBeat) {
-		[pv.settings inc:@"BeatBoss" by:1];
-		
-		if (!pv.sentRequest && [pv.settings getInt:@"ReviewBoss"] == 0 && [Reachable connectedToNetwork]) {
-			pv.sentRequest = YES;
-			[pv.settings set:@"ReviewBoss" toInt:1];
-			[appStoreAlert show];
-		} else if (!pv.sentRequest && [pv.settings getInt:@"BeatBoss"] >= 3 && 
-				   [pv.settings getInt:@"Beat3SignUp"] == 0 && 
-				   [Reachable connectedToNetwork]) {
-			pv.sentRequest = YES;
-			[pv.settings set:@"Beat3SignUp" toInt:1];
-			[signupAlert show];
-		}
+		[pv addChild:_combinedChain];
+		[pv addChild:_combinedScore];
 	}
 }
 
@@ -1503,32 +1220,32 @@ static int _hfAdCount = 0;
 	BOOL p2h = [[pv.settings get:@"Player2Type"] isEqualToString:@"HUMAN"];
 
 	if (p1h) {
-		[pv removeChild:scores[0] cleanup:YES];
-		[pv removeChild:scoreLabels[0] cleanup:YES];
-		[pv removeChild:maxChains[0] cleanup:YES];
+		[pv removeChild:_scores[0] cleanup:YES];
+		[pv removeChild:_scoreLabels[0] cleanup:YES];
+		[pv removeChild:_maxChains[0] cleanup:YES];
 	}
 	
 	if (p2h) {
-		[pv removeChild:scores[1] cleanup:YES];
-		[pv removeChild:scoreLabels[1] cleanup:YES];
-		[pv removeChild:maxChains[1] cleanup:YES];
+		[pv removeChild:_scores[1] cleanup:YES];
+		[pv removeChild:_scoreLabels[1] cleanup:YES];
+		[pv removeChild:_maxChains[1] cleanup:YES];
 	}
 
 	if (p1h && p2h) {
-		[pv removeChild:combinedChain cleanup:YES];
-		[pv removeChild:combinedScore cleanup:YES];
+		[pv removeChild:_combinedChain cleanup:YES];
+		[pv removeChild:_combinedScore cleanup:YES];
 	}
 }
 
 - (void) dealloc {
-	[scores[0] release];
-	[scores[1] release];
-	[scoreLabels[0] release];
-	[scoreLabels[1] release];
-	[maxChains[0] release];
-	[maxChains[1] release];
-	[combinedChain release];
-	[combinedScore release];
+	[_scores[0] release];
+	[_scores[1] release];
+	[_scoreLabels[0] release];
+	[_scoreLabels[1] release];
+	[_maxChains[0] release];
+	[_maxChains[1] release];
+	[_combinedChain release];
+	[_combinedScore release];
 	[super dealloc];
 }
 
@@ -1547,7 +1264,7 @@ static int _hfAdCount = 0;
 		next = [[[StateMainMenu alloc] init] autorelease];
 	}
 	else if ([label.labelname isEqualToString:@"START OVER"]) {
-		[FlurryAPI logEvent:@"NEWGAME"];
+//		[FlurryAPI logEvent:@"NEWGAME"];
 		curLevel = 0;
 		[pv.settings set:@"lastLevel" toInt:0];
 		pv.gameBeat = NO;
@@ -1557,67 +1274,38 @@ static int _hfAdCount = 0;
 		next = [[[StateSettingsMenu alloc] init] autorelease];
 	}
 	else if ([label.labelname isEqualToString:@"HELP"]) {
-		[FlurryAPI logEvent:@"CHECKED_INFO"];
+//		[FlurryAPI logEvent:@"CHECKED_INFO"];
 		next = [[[StateInfo alloc] init] autorelease];
 	}
 	else if ([label.labelname isEqualToString:@"TOP SCORES"]) {
-		[FlurryAPI logEvent:@"CHECKED_OF"];	
+//		[FlurryAPI logEvent:@"CHECKED_OF"];	
 		if ([PongVader getInstance].OFstarted) {
-			[OpenFeint launchDashboardWithHighscorePage:@"438984"];
+//			[OpenFeint launchDashboardWithHighscorePage:@"438984"];
 		}
 	}
 	else if ([label.labelname isEqualToString:@"POST SCORE"]) {
 		BOOL p1h = [[pv.settings get:@"Player1Type"] isEqualToString:@"HUMAN"];
 		BOOL p2h = [[pv.settings get:@"Player2Type"] isEqualToString:@"HUMAN"];
-		[FlurryAPI logEvent:@"POSTED_SCORE"];	
-		if ([PongVader getInstance].OFstarted) {
-			int combScore = (p1h?pv.player[0].score:0) + (p2h?pv.player[1].score:0);
-			[OFSocialNotificationService sendWithText:[NSString stringWithFormat:@"scored %d points while saving the world from PongVaders. http://bit.ly/koduco", combScore] imageNamed:@"default"];
-			[OFAchievementService updateAchievement:BIG_BALLER andPercentComplete:100 andShowNotification:YES];
-		}
-	} else if ([label.labelname isEqualToString:@"BUY"]) {
-		next = [[[StatePurchase alloc] initWithNextState:[self class]] autorelease];
+//		[FlurryAPI logEvent:@"POSTED_SCORE"];	
+//		if ([PongVader getInstance].OFstarted) {
+//			int combScore = (p1h?pv.player[0].score:0) + (p2h?pv.player[1].score:0);
+//			[OFSocialNotificationService sendWithText:[NSString stringWithFormat:@"scored %d points while saving the world from PongVaders. http://bit.ly/koduco", combScore] imageNamed:@"default"];
+//			[OFAchievementService updateAchievement:BIG_BALLER andPercentComplete:100 andShowNotification:YES];
+//		}
 	}
 	
 	if (next != self) {
 		if ([pv.settings getInt:@"EpisodesBought"] == 1) {
 			[self changeTo:next after:MENU_TRANSITION_PAUSE];
 		}
-		else {
-			[self changeTo:[[[StateAd alloc] initWithHighFreq: NO nextState:next] autorelease] after:MENU_TRANSITION_PAUSE];
-		}
 	}
 	return self;
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	if (alertView == appStoreAlert) {
-		switch(buttonIndex) {
-			case 0:
-				break;
-			case 1:
-				//[FlurryAPI logEvent:@"ILoveThisGame"];
-				[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=388469398&mt=8"]];
-				break;
-		}
-	}
-	else if (alertView == signupAlert) {
-		switch(buttonIndex) {
-			case 0:
-				break;
-			case 1:
-				//[FlurryAPI logEvent:@"ILoveThisGame"];
-				[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://koduco.com/signup"]];
-				break;
-		}
-	}
 }
 
 - (GameState *) doTimer:(CFTimeInterval)dTime {
 	SelectedNode *label = [_labels objectAtIndex:0];
 	if (!label.selected) {
-		label.node.scale = 1.125+(0.125)*sin(timeElapsed*1.5);
+		label.node.scale = 1.125+(0.125)*sin(_timeElapsed*1.5);
 	}
 	return [super doTimer:dTime];
 }
@@ -1628,23 +1316,23 @@ static int _hfAdCount = 0;
 
 - (id) init {
 	if ((self == [super init])) {
-		modalView = [[ModalWebView alloc] init];
-		modalView.linkdelegate = self;
-		appStoreAlert = [[UIAlertView alloc] initWithTitle:@"To the App Store…" message:@"You are headed to the Apple App Store, hopefully to write us a great review. (Thanks.)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
-		[appStoreAlert addButtonWithTitle:@"Let's do this."];
+		_modalView = [[ModalWebView alloc] init];
+		_modalView.linkdelegate = self;
+		_appStoreAlert = [[UIAlertView alloc] initWithTitle:@"To the App Store…" message:@"You are headed to the Apple App Store, hopefully to write us a great review. (Thanks.)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
+		[_appStoreAlert addButtonWithTitle:@"Let's do this."];
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[returnState release];
-	[modalView release];
-	[appStoreAlert release];
+	[_returnState release];
+	[_modalView release];
+	[_appStoreAlert release];
 	[super dealloc];
 }
 
 - (void) enter {
-	returnState = [lastState retain];
+	_returnState = [_lastState retain];
 	
 	[[OverlayViewController sharedController] show];
 	UIWebView *webView = [[[UIWebView alloc] init] autorelease];
@@ -1658,7 +1346,7 @@ static int _hfAdCount = 0;
 	[webView loadRequest:[NSURLRequest requestWithURL:
 						  [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"help" ofType:@"html"]
 									 isDirectory:NO]]];
-	[modalView launchWithTitle:@"" 
+	[_modalView launchWithTitle:@""
 					andView:webView 
 			 fromController:[OverlayViewController sharedController] 
 			checkReachable:NO
@@ -1668,7 +1356,7 @@ static int _hfAdCount = 0;
 
 - (void) done {
 	[[OverlayViewController sharedController] hide];
-	[GameState handleEvent:returnState];
+	[GameState handleEvent:_returnState];
 }
 
 - (BOOL) shouldLoad:(NSURL *)url {
@@ -1685,7 +1373,7 @@ static int _hfAdCount = 0;
         {
 			if([objectStr isEqualToString:@"love"]) 
 			{
-				[appStoreAlert show];
+				[_appStoreAlert show];
 			} 
 			/* can't call a modal view from a modal view :(
 			else if([objectStr isEqualToString:@"hate"]) 
@@ -1699,28 +1387,7 @@ static int _hfAdCount = 0;
 		}
         return NO;
     } else {
-		if (![Reachable connectedToNetwork]) {
-			[[[[UIAlertView alloc] initWithTitle:@"Network not available" message:@"You need to be in range of your cellular carrier's network, or a wifi network." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
-			return NO;	
-		} else {
-			return YES;	
-		}
-	}
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	switch(buttonIndex) {
-		case 0:
-			break;
-		case 1:
-			if (![Reachable connectedToNetwork]) {
-				[[[[UIAlertView alloc] initWithTitle:@"Network not available" message:@"You need to be in range of your cellular carrier's network, or a wifi network to provide feedback." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
-			} else {
-				[FlurryAPI logEvent:@"ILoveThisGame"];
-				[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=388469398&mt=8"]];
-			}
-			break;
+			return YES;
 	}
 }
 
@@ -1729,19 +1396,14 @@ static int _hfAdCount = 0;
 @implementation StateMoreGames
 
 - (GameState *) doTimer:(CFTimeInterval)dTime {
-	if (![Reachable connectedToNetwork]) {
-		[[[[UIAlertView alloc] initWithTitle:@"Network not available" message:@"You need to be in range of your cellular carrier's network, or a wifi network." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
-	} else {
-		[FlurryAPI logEvent:@"MoreGames"];
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://koduco.com/ourgames"]];
-	}
 	return [[[StateMainMenu alloc] init] autorelease];	
 }
 @end
 
 
 @implementation StateGetReady
-@synthesize shouldClearFirst;
+
+@synthesize shouldClearFirst = _shouldClearFirst;
 
 - (id) init {
 	if ((self = [super init])) {
@@ -1850,7 +1512,7 @@ static int _hfAdCount = 0;
 		}
 		
 		
-		shouldClearFirst = YES;
+		_shouldClearFirst = YES;
 	}
 	return self;
 }
@@ -1859,7 +1521,7 @@ static int _hfAdCount = 0;
 	PongVader *pv = [PongVader getInstance];
 	for (int i=0; i<4; i++) if (_label[i]) [pv addChild:_label[i]];
 	
-	if (shouldClearFirst) {
+	if (_shouldClearFirst) {
 		[pv clearScene];
 		[pv resetScene];
 	}
@@ -2296,7 +1958,7 @@ static int _hfAdCount = 0;
 }
 - (GameState *) doTimer:(CFTimeInterval)dTime {
 	[super doTimer:dTime];
-	if (timeElapsed < POST_GAME_PAUSE) return self;
+	if (_timeElapsed < POST_GAME_PAUSE) return self;
 	else return [[[StateLoseMenu alloc] init] autorelease];
 }
 @end
@@ -2335,17 +1997,10 @@ static int _hfAdCount = 0;
 
 - (GameState *) doTimer:(CFTimeInterval)dTime {
 	[super doTimer:dTime];
-	if (timeElapsed < POST_GAME_PAUSE) return self;
+	if (_timeElapsed < POST_GAME_PAUSE) return self;
 	else {
 		if (curLevel == 50) {
-			PongVader *pv = [PongVader getInstance];
-			if (!PV_UNIVERSAL || BOUGHT_FULLGAME || ([pv.settings getInt:@"EpisodesBought"] == 1)) {
-				return [[[StateOutroPro alloc] init] autorelease];
-			}
-			else {
-				return [[[StateOutroProUpsell alloc] init] autorelease];
-			}
-			
+            return [[[StateOutroPro alloc] init] autorelease];
 		}
 		else if (curLevel == 60) {
 			return [[[StateOutro alloc] init] autorelease];
@@ -2362,45 +2017,11 @@ static int _hfAdCount = 0;
 @implementation StateTransition
 
 - (void) enter {
-	PongVader *pv = [PongVader getInstance];
-	if (!pv.sentRequest && curLevel >= 12 && [pv.settings getInt:@"Review12"] == 0 && [Reachable connectedToNetwork]) {
-		pv.sentRequest = YES;
-		[pv.settings set:@"Review12" toInt:1];
-		appStoreAlert = [[UIAlertView alloc] initWithTitle:@"To the App Store…" message:@"Wow, you've come a long way! How about taking a quick break? If you're enjoying this game, we'd really appreciate a 5 star review!" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:nil];
-		[appStoreAlert addButtonWithTitle:@"Let's do this."];	
-		[appStoreAlert show];
-	} else if (!pv.sentRequest && curLevel >= 6 && [pv.settings getInt:@"Review6"] == 0 && [Reachable connectedToNetwork]) {
-		pv.sentRequest = YES;
-		[pv.settings set:@"Review6" toInt:1];
-		appStoreAlert = [[UIAlertView alloc] initWithTitle:@"To the App Store…" message:@"Thanks for playing PongVaders! If you are enjoying the game, please consider writing us a 5 star review in the AppStore!" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:nil];
-		[appStoreAlert addButtonWithTitle:@"Let's do this."];
-		[appStoreAlert show];
-	}
 	
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	switch(buttonIndex) {
-		case 0:
-			break;
-		case 1:
-			[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://phobos.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=388469398&mt=8"]];
- 			break;
-	}
-	appStoreAlert = nil;
-}
-
-
 - (GameState *) doTimer:(CFTimeInterval)dTime {
-	if (appStoreAlert) {
-		return self;
-	} 
-	else if (([[PongVader getInstance].settings getInt:@"EpisodesBought"] == 1)) {
-		return [[[StateGetReady alloc] init] autorelease];
-	}
-	else {
-		return [[[StateAd alloc] initWithHighFreq: YES nextState: [[[StateGetReady alloc] init] autorelease]] autorelease];
-	}
+    return [[[StateGetReady alloc] init] autorelease];
 }
 
 @end
@@ -2408,32 +2029,32 @@ static int _hfAdCount = 0;
 
 @implementation StatePlaying
 
-@synthesize shouldClearFirst;
+@synthesize shouldClearFirst = _shouldClearFirst;
 
 - (id) init {
 	if ((self = [super init])) {
 		CGSize winSize = [[CCDirector sharedDirector] winSize];
 		PongVader *pv = [PongVader getInstance];
 		
-		scores[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
-		scores[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
+		_scores[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
+		_scores[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"0" fntFile:pv.mediumFont] retain];
 		
-		scores[0].rotation = 0;
-		scores[1].rotation = 180;
-		[scores[0] setAnchorPoint:ccp(0, 0.5f)];
-		[scores[1] setAnchorPoint:ccp(0, 0.5f)];
+		_scores[0].rotation = 0;
+		_scores[1].rotation = 180;
+		[_scores[0] setAnchorPoint:ccp(0, 0.5f)];
+		[_scores[1] setAnchorPoint:ccp(0, 0.5f)];
 		
-		lastScores[0] = 0;
-		lastScores[1] = 0;
+		_lastScores[0] = 0;
+		_lastScores[1] = 0;
 		
 		// points labels
-		scoreLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
-		scoreLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
+		_scoreLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
+		_scoreLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
 		
-		scoreLabels[0].rotation = 0;
-		scoreLabels[1].rotation = 180;
-		[scoreLabels[0] setAnchorPoint:ccp(0, 0.5f)];
-		[scoreLabels[1] setAnchorPoint:ccp(0, 0.5f)];
+		_scoreLabels[0].rotation = 0;
+		_scoreLabels[1].rotation = 180;
+		[_scoreLabels[0] setAnchorPoint:ccp(0, 0.5f)];
+		[_scoreLabels[1] setAnchorPoint:ccp(0, 0.5f)];
 		
 //		// max chains
 //		maxChains[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX: 0" fntFile:pv.mediumFont] retain];
@@ -2446,94 +2067,94 @@ static int _hfAdCount = 0;
 //		[maxChains[1] setAnchorPoint:ccp(1, 0.5f)];
 		
 		// current chains
-		curChains[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"CHAIN: 0" fntFile:pv.mediumFont] retain];
-		curChains[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"CHAIN: 0" fntFile:pv.mediumFont] retain];
+		_curChains[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"CHAIN: 0" fntFile:pv.mediumFont] retain];
+		_curChains[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"CHAIN: 0" fntFile:pv.mediumFont] retain];
 		
-		curChains[0].rotation = 0;
-		curChains[1].rotation = 180;
-		[curChains[0] setAnchorPoint:ccp(0, 0.5f)];
-		[curChains[1] setAnchorPoint:ccp(0, 0.5f)];
+		_curChains[0].rotation = 0;
+		_curChains[1].rotation = 180;
+		[_curChains[0] setAnchorPoint:ccp(0, 0.5f)];
+		[_curChains[1] setAnchorPoint:ccp(0, 0.5f)];
 		
 		//pauseLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"=" fntFile:pv.largeFont] retain];
 		//pauseLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"=" fntFile:pv.largeFont] retain];
 		//pauseLabels[0].rotation = 90;
 		//pauseLabels[1].rotation = 270;
 		
-		pauseLabels[0] = [[CCSprite spriteWithSpriteFrameName:@"pause-pv.png"] retain];
-		pauseLabels[1] = [[CCSprite spriteWithSpriteFrameName:@"pause-pv.png"] retain];
+		_pauseLabels[0] = [[CCSprite spriteWithSpriteFrameName:@"pause-pv.png"] retain];
+		_pauseLabels[1] = [[CCSprite spriteWithSpriteFrameName:@"pause-pv.png"] retain];
 		
 		if (_IPAD) {
-			pauseLabels[0].scale = 2.0;
-			pauseLabels[1].scale = 2.0;
+			_pauseLabels[0].scale = 2.0;
+			_pauseLabels[1].scale = 2.0;
 		}
 		
-		[pauseLabels[0] setAnchorPoint:ccp(0, 0.5f)];
-		[pauseLabels[1] setAnchorPoint:ccp(0, 0.5f)];
+		[_pauseLabels[0] setAnchorPoint:ccp(0, 0.5f)];
+		[_pauseLabels[1] setAnchorPoint:ccp(0, 0.5f)];
 		
 		if _IPAD{
-			bulletLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT IPAD TO STEER BALL" fntFile:pv.mediumFont] retain];
-			bulletLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT IPAD TO STEER BALL" fntFile:pv.mediumFont] retain];
+			_bulletLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT IPAD TO STEER BALL" fntFile:pv.mediumFont] retain];
+			_bulletLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT IPAD TO STEER BALL" fntFile:pv.mediumFont] retain];
 		}
 		else {
-			bulletLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT TO STEER BALL" fntFile:pv.mediumFont] retain];
-			bulletLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT TO STEER BALL" fntFile:pv.mediumFont] retain];
+			_bulletLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT TO STEER BALL" fntFile:pv.mediumFont] retain];
+			_bulletLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"TILT TO STEER BALL" fntFile:pv.mediumFont] retain];
 		}
-		bulletLabels[0].color = ccc3(255,0,0);
-		bulletLabels[1].color = ccc3(255,0,0);
-		bulletLabels[1].rotation = 180;
+		_bulletLabels[0].color = ccc3(255,0,0);
+		_bulletLabels[1].color = ccc3(255,0,0);
+		_bulletLabels[1].rotation = 180;
 		
-		hasEnteredBulletTime = NO;
-		btLabelDisplayed = NO;
+		_hasEnteredBulletTime = NO;
+		_btLabelDisplayed = NO;
 		
 		// conditionally position labels	
 		if (_IPAD) {
-			scores[0].position = ccp(winSize.width-175, 65);
-			scores[1].position = ccp(175, winSize.height-65);
-			scoreLabels[0].position = ccp(winSize.width-175, 90);
-			scoreLabels[1].position = ccp(175, winSize.height-90);
-			curChains[0].position = ccp(20, 90);
-			curChains[1].position = ccp(winSize.width-20, winSize.height-90);
-			bulletLabels[1].position = ccp(winSize.width/2-1000, winSize.height/2+250);
-			bulletLabels[0].position = ccp(winSize.width/2+1000, winSize.height/2-250);
-			pauseLabels[0].position = ccp(20, 40);
-			pauseLabels[1].position = ccp(winSize.width-80, winSize.height-40);		}
+			_scores[0].position = ccp(winSize.width-175, 65);
+			_scores[1].position = ccp(175, winSize.height-65);
+			_scoreLabels[0].position = ccp(winSize.width-175, 90);
+			_scoreLabels[1].position = ccp(175, winSize.height-90);
+			_curChains[0].position = ccp(20, 90);
+			_curChains[1].position = ccp(winSize.width-20, winSize.height-90);
+			_bulletLabels[1].position = ccp(winSize.width/2-1000, winSize.height/2+250);
+			_bulletLabels[0].position = ccp(winSize.width/2+1000, winSize.height/2-250);
+			_pauseLabels[0].position = ccp(20, 40);
+			_pauseLabels[1].position = ccp(winSize.width-80, winSize.height-40);		}
 		else {
-			scores[0].position = ccp(winSize.width-100, 25);
-			scores[1].position = ccp(100, winSize.height-25);
-			scoreLabels[0].position = ccp(winSize.width-100, 45);
-			scoreLabels[1].position = ccp(100, winSize.height-45);
-			curChains[0].position = ccp(10, 45);
-			curChains[1].position = ccp(winSize.width-10, winSize.height-45);
-			bulletLabels[1].position = ccp(winSize.width/2-1000, winSize.height/2+125);
-			bulletLabels[0].position = ccp(winSize.width/2+1000, winSize.height/2-125);
-			pauseLabels[0].position = ccp(10, 20);
-			pauseLabels[1].position = ccp(winSize.width-40, winSize.height-20);
+			_scores[0].position = ccp(winSize.width-100, 25);
+			_scores[1].position = ccp(100, winSize.height-25);
+			_scoreLabels[0].position = ccp(winSize.width-100, 45);
+			_scoreLabels[1].position = ccp(100, winSize.height-45);
+			_curChains[0].position = ccp(10, 45);
+			_curChains[1].position = ccp(winSize.width-10, winSize.height-45);
+			_bulletLabels[1].position = ccp(winSize.width/2-1000, winSize.height/2+125);
+			_bulletLabels[0].position = ccp(winSize.width/2+1000, winSize.height/2-125);
+			_pauseLabels[0].position = ccp(10, 20);
+			_pauseLabels[1].position = ccp(winSize.width-40, winSize.height-20);
 		}
 		
 		//pauseLabels[0].scale = 1.5;
 		//pauseLabels[1].scale = 1.5;
 		
-		isPaused = NO;
-		touchingPause = NO;
-		shouldClearFirst = YES;
+		_isPaused = NO;
+		_touchingPause = NO;
+		_shouldClearFirst = YES;
 		
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[scores[0] release];
-	[scores[1] release];
-	[scoreLabels[0] release];
-	[scoreLabels[1] release];
+	[_scores[0] release];
+	[_scores[1] release];
+	[_scoreLabels[0] release];
+	[_scoreLabels[1] release];
 //	[maxChains[0] release];
 //	[maxChains[1] release];
-	[curChains[0] release];
-	[curChains[1] release];
-	[bulletLabels[0] release];
-	[bulletLabels[1] release];
-	[pauseLabels[0] release];
-	[pauseLabels[1] release];
+	[_curChains[0] release];
+	[_curChains[1] release];
+	[_bulletLabels[0] release];
+	[_bulletLabels[1] release];
+	[_pauseLabels[0] release];
+	[_pauseLabels[1] release];
 	[super dealloc];
 }
 
@@ -2542,27 +2163,27 @@ static int _hfAdCount = 0;
 	if ([pv.settings getInt:@"Scoreboards"] == 1) {
 	
 		if ([[pv.settings get:@"Player1Type"] isEqualToString:@"HUMAN"]) {
-			[pv addChild:scores[0]];
-			[pv addChild:scoreLabels[0]];
+			[pv addChild:_scores[0]];
+			[pv addChild:_scoreLabels[0]];
 			//[pv addChild:maxChains[0]];
-			[pv addChild:curChains[0]];
+			[pv addChild:_curChains[0]];
 		}		
 
 		if ([[pv.settings get:@"Player2Type"] isEqualToString:@"HUMAN"]) {
-			[pv addChild:scores[1]];
-			[pv addChild:scoreLabels[1]];
+			[pv addChild:_scores[1]];
+			[pv addChild:_scoreLabels[1]];
 			//[pv addChild:maxChains[1]];
-			[pv addChild:curChains[1]];
+			[pv addChild:_curChains[1]];
 		}
 	}
 	
-	[pv addChild:bulletLabels[0]];
-	[pv addChild:bulletLabels[1]];
+	[pv addChild:_bulletLabels[0]];
+	[pv addChild:_bulletLabels[1]];
 	
-	[pv addChild:pauseLabels[0]];
-	[pv addChild:pauseLabels[1]];
+	[pv addChild:_pauseLabels[0]];
+	[pv addChild:_pauseLabels[1]];
 	
-	touchingPause = NO;
+	_touchingPause = NO;
 	
 	//for (int i = 0; i < 2; i++) {
 //		[pv.player[i] setLastLevelScore];
@@ -2576,27 +2197,27 @@ static int _hfAdCount = 0;
 	if ([pv.settings getInt:@"Scoreboards"] == 1) {
 
 		if ([[pv.settings get:@"Player1Type"] isEqualToString:@"HUMAN"]) {
-			[pv removeChild:scores[0] cleanup:YES];
-			[pv removeChild:scoreLabels[0] cleanup:YES];
+			[pv removeChild:_scores[0] cleanup:YES];
+			[pv removeChild:_scoreLabels[0] cleanup:YES];
 			//[pv removeChild:maxChains[0] cleanup:YES];
-			[pv removeChild:curChains[0] cleanup:YES];
+			[pv removeChild:_curChains[0] cleanup:YES];
 		}
 		
 		if ([[pv.settings get:@"Player2Type"] isEqualToString:@"HUMAN"]) {
-			[pv removeChild:scores[1] cleanup:YES];
-			[pv removeChild:scoreLabels[1] cleanup:YES];
+			[pv removeChild:_scores[1] cleanup:YES];
+			[pv removeChild:_scoreLabels[1] cleanup:YES];
 			//[pv removeChild:maxChains[1] cleanup:YES];
-			[pv removeChild:curChains[1] cleanup:YES];
+			[pv removeChild:_curChains[1] cleanup:YES];
 		}
 	}
 	
-	btLabelDisplayed = NO;
+	_btLabelDisplayed = NO;
 	
-	[pv removeChild:bulletLabels[0] cleanup:YES];
-	[pv removeChild:bulletLabels[1] cleanup:YES];
+	[pv removeChild:_bulletLabels[0] cleanup:YES];
+	[pv removeChild:_bulletLabels[1] cleanup:YES];
 	
-	[pv removeChild:pauseLabels[0] cleanup:YES];
-	[pv removeChild:pauseLabels[1] cleanup:YES];
+	[pv removeChild:_pauseLabels[0] cleanup:YES];
+	[pv removeChild:_pauseLabels[1] cleanup:YES];
 }
 
 - (GameState *) doTimer:(CFTimeInterval)dTime {
@@ -2619,29 +2240,29 @@ static int _hfAdCount = 0;
 		int curChain = pv.player[i].chain;
 		int maxChain = pv.player[i].maxChain;
 		
-		if (lastScores[i] != curScore) {
-			[scores[i] setString:[NSString stringWithFormat:@"%d", curScore]];
-			lastScores[i] = curScore;
+		if (_lastScores[i] != curScore) {
+			[_scores[i] setString:[NSString stringWithFormat:@"%d", curScore]];
+			_lastScores[i] = curScore;
 		}
-		[maxChains[i] setString:[NSString stringWithFormat:@"MAX: %d", maxChain]];
-		[curChains[i] setString:[NSString stringWithFormat:@"CHAIN: %d", curChain]];
+		[_maxChains[i] setString:[NSString stringWithFormat:@"MAX: %d", maxChain]];
+		[_curChains[i] setString:[NSString stringWithFormat:@"CHAIN: %d", curChain]];
 	}
 
 	if (pv.bulletTime) {
 		CGSize winSize = [[CCDirector sharedDirector] winSize];
-		hasEnteredBulletTime = YES;
+		_hasEnteredBulletTime = YES;
 		// if ball also within inner radius, display labels
 		if (pv.innerBulletRadius) {
-			btLabelDisplayed = YES;	
+			_btLabelDisplayed = YES;
 		}
-		if (btLabelDisplayed) {
+		if (_btLabelDisplayed) {
 		if (_IPAD) {
-			bulletLabels[0].position = ccp(winSize.width/2, winSize.height/2-250);
-			bulletLabels[1].position = ccp(winSize.width/2, winSize.height/2+250);
+			_bulletLabels[0].position = ccp(winSize.width/2, winSize.height/2-250);
+			_bulletLabels[1].position = ccp(winSize.width/2, winSize.height/2+250);
 		}
 		else {
-			bulletLabels[0].position = ccp(winSize.width/2, winSize.height/2-120);
-			bulletLabels[1].position = ccp(winSize.width/2, winSize.height/2+120);
+			_bulletLabels[0].position = ccp(winSize.width/2, winSize.height/2-120);
+			_bulletLabels[1].position = ccp(winSize.width/2, winSize.height/2+120);
 		}
 		}
 		
@@ -2649,14 +2270,14 @@ static int _hfAdCount = 0;
 	
 	else  {
 		CGSize winSize = [[CCDirector sharedDirector] winSize];
-		btLabelDisplayed = NO;
+		_btLabelDisplayed = NO;
 		if (_IPAD) {
-			bulletLabels[0].position = ccp(winSize.width/2 + 1000, winSize.height/2-250);
-			bulletLabels[1].position = ccp(winSize.width/2 - 1000, winSize.height/2+250);
+			_bulletLabels[0].position = ccp(winSize.width/2 + 1000, winSize.height/2-250);
+			_bulletLabels[1].position = ccp(winSize.width/2 - 1000, winSize.height/2+250);
 		}
 		else {
-			bulletLabels[0].position = ccp(winSize.width/2 + 1000, winSize.height/2-120);
-			bulletLabels[1].position = ccp(winSize.width/2 - 1000, winSize.height/2+120);
+			_bulletLabels[0].position = ccp(winSize.width/2 + 1000, winSize.height/2-120);
+			_bulletLabels[1].position = ccp(winSize.width/2 - 1000, winSize.height/2+120);
 		}
 		
 		
@@ -2667,32 +2288,32 @@ static int _hfAdCount = 0;
 
 - (GameState *) doStartTouch:(NSSet *)touches withEvent:(UIEvent *)event {
 	
-	touchingPause = NO;
+	_touchingPause = NO;
 	
 	for( UITouch *touch in touches ) {
 		CGPoint location = [touch locationInView: [touch view]];
 
 		location = [[CCDirector sharedDirector] convertToGL: location];
 			
-		if (CGRectContainsPoint([pauseLabels[0] boundingBox], location) ||
-			CGRectContainsPoint([pauseLabels[1] boundingBox], location) ) {
-			touchingPause = YES;
+		if (CGRectContainsPoint([_pauseLabels[0] boundingBox], location) ||
+			CGRectContainsPoint([_pauseLabels[1] boundingBox], location) ) {
+			_touchingPause = YES;
 		}
 	} 
 	
-	if (!touchingPause) {
+	if (!_touchingPause) {
 		[[PongVader getInstance] doTouchesBegan:touches withEvent:event];	
 	}
 	return self;
 }
 - (GameState *) doDrag:(NSSet *)touches withEvent:(UIEvent *)event {
-	if (touchingPause) return self;
+	if (_touchingPause) return self;
 	[[PongVader getInstance] doTouchesMoved:touches withEvent:event];	
 	return self;
 }
 - (GameState *) doEndTouch:(NSSet *)touches withEvent:(UIEvent *)event {
 
-	if (!touchingPause) {
+	if (!_touchingPause) {
 		[[PongVader getInstance] doTouchesEnded:touches withEvent:event];	
 	}
 		
@@ -2704,11 +2325,11 @@ static int _hfAdCount = 0;
 
 		location = [[CCDirector sharedDirector] convertToGL: location];
 		
-		if (touchingPause && (CGRectContainsPoint([pauseLabels[0] boundingBox], location) ||
-							  CGRectContainsPoint([pauseLabels[1] boundingBox], location)) ) {
+		if (_touchingPause && (CGRectContainsPoint([_pauseLabels[0] boundingBox], location) ||
+							  CGRectContainsPoint([_pauseLabels[1] boundingBox], location)) ) {
 		
 			[[SimpleAudioEngine sharedEngine] playEffect:@"redpaddle.wav"];
-			isPaused = YES;
+			_isPaused = YES;
 			
 			next = [[[StatePausedMenu alloc] init] autorelease];
 			((StatePausedMenu *) next).shouldClearFirst = NO;
@@ -2716,7 +2337,7 @@ static int _hfAdCount = 0;
 		}
 	}
 	
-	touchingPause = NO;
+	_touchingPause = NO;
 	
 	if (next != self) [self changeTo:next after:0];
 	return self;
@@ -2726,8 +2347,8 @@ static int _hfAdCount = 0;
 @implementation StateMovie
 - (id) init {
 	if ((self = [super init])) {
-		for (int i=0; i<MAX_MOVIE_ACTIONS; i++) times[i] = DBL_MAX;
-		curAction = 0;
+		for (int i=0; i<MAX_MOVIE_ACTIONS; i++) _times[i] = DBL_MAX;
+		_curAction = 0;
 		PongVader *pv = [PongVader getInstance];
 		
 		//skiplabel = [[SelectedNode alloc] init];
@@ -2737,9 +2358,9 @@ static int _hfAdCount = 0;
 //		skiplabel.selectable = YES;
 //		skiplabel.node = labelnode;
 		
-		skiplabel = [[CCLabelBMFont bitmapFontAtlasWithString:@"SKIP" fntFile:pv.largeFont] retain];
-		skiplabel.position = SKIP_POS;
-		skiplabel.color = ccc3(255, 255, 255);
+		_skiplabel = [[CCLabelBMFont bitmapFontAtlasWithString:@"SKIP" fntFile:pv.largeFont] retain];
+		_skiplabel.position = SKIP_POS;
+		_skiplabel.color = ccc3(255, 255, 255);
 				
 		NSString *tbubble, *twedge;
 		
@@ -2751,27 +2372,27 @@ static int _hfAdCount = 0;
 			tbubble = [NSString stringWithString:@"textbubble-low.png"];
 			twedge = [NSString stringWithString:@"textbubblewedge-low.png"];
 		}
-		textBubble = [[CCSprite spriteWithFile:tbubble] retain];
-		[textBubble.texture setAliasTexParameters];
-		textWedge = [[CCSprite spriteWithFile:twedge] retain];
-		[textBubble.texture setAliasTexParameters];
-		ltrbox[0] = [[CCSprite spriteWithFile:tbubble] retain];
-		[ltrbox[0].texture setAliasTexParameters];
-		[ltrbox[0] setColor:ccc3(0, 0, 0)];
-		ltrbox[1] = [[CCSprite spriteWithFile:tbubble] retain];
-		[ltrbox[1].texture setAliasTexParameters];
-		[ltrbox[1] setColor:ccc3(0, 0, 0)];
+		_textBubble = [[CCSprite spriteWithFile:tbubble] retain];
+		[_textBubble.texture setAliasTexParameters];
+		_textWedge = [[CCSprite spriteWithFile:twedge] retain];
+		[_textBubble.texture setAliasTexParameters];
+		_ltrbox[0] = [[CCSprite spriteWithFile:tbubble] retain];
+		[_ltrbox[0].texture setAliasTexParameters];
+		[_ltrbox[0] setColor:ccc3(0, 0, 0)];
+		_ltrbox[1] = [[CCSprite spriteWithFile:tbubble] retain];
+		[_ltrbox[1].texture setAliasTexParameters];
+		[_ltrbox[1] setColor:ccc3(0, 0, 0)];
 	}
 	return self;
 }
 
 
 -(void) dealloc {
-	[skiplabel release];
-	[textBubble release];
-	[textWedge release];
-	[ltrbox[0] release];
-	[ltrbox[1] release];
+	[_skiplabel release];
+	[_textBubble release];
+	[_textWedge release];
+	[_ltrbox[0] release];
+	[_ltrbox[1] release];
 	[super dealloc];
 }
 
@@ -2795,29 +2416,29 @@ static int _hfAdCount = 0;
 		offset = 28;	
 	}
 
-	[ltrbox[0] setPosition:ccp(ssz.width/2.0, offset)];
-	[ltrbox[1] setPosition:ccp(ssz.width/2.0, ssz.height-offset)];
-	ltrbox[0].scaleX = ssz.width / (float) (offset * 2.0);
-	ltrbox[1].scaleX = ssz.width / (float) (offset * 2.0);
+	[_ltrbox[0] setPosition:ccp(ssz.width/2.0, offset)];
+	[_ltrbox[1] setPosition:ccp(ssz.width/2.0, ssz.height-offset)];
+	_ltrbox[0].scaleX = ssz.width / (float) (offset * 2.0);
+	_ltrbox[1].scaleX = ssz.width / (float) (offset * 2.0);
 	
-	ltrbox[0].opacity = 0;
-	ltrbox[1].opacity = 0;
+	_ltrbox[0].opacity = 0;
+	_ltrbox[1].opacity = 0;
 	
 	[pv showPaddles:NO];
 	[pv setDifficulty:1];
-	[pv addChild:ltrbox[0]];
-	[pv addChild:ltrbox[1]];
-	[pv addChild:skiplabel z:100];
+	[pv addChild:_ltrbox[0]];
+	[pv addChild:_ltrbox[1]];
+	[pv addChild:_skiplabel z:100];
 
-	[skiplabel runAction:
+	[_skiplabel runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCFadeIn actionWithDuration:1.0]]];
 	
-	[ltrbox[0] runAction:
+	[_ltrbox[0] runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCFadeIn actionWithDuration:1.0]]];
 	
-	[ltrbox[1] runAction:
+	[_ltrbox[1] runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCFadeIn actionWithDuration:1.0]]];
 }
@@ -2831,24 +2452,24 @@ static int _hfAdCount = 0;
 	[[BeatSequencer getInstance] clearEvents];
 
 	[self clearMessageAndBubble];
-	[pv removeChild:ltrbox[0] cleanup: YES];
-	[pv removeChild:ltrbox[1] cleanup: YES];
-	[pv removeChild:skiplabel cleanup: YES];
+	[pv removeChild:_ltrbox[0] cleanup: YES];
+	[pv removeChild:_ltrbox[1] cleanup: YES];
+	[pv removeChild:_skiplabel cleanup: YES];
 }
 
 - (void) leaving {
-	id action = [CCPropertyAction actionWithDuration:MUSIC_FADE_TIME key:@"BackgroundVolume" from:1.0 to:0.0];
+	id action = [CCActionTween actionWithDuration:MUSIC_FADE_TIME key:@"BackgroundVolume" from:1.0 to:0.0];
 	[[PongVader getInstance] runAction:action];
 
-	[skiplabel runAction:
+	[_skiplabel runAction:
 	 [CCEaseExponentialIn actionWithAction:
 	  [CCFadeOut actionWithDuration:1.0]]];
 	
-	[ltrbox[0] runAction:
+	[_ltrbox[0] runAction:
 	 [CCEaseExponentialIn actionWithAction:
 	  [CCFadeOut actionWithDuration:1.0]]];
 	
-	[ltrbox[1] runAction:
+	[_ltrbox[1] runAction:
 	 [CCEaseExponentialIn actionWithAction:
 	  [CCFadeOut actionWithDuration:1.0]]];
 }
@@ -2871,18 +2492,18 @@ static int _hfAdCount = 0;
 //		textBubble.scaleY = (rowcount*12+12)/128.0;
 //	}
 	
-	textBubble.scaleX = (rowlength*20+25)/128.0;
-	textBubble.scaleY = (rowcount*20+25)/128.0;
+	_textBubble.scaleX = (rowlength*20+25)/128.0;
+	_textBubble.scaleY = (rowcount*20+25)/128.0;
 	
-	CGPoint tbs = ccp((int)p.x+textWedge.contentSize.width/2.0, (int) p.y+textWedge.contentSize.height/2.0);
-	CGPoint pos = ccp((int)tbs.x+textBubble.scaleX*textBubble.contentSize.width / 2.0, (int) tbs.y+textBubble.scaleY*textBubble.contentSize.height/2.0);
+	CGPoint tbs = ccp((int)p.x+_textWedge.contentSize.width/2.0, (int) p.y+_textWedge.contentSize.height/2.0);
+	CGPoint pos = ccp((int)tbs.x+_textBubble.scaleX*_textBubble.contentSize.width / 2.0, (int) tbs.y+_textBubble.scaleY*_textBubble.contentSize.height/2.0);
 	
-	messageLabel.position = pos;
-	textBubble.position = pos;
-	textWedge.position = tbs;
+	_messageLabel.position = pos;
+	_textBubble.position = pos;
+	_textWedge.position = tbs;
 	
-	for (int i=0; i<[[messageLabel children] count]; i++) {
-		CCLabelBMFont *line = [[messageLabel children] objectAtIndex:i];
+	for (int i=0; i<[[_messageLabel children] count]; i++) {
+		CCLabelBMFont *line = [[_messageLabel children] objectAtIndex:i];
 		
 		if (speaker == 1) {
 			line.color = ccc3(0, 0, 0);	
@@ -2892,19 +2513,19 @@ static int _hfAdCount = 0;
 		}
 	}
 	
-	[pv addChild:textBubble];
-	[pv addChild:textWedge];
-	[pv addChild:messageLabel];
+	[pv addChild:_textBubble];
+	[pv addChild:_textWedge];
+	[pv addChild:_messageLabel];
 	[[SimpleAudioEngine sharedEngine] playEffect:@"speech.wav"];
 }
 
 -(void) clearMessageAndBubble {
-	if (!messageLabel) return;
-	[textWedge removeFromParentAndCleanup:YES];
-	[textBubble removeFromParentAndCleanup:YES];
-	[messageLabel removeFromParentAndCleanup:YES];
-	[messageLabel release];
-	messageLabel = nil;
+	if (!_messageLabel) return;
+	[_textWedge removeFromParentAndCleanup:YES];
+	[_textBubble removeFromParentAndCleanup:YES];
+	[_messageLabel removeFromParentAndCleanup:YES];
+	[_messageLabel release];
+	_messageLabel = nil;
 }
 
 - (GameState *) doTimer:(CFTimeInterval)dTime
@@ -2913,10 +2534,10 @@ static int _hfAdCount = 0;
 	[[BeatSequencer getInstance] doTimer:dTime];
 	[pv doTick:dTime];
 	GameState *next = self;
-	for (int i=MAX_MOVIE_ACTIONS-1; i>=curAction; i--) {
-		if (timeElapsed >= times[i]) {
-			next = [self doAction:curAction];
-			curAction++;
+	for (int i=MAX_MOVIE_ACTIONS-1; i>=_curAction; i--) {
+		if (_timeElapsed >= _times[i]) {
+			next = [self doAction:_curAction];
+			_curAction++;
 		}
 	}
 	return next;
@@ -2966,7 +2587,7 @@ static int _hfAdCount = 0;
 		CGPoint location = [touch locationInView: [touch view]];
 		location = [[CCDirector sharedDirector] convertToGL: location];
 		
-		if (CGRectContainsPoint([skiplabel getRect], location)) {			
+		if (CGRectContainsPoint([_skiplabel getRect], location)) {
 			[[SimpleAudioEngine sharedEngine] playEffect:@"redpaddle.wav"];
 			[self skip];
 		}
@@ -2989,183 +2610,183 @@ static int _hfAdCount = 0;
 			vPadLarge = 120;
 			lMargin = 60;
 			
-			jonvader = [CCSprite spriteWithFile:@"jon-bobble-ipad.png"];
-			colevader = [CCSprite spriteWithFile:@"cole-waddle-ipad.png"];
+			_jonvader = [CCSprite spriteWithFile:@"jon-bobble-ipad.png"];
+			_colevader = [CCSprite spriteWithFile:@"cole-waddle-ipad.png"];
 		}
 		else {
 			vPadSmall = 30;
 			vPadLarge = 60;
 			lMargin = 30;
 			
-			jonvader = [[CCSprite spriteWithFile:@"jon-bobble-iphone.png"] retain];
-			colevader = [[CCSprite spriteWithFile:@"cole-waddle-iphone.png"] retain];
+			_jonvader = [[CCSprite spriteWithFile:@"jon-bobble-iphone.png"] retain];
+			_colevader = [[CCSprite spriteWithFile:@"cole-waddle-iphone.png"] retain];
 		}
 		
-		jonvader.opacity = 0;
-		jonvader.rotation = 90;
-		colevader.opacity = 0;
-		colevader.rotation = 90;
+		_jonvader.opacity = 0;
+		_jonvader.rotation = 90;
+		_colevader.opacity = 0;
+		_colevader.rotation = 90;
 		
-		times[0] = 1;
-		times[1] = times[0] + CREDITS_LENGTH;
-		times[2] = times[1] + PICTURE_LENGTH;
-		times[3] = times[2] + PICTURE_TRANSITION;
-		times[4] = times[3] + PICTURE_LENGTH;
-		times[5] = times[4] + PICTURE_TRANSITION;
+		_times[0] = 1;
+		_times[1] = _times[0] + CREDITS_LENGTH;
+		_times[2] = _times[1] + PICTURE_LENGTH;
+		_times[3] = _times[2] + PICTURE_TRANSITION;
+		_times[4] = _times[3] + PICTURE_LENGTH;
+		_times[5] = _times[4] + PICTURE_TRANSITION;
 
 		
 		// make everything a child of this node so only the node needs to be moved
-		scrollNode = [[CCNode node] retain];
-		scrollNode.position = ccp(0,0);
+		_scrollNode = [[CCNode node] retain];
+		_scrollNode.position = ccp(0,0);
 		
 		// LOGOS AND HUMAN CREDITS
 		
-		pvLogo = [CCSprite spriteWithFile:@"pvTitle.png"];
-		pvLogo.position = ccp(ssz.width/2, 0);
-		pvLogo.scale = 2.0;
+		_pvLogo = [CCSprite spriteWithFile:@"pvTitle.png"];
+		_pvLogo.position = ccp(ssz.width/2, 0);
+		_pvLogo.scale = 2.0;
 		
-		producedBy = [CCLabelBMFont bitmapFontAtlasWithString:@"PRODUCED BY" fntFile:pv.largeFont];
-		producedBy.position = ccp(ssz.width/2, pvLogo.position.y - ((pvLogo.contentSize.height) + vPadSmall + (_IPAD? 200 : 400)));
-		producedBy.color = ccc3(255, 255, 255);
+		_producedBy = [CCLabelBMFont bitmapFontAtlasWithString:@"PRODUCED BY" fntFile:pv.largeFont];
+		_producedBy.position = ccp(ssz.width/2, _pvLogo.position.y - ((_pvLogo.contentSize.height) + vPadSmall + (_IPAD? 200 : 400)));
+		_producedBy.color = ccc3(255, 255, 255);
 		
-		kdcLogo = [CCSprite spriteWithFile:@"kdcLogo.png"];
-		kdcLogo.position = ccp(ssz.width/2, producedBy.position.y - ((producedBy.contentSize.height) + vPadSmall * 2.5));
+		_kdcLogo = [CCSprite spriteWithFile:@"kdcLogo.png"];
+		_kdcLogo.position = ccp(ssz.width/2, _producedBy.position.y - ((_producedBy.contentSize.height) + vPadSmall * 2.5));
 		
-		artBy = [CCLabelBMFont bitmapFontAtlasWithString:@"ART BY" fntFile:pv.largeFont];
-		artBy.position = ccp(ssz.width/2, kdcLogo.position.y - ((kdcLogo.contentSize.height) + vPadSmall));
-		artBy.color = ccc3(255, 255, 255);
+		_artBy = [CCLabelBMFont bitmapFontAtlasWithString:@"ART BY" fntFile:pv.largeFont];
+		_artBy.position = ccp(ssz.width/2, _kdcLogo.position.y - ((_kdcLogo.contentSize.height) + vPadSmall));
+		_artBy.color = ccc3(255, 255, 255);
 		
-		apLogo = [CCSprite spriteWithFile:@"apLogo.png"];
-		apLogo.position = ccp(ssz.width/2, artBy.position.y - ((artBy.contentSize.height) + vPadSmall));
+		_apLogo = [CCSprite spriteWithFile:@"apLogo.png"];
+		_apLogo.position = ccp(ssz.width/2, _artBy.position.y - ((_artBy.contentSize.height) + vPadSmall));
 		
-		musicBy = [CCLabelBMFont bitmapFontAtlasWithString:@"MUSIC BY" fntFile:pv.largeFont];
-		musicBy.position = ccp(ssz.width/2, apLogo.position.y - ((apLogo.contentSize.height) + vPadSmall));
-		musicBy.color = ccc3(255, 255, 255);
+		_musicBy = [CCLabelBMFont bitmapFontAtlasWithString:@"MUSIC BY" fntFile:pv.largeFont];
+		_musicBy.position = ccp(ssz.width/2, _apLogo.position.y - ((_apLogo.contentSize.height) + vPadSmall));
+		_musicBy.color = ccc3(255, 255, 255);
 		
-		nsLogo = [CCSprite spriteWithFile:@"nsLogo.png"];
-		nsLogo.position = ccp(ssz.width/2, musicBy.position.y - ((musicBy.contentSize.height) + vPadSmall));
+		_nsLogo = [CCSprite spriteWithFile:@"nsLogo.png"];
+		_nsLogo.position = ccp(ssz.width/2, _musicBy.position.y - ((_musicBy.contentSize.height) + vPadSmall));
 		
 		// STARRING
-		starring = [CCLabelBMFont bitmapFontAtlasWithString:@"STARRING" fntFile:pv.largeFont];
-		starring.position = ccp(ssz.width/2, nsLogo.position.y - ((nsLogo.contentSize.height) + vPadLarge));
-		starring.color = ccc3(255, 255, 255);
+		_starring = [CCLabelBMFont bitmapFontAtlasWithString:@"STARRING" fntFile:pv.largeFont];
+		_starring.position = ccp(ssz.width/2, _nsLogo.position.y - ((_nsLogo.contentSize.height) + vPadLarge));
+		_starring.color = ccc3(255, 255, 255);
 		
-		ensign = [CCLabelBMFont bitmapFontAtlasWithString:@"ENSIGN PRANCE" fntFile:pv.mediumFont];
-		ensign.position = ccp(ssz.width/2, starring.position.y - ((starring.contentSize.height) + vPadSmall));
-		ensign.color = ccc3(255, 255, 255);
+		_ensign = [CCLabelBMFont bitmapFontAtlasWithString:@"ENSIGN PRANCE" fntFile:pv.mediumFont];
+		_ensign.position = ccp(ssz.width/2, _starring.position.y - ((_starring.contentSize.height) + vPadSmall));
+		_ensign.color = ccc3(255, 255, 255);
 		
-		ensPrance = (Invader *) [ENSPrance spriteBodyAt: ccp(ssz.width/2, ensign.position.y - ((ensign.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
-		[ensPrance promote: 1];
+		_ensPrance = (Invader *) [ENSPrance spriteBodyAt: ccp(ssz.width/2, _ensign.position.y - ((_ensign.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
+		[_ensPrance promote: 1];
 		
-		lieutenant = [CCLabelBMFont bitmapFontAtlasWithString:@"LIEUTENANT WADDLE" fntFile:pv.mediumFont];
-		lieutenant.position = ccp(ssz.width/2, ensPrance.position.y - ((ensPrance.contentSize.height) + vPadSmall));
-		lieutenant.color = ccc3(255, 255, 255);
+		_lieutenant = [CCLabelBMFont bitmapFontAtlasWithString:@"LIEUTENANT WADDLE" fntFile:pv.mediumFont];
+		_lieutenant.position = ccp(ssz.width/2, _ensPrance.position.y - ((_ensPrance.contentSize.height) + vPadSmall));
+		_lieutenant.color = ccc3(255, 255, 255);
 		
-		ltWaddle = (Invader *) [LTWaddle spriteBodyAt: ccp(ssz.width/2, lieutenant.position.y - ((lieutenant.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
-		[ltWaddle promote: 1];
+		_ltWaddle = (Invader *) [LTWaddle spriteBodyAt: ccp(ssz.width/2, _lieutenant.position.y - ((_lieutenant.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
+		[_ltWaddle promote: 1];
 		
-		commander = [CCLabelBMFont bitmapFontAtlasWithString:@"COMMANDER BOBBLE" fntFile:pv.mediumFont];
-		commander.position = ccp(ssz.width/2, ltWaddle.position.y - ((ltWaddle.contentSize.height) + vPadSmall));
-		commander.color = ccc3(255, 255, 255);
+		_commander = [CCLabelBMFont bitmapFontAtlasWithString:@"COMMANDER BOBBLE" fntFile:pv.mediumFont];
+		_commander.position = ccp(ssz.width/2, _ltWaddle.position.y - ((_ltWaddle.contentSize.height) + vPadSmall));
+		_commander.color = ccc3(255, 255, 255);
 		
-		cdrBobble = (Invader *) [CDRBobble spriteBodyAt: ccp(ssz.width/2, commander.position.y - ((commander.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
-		[cdrBobble promote: 1];
+		_cdrBobble = (Invader *) [CDRBobble spriteBodyAt: ccp(ssz.width/2, _commander.position.y - ((_commander.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
+		[_cdrBobble promote: 1];
 
 
 		
 		// SUPPORTED BY
-		supportedBy = [CCLabelBMFont bitmapFontAtlasWithString:@"SUPPORTED BY" fntFile:pv.largeFont];
-		supportedBy.position = ccp(ssz.width/2, cdrBobble.position.y - ((cdrBobble.contentSize.height) + vPadLarge));
-		supportedBy.color = ccc3(255, 255, 255);
+		_supportedBy = [CCLabelBMFont bitmapFontAtlasWithString:@"SUPPORTED BY" fntFile:pv.largeFont];
+		_supportedBy.position = ccp(ssz.width/2, _cdrBobble.position.y - ((_cdrBobble.contentSize.height) + vPadLarge));
+		_supportedBy.color = ccc3(255, 255, 255);
 		
-		tank = [CCLabelBMFont bitmapFontAtlasWithString:@"TANK" fntFile:pv.mediumFont];
-		tank.position = ccp(ssz.width/2, supportedBy.position.y - ((supportedBy.contentSize.height) + vPadSmall));
-		tank.color = ccc3(255, 255, 255);
+		_tank = [CCLabelBMFont bitmapFontAtlasWithString:@"TANK" fntFile:pv.mediumFont];
+		_tank.position = ccp(ssz.width/2, _supportedBy.position.y - ((_supportedBy.contentSize.height) + vPadSmall));
+		_tank.color = ccc3(255, 255, 255);
 		
-		shieldvader = (Invader *) [ShieldInvader spriteBodyAt: ccp(ssz.width/2, tank.position.y - ((tank.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
+		_shieldvader = (Invader *) [ShieldInvader spriteBodyAt: ccp(ssz.width/2, _tank.position.y - ((_tank.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
-		sweetCheeks = [CCLabelBMFont bitmapFontAtlasWithString:@"SWEET CHEEKS" fntFile:pv.mediumFont];
-		sweetCheeks.position = ccp(ssz.width/2, shieldvader.position.y - ((shieldvader.contentSize.height) + vPadSmall));
-		sweetCheeks.color = ccc3(255, 255, 255);	
+		_sweetCheeks = [CCLabelBMFont bitmapFontAtlasWithString:@"SWEET CHEEKS" fntFile:pv.mediumFont];
+		_sweetCheeks.position = ccp(ssz.width/2, _shieldvader.position.y - ((_shieldvader.contentSize.height) + vPadSmall));
+		_sweetCheeks.color = ccc3(255, 255, 255);
 		
-		redvader = (Invader *) [StationaryInvader spriteBodyAt: ccp(ssz.width/2, sweetCheeks.position.y - ((sweetCheeks.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
+		_redvader = (Invader *) [StationaryInvader spriteBodyAt: ccp(ssz.width/2, _sweetCheeks.position.y - ((_sweetCheeks.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
 		// CAMEOS
 		
-		cameos = [CCLabelBMFont bitmapFontAtlasWithString:@"CAMEOS" fntFile:pv.largeFont];
-		cameos.position = ccp(ssz.width/2, redvader.position.y - ((redvader.contentSize.height) + vPadLarge));
-		cameos.color = ccc3(255, 255, 255);
+		_cameos = [CCLabelBMFont bitmapFontAtlasWithString:@"CAMEOS" fntFile:pv.largeFont];
+		_cameos.position = ccp(ssz.width/2, _redvader.position.y - ((_redvader.contentSize.height) + vPadLarge));
+		_cameos.color = ccc3(255, 255, 255);
 
-		seaman = [CCLabelBMFont bitmapFontAtlasWithString:@"SEAMAN EYE" fntFile:pv.mediumFont];
-		seaman.position = ccp(ssz.width/2, cameos.position.y - ((cameos.contentSize.height) + vPadSmall));
-		seaman.color = ccc3(255, 255, 255);
+		_seaman = [CCLabelBMFont bitmapFontAtlasWithString:@"SEAMAN EYE" fntFile:pv.mediumFont];
+		_seaman.position = ccp(ssz.width/2, _cameos.position.y - ((_cameos.contentSize.height) + vPadSmall));
+		_seaman.color = ccc3(255, 255, 255);
 		
-		smnEye = (Invader *) [SNEye spriteBodyAt: ccp(ssz.width/2, seaman.position.y - ((seaman.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
+		_smnEye = (Invader *) [SNEye spriteBodyAt: ccp(ssz.width/2, _seaman.position.y - ((_seaman.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
-		captain = [CCLabelBMFont bitmapFontAtlasWithString:@"CAPTAIN DAWDLE" fntFile:pv.mediumFont] ;
-		captain.position = ccp(ssz.width/2, smnEye.position.y - ((smnEye.contentSize.height) + vPadSmall));
-		captain.color = ccc3(255, 255, 255);
+		_captain = [CCLabelBMFont bitmapFontAtlasWithString:@"CAPTAIN DAWDLE" fntFile:pv.mediumFont] ;
+		_captain.position = ccp(ssz.width/2, _smnEye.position.y - ((_smnEye.contentSize.height) + vPadSmall));
+		_captain.color = ccc3(255, 255, 255);
 		
-		cptDawdle = (Invader *) [CPTDawdle spriteBodyAt: ccp(ssz.width/2, captain.position.y - ((captain.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
+		_cptDawdle = (Invader *) [CPTDawdle spriteBodyAt: ccp(ssz.width/2, _captain.position.y - ((_captain.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
-		admiral = [CCLabelBMFont bitmapFontAtlasWithString:@"ADMIRAL BRAIN" fntFile:pv.mediumFont] ;
-		admiral.position = ccp(ssz.width/2, cptDawdle.position.y - ((cptDawdle.contentSize.height) + vPadSmall));
-		admiral.color = ccc3(255, 255, 255);
+		_admiral = [CCLabelBMFont bitmapFontAtlasWithString:@"ADMIRAL BRAIN" fntFile:pv.mediumFont] ;
+		_admiral.position = ccp(ssz.width/2, _cptDawdle.position.y - ((_cptDawdle.contentSize.height) + vPadSmall));
+		_admiral.color = ccc3(255, 255, 255);
 		
-		admBrain = (Invader *) [ADMBrain spriteBodyAt: ccp(ssz.width/2, admiral.position.y - ((admiral.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
+		_admBrain = (Invader *) [ADMBrain spriteBodyAt: ccp(ssz.width/2, _admiral.position.y - ((_admiral.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
 		// DISCLAIMER
 		
-		humaneNotice1 = [CCLabelBMFont bitmapFontAtlasWithString:@"NO ALIENS WERE HARMED" fntFile:pv.largeFont];
-		humaneNotice1.position = ccp(ssz.width/2, admBrain.position.y - ((admBrain.contentSize.height) + vPadLarge));
-		humaneNotice1.color = ccc3(255, 255, 255);
+		_humaneNotice1 = [CCLabelBMFont bitmapFontAtlasWithString:@"NO ALIENS WERE HARMED" fntFile:pv.largeFont];
+		_humaneNotice1.position = ccp(ssz.width/2, _admBrain.position.y - ((_admBrain.contentSize.height) + vPadLarge));
+		_humaneNotice1.color = ccc3(255, 255, 255);
 		
-		humaneNotice2 = [CCLabelBMFont bitmapFontAtlasWithString:@"MAKING THIS GAME" fntFile:pv.largeFont];
-		humaneNotice2.position = ccp(ssz.width/2, humaneNotice1.position.y - ((humaneNotice1.contentSize.height) + vPadSmall));
-		humaneNotice2.color = ccc3(255, 255, 255);
+		_humaneNotice2 = [CCLabelBMFont bitmapFontAtlasWithString:@"MAKING THIS GAME" fntFile:pv.largeFont];
+		_humaneNotice2.position = ccp(ssz.width/2, _humaneNotice1.position.y - ((_humaneNotice1.contentSize.height) + vPadSmall));
+		_humaneNotice2.color = ccc3(255, 255, 255);
 		
-		humaneLogo = [CCSprite spriteWithFile:@"hsLogo.png"];
-		humaneLogo.position = ccp(ssz.width/2, humaneNotice2.position.y - ((humaneNotice2.contentSize.height) + vPadLarge *2.0));
+		_humaneLogo = [CCSprite spriteWithFile:@"hsLogo.png"];
+		_humaneLogo.position = ccp(ssz.width/2, _humaneNotice2.position.y - ((_humaneNotice2.contentSize.height) + vPadLarge *2.0));
 		
-		humaneTitle = [CCLabelBMFont bitmapFontAtlasWithString:@"GALACTIC HUMANE SOCIETY" fntFile:pv.largeFont];
-		humaneTitle.position = ccp(ssz.width/2, humaneLogo.position.y - ((humaneLogo.contentSize.height) + vPadLarge));
-		humaneTitle.color = ccc3(255, 255, 255);		
+		_humaneTitle = [CCLabelBMFont bitmapFontAtlasWithString:@"GALACTIC HUMANE SOCIETY" fntFile:pv.largeFont];
+		_humaneTitle.position = ccp(ssz.width/2, _humaneLogo.position.y - ((_humaneLogo.contentSize.height) + vPadLarge));
+		_humaneTitle.color = ccc3(255, 255, 255);
 
 		// double scale for iPad
 		if (_IPAD) {
-			pvLogo.scale = 4.0;
+			_pvLogo.scale = 4.0;
 			//producedBy.scale = 2.0;
-			kdcLogo.scale = 2.0;
+			_kdcLogo.scale = 2.0;
 			//artBy.scale = 2.0;
-			apLogo.scale = 2.0;
+			_apLogo.scale = 2.0;
 			//musicBy.scale = 2.0;
-			nsLogo.scale = 2.0;
+			_nsLogo.scale = 2.0;
 			
 			//starring.scale = 2.0;
 			//ensign.scale = 2.0;
-			ensPrance.scale = 2.0;
+			_ensPrance.scale = 2.0;
 			//lieutenant.scale = 2.0;
-			ltWaddle.scale = 2.0;
+			_ltWaddle.scale = 2.0;
 			//commander.scale = 2.0;
-			cdrBobble.scale = 2.0;
+			_cdrBobble.scale = 2.0;
 			
 			//supportedBy.scale = 2.0;
 			//tank.scale = 2.0;
-			shieldvader.scale = 2.0;
+			_shieldvader.scale = 2.0;
 			//sweetCheeks.scale = 2.0;
-			redvader.scale = 2.0;
+			_redvader.scale = 2.0;
 			
 			//cameos.scale = 2.0;
 			//seaman.scale = 2.0;
-			smnEye.scale = 2.0;
+			_smnEye.scale = 2.0;
 			//captain.scale = 2.0;
-			cptDawdle.scale = 2.0;
+			_cptDawdle.scale = 2.0;
 			//admiral.scale = 2.0;
-			admBrain.scale = 2.0;
+			_admBrain.scale = 2.0;
 			
 			//humaneNotice1.scale = 2.0;
 			//humaneNotice2.scale = 2.0;
-			humaneLogo.scale = 2.0;
+			_humaneLogo.scale = 2.0;
 			//humaneTitle.scale = 2.0;
 		}
 		
@@ -3173,44 +2794,44 @@ static int _hfAdCount = 0;
 		// add to node
 		
 		// people credits
-		[scrollNode addChild:pvLogo];
-		[scrollNode addChild:producedBy];
-		[scrollNode addChild:kdcLogo];
-		[scrollNode addChild:artBy];
-		[scrollNode addChild:apLogo];
-		[scrollNode addChild:musicBy];
-		[scrollNode addChild:nsLogo];
+		[_scrollNode addChild:_pvLogo];
+		[_scrollNode addChild:_producedBy];
+		[_scrollNode addChild:_kdcLogo];
+		[_scrollNode addChild:_artBy];
+		[_scrollNode addChild:_apLogo];
+		[_scrollNode addChild:_musicBy];
+		[_scrollNode addChild:_nsLogo];
 		
 		// starring
-		[scrollNode addChild:starring];
-		[scrollNode addChild:ensign];
-		[scrollNode addChild:ensPrance];
-		[scrollNode addChild:lieutenant];
-		[scrollNode addChild:ltWaddle];
-		[scrollNode addChild:commander];
-		[scrollNode addChild:cdrBobble];
+		[_scrollNode addChild:_starring];
+		[_scrollNode addChild:_ensign];
+		[_scrollNode addChild:_ensPrance];
+		[_scrollNode addChild:_lieutenant];
+		[_scrollNode addChild:_ltWaddle];
+		[_scrollNode addChild:_commander];
+		[_scrollNode addChild:_cdrBobble];
 		
 		// supported
-		[scrollNode addChild:supportedBy];
-		[scrollNode addChild:tank];
-		[scrollNode addChild:shieldvader];
-		[scrollNode addChild:sweetCheeks];
-		[scrollNode addChild:redvader];
+		[_scrollNode addChild:_supportedBy];
+		[_scrollNode addChild:_tank];
+		[_scrollNode addChild:_shieldvader];
+		[_scrollNode addChild:_sweetCheeks];
+		[_scrollNode addChild:_redvader];
 		
 		// cameos
-		[scrollNode addChild:cameos];
-		[scrollNode addChild:seaman];
-		[scrollNode addChild:smnEye];
-		[scrollNode addChild:captain];
-		[scrollNode addChild:cptDawdle];
-		[scrollNode addChild:admiral];
-		[scrollNode addChild:admBrain];
+		[_scrollNode addChild:_cameos];
+		[_scrollNode addChild:_seaman];
+		[_scrollNode addChild:_smnEye];
+		[_scrollNode addChild:_captain];
+		[_scrollNode addChild:_cptDawdle];
+		[_scrollNode addChild:_admiral];
+		[_scrollNode addChild:_admBrain];
 		
 		// disclaimer
-		[scrollNode addChild:humaneNotice1];
-		[scrollNode addChild:humaneNotice2];
-		[scrollNode addChild:humaneLogo];
-		[scrollNode addChild:humaneTitle];
+		[_scrollNode addChild:_humaneNotice1];
+		[_scrollNode addChild:_humaneNotice2];
+		[_scrollNode addChild:_humaneLogo];
+		[_scrollNode addChild:_humaneTitle];
 		
 		
 	}
@@ -3227,15 +2848,15 @@ static int _hfAdCount = 0;
 	PongVader *pv = [PongVader getInstance];
 
 	//viewReset = NO;
-	[pv addChild:scrollNode];
+	[pv addChild:_scrollNode];
 	
 }
 
 - (void) leaving {
 	PongVader *pv = [PongVader getInstance];
-	[pv removeChild:scrollNode cleanup:YES];
-	[pv removeChild:jonvader cleanup:YES];
-	[pv removeChild:colevader cleanup:YES];
+	[pv removeChild:_scrollNode cleanup:YES];
+	[pv removeChild:_jonvader cleanup:YES];
+	[pv removeChild:_colevader cleanup:YES];
 	
 	[super leaving];
 }
@@ -3251,24 +2872,24 @@ static int _hfAdCount = 0;
 	GameState *next = self;
 	
 	if (action == 0) {
-		[scrollNode runAction:[CCMoveBy actionWithDuration:CREDITS_LENGTH position:_IPAD ? ccp(0,-humaneTitle.position.y + 1.5* ssz.height) : ccp(0, -humaneTitle.position.y + 1.5*ssz.height)]];
+		[_scrollNode runAction:[CCMoveBy actionWithDuration:CREDITS_LENGTH position:_IPAD ? ccp(0,-_humaneTitle.position.y + 1.5* ssz.height) : ccp(0, -_humaneTitle.position.y + 1.5*ssz.height)]];
 	}
 	else if (action == 1) {
 		//[scrollNode runAction:[CCFadeOut actionWithDuration:PICTURE_TRANSITION]];
-		[pv addChild:jonvader];
-		[jonvader runAction:[CCFadeIn actionWithDuration:PICTURE_TRANSITION]];
-		jonvader.position = ccp(ssz.width/2, ssz.height/2);
+		[pv addChild:_jonvader];
+		[_jonvader runAction:[CCFadeIn actionWithDuration:PICTURE_TRANSITION]];
+		_jonvader.position = ccp(ssz.width/2, ssz.height/2);
 	}
 	else if (action == 2) {
-		[jonvader runAction:[CCFadeOut actionWithDuration:PICTURE_TRANSITION]];
+		[_jonvader runAction:[CCFadeOut actionWithDuration:PICTURE_TRANSITION]];
 	}
 	else if (action == 3) {
-		[pv addChild:colevader];
-		[colevader runAction:[CCFadeIn actionWithDuration:PICTURE_TRANSITION]];
-		colevader.position = ccp(ssz.width/2, ssz.height/2);
+		[pv addChild:_colevader];
+		[_colevader runAction:[CCFadeIn actionWithDuration:PICTURE_TRANSITION]];
+		_colevader.position = ccp(ssz.width/2, ssz.height/2);
 	}
 	else if (action == 4) {
-		[colevader runAction:[CCFadeOut actionWithDuration:PICTURE_TRANSITION]];
+		[_colevader runAction:[CCFadeOut actionWithDuration:PICTURE_TRANSITION]];
 	}
 	else if (action == 5) {
 		GameState *state = [[[StateLoseMenu alloc] init] autorelease];
@@ -3292,54 +2913,54 @@ static int _hfAdCount = 0;
 
 - (id) init {
 	if ((self = [super init])) {
-		times[0] = 0.5; // spawn fleet1
-		times[1] = times[0]; // "greetings"
-		times[2] = times[1] + 2; // 
-		times[3] = times[2] + 5; // 
+		_times[0] = 0.5; // spawn fleet1
+		_times[1] = _times[0]; // "greetings"
+		_times[2] = _times[1] + 2; //
+		_times[3] = _times[2] + 5; //
 		
-		times[4] = times[3]; // 
-		times[5] = times[4] + 3; // 
-		times[6] = times[5] + 3; // 
-		times[7] = times[6] + 3; // 
-		times[8] = times[7] + 3; // 
+		_times[4] = _times[3]; //
+		_times[5] = _times[4] + 3; //
+		_times[6] = _times[5] + 3; //
+		_times[7] = _times[6] + 3; //
+		_times[8] = _times[7] + 3; //
 		
-		times[9] = times[8] + 3; //
-		times[10] = times[9] + 2;// 
-		times[11] = times[10]+ 2; // 
-		times[12] = times[11]; // 
-		times[13] = times[12]; // 
-		times[14] = times[13] + 3.5; // 
+		_times[9] = _times[8] + 3; //
+		_times[10] = _times[9] + 2;//
+		_times[11] = _times[10]+ 2; //
+		_times[12] = _times[11]; //
+		_times[13] = _times[12]; //
+		_times[14] = _times[13] + 3.5; //
 		
-		times[15] = times[14] + 4; // 
-		times[16] = times[15] + 3; // 
-		times[17] = times[16] + 3; // 
+		_times[15] = _times[14] + 4; //
+		_times[16] = _times[15] + 3; //
+		_times[17] = _times[16] + 3; //
 		
-		times[18] = times[17] + 3; // 
-		times[19] = times[18] + 3; // 
-		times[20] = times[19] + 3; // 
-		times[21] = times[20] + 3; // 
-		times[22] = times[21] + 3; // 
-		times[23] = times[22] + 3; // 
-		times[24] = times[23]; // 
-		times[25] = times[24]; // 
-		times[26] = times[25]; // 
-		times[27] = times[26]; // 
-		times[28] = times[27] + 3; // 
+		_times[18] = _times[17] + 3; //
+		_times[19] = _times[18] + 3; //
+		_times[20] = _times[19] + 3; //
+		_times[21] = _times[20] + 3; //
+		_times[22] = _times[21] + 3; //
+		_times[23] = _times[22] + 3; //
+		_times[24] = _times[23]; //
+		_times[25] = _times[24]; //
+		_times[26] = _times[25]; //
+		_times[27] = _times[26]; //
+		_times[28] = _times[27] + 3; //
 		
-		pad1x = pad2x = [CCDirector sharedDirector].winSize.width / 2.0;
+		_pad1x = _pad2x = [CCDirector sharedDirector].winSize.width / 2.0;
 		
 		PongVader *pv = [PongVader getInstance];
-		tutorialLabel = [[CCLabelBMFont bitmapFontAtlasWithString:@"TUTORIAL" fntFile:pv.largeFont] retain];
-		tutorialLabel.position = TUTLABEL_POS;
-		tutorialLabel.color = ccc3(255, 0, 0);
+		_tutorialLabel = [[CCLabelBMFont bitmapFontAtlasWithString:@"TUTORIAL" fntFile:pv.largeFont] retain];
+		_tutorialLabel.position = TUTLABEL_POS;
+		_tutorialLabel.color = ccc3(255, 0, 0);
 		
-		skiplabel.position = SKIP_POS_TOP;
+		_skiplabel.position = SKIP_POS_TOP;
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[tutorialLabel release];
+	[_tutorialLabel release];
 	[super dealloc];
 }
 
@@ -3347,21 +2968,21 @@ static int _hfAdCount = 0;
 	[super enter];
 	PongVader *pv = [PongVader getInstance];
 	
-	[pv addChild:tutorialLabel];
+	[pv addChild:_tutorialLabel];
 	
 	[pv runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-	[skiplabel runAction:
+	[_skiplabel runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-	[tutorialLabel runAction:
+	[_tutorialLabel runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-	[ltrbox[0] runAction:
+	[_ltrbox[0] runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-	[ltrbox[1] runAction:
+	[_ltrbox[1] runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
 	
@@ -3369,50 +2990,50 @@ static int _hfAdCount = 0;
 //		[skiplabel setVisible:NO];
 //	}
 	
-	viewReset = NO;
+	_viewReset = NO;
 	
 	if _IPAD {
-		i1 = ccp(240, 300);
-		i2 = ccp(320, 300);
+		_i1 = ccp(240, 300);
+		_i2 = ccp(320, 300);
 	}
 	else {
-		i1 = ccp(90, 150);
-		i2 = ccp(130, 150);
+		_i1 = ccp(90, 150);
+		_i2 = ccp(130, 150);
 	}
 	
-	invader1 = [[pv addSpriteBody:[ENSPrance class] atPos:ccp(i1.x + 1000, i1.y) withForce:ccp(0,0)] retain];
-	[invader1 promote: 1];
+	_invader1 = [[pv addSpriteBody:[ENSPrance class] atPos:ccp(_i1.x + 1000, _i1.y) withForce:ccp(0,0)] retain];
+	[_invader1 promote: 1];
 
 	
-	invader2 = [[pv addSpriteBody:[LTWaddle class] atPos:ccp(i2.x + 1000, i2.y) withForce:ccp(0,0)] retain];
-	[invader2 promote: 1];
+	_invader2 = [[pv addSpriteBody:[LTWaddle class] atPos:ccp(_i2.x + 1000, _i2.y) withForce:ccp(0,0)] retain];
+	[_invader2 promote: 1];
 	if (_IPAD) {
-		invader1.baseScale = 2.0;
-	invader1.scale = 2.0;
-	invader2.baseScale = 2.0;
-	invader2.scale = 2.0;
+		_invader1.baseScale = 2.0;
+        _invader1.scale = 2.0;
+        _invader2.baseScale = 2.0;
+        _invader2.scale = 2.0;
 	}
 }
 
 - (void) leaving {
-	if (!viewReset) {
+	if (!_viewReset) {
 		PongVader *pv = [PongVader getInstance];
 		[pv runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-		[skiplabel runAction:
+		[_skiplabel runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-		[tutorialLabel runAction:
+		[_tutorialLabel runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-		[tutorialLabel runAction:
+		[_tutorialLabel runAction:
 		 [CCEaseExponentialIn actionWithAction:
 		  [CCFadeOut actionWithDuration:1.0]]];
-		[ltrbox[0] runAction:
+		[_ltrbox[0] runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-		[ltrbox[1] runAction:
+		[_ltrbox[1] runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
 	}
@@ -3420,11 +3041,11 @@ static int _hfAdCount = 0;
 }
 
 - (void) leave {
-	[[PongVader getInstance] destroyInvader:invader1 inGame:NO];
-	[invader1 release];
-	[[PongVader getInstance] destroyInvader:invader2 inGame:NO];
-	[invader2 release];
-	[[PongVader getInstance] removeChild:tutorialLabel cleanup:YES];
+	[[PongVader getInstance] destroyInvader:_invader1 inGame:NO];
+	[_invader1 release];
+	[[PongVader getInstance] destroyInvader:_invader2 inGame:NO];
+	[_invader2 release];
+	[[PongVader getInstance] removeChild:_tutorialLabel cleanup:YES];
 	[super leave];
 }
 
@@ -3451,13 +3072,13 @@ static int _hfAdCount = 0;
 												  playing: @"x"
 											   difficulty:curLevel] autorelease]];
 		
-		[invader1 runAction:
+		[_invader1 runAction:
 		 [CCEaseExponentialOut actionWithAction:
-		  [CCMoveTo actionWithDuration:0.5 position:i1]]];
+		  [CCMoveTo actionWithDuration:0.5 position:_i1]]];
 		
-		[invader2 runAction:
+		[_invader2 runAction:
 		 [CCEaseExponentialOut actionWithAction:
-		  [CCMoveTo actionWithDuration:0.8 position:i2]]];
+		  [CCMoveTo actionWithDuration:0.8 position:_i2]]];
 		
 	} 
 	
@@ -3472,13 +3093,13 @@ static int _hfAdCount = 0;
 	} 
 	else if (action == 2) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"WE HAVE COME TO COLLECT YOUR DEBT TO US FROM WHEN WE BAILED YOU OUT OF THE 3007 FINANCIAL CRISIS." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:22 rc:12];
+		_messageLabel = [[Utils multilineNodeWithText:@"WE HAVE COME TO COLLECT YOUR DEBT TO US FROM WHEN WE BAILED YOU OUT OF THE 3007 FINANCIAL CRISIS." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:22 rc:12];
 	} 
 	else if (action == 3) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"REPAY US OR MEET YOUR DOOM." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i2 rlen:20 rc:4 sp:2];
+		_messageLabel = [[Utils multilineNodeWithText:@"REPAY US OR MEET YOUR DOOM." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i2 rlen:20 rc:4 sp:2];
 	} 
 	else if (action == 4) {
 //		[self clearMessageAndBubble];
@@ -3489,13 +3110,13 @@ static int _hfAdCount = 0;
 	// LAUNCHING BALLS
 	else if (action == 5) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"WE'RE GOING TO LAUNCH BALLS OF ENERGY AT YOU IN TIME TO THE MUSIC." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:22 rc:8];
+		_messageLabel = [[Utils multilineNodeWithText:@"WE'RE GOING TO LAUNCH BALLS OF ENERGY AT YOU IN TIME TO THE MUSIC." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:22 rc:8];
 	} 
 	else if (action == 6) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"DON'T LET THE SHOTS HIT YOUR PLANET." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i2 rlen:20 rc:5 sp:2];
+		_messageLabel = [[Utils multilineNodeWithText:@"DON'T LET THE SHOTS HIT YOUR PLANET." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i2 rlen:20 rc:5 sp:2];
 		
 		Ball *newball;
 		if (_IPAD) {
@@ -3510,13 +3131,13 @@ static int _hfAdCount = 0;
 	} 
 	else if (action == 7) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"TOO MANY MISSED SHOTS AND YOU LOSE." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i2 rlen:20 rc:5 sp:2];
+		_messageLabel = [[Utils multilineNodeWithText:@"TOO MANY MISSED SHOTS AND YOU LOSE." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i2 rlen:20 rc:5 sp:2];
 	} 
 	else if (action == 8) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"MOVE THE WHITE SHIELD WITH YOUR FINGER (NOT YET)." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:22 rc:5];
+		_messageLabel = [[Utils multilineNodeWithText:@"MOVE THE WHITE SHIELD WITH YOUR FINGER (NOT YET)." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:22 rc:5];
 		
 		[pv.paddle1 moveTo: ssz.width / 2.0];
 		[pv.paddle2 moveTo: ssz.width / 2.0];
@@ -3524,8 +3145,8 @@ static int _hfAdCount = 0;
 	} 
 	else if (action == 9) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"USE IT TO DEFLECT OUR SHOTS BACK TO US." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:22 rc:5];
+		_messageLabel = [[Utils multilineNodeWithText:@"USE IT TO DEFLECT OUR SHOTS BACK TO US." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:22 rc:5];
 		
 		Ball *newball;
 		if (_IPAD) {
@@ -3538,8 +3159,8 @@ static int _hfAdCount = 0;
 		[[PongVader getInstance].balls addObject:newball];
 		[[SimpleAudioEngine sharedEngine] playEffect:@"shoot.wav"];
 		
-		pad2x = ssz.width / 2.0;
-		pad1x = ssz.width / 2.0;
+		_pad2x = ssz.width / 2.0;
+		_pad1x = ssz.width / 2.0;
 
 	}
 	else if (action == 10) {
@@ -3551,10 +3172,10 @@ static int _hfAdCount = 0;
 		[pv runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-		[skiplabel runAction:
+		[_skiplabel runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-		[tutorialLabel runAction:
+		[_tutorialLabel runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
 //		[ltrbox[0] runAction:
@@ -3564,25 +3185,25 @@ static int _hfAdCount = 0;
 //		 [CCEaseExponentialOut actionWithAction:
 //		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
 		
-		[ltrbox[0] runAction:
+		[_ltrbox[0] runAction:
 		 [CCFadeOut actionWithDuration:1.0]];
-		[ltrbox[1] runAction:
+		[_ltrbox[1] runAction:
 		 [CCFadeOut actionWithDuration:1.0]];
 		
-		viewReset = YES;
+		_viewReset = YES;
 		
 		if (_IPAD) {
-			pad2x = ssz.width / 2.0 - 250;
-			pad1x = ssz.width / 2.0 - 200;
+			_pad2x = ssz.width / 2.0 - 250;
+			_pad1x = ssz.width / 2.0 - 200;
 		}
 		else {
-			pad2x = ssz.width / 2.0 - 125;
-			pad1x = ssz.width / 2.0 - 100;
+			_pad2x = ssz.width / 2.0 - 125;
+			_pad1x = ssz.width / 2.0 - 100;
 		}
 		
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"A FRIEND OR A CPU CONTROLS THE OTHER SHIELD" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:24 rc:9];
+		_messageLabel = [[Utils multilineNodeWithText:@"A FRIEND OR A CPU CONTROLS THE OTHER SHIELD" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:24 rc:9];
 	} 
 //	else if (action == 11) {
 		//[self clearMessageAndBubble];
@@ -3601,8 +3222,8 @@ static int _hfAdCount = 0;
 	} 
 	else if (action == 14) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"VOLLEY A SHOT BETWEEN THE SHIELDS TO CHARGE IT IN TO A FIREBALL." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:24 rc:9];
+		_messageLabel = [[Utils multilineNodeWithText:@"VOLLEY A SHOT BETWEEN THE SHIELDS TO CHARGE IT IN TO A FIREBALL." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:24 rc:9];
 		
 		Ball *newball;
 		if _IPAD {
@@ -3618,75 +3239,75 @@ static int _hfAdCount = 0;
 	} 
 	else if (action == 15) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"A FIREBALL CAN CUT THROUGH SEVERAL INVADERS. BUT DON'T LET IT GET PAST YOUR SHIELD." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i2 rlen:24 rc:10 sp:2];
+		_messageLabel = [[Utils multilineNodeWithText:@"A FIREBALL CAN CUT THROUGH SEVERAL INVADERS. BUT DON'T LET IT GET PAST YOUR SHIELD." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i2 rlen:24 rc:10 sp:2];
 		
 		if (_IPAD) {
-			pad2x = ssz.width / 2.0;
-			pad1x = ssz.width / 2.0;
+			_pad2x = ssz.width / 2.0;
+			_pad1x = ssz.width / 2.0;
 		}
 		else {
-			pad2x = ssz.width / 2.0;
-			pad1x = ssz.width / 2.0;
+			_pad2x = ssz.width / 2.0;
+			_pad1x = ssz.width / 2.0;
 		}
 	} 
 	
 	// POWERUP
 	else if (action == 16) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"GIVE ME A SECOND TO SQUEEZE OUT A POWERUP." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i2 rlen:20 rc:5 sp:2];
+		_messageLabel = [[Utils multilineNodeWithText:@"GIVE ME A SECOND TO SQUEEZE OUT A POWERUP." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i2 rlen:20 rc:5 sp:2];
 	} 
 	else if (action == 17) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"URGGHH" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i2 rlen:20 rc:3 sp:2];
+		_messageLabel = [[Utils multilineNodeWithText:@"URGGHH" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i2 rlen:20 rc:3 sp:2];
 	} 
 	else if (action == 18) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"THERE WE GO." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"THERE WE GO." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		
 		[[SimpleAudioEngine sharedEngine] playEffect:@"portal.wav"];
-		[self placeBubble:i2 rlen:20 rc:3 sp:2];
+		[self placeBubble:_i2 rlen:20 rc:3 sp:2];
 		
 		CGPoint dir = _IPAD ? ccp(0, -2) : ccp(0, -0.25);
-		Powerup *powerup = (Powerup *) [Powerup spriteBodyAt:i2 withEffect: POW_ENSPRANCE withForce:dir inWorld:pv.world];
+		Powerup *powerup = (Powerup *) [Powerup spriteBodyAt:_i2 withEffect: POW_ENSPRANCE withForce:dir inWorld:pv.world];
 		[pv addChild:powerup];
 		[pv.powerups addObject:powerup];
 		if (_IPAD) {
-			pad1x = ssz.width/2 - 100;
+			_pad1x = ssz.width/2 - 100;
 		}
 		else {
-			pad1x = ssz.width/2 - 50;
+			_pad1x = ssz.width/2 - 50;
 		}
 	} 
 	else if (action == 19) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"CATCH A POWERUP WITH YOUR PADDLE TO GAIN A SPECIAL ABILITY." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:22 rc:7];
+		_messageLabel = [[Utils multilineNodeWithText:@"CATCH A POWERUP WITH YOUR PADDLE TO GAIN A SPECIAL ABILITY." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:22 rc:7];
 		
 	} 
 	
 	// FAREWELL
 	else if (action == 20) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"AND DON'T FORGET THAT YOU ARE COOPERATING." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:22 rc:5];
+		_messageLabel = [[Utils multilineNodeWithText:@"AND DON'T FORGET THAT YOU ARE COOPERATING." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:22 rc:5];
 	} 
 	else if (action == 21) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"AFTER ALL, YOU'RE BINARY PLANETS." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:22 rc:5];
+		_messageLabel = [[Utils multilineNodeWithText:@"AFTER ALL, YOU'RE BINARY PLANETS." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:22 rc:5];
 	} 
 	else if (action == 22) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"YOUR ORBITS ARE DEFINED BY MUTUAL GRAVITATIONAL INTERACTION." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:22 rc:7];
+		_messageLabel = [[Utils multilineNodeWithText:@"YOUR ORBITS ARE DEFINED BY MUTUAL GRAVITATIONAL INTERACTION." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:22 rc:7];
 	} 
 	else if (action == 23) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"THUS YOUR FATES ARE TIED." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:22 rc:5];
+		_messageLabel = [[Utils multilineNodeWithText:@"THUS YOUR FATES ARE TIED." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:22 rc:5];
 	} 
 	else if (action == 24) {
 		//[self clearMessageAndBubble];
@@ -3708,13 +3329,13 @@ static int _hfAdCount = 0;
 	} 
 	else if (action == 28) {
 		[self clearMessageAndBubble];
-		[invader1 runAction:
+		[_invader1 runAction:
 		 [CCEaseExponentialOut actionWithAction:
-		  [CCMoveTo actionWithDuration:0.5 position:ccp(i1.x + 1000, i1.y)]]];
+		  [CCMoveTo actionWithDuration:0.5 position:ccp(_i1.x + 1000, _i1.y)]]];
 		
-		[invader2 runAction:
+		[_invader2 runAction:
 		 [CCEaseExponentialOut actionWithAction:
-		  [CCMoveTo actionWithDuration:0.8 position:ccp(i2.x + 1000, i2.y)]]];
+		  [CCMoveTo actionWithDuration:0.8 position:ccp(_i2.x + 1000, _i2.y)]]];
 		
 		StateGetReady *state = [[[StateGetReady alloc] init] autorelease];
 		//state.shouldClearFirst = NO;
@@ -3783,8 +3404,8 @@ static int _hfAdCount = 0;
 - (GameState *) doTimer:(CFTimeInterval)dTime {
 	PongVader *pv = [PongVader getInstance];
 	
-	[pv.paddle1 moveTo: (pv.paddle1.position.x * 3 + pad1x) / 4.0];
-	[pv.paddle2 moveTo: (pv.paddle2.position.x * 3 + pad2x) / 4.0];
+	[pv.paddle1 moveTo: (pv.paddle1.position.x * 3 + _pad1x) / 4.0];
+	[pv.paddle2 moveTo: (pv.paddle2.position.x * 3 + _pad2x) / 4.0];
 	
 	return [super doTimer:dTime];
 }
@@ -3805,25 +3426,25 @@ static int _hfAdCount = 0;
 
 - (id) init {
 	if ((self = [super init])) {
-		times[0] = 0.5; // spawn fleet1
-		times[1] = 1.5; // "were scary invaders, look out!"
-		times[2] = 3.0; // shoot
-		times[3] = 4.0; // "use your paddle to deflect our shots"
-		times[4] = 5.0; // paddle spawn / move
-		times[5] = 6.0; // shoot
-		times[6] = 7.0; // "don't let the shots hit your planet"
-		times[7] = 9.0; // "ouch!"
-		times[8] = 10.0; // "volley shots to charge"
-		times[9] = 10.5; // move screen 
-		times[10] = 12.5; // "Oh no!"
-		times[11] = 13.5; // spawn powerup
-		times[12] = 14.5; // move screen
-		times[13] = 15.0; // ".. powerups"
-		times[14] = 18.0; // ".. fates"
-		times[15] = 21.0; // ".. defend harmony"
-		times[16] = 24.0; // end
+		_times[0] = 0.5; // spawn fleet1
+		_times[1] = 1.5; // "were scary invaders, look out!"
+		_times[2] = 3.0; // shoot
+		_times[3] = 4.0; // "use your paddle to deflect our shots"
+		_times[4] = 5.0; // paddle spawn / move
+		_times[5] = 6.0; // shoot
+		_times[6] = 7.0; // "don't let the shots hit your planet"
+		_times[7] = 9.0; // "ouch!"
+		_times[8] = 10.0; // "volley shots to charge"
+		_times[9] = 10.5; // move screen
+		_times[10] = 12.5; // "Oh no!"
+		_times[11] = 13.5; // spawn powerup
+		_times[12] = 14.5; // move screen
+		_times[13] = 15.0; // ".. powerups"
+		_times[14] = 18.0; // ".. fates"
+		_times[15] = 21.0; // ".. defend harmony"
+		_times[16] = 24.0; // end
 		
-		pad1x = pad2x = [CCDirector sharedDirector].winSize.width / 2.0;
+		_pad1x = _pad2x = [CCDirector sharedDirector].winSize.width / 2.0;
 	}
 	return self;
 }
@@ -3834,36 +3455,36 @@ static int _hfAdCount = 0;
 	[pv runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-	[skiplabel runAction:
+	[_skiplabel runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-	[ltrbox[0] runAction:
+	[_ltrbox[0] runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-	[ltrbox[1] runAction:
+	[_ltrbox[1] runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
 	
 	if ([pv.settings getInt:@"TutorialPlayed"] == 0) {
-		[skiplabel setVisible:NO];
+		[_skiplabel setVisible:NO];
 	}
 	
-	viewReset = NO;
+	_viewReset = NO;
 }
 
 - (void) leaving {
-	if (!viewReset) {
+	if (!_viewReset) {
 		PongVader *pv = [PongVader getInstance];
 		[pv runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-		[skiplabel runAction:
+		[_skiplabel runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-		[ltrbox[0] runAction:
+		[_ltrbox[0] runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-		[ltrbox[1] runAction:
+		[_ltrbox[1] runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
 	}
@@ -3892,7 +3513,7 @@ static int _hfAdCount = 0;
 											   difficulty:curLevel] autorelease]];
 		
 	} else if (action == 1) {
-		messageLabel = [[Utils multilineNodeWithText:@"WE'RE SCARY INVADERS, LOOK OUT!" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"WE'RE SCARY INVADERS, LOOK OUT!" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:22 rc:3];
 	} else if (action == 2) {
 		Ball *newball = [[[[pv.fleets objectAtIndex:0] invaders] objectAtIndex:7] ballWithDirection:ccp(-0.3, -0.75) ];
@@ -3901,13 +3522,13 @@ static int _hfAdCount = 0;
 		[[SimpleAudioEngine sharedEngine] playEffect:@"shoot.wav"];
 	} else if (action == 3) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"USE YOUR SHEILD TO DEFLECT OUR SHOTS" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"USE YOUR SHEILD TO DEFLECT OUR SHOTS" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:18 rc:3];
 	} else if (action == 4) {
 		[pv.paddle1 moveTo: ssz.width / 2.0];
 		[pv.paddle2 moveTo: ssz.width / 2.0];
 		[pv showPaddles:YES];
-		pad1x = ssz.width / 2.0 - 200;
+		_pad1x = ssz.width / 2.0 - 200;
 	} else if (action == 5) {
 		[self clearMessageAndBubble];
 		Ball *newball = [[[[pv.fleets objectAtIndex:0] invaders] objectAtIndex:7] ballWithDirection:ccp(0.3, -1.00) ];
@@ -3915,21 +3536,21 @@ static int _hfAdCount = 0;
 		[[PongVader getInstance].balls addObject:newball];
 		[[SimpleAudioEngine sharedEngine] playEffect:@"shoot.wav"];
 	} else if (action == 6) {
-		messageLabel = [[Utils multilineNodeWithText:@"DON'T LET THE SHOTS HIT YOUR PLANET" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"DON'T LET THE SHOTS HIT YOUR PLANET" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:18 rc:3];
 	} else if (action == 7) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"OUCH!" font:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"OUCH!" font:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
 		[self placeBubble:ccp(300,580) rlen:10 rc:2];
 	} else if (action == 8) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"VOLLEY SHOTS TO CREATE A FIREBALL" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"VOLLEY SHOTS TO CREATE A FIREBALL" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:22 rc:3];
 	} else if (action == 9) {
 		[pv runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-		[skiplabel runAction:
+		[_skiplabel runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
 		
@@ -3940,21 +3561,21 @@ static int _hfAdCount = 0;
 //		 [CCEaseExponentialOut actionWithAction:
 //		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
 		
-		[ltrbox[0] runAction:
+		[_ltrbox[0] runAction:
 		 [CCFadeOut actionWithDuration:1.0]];
-		[ltrbox[1] runAction:
+		[_ltrbox[1] runAction:
 		 [CCFadeOut actionWithDuration:1.0]];
 		
-		viewReset = YES;
-		pad2x = ssz.width / 2.0 - 250;
+		_viewReset = YES;
+		_pad2x = ssz.width / 2.0 - 250;
 	} else if (action == 10) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"OH NO!" font:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"OH NO!" font:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
 		[self placeBubble:ccp(375,580) rlen:10 rc:2];
-		powerupSpawn = ((CCNode *)[[[pv.fleets objectAtIndex:0] invaders] objectAtIndex:9]).position;
+		_powerupSpawn = ((CCNode *)[[[pv.fleets objectAtIndex:0] invaders] objectAtIndex:9]).position;
 	} else if (action == 11) {
 		CGPoint dir = _IPAD ? ccp(0, -2) : ccp(0, -0.25);
-		Powerup *powerup = (Powerup *) [Powerup spriteBodyAt:powerupSpawn withEffect: POW_ENSPRANCE withForce:dir inWorld:pv.world];
+		Powerup *powerup = (Powerup *) [Powerup spriteBodyAt:_powerupSpawn withEffect: POW_ENSPRANCE withForce:dir inWorld:pv.world];
 		[pv addChild:powerup];
 		[pv.powerups addObject:powerup];
 	} else if (action == 12) {
@@ -3971,18 +3592,18 @@ static int _hfAdCount = 0;
 //		 [CCEaseExponentialOut actionWithAction:
 //		  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT*2.0)]]];
 //		
-		pad1x = ssz.width / 2.0;
+		_pad1x = ssz.width / 2.0;
 	} else if (action == 13) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"COLLECT POWERUPS TO GAIN SPECIAL ABILITIES" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"COLLECT POWERUPS TO GAIN SPECIAL ABILITIES" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:22 rc:3];
 	} else if (action == 14) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"HELP YOUR NEIGHBOR PLANET, YOUR FATES ARE TIED" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"HELP YOUR NEIGHBOR PLANET, YOUR FATES ARE TIED" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:22 rc:3];
 	} else if (action == 15) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"NOW, PREPARE TO DEFEND GALACTIC HARMONY!" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"NOW, PREPARE TO DEFEND GALACTIC HARMONY!" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:22 rc:3];
 	} else if (action == 16) {
 		[pv.settings set:@"TutorialPlayed" toInt: 1];
@@ -4007,8 +3628,8 @@ static int _hfAdCount = 0;
 - (GameState *) doTimer:(CFTimeInterval)dTime {
 	PongVader *pv = [PongVader getInstance];
 	
-	[pv.paddle1 moveTo: (pv.paddle1.position.x * 3 + pad1x) / 4.0];
-	[pv.paddle2 moveTo: (pv.paddle2.position.x * 3 + pad2x) / 4.0];
+	[pv.paddle1 moveTo: (pv.paddle1.position.x * 3 + _pad1x) / 4.0];
+	[pv.paddle2 moveTo: (pv.paddle2.position.x * 3 + _pad2x) / 4.0];
 	
 	return [super doTimer:dTime];
 }
@@ -4027,11 +3648,11 @@ static int _hfAdCount = 0;
 
 - (id) init {
 	if ((self = [super init])) {
-		times[0] = 0.5;
-		times[1] = 1.5;
-		times[2] = 4.0;
-		times[3] = 5.0;
-		times[4] = 8.0;
+		_times[0] = 0.5;
+		_times[1] = 1.5;
+		_times[2] = 4.0;
+		_times[3] = 5.0;
+		_times[4] = 8.0;
 	}
 	return self;
 }
@@ -4042,13 +3663,13 @@ static int _hfAdCount = 0;
 	[pv runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-	[skiplabel runAction:
+	[_skiplabel runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-	[ltrbox[0] runAction:
+	[_ltrbox[0] runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-	[ltrbox[1] runAction:
+	[_ltrbox[1] runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
 	
@@ -4059,13 +3680,13 @@ static int _hfAdCount = 0;
 	[pv runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, -INTRO_YSHIFT)]]];
-	[skiplabel runAction:
+	[_skiplabel runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-	[ltrbox[0] runAction:
+	[_ltrbox[0] runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
-	[ltrbox[1] runAction:
+	[_ltrbox[1] runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveBy actionWithDuration:1.0 position:ccp(0, INTRO_YSHIFT)]]];
 	[super leaving];
@@ -4095,7 +3716,7 @@ static int _hfAdCount = 0;
 		[pv addFleet: fleets[0]];
 
 	} else if (action == 1) {
-		messageLabel = [[Utils multilineNodeWithText:@"GREETINGS HUMANS, WE COME IN..." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"GREETINGS HUMANS, WE COME IN..." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(400, 580) rlen:18 rc:3];
 	} else if (action == 2) {
 		[self clearMessageAndBubble];
@@ -4104,7 +3725,7 @@ static int _hfAdCount = 0;
 		[[PongVader getInstance].balls addObject:newball];
 		[[SimpleAudioEngine sharedEngine] playEffect:@"shoot.wav"];
 	} else if (action == 3) {
-		messageLabel = [[Utils multilineNodeWithText:@"OOPS..." font:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"OOPS..." font:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
 		[self placeBubble:ccp(500,580) rlen:10 rc:2];
 	} else if (action == 4) {
 		[self skip];
@@ -4161,17 +3782,17 @@ static int _hfAdCount = 0;
 //		[[BeatSequencer getInstance] addEvent:
 //		 [AddBeatResponderEvent eventOnBeat:8 withResponder:fleets[0] andSequencer:[BeatSequencer getInstance]]];
 		
-		times[0] = 1.0; // dawdle hurt
-		times[1] = times[0] + 1.5; // invader enters
-		times[2] = times[1] + 2.0; // are you hurt
-		times[3] = times[2] + 2.0; // dawdle hurt
-		times[4] = times[3] + 2.0; // "you'll pay"
-		times[5] = times[4] + 2.0; // "literally"
-		times[6] = times[5] + 3.0; // "expect an invoice"
-		times[7] = times[6] + 3.0; // "adieu"
-		times[8] = times[7] + 3.0;
-		times[9] = times[8] + 1.5;// exit
-		times[10] = times[9] + 1.5;// main menu
+		_times[0] = 1.0; // dawdle hurt
+		_times[1] = _times[0] + 1.5; // invader enters
+		_times[2] = _times[1] + 2.0; // are you hurt
+		_times[3] = _times[2] + 2.0; // dawdle hurt
+		_times[4] = _times[3] + 2.0; // "you'll pay"
+		_times[5] = _times[4] + 2.0; // "literally"
+		_times[6] = _times[5] + 3.0; // "expect an invoice"
+		_times[7] = _times[6] + 3.0; // "adieu"
+		_times[8] = _times[7] + 3.0;
+		_times[9] = _times[8] + 1.5;// exit
+		_times[10] = _times[9] + 1.5;// main menu
 		
 	}
 	return self;
@@ -4188,22 +3809,22 @@ static int _hfAdCount = 0;
 	[boss runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveTo actionWithDuration:0.8 position: _IPAD ? ccp(200, 512) : ccp(100,216)]]];
-	peon = [[pv addSpriteBody:[ENSPrance class] atPos: _IPAD ? ccp(800, boss.position.y) : ccp(400, boss.position.y)  withForce:ccp(0,0)] retain];
-	[(ENSPrance *) peon promote: 1];
+	_peon = [[pv addSpriteBody:[ENSPrance class] atPos: _IPAD ? ccp(800, boss.position.y) : ccp(400, boss.position.y)  withForce:ccp(0,0)] retain];
+	[(ENSPrance *) _peon promote: 1];
 	if (_IPAD) {
-		peon.scale = 2.0;
-		peon.baseScale = 2.0;
+		_peon.scale = 2.0;
+		_peon.baseScale = 2.0;
 	}
 	if (pv.OFstarted) {
-		[OFAchievementService updateAchievement:BALL_MASTER andPercentComplete:100 andShowNotification:YES];
+//		[OFAchievementService updateAchievement:BALL_MASTER andPercentComplete:100 andShowNotification:YES];
 	}
 	[pv.settings set:@"BeatEpOne" toInt:1];
 	[pv.settings set:@"lastLevel" toInt:0];
 }
 
 - (void) leave {
-	[[PongVader getInstance] destroyInvader:peon inGame:NO];
-	[peon release];
+	[[PongVader getInstance] destroyInvader:_peon inGame:NO];
+	[_peon release];
 	[super leave];
 }
 
@@ -4228,12 +3849,12 @@ static int _hfAdCount = 0;
 		[[SimpleAudioEngine sharedEngine] playEffect:@"DawdleHurt.wav"];
 	} 
 	else if (action == 1) {
-		[peon runAction:
+		[_peon runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveTo actionWithDuration:0.8 position:inv]]];
 	} 
 	else if (action == 2) {
-		messageLabel = [[Utils multilineNodeWithText:@"YOU'VE HURT CAPTAIN DAWDLE!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"YOU'VE HURT CAPTAIN DAWDLE!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:4];
 	} 
 	else if (action == 3) {
@@ -4241,32 +3862,32 @@ static int _hfAdCount = 0;
 	} 
 	else if (action == 4) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"YOU'LL PAY FOR THIS!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"YOU'LL PAY FOR THIS!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:3];
 	} 
 	else if (action == 5) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"... LITERALLY." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"... LITERALLY." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:3];
 	} 
 	else if (action == 6) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"DAWDLE'S REPAIR COSTS ARE BEING ADDED TO YOUR DEBT." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"DAWDLE'S REPAIR COSTS ARE BEING ADDED TO YOUR DEBT." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:8];
 	} 
 	else if (action == 7) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"EXPECT AN INVOICE FROM ADMIRAL BRAIN." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"EXPECT AN INVOICE FROM ADMIRAL BRAIN." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:6];
 	} 
 	else if (action == 8) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"ADIEU!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"ADIEU!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:3];
 	} 
 	else if (action == 9) {
 		[self clearMessageAndBubble];
-		[peon runAction:
+		[_peon runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveTo actionWithDuration:0.4 position:ccp(1000, inv.y)]]];
 		[boss runAction:
@@ -4300,15 +3921,15 @@ static int _hfAdCount = 0;
 
 - (id) init {
 	if ((self = [super init])) {
-		times[0] = 2.0;			       // warp in invaders
-		times[1] = times[0] + 3.0; // made it this far
-		times[2] = times[1] + 3.0; // proud of you
-		times[3] = times[2] + 3.0; // don't get cocky
-		times[4] = times[3] + 3.0; // these are only training levels
-		times[5] = times[4] + 3.0; // warmups are over
-		times[6] = times[5] + 3.0; // prepare for the onslaught of ep1
-		times[7] = times[6] + 3.0; // exit
-		times[8] = times[7] + 3.0;
+		_times[0] = 2.0;			       // warp in invaders
+		_times[1] = _times[0] + 3.0; // made it this far
+		_times[2] = _times[1] + 3.0; // proud of you
+		_times[3] = _times[2] + 3.0; // don't get cocky
+		_times[4] = _times[3] + 3.0; // these are only training levels
+		_times[5] = _times[4] + 3.0; // warmups are over
+		_times[6] = _times[5] + 3.0; // prepare for the onslaught of ep1
+		_times[7] = _times[6] + 3.0; // exit
+		_times[8] = _times[7] + 3.0;
 		
 		PongVader *pv = [PongVader getInstance];
 		pv.bossTime = YES;
@@ -4327,36 +3948,36 @@ static int _hfAdCount = 0;
 	[pv resetScene];
 	
 	if _IPAD {
-		i1 = ccp(240, 300);
-		i2 = ccp(320, 300);
+		_i1 = ccp(240, 300);
+		_i2 = ccp(320, 300);
 	}
 	else {
-		i1 = ccp(90, 150);
-		i2 = ccp(130, 150);
+		_i1 = ccp(90, 150);
+		_i2 = ccp(130, 150);
 	}
 	
-	invader1 = [[pv addSpriteBody:[ENSPrance class] atPos:ccp(i1.x + 1000, i1.y) withForce:ccp(0,0)] retain];
-	[invader1 promote: 1];
+	_invader1 = [[pv addSpriteBody:[ENSPrance class] atPos:ccp(_i1.x + 1000, _i1.y) withForce:ccp(0,0)] retain];
+	[_invader1 promote: 1];
 	
 	
-	invader2 = [[pv addSpriteBody:[LTWaddle class] atPos:ccp(i2.x + 1000, i2.y) withForce:ccp(0,0)] retain];
-	[invader2 promote: 1];
+	_invader2 = [[pv addSpriteBody:[LTWaddle class] atPos:ccp(_i2.x + 1000, _i2.y) withForce:ccp(0,0)] retain];
+	[_invader2 promote: 1];
 	
 	if (_IPAD) {
-	invader1.baseScale = 2.0;
-	invader1.scale = 2.0;
-	invader2.baseScale = 2.0;
-	invader2.scale = 2.0;
+	_invader1.baseScale = 2.0;
+	_invader1.scale = 2.0;
+	_invader2.baseScale = 2.0;
+	_invader2.scale = 2.0;
 	}
 	
 	[pv.settings set:@"lastLevel" toInt:0];
 }
 
 - (void) leave {
-	[[PongVader getInstance] destroyInvader:invader1 inGame:NO];
-	[invader1 release];
-	[[PongVader getInstance] destroyInvader:invader2 inGame:NO];
-	[invader2 release];
+	[[PongVader getInstance] destroyInvader:_invader1 inGame:NO];
+	[_invader1 release];
+	[[PongVader getInstance] destroyInvader:_invader2 inGame:NO];
+	[_invader2 release];
 	[super leave];
 }
 
@@ -4377,53 +3998,53 @@ static int _hfAdCount = 0;
 	}
 	
 	if (action == 0) {
-		[invader1 runAction:
+		[_invader1 runAction:
 		 [CCEaseExponentialOut actionWithAction:
-		  [CCMoveTo actionWithDuration:0.5 position:i1]]];
+		  [CCMoveTo actionWithDuration:0.5 position:_i1]]];
 		
-		[invader2 runAction:
+		[_invader2 runAction:
 		 [CCEaseExponentialOut actionWithAction:
-		  [CCMoveTo actionWithDuration:0.8 position:i2]]];
+		  [CCMoveTo actionWithDuration:0.8 position:_i2]]];
 	} 
 	else if (action == 1) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"AHA YOU'VE MADE IT THIS FAR." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i1 rlen:22 rc:3];
+		_messageLabel = [[Utils multilineNodeWithText:@"AHA YOU'VE MADE IT THIS FAR." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:22 rc:3];
 	} 
 	else if (action == 2) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"WE'RE PROUD OF YOU." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i2 rlen:22 rc:3 sp:2];
+		_messageLabel = [[Utils multilineNodeWithText:@"WE'RE PROUD OF YOU." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i2 rlen:22 rc:3 sp:2];
 	} 
 	else if (action == 3) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"BUT DON'T GET COCKY." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i2 rlen:22 rc:3 sp:2];
+		_messageLabel = [[Utils multilineNodeWithText:@"BUT DON'T GET COCKY." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i2 rlen:22 rc:3 sp:2];
 	} 
 	else if (action == 4) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"THESE ARE ONLY TRAINING LEVELS." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
-		[self placeBubble:i2 rlen:22 rc:3 sp:2];
+		_messageLabel = [[Utils multilineNodeWithText:@"THESE ARE ONLY TRAINING LEVELS." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		[self placeBubble:_i2 rlen:22 rc:3 sp:2];
 	} 
 	else if (action == 5) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"WARMUPS ARE OVER." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
-		[self placeBubble:i1 rlen:20 rc:3 sp:1];
+		_messageLabel = [[Utils multilineNodeWithText:@"WARMUPS ARE OVER." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:20 rc:3 sp:1];
 	} 
 	else if (action == 6) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"PREPARE FOR THE ONSLAUGHT OF EPISODE 1." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
-		[self placeBubble:i1 rlen:20 rc:8 sp:1];
+		_messageLabel = [[Utils multilineNodeWithText:@"PREPARE FOR THE ONSLAUGHT OF EPISODE 1." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		[self placeBubble:_i1 rlen:20 rc:8 sp:1];
 	} 
 	else if (action == 7) {
 		[self clearMessageAndBubble];
-		[invader1 runAction:
+		[_invader1 runAction:
 		 [CCEaseExponentialOut actionWithAction:
-		  [CCMoveTo actionWithDuration:0.5 position:ccp(i1.x + 1000, i1.y)]]];
+		  [CCMoveTo actionWithDuration:0.5 position:ccp(_i1.x + 1000, _i1.y)]]];
 		
-		[invader2 runAction:
+		[_invader2 runAction:
 		 [CCEaseExponentialOut actionWithAction:
-		  [CCMoveTo actionWithDuration:0.8 position:ccp(i2.x + 1000, i2.y)]]];
+		  [CCMoveTo actionWithDuration:0.8 position:ccp(_i2.x + 1000, _i2.y)]]];
 	}
 	else if (action == 8) {
 		[self skip];
@@ -4450,75 +4071,77 @@ static int _hfAdCount = 0;
 
 - (id) init {
 	if ((self = [super init])) {
-		times[0] = 2.0; // warp in invaders
-		times[1] = times[0] + 3.0; // doesn't have to end like this
-		times[2] = times[1] + 3.0; // could buy full version
-		times[3] = times[2] + 3.0; // thend you'd get a ton of new levels
-		times[4] = times[3] + 3.0; // plus two boss fights
-		times[5] = times[4] + 3.0; // new music
-		times[6] = times[5] + 3.0; // nullsleep comment
-		times[7] = times[6] + 3.0; // give me a second
-		times[8] = times[7] + 3.0; // nggh
-		times[9] = times[8] + 1.0; // sound
-		times[10] = times[9] + 1.0;// upsell alertview
-		
-		PongVader *pv = [PongVader getInstance];
-		[pv.settings set:@"BeatPrologue" toInt:1];
-		
-		appStoreAlert = [[UIAlertView alloc] initWithTitle:@"Get more levels??" message:@"Would you like to buy 20 more levels for just a buck?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:nil];
-		[appStoreAlert addButtonWithTitle:@"Yes! Yes! Yes!"];	
+//		_times[0] = 2.0; // warp in invaders
+//		_times[1] = times[0] + 3.0; // doesn't have to end like this
+//		_times[2] = times[1] + 3.0; // could buy full version
+//		_times[3] = times[2] + 3.0; // thend you'd get a ton of new levels
+//		_times[4] = times[3] + 3.0; // plus two boss fights
+//		_times[5] = times[4] + 3.0; // new music
+//		_times[6] = times[5] + 3.0; // nullsleep comment
+//		times[7] = times[6] + 3.0; // give me a second
+//		times[8] = times[7] + 3.0; // nggh
+//		times[9] = times[8] + 1.0; // sound
+//		times[10] = times[9] + 1.0;// upsell alertview
+//		
+//		PongVader *pv = [PongVader getInstance];
+//		[pv.settings set:@"BeatPrologue" toInt:1];
+//		
+//		appStoreAlert = [[UIAlertView alloc] initWithTitle:@"Get more levels??" message:@"Would you like to buy 20 more levels for just a buck?" delegate:self cancelButtonTitle:@"No Thanks" otherButtonTitles:nil];
+//		[appStoreAlert addButtonWithTitle:@"Yes! Yes! Yes!"];	
 
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[appStoreAlert release];
+	[_appStoreAlert release];
 	[super dealloc];
 }
 
 - (void) enter {
-	[super enter];
-	PongVader *pv = [PongVader getInstance];
-	[pv.settings set:@"lastLevel" toInt:0];
-	
-	if _IPAD {
-		i1 = ccp(240, 300);
-		i2 = ccp(320, 300);
-	}
-	else {
-		i1 = ccp(90, 150);
-		i2 = ccp(130, 150);
-	}
-	
-	invader1 = [[pv addSpriteBody:[ENSPrance class] atPos:ccp(i1.x + 1000, i1.y) withForce:ccp(0,0)] retain];
-	[invader1 promote: 1];
-	
-	invader2 = [[pv addSpriteBody:[LTWaddle class] atPos:ccp(i2.x + 1000, i2.y) withForce:ccp(0,0)] retain];
-	[invader2 promote: 1];
-	
-	if (_IPAD) {
-		invader1.baseScale = 2.0;
-		invader1.scale = 2.0;
-		invader2.baseScale = 2.0;
-		invader2.scale = 2.0;
-	}
+//	[super enter];
+//	PongVader *pv = [PongVader getInstance];
+//	[pv.settings set:@"lastLevel" toInt:0];
+//	
+//	if _IPAD {
+//		i1 = ccp(240, 300);
+//		i2 = ccp(320, 300);
+//	}
+//	else {
+//		i1 = ccp(90, 150);
+//		i2 = ccp(130, 150);
+//	}
+//	
+//	invader1 = [[pv addSpriteBody:[ENSPrance class] atPos:ccp(i1.x + 1000, i1.y) withForce:ccp(0,0)] retain];
+//	[invader1 promote: 1];
+//	
+//	invader2 = [[pv addSpriteBody:[LTWaddle class] atPos:ccp(i2.x + 1000, i2.y) withForce:ccp(0,0)] retain];
+//	[invader2 promote: 1];
+//	
+//	if (_IPAD) {
+//		invader1.baseScale = 2.0;
+//		invader1.scale = 2.0;
+//		invader2.baseScale = 2.0;
+//		invader2.scale = 2.0;
+//	}
 }
 
 - (void) leave {
-	[[PongVader getInstance] destroyInvader:invader1 inGame:NO];
-	[invader1 release];
-	[[PongVader getInstance] destroyInvader:invader2 inGame:NO];
-	[invader2 release];
+	[[PongVader getInstance] destroyInvader:_invader1 inGame:NO];
+	[_invader1 release];
+	[[PongVader getInstance] destroyInvader:_invader2 inGame:NO];
+	[_invader2 release];
 	[super leave];
 }
 
 - (GameState *) doAction:(int) action {
+
 	PongVader *pv = [PongVader getInstance];
 	CGSize ssz = [CCDirector sharedDirector].winSize;
 
 	GameState *next = self;
-	
+    
+    /*
 	CGPoint dawdle, inv;
 	if _IPAD {
 		dawdle = ccp(200, 512);
@@ -4586,22 +4209,8 @@ static int _hfAdCount = 0;
 		
 
 	}
+         */
 	return next;
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	if (alertView == appStoreAlert) {
-		switch(buttonIndex) {
-			case 0:
-				[self changeTo:[[[StateMainMenu alloc] init] autorelease] after:0.5];
-				break;
-			case 1:
-				GameState *next = [[[StatePurchase alloc] initWithNextState:[StateMainMenu class]] autorelease];
-				[self changeTo:next after:0.5];
-				break;
-		}
-	}
 }
 
 - (void) skip {
@@ -4648,15 +4257,15 @@ static int _hfAdCount = 0;
 		 [AddBeatResponderEvent eventOnBeat:8 withResponder:fleet andSequencer:[BeatSequencer getInstance]]];
 		//*/
 		
-		times[0] = 1.5; // enter
-		times[1] = times[0] + 2.0; // admiral brain
-		times[2] = times[1] + 1.5; // * sound *
-		times[3] = times[2] + 3.0; // in light of your 
-		times[4] = times[3] + 1.5; // ahem
-		times[5] = times[4] + 3.0; // resistance
-		times[6] = times[5] + 3.0; // we've extended
-		times[7] = times[6] + 2.0; // see you in 4007
-		times[8] = times[7] + 1.5; // exit
+		_times[0] = 1.5; // enter
+		_times[1] = _times[0] + 2.0; // admiral brain
+		_times[2] = _times[1] + 1.5; // * sound *
+		_times[3] = _times[2] + 3.0; // in light of your
+		_times[4] = _times[3] + 1.5; // ahem
+		_times[5] = _times[4] + 3.0; // resistance
+		_times[6] = _times[5] + 3.0; // we've extended
+		_times[7] = _times[6] + 2.0; // see you in 4007
+		_times[8] = _times[7] + 1.5; // exit
 
 		
 	}
@@ -4677,14 +4286,14 @@ static int _hfAdCount = 0;
 	[boss runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveTo actionWithDuration:0.8 position: _IPAD ? ccp(200, 512) : ccp(100,216)]]];
-	peon = [[pv addSpriteBody:[ENSPrance class] atPos: _IPAD ? ccp(800, boss.position.y) : ccp(400, boss.position.y)  withForce:ccp(0,0)] retain];
-	[(ENSPrance *) peon promote: 1];
+	_peon = [[pv addSpriteBody:[ENSPrance class] atPos: _IPAD ? ccp(800, boss.position.y) : ccp(400, boss.position.y)  withForce:ccp(0,0)] retain];
+	[(ENSPrance *) _peon promote: 1];
 	if (_IPAD) {
-		peon.scale = 2.0;
-		peon.baseScale = 2.0;
+		_peon.scale = 2.0;
+		_peon.baseScale = 2.0;
 	}
 	if (pv.OFstarted) {
-		[OFAchievementService updateAchievement:@"679092" andPercentComplete:100 andShowNotification:YES];
+//		[OFAchievementService updateAchievement:@"679092" andPercentComplete:100 andShowNotification:YES];
 	}
 	pv.bossTime = YES;
 	[pv.settings set:@"BeatEpTwo" toInt:1];
@@ -4692,8 +4301,8 @@ static int _hfAdCount = 0;
 }
 
 - (void) leave {
-	[[PongVader getInstance] destroyInvader:peon inGame:NO];
-	[peon release];
+	[[PongVader getInstance] destroyInvader:_peon inGame:NO];
+	[_peon release];
 	[super leave];
 }
 
@@ -4717,13 +4326,13 @@ static int _hfAdCount = 0;
 	}
 	
 	if (action == 0) {
-		[peon runAction:
+		[_peon runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveTo actionWithDuration:0.8 position:inv]]];
 	} 
 	else if (action == 1) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"ADMIRAL BRAIN!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"ADMIRAL BRAIN!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:17 rc:6];
 	} 
 	else if (action == 2) {
@@ -4731,32 +4340,32 @@ static int _hfAdCount = 0;
 	} 
 	else if (action == 3) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"IN LIGHT OF YOUR" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"IN LIGHT OF YOUR" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:inv rlen:22 rc:3];
 	} 
 	else if (action == 4) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"AHEM" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"AHEM" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:inv rlen:15 rc:3];
 	}
 	else if (action == 5) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"RESILIENCE" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"RESILIENCE" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:inv rlen:15 rc:3];
 	} 
 	else if (action == 6) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"WE'LL BE EXTENDING YOUR LOAN." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"WE'LL BE EXTENDING YOUR LOAN." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:inv rlen:22 rc:4];
 	} 
 	else if (action == 7) {
 		[self clearMessageAndBubble];
-		messageLabel = [[Utils multilineNodeWithText:@"SEE YOU IN 4007!" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"SEE YOU IN 4007!" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:inv rlen:22 rc:3];
 	} 
 	else if (action == 8) {
 		[self clearMessageAndBubble];
-		[peon runAction:
+		[_peon runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveTo actionWithDuration:0.4 position:ccp(1000, inv.y)]]];
 		[boss runAction:
@@ -4791,6 +4400,7 @@ static int _hfAdCount = 0;
 
 - (id) init {
 	if ((self = [super init])) {
+        /*
 		times[0] = 2.0; // CPT : "why are they hurting me?"
 		times[1] = 5.0; // ENS arrives
 		times[2] = 6.0; // ENS : "Captain dawdle, you must retreat. You can't take much more of this!"
@@ -4798,6 +4408,7 @@ static int _hfAdCount = 0;
 		times[4] = 18.0; // CPT : "We'll be back!"
 		times[5] = 22.0; // exit stage right
 		times[6] = 25.0; // return to main menu
+         */
 		
 	}
 	return self;
@@ -4806,6 +4417,7 @@ static int _hfAdCount = 0;
 
 - (void) enter {
 	[super enter];
+    /*
 	PongVader *pv = [PongVader getInstance];
 	Fleet *bossFleet = [pv.fleets objectAtIndex:0];
 	SpriteBody *boss = [bossFleet.invaders objectAtIndex:0];
@@ -4817,11 +4429,14 @@ static int _hfAdCount = 0;
 	if (pv.OFstarted) {
 		[OFAchievementService updateAchievement:BALL_MASTER andPercentComplete:100 andShowNotification:YES];
 	}
+     */
 }
 
 - (void) leave {
+    /*
 	[[PongVader getInstance] destroyInvader:peon inGame:NO];
 	[peon release];
+     */
 	[super leave];
 }
 
@@ -4831,6 +4446,8 @@ static int _hfAdCount = 0;
 	Fleet *bossFleet = [pv.fleets objectAtIndex:0];
 	SpriteBody *boss = [bossFleet.invaders objectAtIndex:0];
 	GameState *next = self;
+    
+    /*
 	if (action == 0) {
 		messageLabel = [[Utils multilineNodeWithText:@"WHY ARE THEY HURTING ME?" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(200, 512 + 60) rlen:15 rc:2];
@@ -4861,13 +4478,16 @@ static int _hfAdCount = 0;
 	} else if (action == 6) {
 		[self skip];
 	}
+     */
 	return next;
 }
 
 - (void) skip {
+    /*
 	[self clearMessageAndBubble];
 	curLevel = 0;
 	[self changeTo: [[[StateLoseMenu alloc] init] autorelease] after:TRANSITION_PAUSE];
+     */
 }
 
 - (GameState *) doTimer:(CFTimeInterval)dTime {
@@ -8311,18 +7931,18 @@ xxxxxxxxxxxxxxxx";
 	unsigned char cycle1[] = {
 		0,    1,    2,    3,    4,    5,    6,    7,    8,    9,    10,   11,   12,   13,   14,   15,  
 		16,   17,   18,   19,   20,   21,   22,   23,   24,   25,   26,   27,   28,   29,   30,   31,  
-		32,   33,   34,   35,   36,   37,   38,   39,   55.,  40.,  41.,  42.,  44,   45,   46,   47,  
-		48,   49,   50,   51,   52,   53,   54,   70.,  57.,  58.,  59.,  76.,  43.,  61,   62,   63,  
-		64,   65,   66,   67,   68,   69,   85.,  56.,  73.,  74.,  75.,  92.,  93.,  60.,  78,   79,  
-		80,   81,   82,   83,   84,   100., 71.,  72.,  88,   89,   90,   91,   109.,  110., 77.,  95,  
-		96,   97,   98,   99,   116., 86.,  87., 103,  104,  105,  106,  107,  108,  125., 126., 94., 
-		112,  113,  114,  115,  132., 101., 102., 119,  120,  121,  122,  123,  124,  141., 142., 111., 
-		128,  129,  130,  131,  148., 117., 118., 135,  136,  137,  138,  139,  140,  157., 158., 127., 
-		144,  145,  146,  147,  165., 133., 134., 151,  152,  153,  154,  155,  156,  172., 173., 143., 
-		160,  161,  162,  163,  164,  182., 149., 150., 168,  169,  170,  171,  187., 188., 159., 175,  
-		176,  177,  178,  179,  180,  181,  199., 166., 167., 184., 185., 186., 203., 174., 190,  191,  
-		192,  193,  194,  195,  196,  197,  198,  216., 183., 200., 201., 202., 189., 205,  206,  207,  
-		208,  209,  210,  211,  212,  213,  214,  215,  217., 218., 219., 204., 220,  221,  222,  223,  
+		32,   33,   34,   35,   36,   37,   38,   39,   55,  40,  41,  42,  44,   45,   46,   47,
+		48,   49,   50,   51,   52,   53,   54,   70,  57,  58,  59,  76,  43,  61,   62,   63,
+		64,   65,   66,   67,   68,   69,   85,  5,  73,  74,  75,  92,  93,  60,  78,   79,
+		80,   81,   82,   83,   84,   100, 71,  72,  88,   89,   90,   91,   109,  110, 77,  95,
+		96,   97,   98,   99,   116, 86,  87, 103,  104,  105,  106,  107,  108,  125, 126, 94,
+		112,  113,  114,  115,  132, 101, 102, 119,  120,  121,  122,  123,  124,  141, 142, 111,
+		128,  129,  130,  131,  148, 117, 118, 135,  136,  137,  138,  139,  140,  157, 158, 127,
+		144,  145,  146,  147,  165, 133, 134, 151,  152,  153,  154,  155,  156,  172, 173, 143,
+		160,  161,  162,  163,  164,  182, 149, 150, 168,  169,  170,  171,  187, 188, 159, 175,
+		176,  177,  178,  179,  180,  181,  199, 166, 167, 184, 185, 186, 203, 174, 190,  191,
+		192,  193,  194,  195,  196,  197,  198,  216, 183, 200, 201, 202, 189, 205,  206,  207,
+		208,  209,  210,  211,  212,  213,  214,  215,  217, 218, 219, 204, 220,  221,  222,  223,
 		224,  225,  226,  227,  228,  229,  230,  231,  232,  233,  234,  235,  236,  237,  238,  239,  
 		240,  241,  242,  243,  244,  245,  246,  247,  248,  249,  250,  251,  252,  253,  254,  255,  
 	};
@@ -8508,18 +8128,18 @@ xxxxxxxxxxxxxxxx";
 	unsigned char cycle1[] = {
 		0,    1,    2,    3,    4,    5,    6,    7,    8,    9,    10,   11,   12,   13,   14,   15,  
 		16,   17,   18,   19,   20,   21,   22,   23,   24,   25,   26,   27,   28,   29,   30,   31,  
-		32,   33,   34,   35,   36,   37,   38,   39,   55.,  40.,  41.,  42.,  44,   45,   46,   47,  
-		48,   49,   50,   51,   52,   53,   54,   70.,  57.,  58.,  59.,  76.,  43.,  61,   62,   63,  
-		64,   65,   66,   67,   68,   69,   85.,  56.,  73.,  74.,  75.,  92.,  93.,  60.,  78,   79,  
-		80,   81,   82,   83,   84,   100., 71.,  72.,  88,   89,   90,   91,   109.,  110., 77.,  95,  
-		96,   97,   98,   99,   116., 86.,  87., 103,  104,  105,  106,  107,  108,  125., 126., 94., 
-		112,  113,  114,  115,  132., 101., 102., 119,  120,  121,  122,  123,  124,  141., 142., 111., 
-		128,  129,  130,  131,  148., 117., 118., 135,  136,  137,  138,  139,  140,  157., 158., 127., 
-		144,  145,  146,  147,  165., 133., 134., 151,  152,  153,  154,  155,  156,  172., 173., 143., 
-		160,  161,  162,  163,  164,  182., 149., 150., 168,  169,  170,  171,  187., 188., 159., 175,  
-		176,  177,  178,  179,  180,  181,  199., 166., 167., 184., 185., 186., 203., 174., 190,  191,  
-		192,  193,  194,  195,  196,  197,  198,  216., 183., 200., 201., 202., 189., 205,  206,  207,  
-		208,  209,  210,  211,  212,  213,  214,  215,  217., 218., 219., 204., 220,  221,  222,  223,  
+		32,   33,   34,   35,   36,   37,   38,   39,   55,  40,  41,  42,  44,   45,   46,   47,
+		48,   49,   50,   51,   52,   53,   54,   70,  57,  58,  59,  76,  43,  61,   62,   63,
+		64,   65,   66,   67,   68,   69,   85,  56,  73,  74,  75,  92,  93,  60,  78,   79,
+		80,   81,   82,   83,   84,   100,  71,  72,  88,   89,   90,   91,   109,  110, 77,  95,
+		96,   97,   98,   99,   116,  86,   87, 103,  104,  105,  106,  107,  108,  125, 126, 94,
+		112,  113,  114,  115,  132,  101,  102, 119,  120,  121,  122,  123,  124,  141, 142, 111,
+		128,  129,  130,  131,  148,  117,  118, 135,  136,  137,  138,  139,  140,  157, 158, 127,
+		144,  145,  146,  147,  165,  133,  134, 151,  152,  153,  154,  155,  156,  172, 173, 143,
+		160,  161,  162,  163,  164,  182,  149, 150, 168,  169,  170,  171,  187, 188, 159, 175,
+		176,  177,  178,  179,  180,  181,  199, 166, 167, 184, 185, 186, 203, 174, 190,  191,
+		192,  193,  194,  195,  196,  197,  198,  216, 183, 200, 201, 202, 189, 205,  206,  207,
+		208,  209,  210,  211,  212,  213,  214,  215,  217, 218, 219, 204, 220,  221,  222,  223,
 		224,  225,  226,  227,  228,  229,  230,  231,  232,  233,  234,  235,  236,  237,  238,  239,  
 		240,  241,  242,  243,  244,  245,  246,  247,  248,  249,  250,  251,  252,  253,  254,  255,  
 	};

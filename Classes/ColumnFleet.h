@@ -13,7 +13,7 @@
 #define LINEFLEET_START_SIZE 5
 
 @interface ColumnFleet : Fleet {
-	BOOL stationary;
+	BOOL _stationary;
 }
 
 - (id) initWithSize:(int) size andSpacing:(int) spacing atPos:(CGPoint) pos upsideDown:(BOOL) upsidedown stationary:(BOOL) stat difficulty: (int) level;

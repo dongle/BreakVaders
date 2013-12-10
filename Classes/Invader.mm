@@ -13,7 +13,8 @@
 #define RADIANS( degrees ) ( degrees * M_PI / 180 )
 
 @implementation Invader
-@synthesize health, promoted;
+@synthesize health = _health;
+@synthesize promoted = _promoted;
 
 - (void) createBodyInWorld: (b2World *) w {
 	// Create invader body
@@ -80,7 +81,7 @@
 
 - (Ball *) ballWithDirection: (CGPoint) dir {
 	CGPoint pos = ccp(self.position.x, self.position.y);
-	Ball *newball = (Ball *) [Ball spriteBodyAt:pos withForce: dir inWorld:world];
+	Ball *newball = (Ball *) [Ball spriteBodyAt:pos withForce: dir inWorld:_world];
 	return newball;
 }
 
@@ -110,11 +111,11 @@
 }
 
 - (void) makeActive {
-	if (b2dBody == nil) {
-		if (world == nil) world = [PongVader getInstance].world;
-		[self createBodyInWorld:world];
+	if (_b2dBody == nil) {
+		if (_world == nil) _world = [PongVader getInstance].world;
+		[self createBodyInWorld:_world];
 	}
-	b2dBody->SetActive(TRUE);
+	_b2dBody->SetActive(TRUE);
 }
 
 - (void) moveWithDir: (CGPoint) direction andDistance: (int) dist {
@@ -130,13 +131,13 @@
 - (BOOL) doHitFrom: (Ball *) ball withDamage: (int) damage {
 	if ([self isDead]) return NO;
 	
-	health -= damage;
+	_health -= damage;
 	
 	[ball increaseCombo];
 	
 	if (ball.lastPlayer)	[self doHitScore:ball];
 	
-	if (promoted && health == 1) {
+	if (_promoted && _health == 1) {
 		[self removeArmor];	
 	}
 	
@@ -159,14 +160,14 @@
 
 - (BOOL) isDead
 {
-	return health <= 0;
+	return _health <= 0;
 }
 
 - (BOOL) doesCount { return YES; }
 - (BOOL) isBoss { return NO; }
 
 - (void) reset {
-	health = 1;	
+	_health = 1;
 	self.rotation = 0;
 }
 

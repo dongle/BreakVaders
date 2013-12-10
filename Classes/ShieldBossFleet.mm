@@ -13,16 +13,16 @@
 
 - (id) init {
 	if ((self = [super init])) {
-		direction = 0;
+		_direction = 0;
 		
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		PongVader *pv = [PongVader getInstance];
 		
-		boss = (ShieldBoss *) [pv addSpriteBody:[ShieldBoss class] atPos:ccp(1000, screenSize.height/2) withForce: ccp(0,0)];
+		_boss = (ShieldBoss *) [pv addSpriteBody:[ShieldBoss class] atPos:ccp(1000, screenSize.height/2) withForce: ccp(0,0)];
 		
-		[invaders addObject:boss];
+		[_invaders addObject:_boss];
 		
-		[boss runAction:
+		[_boss runAction:
 		 [CCEaseExponentialOut actionWithAction:
 		  [CCMoveTo actionWithDuration:LINEFLEET_ANIM_TIME position:ccp(screenSize.width/2, screenSize.height/2)]]];
 //		[boss runAction:
@@ -41,7 +41,7 @@
 {
 	[self moveFleet];
 	[self shoot];
-	lastBeat = beat;
+	self->_lastBeat = beat;
 }
 
 //- (void) shoot {
@@ -49,23 +49,23 @@
 //}
 
 - (void) moveFleet {
-	if ([invaders count] == 0) return;
+	if ([_invaders count] == 0) return;
 	
-	if ((direction > 0) && ([self mostRight] >= (768 - 128))) {
-		direction = -1;
+	if ((_direction > 0) && ([self mostRight] >= (768 - 128))) {
+		_direction = -1;
 	}
-	else if ((direction < 0) && ([self mostLeft] <= (32 + .5*128))) {
-		direction = 1;
+	else if ((_direction < 0) && ([self mostLeft] <= (32 + .5*128))) {
+		_direction = 1;
 	}
 	
 	for (ShieldBoss *aboss in self.invaders) {
 		[aboss runAction:[CCMoveBy actionWithDuration:1
-											   position:ccp(direction*64, 0)]];
+											   position:ccp(_direction*64, 0)]];
 	}
 }
 
 - (void) makePhysical {
-	[boss makePhysicalInWorld:[PongVader getInstance].world];
+	[_boss makePhysicalInWorld:[PongVader getInstance].world];
 }
 
 @end

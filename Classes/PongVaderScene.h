@@ -10,7 +10,6 @@
 // When you import this file, you import all the cocos2d classes
 #import "cocos2d.h"
 #import "Box2D.h"
-//#import "GLES-Render.h"
 #import "SpriteBody.h"
 #import "Ball.h"
 #import "Rock.h"
@@ -23,19 +22,10 @@
 #import "AABBQueryCallback.h"
 #import <stdlib.h>
 #import "SimpleAudioEngine.h"
-#import "VictoryScreen.h"
 #import "GameStates.h"
 #import "SettingsManager.h"
 #import "NamedParticleSystem.h"
-#import "ShakeDispatcher.h"
 #import "GameSettings.h"
-//#import "Crittercism.h"
-#import "StoreObserver.h"
-
-// OpenFeint stuff
-#import "CCOFDelegate.h"
-#import "OpenFeint.h"
-#import "CCOFAchievementDelegate.h"
 
 // invader types
 #import "Invader.h"
@@ -53,95 +43,90 @@
 #define PV_NUM_LEVELS 25
 
 // PongVader Layer
-@interface PongVader : CCLayer <ShakeEventListenerProtocol, StoreResponder> {
-
-	GLESDebugDraw *m_debugDraw;
+@interface PongVader : CCLayer {
 	
 	// Box2D stuff
-	b2World *world;
-	b2Body *groundBody;
+	b2World *_world;
+	b2Body *_groundBody;
 	
 	// hold these fixtures to determine when ball has escaped
-	b2Fixture *bottomFixture;
-	b2Fixture *topFixture;
-	b2Fixture *leftFixture;
-	b2Fixture *rightFixture;
+	b2Fixture *_bottomFixture;
+	b2Fixture *_topFixture;
+	b2Fixture *_leftFixture;
+	b2Fixture *_rightFixture;
 	
 	// player stuff
-	Paddle *paddle1;
-	Paddle *paddle2;
+	Paddle *_paddle1;
+	Paddle *_paddle2;
 
 	// graphics 
 	
-	CCSpriteSheet *sheet;
+	CCSpriteBatchNode *_sheet;
 	
-	Planet *planet[2];
-	StarField *starfield;
+	Planet *_planet[2];
+	StarField *_starfield;
 	
-	CCSprite *effectring;
-	CCAnimation *effectringanim;
+	CCSprite *_effectring;
+	CCAnimation *_effectringanim;
 	
 	// tracking game entities
-	NSMutableArray *fleets, *balls, *powerups, *activeParticles;
-	NSMutableDictionary *inactiveInvaders, *inactiveParticles;
+	NSMutableArray *_fleets, *_balls, *_powerups, *_activeParticles;
+	NSMutableDictionary *_inactiveInvaders, *_inactiveParticles;
 	
 	// interactive
 	ContactListener *_contactListener;
-	NSMutableArray *touchedSprites;
+	NSMutableArray *_touchedSprites;
 	
 	// player stuff
-	Player *player[2];
+	Player *_player[2];
 	
 	// state info
 
-	BOOL bulletTime, innerBulletRadius;
-	BOOL soloInvader;
-	BOOL bossTime;
-	BOOL OFstarted;
-	BOOL gameBeat;
+	BOOL _bulletTime, _innerBulletRadius;
+	BOOL _soloInvader;
+	BOOL _bossTime;
+	BOOL _OFstarted;
+	BOOL _gameBeat;
 	
-	float bulletTimeDistance;
+	float _bulletTimeDistance;
 	
-	SettingsManager *settings;
-	NSMutableDictionary *appPList;
-	
-	CCOFDelegate *ofDelegate;
-	CCOFAchievementDelegate *myAchievementDelegate;
+	SettingsManager *_settings;
+	NSMutableDictionary *_appPList;
 	
 	// Difficulty constraints
-	float numBalls, minSpeed, maxSpeed;
+	float _numBalls, _minSpeed, _maxSpeed;
 	
 	// tracking achievement stuff
 	BOOL gotFireball;
 	
-	NSString *track1;
-	NSString *track2;
-	NSString *track3;
-	NSString *track4;
+	NSString *_track1;
+	NSString *_track2;
+	NSString *_track3;
+	NSString *_track4;
 	
-	NSString *smallFont;
-	NSString *mediumFont;
-	NSString *largeFont;
+	NSString *_smallFont;
+	NSString *_mediumFont;
+	NSString *_largeFont;
 	
-	CDSoundSource *fuzz;
+	CDSoundSource *_fuzz;
 	
 	// tracking request dialogs (one per session)
-	BOOL sentRequest;
+	BOOL _sentRequest;
 	
-	UIViewController *mainViewController;
+	UIViewController *_mainViewController;
 	
-	ccTime physDt;
+	ccTime _physDt;
 	
-	b2Vec2 oldImpulse;
-	CGFloat baseAccel[3];
-	BOOL accelNormalized;
+	b2Vec2 _oldImpulse;
+	CGFloat _baseAccel[3];
+	BOOL _accelNormalized;
 }
 
 @property (readonly) b2World *world;
 @property (readwrite, assign) b2Vec2 oldImpulse;
 @property (readonly) NSMutableArray *fleets;
 @property (readonly) NSMutableArray *powerups;
-@property (readonly) CCSpriteSheet *sheet;
+@property (readonly) CCSpriteBatchNode *sheet;
 @property (readonly) StarField *starfield;
 @property (readonly) BOOL bulletTime, innerBulletRadius;
 @property (readwrite, assign) NSMutableArray *balls;

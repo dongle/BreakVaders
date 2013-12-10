@@ -16,15 +16,15 @@
 #define PLAYDELAY 0.3
 
 @interface BeatSequencer : NSObject <BeatResponder> {
-	NSMutableArray **sequence, *responders;
-	NSTimeInterval _timeElapsed, songTime;
-	CGFloat bpmin;
-	int seqCapacity;
+	NSMutableArray **_sequence, *_responders;
+	NSTimeInterval _timeElapsed, _songTime;
+	CGFloat _bpmin;
+	int _seqCapacity;
 	
 	// used to delay song start to sync with graphics
-	BOOL firstPlay, songPlaying, isPaused;
-	NSString *songToPlay;
-	CGFloat songShift;
+	BOOL _firstPlay, _songPlaying, _isPaused;
+	NSString *_songToPlay;
+	CGFloat _songShift;
 }
 
 @property (readonly) CGFloat bpmin;

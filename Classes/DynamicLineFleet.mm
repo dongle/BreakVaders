@@ -28,7 +28,7 @@
 			DynamicInvader *invader = (DynamicInvader *) [pv addSpriteBody:[DynamicInvader class] atPos:ccp(left + i*spacing, height) withForce:ccp(0,0)];
 //			invader.scale = LINEFLEET_START_SIZE;
 			if (i%2 == upsidedown) invader.rotation = 180;
-			[invaders addObject:invader];
+			[_invaders addObject:invader];
 //			[invader runAction:
 //			 [CCEaseExponentialOut actionWithAction:
 //			  [CCMoveTo actionWithDuration:LINEFLEET_ANIM_TIME*(i+1) position:ccp(left + i * spacing, height)]]];
@@ -51,7 +51,7 @@
 }
 
 - (void) makePhysical {
-	for (DynamicInvader *invader in invaders) {
+	for (DynamicInvader *invader in _invaders) {
 		[invader makeActive];
 	}
 }

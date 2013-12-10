@@ -10,23 +10,26 @@
 
 
 @implementation TouchedSprite
-@synthesize touch, sb, mj;
+
+@synthesize touch = _touch;
+@synthesize sb = _sb;
+@synthesize mj = _mj;
 
 
 - (id) initWithSpriteBody: (SpriteBody*) s touch: (UITouch*) t {
 	
 	if ((self = [super init])) { 
-		sb = [s retain];
-		touch = [t retain];
-		mj = NULL;
+		_sb = [s retain];
+		_touch = [t retain];
+		_mj = NULL;
 	} 
 	
 	return self;
 }
 
 - (void) dealloc {
-	[touch release];
-	[sb release];
+	[_touch release];
+	[_sb release];
 	[super dealloc];
 }
 

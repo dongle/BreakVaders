@@ -11,7 +11,8 @@
 
 @implementation Powerup
 
-@synthesize state, health;
+@synthesize state = _state;
+@synthesize health = _health;
 
 + (SpriteBody*) spriteBodyAt: (CGPoint) p withForce: (CGPoint) f inWorld: (b2World *) w {
 	// Create sprite and add it to the layer
@@ -142,13 +143,13 @@
 }
 
 - (BOOL) doKill {
-	health = 0;	
+	_health = 0;
 	return YES;
 }
 
 - (BOOL) isDead
 {
-	return health <= 0;
+	return _health <= 0;
 }
 
 - (void) doHitFrom: (Ball *) ball withDamage: (int) d {

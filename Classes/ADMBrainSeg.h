@@ -13,7 +13,7 @@
 
 @interface ADMBrainSeg : Invader {
 @public 
-	ADMBrain *head;
+	ADMBrain *_head;
 }
 @end
 

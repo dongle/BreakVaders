@@ -9,11 +9,11 @@
 #import "BeatSequencer.h"
 #import "SimpleAudioEngine.h"
 
-#define SECSPERBEAT (60 / bpmin) 
+#define SECSPERBEAT (60 / _bpmin)
 
 @implementation BeatSequencer
 
-@synthesize bpmin;
+@synthesize bpmin = _bpmin;
 
 static BeatSequencer *__bs = nil;
 
@@ -30,47 +30,47 @@ static BeatSequencer *__bs = nil;
 
 - (id) init {
 	if ((self = [super init])) {
-		seqCapacity = 4*4*20;
-		sequence = malloc(sizeof(NSMutableArray *) * seqCapacity);
-		memset(sequence, 0, sizeof(NSMutableArray *) * seqCapacity);
-		responders = [[NSMutableArray array] retain];
-		[responders addObject:self];
-		_timeElapsed = songTime = 0;
-		bpmin = 100;
-		firstPlay = YES;
-		songPlaying = NO;
-		songShift = 0;
+		_seqCapacity = 4*4*20;
+		_sequence = malloc(sizeof(NSMutableArray *) * _seqCapacity);
+		memset(_sequence, 0, sizeof(NSMutableArray *) * _seqCapacity);
+		_responders = [[NSMutableArray array] retain];
+		[_responders addObject:self];
+		_timeElapsed = _songTime = 0;
+		_bpmin = 100;
+		_firstPlay = YES;
+		_songPlaying = NO;
+		_songShift = 0;
 	}
 	return self;
 }
 
 - (void) dealloc {
-	for (int i=0; i<seqCapacity; i++) {
-		[sequence[i] release];
+	for (int i=0; i<_seqCapacity; i++) {
+		[_sequence[i] release];
 	}
-	free(sequence);
-	[responders release];
-	[songToPlay release];
+	free(_sequence);
+	[_responders release];
+	[_songToPlay release];
 	[super dealloc];
 }
 
 - (void) _incSequence {
-	int newCapacity = seqCapacity * 2;
+	int newCapacity = _seqCapacity * 2;
 	NSMutableArray **newSeq = malloc(sizeof(NSMutableArray *) * newCapacity);
 	memset(newSeq, 0, sizeof(NSMutableArray *) * newCapacity);
-	memcpy(newSeq, sequence, sizeof(NSMutableArray *) * seqCapacity);
-	free(sequence);
-	sequence = newSeq;
-	seqCapacity = newCapacity;
+	memcpy(newSeq, _sequence, sizeof(NSMutableArray *) * _seqCapacity);
+	free(_sequence);
+	_sequence = newSeq;
+	_seqCapacity = newCapacity;
 }
 
 - (void) addEvent: (BeatEvent *) event 
 {
 	NSMutableArray *array;
-	while (seqCapacity <= event.eventBeat) [self _incSequence];
-	if (!(array = sequence[event.eventBeat])) {
+	while (_seqCapacity <= event.eventBeat) [self _incSequence];
+	if (!(array = _sequence[event.eventBeat])) {
 		array = [NSMutableArray arrayWithCapacity:4];
-		sequence[event.eventBeat] = [array retain];
+		_sequence[event.eventBeat] = [array retain];
 	}
 	[array addObject:event];
 }
@@ -97,86 +97,86 @@ static BeatSequencer *__bs = nil;
 }
 
 - (void) clearEvents {
-	for (int i=0; i<seqCapacity; i++) {
-		[sequence[i] release];
+	for (int i=0; i<_seqCapacity; i++) {
+		[_sequence[i] release];
 	}
-	free(sequence);
-	seqCapacity = 4*4*20;
-	sequence = malloc(sizeof(NSMutableArray *) * seqCapacity);
-	memset(sequence, 0, sizeof(NSMutableArray *) * seqCapacity);
+	free(_sequence);
+	_seqCapacity = 4*4*20;
+	_sequence = malloc(sizeof(NSMutableArray *) * _seqCapacity);
+	memset(_sequence, 0, sizeof(NSMutableArray *) * _seqCapacity);
 }
 
 - (void) reset {
-	for (int i=0; i<seqCapacity; i++) {
-		for (BeatEvent *event in sequence[i]) {
+	for (int i=0; i<_seqCapacity; i++) {
+		for (BeatEvent *event in _sequence[i]) {
 			[event reset];
 		}
 	}
 	_timeElapsed = 0;
-	songTime = 0;
+	_songTime = 0;
 }
 
 - (void) addResponder: (NSObject<BeatResponder> *) responder {
-	[responders addObject:responder];
+	[_responders addObject:responder];
 }
 
 - (void) removeResponder: (NSObject<BeatResponder> *) responder {
-	[responders removeObject:responder];
+	[_responders removeObject:responder];
 }
 
 - (void) clearResponders {
-	[responders removeAllObjects];
-	[responders addObject:self];
+	[_responders removeAllObjects];
+	[_responders addObject:self];
 }
 
 - (void) startWithSong: (NSString *) songPath andBPM: (CGFloat) bpm shifted: (CGFloat) shift
 {
-	[songToPlay autorelease];
-	songToPlay = [songPath retain];
+	[_songToPlay autorelease];
+	_songToPlay = [songPath retain];
 	
-	NSTimeInterval delay = firstPlay ? FIRSTPLAYDELAY : PLAYDELAY;
+	NSTimeInterval delay = _firstPlay ? FIRSTPLAYDELAY : PLAYDELAY;
 	if (delay<=0) {
 		[SimpleAudioEngine sharedEngine].backgroundMusicVolume = 1.0;
-		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:songToPlay];
-		songPlaying = YES;
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:_songToPlay];
+		_songPlaying = YES;
 	}
-	bpmin = bpm;
-	songShift = shift;
+	_bpmin = bpm;
+	_songShift = shift;
 }
 
 - (void) end 
 {
 	[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-	firstPlay = NO;
-	songPlaying = NO;
+	_firstPlay = NO;
+	_songPlaying = NO;
 }
 
 - (void) doTimer: (NSTimeInterval) dtime 
 {
-	if (isPaused) {
+	if (_isPaused) {
 		return;
 	}
 	
 	_timeElapsed += dtime;
 	
 
-	NSTimeInterval delay = firstPlay ? FIRSTPLAYDELAY : PLAYDELAY;
+	NSTimeInterval delay = _firstPlay ? FIRSTPLAYDELAY : PLAYDELAY;
 	//printf("%5.2f %5.2f\n", _timeElapsed, delay);
-	if ((delay>0) && !songPlaying && (_timeElapsed > delay)) {
+	if ((delay>0) && !_songPlaying && (_timeElapsed > delay)) {
 		[SimpleAudioEngine sharedEngine].backgroundMusicVolume = 1.0;
-		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:songToPlay];
-		songPlaying = YES;		
+		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:_songToPlay];
+		_songPlaying = YES;
 	} else if (_timeElapsed <= -delay) {
 		return;
 	}	
-	songTime = _timeElapsed - delay;
-	songTime += songShift;
+	_songTime = _timeElapsed - delay;
+	_songTime += _songShift;
 	
-	int nextBeat = floor(songTime / SECSPERBEAT);
+	int nextBeat = floor(_songTime / SECSPERBEAT);
 	//printf("%5.2f %6.3f %d\n", songTime, songTime / SECSPERBEAT, nextBeat);
 	
 	for (int i=(nextBeat-MAX_ASTERN_BEATS) < 0 ? 0 : nextBeat-MAX_ASTERN_BEATS; i < nextBeat+MAX_AHEAD_BEATS; i++) {
-		for (NSObject<BeatResponder> *responder in responders) {
+		for (NSObject<BeatResponder> *responder in _responders) {
 			BOOL shouldRespond = [responder shouldRespondToBeat: i];
 			BOOL responded = [responder respondedToBeat:i];
 			if (shouldRespond && !responded) {
@@ -187,26 +187,26 @@ static BeatSequencer *__bs = nil;
 					[responder respondsToSelector: @selector(endTimeForBeat:)]) 
 				{
 
-					if ((i*SECSPERBEAT < songTime) ||
-						((i*SECSPERBEAT+[responder startTimeForBeat:i]) < songTime)) 
+					if ((i*SECSPERBEAT < _songTime) ||
+						((i*SECSPERBEAT+[responder startTimeForBeat:i]) < _songTime))
 					{
 						if ([responder respondingToBeat:i]) {
 							// do timer
 							if ([responder respondsToSelector: @selector(doTimer:forBeat:)])
 								[responder doTimer:dtime forBeat:i];
 						} else if (i >= nextBeat) { 
-							[responder doBeat:i atTime:songTime];
+							[responder doBeat:i atTime:_songTime];
 						}
 						
 						// end beat if appropriate
 						if ((([responder respondingToBeat:i]) || (i == nextBeat)) && 
-							((i*SECSPERBEAT+[responder endTimeForBeat:i]) < songTime))
+							((i*SECSPERBEAT+[responder endTimeForBeat:i]) < _songTime))
 						{
-							[responder endBeat:i atTime:songTime];
+							[responder endBeat:i atTime:_songTime];
 						}			
 					}
-				} else if ((i*SECSPERBEAT < songTime) && (i == nextBeat))
-					[responder doBeat:i atTime:songTime];
+				} else if ((i*SECSPERBEAT < _songTime) && (i == nextBeat))
+					[responder doBeat:i atTime:_songTime];
 					
 			}
 		}
@@ -216,8 +216,8 @@ static BeatSequencer *__bs = nil;
 
 - (BOOL) shouldRespondToBeat: (NSUInteger) beat 
 {
-	if (beat >= seqCapacity) return NO;
-	return (sequence[beat] != nil);
+	if (beat >= _seqCapacity) return NO;
+	return (_sequence[beat] != nil);
 	/*
 	NSUInteger i = 0;
 	BeatEvent *event = [sequence objectAtIndex:i];
@@ -228,8 +228,8 @@ static BeatSequencer *__bs = nil;
 
 - (BOOL) respondingToBeat: (NSUInteger) beat 
 {
-	if (beat >= seqCapacity) return NO;
-	for (BeatEvent *event in sequence[beat]) {
+	if (beat >= _seqCapacity) return NO;
+	for (BeatEvent *event in _sequence[beat]) {
 		if ([event respondsToSelector:@selector(respondingToBeat:)] && 
 			[event respondingToBeat:beat]) return YES;
 	}
@@ -245,8 +245,8 @@ static BeatSequencer *__bs = nil;
 
 - (BOOL) respondedToBeat: (NSUInteger) beat 
 {
-	if (beat >= seqCapacity) return NO;
-	NSArray *array = sequence[beat];
+	if (beat >= _seqCapacity) return NO;
+	NSArray *array = _sequence[beat];
 	BOOL shouldRespond = (array != nil);
 	for (BeatEvent *event in array) {
 		if (![event respondedToBeat:beat]) return NO;
@@ -263,9 +263,9 @@ static BeatSequencer *__bs = nil;
 
 - (NSTimeInterval) startTimeForBeat: (NSUInteger) beat 
 {
-	if (beat >= seqCapacity) return 0;
+	if (beat >= _seqCapacity) return 0;
 	NSTimeInterval startTime = INFINITY;
-	for (BeatEvent *event in sequence[beat]) {
+	for (BeatEvent *event in _sequence[beat]) {
 		if ([event respondsToSelector:@selector(startTimeForBeat:)]) {
 			NSTimeInterval beatStart = [event startTimeForBeat:beat];
 			if (beatStart < startTime) startTime = beatStart;
@@ -287,9 +287,9 @@ static BeatSequencer *__bs = nil;
 
 - (NSTimeInterval) endTimeForBeat: (NSUInteger) beat 
 {
-	if (beat >= seqCapacity) return 0;
+	if (beat >= _seqCapacity) return 0;
 	NSTimeInterval endTime = -INFINITY;
-	for (BeatEvent *event in sequence[beat]) {
+	for (BeatEvent *event in _sequence[beat]) {
 		if ([event respondsToSelector:@selector(endTimeForBeat:)]) {
 			NSTimeInterval beatEnd = [event endTimeForBeat:beat];
 			if (beatEnd > endTime) endTime = beatEnd;
@@ -318,8 +318,8 @@ static BeatSequencer *__bs = nil;
 
 - (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time 
 {
-	if (beat >= seqCapacity) return;
-	for (BeatEvent *event in sequence[beat]) {
+	if (beat >= _seqCapacity) return;
+	for (BeatEvent *event in _sequence[beat]) {
 		if ([event respondsToSelector:@selector(startTimeForBeat:)]) 
 		{
 			if ((time > (beat*SECSPERBEAT+[event startTimeForBeat:beat]))) 
@@ -348,8 +348,8 @@ static BeatSequencer *__bs = nil;
 
 - (void) endBeat: (NSUInteger) beat atTime: (NSTimeInterval) time 
 {
-	if (beat >= seqCapacity) return;
-	for (BeatEvent *event in sequence[beat]) {
+	if (beat >= _seqCapacity) return;
+	for (BeatEvent *event in _sequence[beat]) {
 		if ([event respondsToSelector:@selector(endBeat:atTime:)]) 
 		{
 			[event endBeat:beat atTime:time];
@@ -359,39 +359,39 @@ static BeatSequencer *__bs = nil;
 
 - (void) doTimer: (NSTimeInterval) dtime forBeat: (NSUInteger) beat
 {
-	if (beat >= seqCapacity) return;
-	for (BeatEvent *event in sequence[beat]) {
+	if (beat >= _seqCapacity) return;
+	for (BeatEvent *event in _sequence[beat]) {
 		if (![event respondedToBeat:beat]) {
 			if ([event respondsToSelector: @selector(respondingToBeat:)] && 
 				[event respondsToSelector: @selector(endBeat:atTime:)] && 
 				[event respondsToSelector: @selector(startTimeForBeat:)] && 
 				[event respondsToSelector: @selector(endTimeForBeat:)]) 
 			{
-				if ((beat*SECSPERBEAT < songTime) ||
-					((beat*SECSPERBEAT+[event startTimeForBeat:beat]) < songTime)) 
+				if ((beat*SECSPERBEAT < _songTime) ||
+					((beat*SECSPERBEAT+[event startTimeForBeat:beat]) < _songTime))
 				{
 					if ([event respondingToBeat:beat]) {
 						if ([event respondsToSelector: @selector(doTimer:forBeat:)])
 							[event doTimer:dtime forBeat:beat];
 					} else { 
-						[event doBeat:beat atTime:songTime];
+						[event doBeat:beat atTime:_songTime];
 					}
-					if ((beat*SECSPERBEAT+[event endTimeForBeat:beat]) < songTime)
-						[event endBeat:beat atTime:songTime];
+					if ((beat*SECSPERBEAT+[event endTimeForBeat:beat]) < _songTime)
+						[event endBeat:beat atTime:_songTime];
 				}
-			} else if (beat*SECSPERBEAT < songTime)
-				[event doBeat:beat atTime:songTime];
+			} else if (beat*SECSPERBEAT < _songTime)
+				[event doBeat:beat atTime:_songTime];
 		}
 	}
 }
 
 - (void) pause {
-	isPaused = YES;
+	_isPaused = YES;
 	[[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
 }
 
 - (void) unpause {
-	isPaused = NO;
+	_isPaused = NO;
 	[[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
 }
 

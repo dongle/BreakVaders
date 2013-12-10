@@ -13,11 +13,11 @@
 #define LINEFLEET_START_SIZE 5
 
 @interface CircleFleet : Fleet {
-	CGPoint positions[25];
-	int positionOffset;
-	int numInvaders;
-	int currentInvaders;
-	int currentOffset;
+	CGPoint _positions[25];
+	int _positionOffset;
+	int _numInvaders;
+	int _currentInvaders;
+	int _currentOffset;
 }
 
 - (id) initWithSize:(int) size andRadius:(int) rad atPos:(CGPoint) pos upsideDown:(BOOL) upsidedown stationary:(BOOL) stat difficulty: (int) level classes:(Class *) classes;

@@ -10,7 +10,7 @@
 #import "Invader.h"
 
 @interface ShieldBoss : Invader {
-	StaticSpriteBody *shield;
+	StaticSpriteBody *_shield;
 }
 
 @property (nonatomic, retain) StaticSpriteBody *shield;

@@ -12,8 +12,8 @@
 #import "Ball.h"
 
 @interface Powerup : SpriteBody {
-	int state;
-	int health;
+	int _state;
+	int _health;
 }
 
 @property (readwrite, assign) int state;

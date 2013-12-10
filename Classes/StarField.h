@@ -22,11 +22,13 @@
 #define STARFIELD_DIVS 16
 
 @interface StarField : BeatNode {
-	CCSprite *star[NUM_STARS];
-	ccTime curTime, driftTime;
+	CCSprite *_star[NUM_STARS];
+	ccTime _curTime, _driftTime;
 }
+
 +(StarField *) starField;
 -(void) doDrift;
 -(void) reset;
 -(void) tick: (ccTime) dt;
+
 @end

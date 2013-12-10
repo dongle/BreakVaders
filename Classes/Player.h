@@ -12,8 +12,8 @@
 
 @interface Player : NSObject {
 	//int score, lastLevelScore, chain, maxChain, maxCombo;
-	int maxCombo;
-	NSString *name;
+	int _maxCombo;
+	NSString *_name;
 }
 
 //@property (readwrite, assign) int chain, maxChain, maxCombo, lastLevelScore;

@@ -11,9 +11,9 @@
 
 
 @interface TouchedSprite : NSObject {
-	UITouch *touch;
-	SpriteBody *sb;
-	b2MouseJoint *mj;
+	UITouch *_touch;
+	SpriteBody *_sb;
+	b2MouseJoint *_mj;
 }
 
 @property (nonatomic, retain) UITouch *touch;

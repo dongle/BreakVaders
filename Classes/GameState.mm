@@ -13,7 +13,9 @@ static GameState * _curState;
 
 @implementation GameState
 
-@synthesize timeElapsed, dataBin, closeDataBin;
+@synthesize timeElapsed = _timeElapsed;
+@synthesize dataBin = _dataBin;
+@synthesize closeDataBin = _closeDataBin;
 
 #pragma mark Class methods
 
@@ -35,21 +37,21 @@ static GameState * _curState;
 		GameState *oldState = _curState;
 
 		if (oldState) {
-			[oldState->nextState autorelease];
-			oldState->nextState = next;
-			oldState->nextStateTime = 0;
-			oldState->waitingOnSignal = NO;
+			[oldState->_nextState autorelease];
+			oldState->_nextState = next;
+			oldState->_nextStateTime = 0;
+			oldState->_waitingOnSignal = NO;
 		}
 		
 		if ((_curState = [next retain]))
-			_curState->lastState = oldState;
+			_curState->_lastState = oldState;
 		
 		[oldState leave];
 		if (_curState) _curState.timeElapsed = 0;
 		[_curState enter];
 
-		if ( oldState)  oldState->nextState = nil;
-		if (_curState) _curState->lastState = nil;
+		if ( oldState)  oldState->_nextState = nil;
+		if (_curState) _curState->_lastState = nil;
 		
 		// we are now in a new state, pass any stored data
 		
@@ -72,20 +74,20 @@ static GameState * _curState;
 - (id) init{
 	if ((self = [super init])) 
 	{
-		lastState = nil;
-		nextState = nil;
-		nextStateTime = 0;
-		timeElapsed = 0;
-		waitingOnSignal = NO;
-		dataBin = nil;
-		closeDataBin = kSTATE_NO_CLOSE_DATA;
+		_lastState = nil;
+		_nextState = nil;
+		_nextStateTime = 0;
+		_timeElapsed = 0;
+		_waitingOnSignal = NO;
+		_dataBin = nil;
+		_closeDataBin = kSTATE_NO_CLOSE_DATA;
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[dataBin release];
-	[nextState release];
+	[_dataBin release];
+	[_nextState release];
 	[super dealloc];
 }
 
@@ -113,7 +115,7 @@ static GameState * _curState;
 
 - (GameState *) doEndData:(BOOL) playerQuit { 
 	// default behavior is just to store the closeData
-	closeDataBin = playerQuit ? kSTATE_CLOSE_DATA_QUIT 
+	_closeDataBin = playerQuit ? kSTATE_CLOSE_DATA_QUIT
 							  : kSTATE_CLOSE_DATA;
 	return self; 
 }
@@ -129,58 +131,58 @@ static GameState * _curState;
 //
 
 - (void) changeTo: (GameState *) next after: (float) time {
-	[self changeTo: next at: timeElapsed + time];
+	[self changeTo: next at: _timeElapsed + time];
 }
 
 
 - (void) changeTo: (GameState *) next at: (CFTimeInterval) time {
 	if (next == self) return;
 	
-	[nextState autorelease];
-	nextState = [next retain];
-	nextStateTime = time;
+	[_nextState autorelease];
+	_nextState = [next retain];
+	_nextStateTime = time;
 	[self leaving];
 }
 
 - (void) whenSignaledChangeTo: (GameState *) next {
 	if (next == self) return;
 	
-	[nextState autorelease];
-	nextState = [next retain];
-	waitingOnSignal = YES;
+	[_nextState autorelease];
+	_nextState = [next retain];
+	_waitingOnSignal = YES;
 	[self leaving];
 }
 
 - (void) signal {
-	waitingOnSignal = NO;
+	_waitingOnSignal = NO;
 }
 
 - (GameState *) timer: (CFTimeInterval) dTime {
-	timeElapsed += dTime;
-	if (!nextState) {
+	_timeElapsed += dTime;
+	if (!_nextState) {
 		return [self doTimer:dTime];
-	} else if (!waitingOnSignal && (timeElapsed > nextStateTime)) {		
-		return nextState;
+	} else if (!_waitingOnSignal && (_timeElapsed > _nextStateTime)) {
+		return _nextState;
 	} else return self;
 }
 
 - (GameState *) startTouch:(NSSet *)touches withEvent:(UIEvent *)event { 
-	if (!nextState) return [self doStartTouch:touches withEvent:event]; 
+	if (!_nextState) return [self doStartTouch:touches withEvent:event];
 	else return self;
 }
 
 - (GameState *) drag: (NSSet *)touches withEvent:(UIEvent *)event { 
-	if (!nextState) return [self doDrag:touches withEvent:event]; 
+	if (!_nextState) return [self doDrag:touches withEvent:event];
 	else return self;
 }
 
 - (GameState *) endTouch:(NSSet *)touches withEvent:(UIEvent *)event { 
-	if (!nextState) return [self doEndTouch:touches withEvent:event]; 
+	if (!_nextState) return [self doEndTouch:touches withEvent:event];
 	else return self;
 }
 
 - (GameState *) handleData: (NSData *) data { 
-	if (nextState) {
+	if (_nextState) {
 		[self setDataBin: data];
 		return self;
 	} else 
@@ -188,8 +190,8 @@ static GameState * _curState;
 }
 
 - (GameState *) endData: (BOOL) playerQuit { 
-	if (nextState) {
-		closeDataBin = playerQuit ? kSTATE_CLOSE_DATA_QUIT 
+	if (_nextState) {
+		_closeDataBin = playerQuit ? kSTATE_CLOSE_DATA_QUIT
 								  : kSTATE_CLOSE_DATA;
 		return self;
 	} else
@@ -197,7 +199,7 @@ static GameState * _curState;
 }
 
 - (GameState *) accelerometer:(float *)acceleration {
-	if (!nextState) return [self doAccelerometer: acceleration];
+	if (!_nextState) return [self doAccelerometer: acceleration];
 	else return self;	
 }
 

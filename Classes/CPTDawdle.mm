@@ -109,7 +109,7 @@ b2Vec2 *getDVerts(int frame) {
 		[animFrames addObject:frame];		
 	}
 	[invader addAnimation: [CCAnimation animationWithName:@"dawdle" delay:GAME_SPB/8.0f frames:animFrames]];
-	invader->animTime = 0;
+	invader->_animTime = 0;
 	
 	if (w) [invader createBodyInWorld: w];
 
@@ -118,33 +118,33 @@ b2Vec2 *getDVerts(int frame) {
 }
 
 - (void) doRotate {
-	if (upsidedown) {
+	if (_upsidedown) {
 		self.rotation = 0;
-		b2dBody->SetTransform(b2dBody->GetPosition(), 0);
+		_b2dBody->SetTransform(_b2dBody->GetPosition(), 0);
 	} else {
 		self.rotation = 180;
-		b2dBody->SetTransform(b2dBody->GetPosition(), RADIANS(180));
+		_b2dBody->SetTransform(_b2dBody->GetPosition(), RADIANS(180));
 	}
-	upsidedown = !upsidedown;
+	_upsidedown = !_upsidedown;
 }
 
 -(void) tick: (ccTime)dt {
-	if (shaking) {
-		b2Vec2 vec = b2dBody->GetPosition();
+	if (_shaking) {
+		b2Vec2 vec = _b2dBody->GetPosition();
 		int deltaPos = arc4random() % 10;
 		self.position = ccp(vec.x*PTM_RATIO + deltaPos, vec.y*PTM_RATIO + deltaPos);
-		shakeTime+=dt;
-		explosionTime += dt;
+		_shakeTime+=dt;
+		_explosionTime += dt;
 		
-		if (shakeTime > 1.5) {
-			shaking = NO;
-			shakeTime = 0;
-			explosionTime = 0;
+		if (_shakeTime > 1.5) {
+			_shaking = NO;
+			_shakeTime = 0;
+			_explosionTime = 0;
 			self.position = ccp(vec.x*PTM_RATIO, vec.y*PTM_RATIO);
 			[self doRotate];
 		}
 		
-		if (explosionTime > .3) {
+		if (_explosionTime > .3) {
 			printf("boom \n");
 			// spawn particles
 			int xOffset, yOffset;
@@ -154,25 +154,25 @@ b2Vec2 *getDVerts(int frame) {
 			[[PongVader getInstance] addParticleAt:ccp(self.position.x + xOffset, self.position.y + yOffset) particleType: PART_DYN];
 		
 			// reset explosionTime
-			explosionTime = 0;
+			_explosionTime = 0;
 		}
 		
 	} else [super tick:dt];
 	
-	animTime += dt;
+	_animTime += dt;
 	float duration = 2 * 60/[BeatSequencer getInstance].bpmin;
-	if (animTime > duration) animTime = 0;
-	int frame = DAWDLE_NUM_FRAMES * animTime / duration;
-	if (frame != lastFrame) {
+	if (_animTime > duration) _animTime = 0;
+	int frame = DAWDLE_NUM_FRAMES * _animTime / duration;
+	if (frame != _lastFrame) {
 	
 		[self setDisplayFrame: @"dawdle" index:frame];
 
 		if ((frame%4)==0) {
-			b2Fixture *fixture = b2dBody->GetFixtureList();
+			b2Fixture *fixture = _b2dBody->GetFixtureList();
 			b2PolygonShape *shape = (b2PolygonShape*) fixture->GetShape();
 			shape->Set(getDVerts(frame), 8);
 		}
-		lastFrame = frame;
+		_lastFrame = frame;
 	}
 }
 
@@ -191,7 +191,7 @@ b2Vec2 *getDVerts(int frame) {
 
 - (void) shoot {
 	int angle = -45 + arc4random() % 90;
-	if (upsidedown) angle +=180;
+	if (_upsidedown) angle +=180;
 	[self nowShoot: [NSNumber numberWithInt:angle]];
 	int speed = 2+arc4random()%3;
 	
@@ -217,21 +217,21 @@ b2Vec2 *getDVerts(int frame) {
 	}
 	
 	
-	if ((!upsidedown && (ball.position.y > (self.position.y-bossHitOffset))) || 
-		(upsidedown && (ball.position.y < (self.position.y+bossHitOffset)))) {
+	if ((!_upsidedown && (ball.position.y > (self.position.y-bossHitOffset))) ||
+		(_upsidedown && (ball.position.y < (self.position.y+bossHitOffset)))) {
 		
 		if (_IPAD) {
-			if ((!upsidedown && (self.position.y > 400)) || (upsidedown && (self.position.y < 624))) {
+			if ((!_upsidedown && (self.position.y > 400)) || (_upsidedown && (self.position.y < 624))) {
 				
 				[self runAction:[CCMoveBy actionWithDuration: 0.3
-													position: upsidedown? ccp(0,25) : ccp(0,-25)]];	
+													position: _upsidedown? ccp(0,25) : ccp(0,-25)]];
 			}
 		}
 		else {
-			if ((!upsidedown && (self.position.y > 200)) || (upsidedown && (self.position.y < 312))) {
+			if ((!_upsidedown && (self.position.y > 200)) || (_upsidedown && (self.position.y < 312))) {
 				
 				[self runAction:[CCMoveBy actionWithDuration: 0.3
-													position: upsidedown? ccp(0,12) : ccp(0,-12)]];	
+													position: _upsidedown? ccp(0,12) : ccp(0,-12)]];
 			}
 		}
 		
@@ -241,7 +241,7 @@ b2Vec2 *getDVerts(int frame) {
 	} else if ([ball isHot]) { // underbelly
 		[[SimpleAudioEngine sharedEngine] playEffect:@"DawdleWail.wav"];
 		[super doHitFrom:ball withDamage:damage];
-		if (![self isDead]) shaking = YES;
+		if (![self isDead]) _shaking = YES;
 	}
 	
 //	id action1 = [CCPropertyAction actionWithDuration:0.1 key:@"RedTint" from:0 to:1];
@@ -257,10 +257,10 @@ b2Vec2 *getDVerts(int frame) {
 -(BOOL) isBoss {return YES;}
 
 - (void) reset {
-	health = DAWDLE_MAX_HEALTH;
+	_health = DAWDLE_MAX_HEALTH;
 	self.rotation = 0;
-	b2dBody->SetTransform(b2dBody->GetPosition(), 0);
-	upsidedown = NO;
+	_b2dBody->SetTransform(_b2dBody->GetPosition(), 0);
+	_upsidedown = NO;
 }
 
 @end

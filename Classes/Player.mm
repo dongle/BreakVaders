@@ -12,7 +12,19 @@
 
 @implementation Player
 
-@synthesize name, maxCombo; //chain, maxChain, maxCombo, lastLevelScore;
+@synthesize name = _name;
+@synthesize scoreKey = _scoreKey;
+@synthesize lastLevelScoreKey = _lastLevelScoreKey;
+@synthesize chainKey = _chainKey;
+@synthesize maxChainKey = _maxChainKey;
+@synthesize lastLevelChainKey = _lastLevelChainKey;
+@synthesize maxCombo = _maxCombo;
+
+@synthesize score = _score;
+@synthesize lastLevelScore = _lastLevelScore;
+@synthesize chain = _chain;
+@synthesize maxChain = _maxChain;
+@synthesize lastLevelChain = _lastLevelChain;
 
 - (id) initWithName: (NSString *) aname {
 	if ((self = [super init])) {
@@ -24,15 +36,15 @@
 }
 
 - (void) dealloc {
-	[name release];
+	[_name release];
 	[super dealloc];
 }
 
 - (void) incScoreBy:(int) bonus {
 	PongVader *pv = [PongVader getInstance];
 	int calcScore = bonus*(1+([pv.settings getInt:self.chainKey]/SCORE_CHAINMULT));
-	if (([name isEqualToString:@"player1"] && ([pv.settings getInt:@"Player1Type"] == 0)) ||
-		([name isEqualToString:@"player2"] && ([pv.settings getInt:@"Player2Type"] == 0))) {
+	if (([_name isEqualToString:@"player1"] && ([pv.settings getInt:@"Player1Type"] == 0)) ||
+		([_name isEqualToString:@"player2"] && ([pv.settings getInt:@"Player2Type"] == 0))) {
 		[pv.settings inc:self.scoreKey by:calcScore];
 	}
 }
@@ -59,8 +71,8 @@
 
 - (void) incChain {
 	PongVader *pv = [PongVader getInstance];
-	if (([name isEqualToString:@"player1"] && ([pv.settings getInt:@"Player1Type"] == 0)) ||
-		([name isEqualToString:@"player2"] && ([pv.settings getInt:@"Player2Type"] == 0))) {
+	if (([_name isEqualToString:@"player1"] && ([pv.settings getInt:@"Player1Type"] == 0)) ||
+		([_name isEqualToString:@"player2"] && ([pv.settings getInt:@"Player2Type"] == 0))) {
 		[pv.settings inc:self.chainKey by:1];
 		if ([pv.settings getInt:self.chainKey] > [pv.settings getInt:self.maxChainKey]) {
 			[pv.settings set:self.maxChainKey toInt: [pv.settings getInt:self.chainKey]];
@@ -104,23 +116,23 @@
 
 // keys for settings manager
 - (NSString *) scoreKey {
-	return [NSString stringWithFormat:@"%@_score", name];
+	return [NSString stringWithFormat:@"%@_score", _name];
 }
 
 - (NSString *) lastLevelScoreKey {
-	return [NSString stringWithFormat:@"%@_lastLevelScore", name];
+	return [NSString stringWithFormat:@"%@_lastLevelScore", _name];
 }
 
 - (NSString *) chainKey {
-	return [NSString stringWithFormat:@"%@_chain", name];
+	return [NSString stringWithFormat:@"%@_chain", _name];
 }
 
 - (NSString *) maxChainKey {
-	return [NSString stringWithFormat:@"%@_maxChain", name];
+	return [NSString stringWithFormat:@"%@_maxChain", _name];
 }
 
 - (NSString *) lastLevelChainKey {
-	return [NSString stringWithFormat:@"%@_lastLevelChain", name];
+	return [NSString stringWithFormat:@"%@_lastLevelChain", _name];
 }
 
 // accessors for settings manager

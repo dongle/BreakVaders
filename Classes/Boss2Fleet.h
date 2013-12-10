@@ -11,12 +11,12 @@
 #import "ADMBrain.h"
 
 @interface Boss2Fleet : Fleet {
-	CGPoint origin;
-	CGPoint dimensions;
-	CGFloat spacing;
-	NSString *score;
+	CGPoint _origin;
+	CGPoint _dimensions;
+	CGFloat _spacing;
+	NSString *_score;
 	
-	ADMBrain *brain;
+	ADMBrain *_brain;
 }
 
 @property (nonatomic, retain) ADMBrain *brain;

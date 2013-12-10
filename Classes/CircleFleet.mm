@@ -42,7 +42,7 @@
 			//StationaryInvader *invader = (StationaryInvader *) [pv addSpriteBody:[StationaryInvader class] atPos:ccp(upsidedown ? -1300 : 1300 + position.x,  upsidedown ? -1300 : 1300 + position.y) withForce:ccp(0,0)];
 			invader.scale = LINEFLEET_START_SIZE;
 			if (i%2 == upsidedown) invader.rotation = 180;
-			[invaders addObject:invader];
+			[_invaders addObject:invader];
 			
 			[invader runAction:
 			 [CCEaseExponentialOut actionWithAction:
@@ -51,16 +51,16 @@
 			 [CCEaseExponentialOut actionWithAction:
 			  [CCScaleTo actionWithDuration:LINEFLEET_ANIM_TIME*(i+1) scale:1.0]]];
 			
-			positions[i] = ccp(position.x, position.y);
+			_positions[i] = ccp(position.x, position.y);
 		}
 		[self performSelector:@selector(makePhysical) withObject:nil afterDelay:LINEFLEET_ANIM_TIME*size];
 		
 		// do stuff related to fleet size and movement
-		numInvaders = size;
+		_numInvaders = size;
 		
-		positionOffset = 0;
-		currentInvaders = size;
-		currentOffset = 0;
+		_positionOffset = 0;
+		_currentInvaders = size;
+		_currentOffset = 0;
 	}
 	return self;
 }
@@ -68,34 +68,34 @@
 - (void) moveFleet {
 	NSMutableArray *tempInvaders = [[NSMutableArray alloc] init];
 	
-	for (Invader *invader in invaders) {
+	for (Invader *invader in _invaders) {
 		[tempInvaders addObject: invader];
 	}
 	
-	currentInvaders = [tempInvaders count];
+	_currentInvaders = [tempInvaders count];
 	
 	// message invaders to move to  points in array
-	for (int i = 0; i < currentInvaders; i++) {
-		if ((positionOffset + i + 1) > numInvaders - 1) {
-			currentOffset = (positionOffset + i + 1) % numInvaders;
+	for (int i = 0; i < _currentInvaders; i++) {
+		if ((_positionOffset + i + 1) > _numInvaders - 1) {
+			_currentOffset = (_positionOffset + i + 1) % _numInvaders;
 		}
-		else { currentOffset = positionOffset + i + 1; }
+		else { _currentOffset = _positionOffset + i + 1; }
 		
 		Invader *invader = (Invader *) [tempInvaders objectAtIndex:i];
-		[invader moveWithPos: positions[currentOffset]];
+		[invader moveWithPos: _positions[_currentOffset]];
 		
 		//printf("currentoffset: %d position.x: %f position.y: %f \n", currentOffset, positions[currentOffset].x, positions[currentOffset].y );
 		
 	}
-	positionOffset = (positionOffset + currentInvaders) % numInvaders;
+	_positionOffset = (_positionOffset + _currentInvaders) % _numInvaders;
 	//[[invaders objectAtIndex:(numInvaders -1)] moveWithPos: currentPositions[0]];
-	printf("#invaders: %d \n", currentInvaders);
+	printf("#invaders: %d \n", _currentInvaders);
 	
 	tempInvaders = nil;
 }
 
 - (void) makePhysical {
-	for (StationaryInvader *invader in invaders) {
+	for (StationaryInvader *invader in _invaders) {
 		[invader makeActive];
 	}
 }

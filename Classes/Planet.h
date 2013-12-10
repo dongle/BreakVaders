@@ -10,11 +10,11 @@
 #import "GameSettings.h"
 
 @interface Planet : CCNode {
-	CCNode *planetnode, *shakenode, *skynode, *citynode[4], *mountainsnode[2];
-	int health;
-	BOOL shaking, upsidedown;
-	ccTime shakeStart, regenTime;
-	float redTint;
+	CCNode *_planetnode, *_shakenode, *_skynode, *_citynode[4], *_mountainsnode[2];
+	int _health;
+	BOOL _shaking, _upsidedown;
+	ccTime _shakeStart, _regenTime;
+	float _redTint;
 }
 
 @property(readonly) BOOL shaking;

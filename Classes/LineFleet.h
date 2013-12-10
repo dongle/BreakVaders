@@ -14,12 +14,13 @@
 #define LINEFLEET_START_SIZE 5
 
 @interface LineFleet : Fleet {
-	BOOL stationary;
-	float maxWidth;
-	CGPoint origin;
-	CGPoint direction;
+	BOOL _stationary;
+	float _maxWidth;
+	CGPoint _origin;
+	CGPoint _direction;
 	//bool lastShotUp;
 }
+
 - (id) initWithSize:(int) size 
 		   andWidth:(int) width 
 		   maxWidth:(int) maxwidth 

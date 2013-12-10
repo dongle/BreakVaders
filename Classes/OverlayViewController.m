@@ -11,7 +11,7 @@
 
 @implementation OverlayViewController
 
-@synthesize window;
+@synthesize window = _window;
 
 static OverlayViewController *_ovc = nil;
 
@@ -38,15 +38,15 @@ static OverlayViewController *_ovc = nil;
 - (void) show
 {
 	UIWindow *curWindow = [[UIApplication sharedApplication] keyWindow];
-	if (window != curWindow) {
-		prevWindow = curWindow;
-		[window makeKeyAndVisible];
+	if (_window != curWindow) {
+		_prevWindow = curWindow;
+		[_window makeKeyAndVisible];
 	}	
 }
 
 - (void) hide 
 {
-	[prevWindow makeKeyAndVisible];
+	[_prevWindow makeKeyAndVisible];
 }
 
 /*
@@ -97,7 +97,7 @@ static OverlayViewController *_ovc = nil;
 
 
 - (void)dealloc {
-	[window release];
+	[_window release];
     [super dealloc];
 }
 

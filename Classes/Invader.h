@@ -13,8 +13,8 @@
 #import "GameSettings.h"
 
 @interface Invader : StaticSpriteBody<Shooter> {
-	int health;
-	BOOL promoted;
+	int _health;
+	BOOL _promoted;
 }
 
 @property (readwrite, assign) int health;

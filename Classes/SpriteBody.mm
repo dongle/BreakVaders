@@ -13,24 +13,29 @@
 @end
 
 @implementation SpriteBody
-@synthesize b2dBody, world, idle, armored, pop, baseScale;
+@synthesize b2dBody = _b2dBody;
+@synthesize world = _world;
+@synthesize idle = _idle;
+@synthesize armored = _armored;
+@synthesize pop = _pop;
+@synthesize baseScale = _baseScale;
 
 + (SpriteBody*) spriteBodyAt: (CGPoint) p withForce: (CGPoint) f inWorld: (b2World *) w {
 	return nil;
 }
 
 -(void) dealloc {
-	[idle release];
-	[armored release];
-	[pop release];
+	[_idle release];
+	[_armored release];
+	[_pop release];
 	[super dealloc];
 }
 
 -(void) tick: (ccTime)dt {	
 	// sync CC2D w/ Box2D
-	self.position = ccp(b2dBody->GetPosition().x * PTM_RATIO,
-						b2dBody->GetPosition().y * PTM_RATIO);
-	self.rotation = -1 * CC_RADIANS_TO_DEGREES(b2dBody->GetAngle());
+	self.position = ccp(_b2dBody->GetPosition().x * PTM_RATIO,
+						_b2dBody->GetPosition().y * PTM_RATIO);
+	self.rotation = -1 * CC_RADIANS_TO_DEGREES(_b2dBody->GetAngle());
 }
 
 -(CGRect) getRect {
@@ -45,8 +50,8 @@
 - (BOOL) doHit { return YES; }
 
 - (CGPoint) getDir {
-	if (!b2dBody) return ccp(0,0);
-	b2Vec2 vec = b2dBody->GetLinearVelocity();
+	if (!_b2dBody) return ccp(0,0);
+	b2Vec2 vec = _b2dBody->GetLinearVelocity();
 	vec.Normalize();
 	return ccp(vec.x, vec.y);
 }

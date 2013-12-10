@@ -16,28 +16,31 @@
 
 @interface Bounce : NSObject
 {
-	CGPoint pos;
-	id hit;
+	CGPoint _pos;
+	id _hit;
 }
+
 @property (readwrite, assign) CGPoint pos;
 @property (readwrite, assign) id hit;
+
 - (id) initWithPos: (CGPoint) p hit: (id) h;
 + (id) bounceWithPos: (CGPoint) p hit: (id)h;
+
 @end
 
 @interface Ball : SpriteBody {
-	NSObject *lastHit;
-	Player *lastPlayer;
-	int health, combo, volley;
-	BOOL isFireball, isBulletTime, isNuke;
-	CCMotionStreak *streak;
-	float AIOffset; // computer paddle will always hit this ball at the same angle
-	float strobeTime;
-	NSMutableArray *bounces;
-	CCMotionStreak *ribbon;
+	NSObject *_lastHit;
+	Player *_lastPlayer;
+	int _health, _combo, _volley;
+	BOOL _isFireball, _isBulletTime, _isNuke;
+	CCMotionStreak *_streak;
+	float _AIOffset; // computer paddle will always hit this ball at the same angle
+	float _strobeTime;
+	NSMutableArray *_bounces;
+	CCMotionStreak *_ribbon;
 }
 
-@property (readwrite, assign) Player * lastPlayer;  // weak ref
+@property (readwrite, assign) Player *lastPlayer;  // weak ref
 @property (readwrite, assign) int health, combo, volley;
 @property (readwrite, assign) BOOL isBulletTime;
 @property (readwrite, assign) float AIOffset;

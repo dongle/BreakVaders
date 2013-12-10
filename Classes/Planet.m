@@ -11,12 +11,14 @@
 
 @implementation Planet
 
-@synthesize shaking, health;
+@synthesize shaking = _shaking;
+@synthesize health = _health;
+@synthesize redTint = _redTint;
 
 - (id) initAt: (CGPoint) p withRadius: (float) radius {
 	if ((self = [super init])) {
 		
-		health = 0;
+		_health = 0;
 
 		CCSprite *atmos;
 		
@@ -59,22 +61,22 @@
 		qp3.rotation = 180;
 		qp4.rotation = 270;
 
-		planetnode = [CCNode node];
+		_planetnode = [CCNode node];
 		
-		[planetnode addChild:qp1];
-		[planetnode addChild:qp2];
-		[planetnode addChild:qp3];
-		[planetnode addChild:qp4];
+		[_planetnode addChild:qp1];
+		[_planetnode addChild:qp2];
+		[_planetnode addChild:qp3];
+		[_planetnode addChild:qp4];
 
-		shakenode = [CCNode node];
+		_shakenode = [CCNode node];
 		
-		[shakenode addChild:planetnode];
-		[self addChild:shakenode];
+		[_shakenode addChild:_planetnode];
+		[self addChild:_shakenode];
 		
 		self.position = p;
 		
-		shaking = NO;
-		shakeStart = -1;
+		_shaking = NO;
+		_shakeStart = -1;
 		
 	}
 	return self;
@@ -83,7 +85,7 @@
 - (id) initAt: (CGPoint) pos upsideDown: (BOOL) isUpsidedown {
 	if ((self = [super init])) {
 		
-		health = 0;
+		_health = 0;
 		
 		// atmosphere
 		
@@ -103,8 +105,8 @@
 		
 		// mountains
 		
-		mountainsnode[0] = [CCNode node];
-		mountainsnode[1] = [CCNode node];
+		_mountainsnode[0] = [CCNode node];
+		_mountainsnode[1] = [CCNode node];
 
 		CCSprite *mountains1;
 		CCSprite *mountains2;
@@ -121,8 +123,8 @@
 		mountains1.position = ccp(0, -15 + mountains1.contentSize.height/2.0);
 		mountains2.position = ccp(mountains1.contentSize.width -1 , -15 +  mountains2.contentSize.height/2.0);
 
-		[mountainsnode[0] addChild:mountains1];
-		[mountainsnode[0] addChild:mountains2];
+		[_mountainsnode[0] addChild:mountains1];
+		[_mountainsnode[0] addChild:mountains2];
 		
 		mountains1 = [CCSprite spriteWithFile:@"mountains2.png"];
 		mountains2 = [CCSprite spriteWithFile:@"mountains2.png"];
@@ -139,18 +141,18 @@
 		mountains1.position = ccp(0, -15 + mountains1.contentSize.height/2.0);
 		mountains2.position = ccp(mountains1.contentSize.width -1 , -15 +  mountains2.contentSize.height/2.0);
 		
-		[mountainsnode[1] addChild:mountains1];
-		[mountainsnode[1] addChild:mountains2];
-		mountainsnode[1].visible = NO;
+		[_mountainsnode[1] addChild:mountains1];
+		[_mountainsnode[1] addChild:mountains2];
+		_mountainsnode[1].visible = NO;
 		
 		//ccTexParams tp = {GL_NEAREST, GL_NEAREST, GL_REPEAT, GL_REPEAT};
 		//[mountains1.texture setTexParameters:&tp];
 		//[mountains2.texture setTexParameters:&tp];
 
-		shakenode = [CCNode node];
+		_shakenode = [CCNode node];
 		
-		[shakenode addChild:mountainsnode[0]];
-		[shakenode addChild:mountainsnode[1]];
+		[_shakenode addChild:_mountainsnode[0]];
+		[_shakenode addChild:_mountainsnode[1]];
 		
 		// city
 		
@@ -173,27 +175,27 @@
 			//[city1.texture setAliasTexParameters];
 			//[city2.texture setAliasTexParameters];
 
-			citynode[i] = [CCNode node];
-			citynode[i].visible = NO;
+			_citynode[i] = [CCNode node];
+			_citynode[i].visible = NO;
 			
-			[citynode[i] addChild:city1];
-			[citynode[i] addChild:city2];
+			[_citynode[i] addChild:city1];
+			[_citynode[i] addChild:city2];
 			
-			[shakenode addChild:citynode[i]];
+			[_shakenode addChild:_citynode[i]];
 		}
 		
-		citynode[0].visible = YES;
+		_citynode[0].visible = YES;
 		
-		[self addChild:shakenode];
+		[self addChild:_shakenode];
 		
 		self.position = pos;
 		if (isUpsidedown) {
 			self.rotation = 180;
-			upsidedown = YES;
+			_upsidedown = YES;
 		}
 		
-		shaking = NO;
-		shakeStart = -1;		
+		_shaking = NO;
+		_shakeStart = -1;
 	}
 	return self;
 }
@@ -207,41 +209,41 @@
 	
 	// handle planet shake stuff
 	
-	if (shaking && (shakeStart < 0)) {
-		shakeStart = 0;
+	if (_shaking && (_shakeStart < 0)) {
+		_shakeStart = 0;
 	}
 	
-	if (shakeStart >=0 ) {
-		shakeStart += dt;
-		shakenode.position = ccp(rand() % 10 - 5, rand() % 10 - 5);
+	if (_shakeStart >=0 ) {
+		_shakeStart += dt;
+		_shakenode.position = ccp(rand() % 10 - 5, rand() % 10 - 5);
 	}
 	
-	if (shakeStart > PLANET_SHAKE_DURATION / 2.0) {
-		shakeStart = -1;
-		shaking = NO;
-		shakenode.position = ccp(0,0);
+	if (_shakeStart > PLANET_SHAKE_DURATION / 2.0) {
+		_shakeStart = -1;
+		_shaking = NO;
+		_shakenode.position = ccp(0,0);
 	}
 	
 	// handle regen stuff
 	
-	regenTime += dt;
-	if (regenTime > PLANET_REGEN_TIME) {
+	_regenTime += dt;
+	if (_regenTime > PLANET_REGEN_TIME) {
 		[self doRegen];
 	}
 	
 	// handle parallax motion
 	
 	for (int i=0; i<4; i++) {
-		citynode[i].position = ccp(citynode[i].position.x - dt * PLANET_MOTION_FACTOR, 0);
-		if (citynode[i].position.x < -((CCSprite *) [[citynode[i] children] objectAtIndex:0]).contentSize.width + 1 ) {
-			citynode[i].position = ccp(0, 0);
+		_citynode[i].position = ccp(_citynode[i].position.x - dt * PLANET_MOTION_FACTOR, 0);
+		if (_citynode[i].position.x < -((CCSprite *) [[_citynode[i] children] objectAtIndex:0]).contentSize.width + 1 ) {
+			_citynode[i].position = ccp(0, 0);
 		}
 	}
 	
 	for (int i=0; i<2; i++) {
-		mountainsnode[i].position = ccp(mountainsnode[i].position.x - dt * PLANET_MOTION_FACTOR * PLANET_PARALAX_RATIO, 0);
-		if (mountainsnode[i].position.x < -((CCSprite *) [[mountainsnode[i] children] objectAtIndex:0]).contentSize.width + 1) {
-			mountainsnode[i].position = ccp(0, 0);
+		_mountainsnode[i].position = ccp(_mountainsnode[i].position.x - dt * PLANET_MOTION_FACTOR * PLANET_PARALAX_RATIO, 0);
+		if (_mountainsnode[i].position.x < -((CCSprite *) [[_mountainsnode[i] children] objectAtIndex:0]).contentSize.width + 1) {
+			_mountainsnode[i].position = ccp(0, 0);
 		}	
 	}
 	
@@ -251,14 +253,14 @@
 -(BOOL) doHit {
 	if ([self isDead]) return NO;
 	
-	health -= 1;
+	_health -= 1;
 	
 	[[SimpleAudioEngine sharedEngine] playEffect:@"planet.wav"];
 	
 	//printf("hit to %d:\n", health);
 
-	for (int i=0; i<4; i++) citynode[i].visible = NO;
-	for (int i=0; i<2; i++) mountainsnode[i].visible = NO;
+	for (int i=0; i<4; i++) _citynode[i].visible = NO;
+	for (int i=0; i<2; i++) _mountainsnode[i].visible = NO;
 	
 	// manually override destruction
 	/*
@@ -268,30 +270,30 @@
 	}
 	*/
 	
-	if (health == -1) {
-		citynode[1].visible = YES;
-		mountainsnode[0].visible = YES;
+	if (_health == -1) {
+		_citynode[1].visible = YES;
+		_mountainsnode[0].visible = YES;
 	}
-	else if (health == -2) {
-		citynode[2].visible = YES;
-		mountainsnode[0].visible = YES;
+	else if (_health == -2) {
+		_citynode[2].visible = YES;
+		_mountainsnode[0].visible = YES;
 	}
-	else if (health == -3) {
-		citynode[2].visible = YES;
-		mountainsnode[1].visible = YES;
+	else if (_health == -3) {
+		_citynode[2].visible = YES;
+		_mountainsnode[1].visible = YES;
 	}
-	else if (health == -4) {
-		citynode[3].visible = YES;
-		mountainsnode[1].visible = YES;
+	else if (_health == -4) {
+		_citynode[3].visible = YES;
+		_mountainsnode[1].visible = YES;
 	}
 	else {
-		citynode[3].visible = YES;
-		mountainsnode[1].visible = YES;
+		_citynode[3].visible = YES;
+		_mountainsnode[1].visible = YES;
 	}
 	
-	if (health == -(PLANET_MAX_HEALTH-2)) {
-		id action1 = [CCPropertyAction actionWithDuration:0.5 key:@"RedTint" from:0 to:1];
-		id action2 = [CCPropertyAction actionWithDuration:0.5 key:@"RedTint" from:1 to:0];
+	if (_health == -(PLANET_MAX_HEALTH-2)) {
+		id action1 = [CCActionTween actionWithDuration:0.5 key:@"RedTint" from:0 to:1];
+		id action2 = [CCActionTween actionWithDuration:0.5 key:@"RedTint" from:1 to:0];
 		CCRepeatForever *repeat_act = [CCRepeatForever actionWithAction:[CCSequence actions:action1, action2, nil]];
 		repeat_act.tag = ACTION_TAG_FLASHING;
 		[self runAction:repeat_act];		
@@ -307,9 +309,9 @@
 	 [CCEaseExponentialOut actionWithAction:
 	 [CCRotateBy actionWithDuration:PLANET_DRIFT_DURATION angle:PLANET_SPIN]]];
 	 */
-	shaking = YES;
+	_shaking = YES;
 	
-	regenTime = 0;
+	_regenTime = 0;
 	
 	return YES;
 }
@@ -318,32 +320,32 @@
 	
 	if ([self isDead]) return;
 	
-	if (health < 0) health++;
+	if (_health < 0) _health++;
 	
 	//printf("regen to %d:\n", health);
 	
-	for (int i=0; i<4; i++) citynode[i].visible = NO;
-	for (int i=0; i<2; i++) mountainsnode[i].visible = NO;
+	for (int i=0; i<4; i++) _citynode[i].visible = NO;
+	for (int i=0; i<2; i++) _mountainsnode[i].visible = NO;
 	
-	if (health > -PLANET_MAX_HEALTH) {
-		citynode[(int)((-health/PLANET_MAX_HEALTH)*4)].visible = YES;
-		mountainsnode[(int)((-health/PLANET_MAX_HEALTH)*2)].visible = YES;
+	if (_health > -PLANET_MAX_HEALTH) {
+		_citynode[(int)((-_health/PLANET_MAX_HEALTH)*4)].visible = YES;
+		_mountainsnode[(int)((-_health/PLANET_MAX_HEALTH)*2)].visible = YES;
 	}
 	
 	[self stopAction:[self getActionByTag:ACTION_TAG_FLASHING]];
 	self.redTint = 0;
 	
-	regenTime = 0;
+	_regenTime = 0;
 }
 
 - (void) reset {
-	health = 0;
+	_health = 0;
 
-	for (int i=0; i<4; i++) citynode[i].visible = NO;
-	for (int i=0; i<2; i++) mountainsnode[i].visible = NO;
+	for (int i=0; i<4; i++) _citynode[i].visible = NO;
+	for (int i=0; i<2; i++) _mountainsnode[i].visible = NO;
 	
-	citynode[0].visible = YES;
-	mountainsnode[0].visible = YES;
+	_citynode[0].visible = YES;
+	_mountainsnode[0].visible = YES;
 	
 	/*
 	[planetnode runAction:
@@ -351,11 +353,11 @@
 	  [CCMoveTo actionWithDuration:PLANET_DRIFT_DURATION position:ccp(0, 0)]]];
 	*/
 	
-	shaking = NO;
-	shakeStart = -1;
-	regenTime = 0;
+	_shaking = NO;
+	_shakeStart = -1;
+	_regenTime = 0;
 	
-	shakenode.position = ccp(0,0);
+	_shakenode.position = ccp(0,0);
 
 	[self stopAction:[self getActionByTag:ACTION_TAG_FLASHING]];
 	self.redTint = 0;
@@ -363,23 +365,23 @@
 
 - (BOOL) isDead
 {
-	return health <= -(PLANET_MAX_HEALTH-1);
+	return _health <= -(PLANET_MAX_HEALTH-1);
 }
 
-- (float) redTint { return redTint; }
+- (float) redTint { return _redTint; }
 
 - (void) setRedTint:(float) tint {
 	// not this gets called repeatedly with values from 0-1. It would be best to only take action when there is a 
 	// transition over the .5 threshold, rather than computing new color constantly as I do below
-	redTint = tint;
+	_redTint = tint;
 	for (int i=0; i<4; i++) {
-		for (CCSprite *child in [citynode[i] children]) {
+		for (CCSprite *child in [_citynode[i] children]) {
 			if (tint > 0.5) [child setColor:ccc3(255, 128, 128)];
 			else [child setColor:ccc3(255, 255, 255)];
 		}
 	}
 	for (int i=0; i<2; i++) {
-		for (CCSprite *child in [mountainsnode[i] children]) {
+		for (CCSprite *child in [_mountainsnode[i] children]) {
 			if (tint > 0.5) [child setColor:ccc3(255, 128, 128)];
 			else [child setColor:ccc3(255, 255, 255)];
 			//[child setColor:ccc3(child.color.r + tint, child.color.g - tint, child.color.b - tint)];

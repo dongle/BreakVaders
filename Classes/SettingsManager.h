@@ -11,7 +11,7 @@
 
 
 @interface SettingsManager : NSObject {
-	NSMutableDictionary *settings;
+	NSMutableDictionary *_settings;
 }
 
 - (void) addStringFor: (NSString *) key init: (NSString *) value;
@@ -77,19 +77,21 @@
 @end
 
 @interface SettingsObject : NSObject {
-	NSString *sval;
-	NSNumber *nval;
-	NSArray *options;
-	int curopt;
-	NSDictionary *meta;
-	int type;
+	NSString *_sval;
+	NSNumber *_nval;
+	NSArray *_options;
+	int _curopt;
+	NSDictionary *_meta;
+	int _type;
 }
+
 @property (nonatomic, retain) NSString *sval;
 @property (nonatomic, retain) NSNumber *nval;
 @property (nonatomic, retain) NSArray *options;
 @property (readwrite, assign) int curopt;
 @property (nonatomic, retain) NSDictionary *meta;
 @property (readwrite, assign) int type;
+
 - (id) initWithPlistArray: (NSArray *) parray;
 - (NSArray *) toPlistArray;
 @end

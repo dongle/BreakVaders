@@ -18,22 +18,22 @@
 - (id) initOnBeat: (NSUInteger) beat withResponder: (NSObject<BeatResponder> *) resp andSequencer: (BeatSequencer *) seq
 {
 	if ((self = [super initOnBeat:beat])) {
-		responder = [resp retain];
-		sequencer = [seq retain];
+		_responder = [resp retain];
+		_sequencer = [seq retain];
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[responder release];
-	[sequencer release];
+	[_responder release];
+	[_sequencer release];
 	[super dealloc];
 }
 
 - (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time 
 {
-	[sequencer addResponder:responder];
-	responded = YES;
+	[_sequencer addResponder:_responder];
+	_responded = YES;
 }
 
 @end
@@ -48,22 +48,22 @@
 - (id) initOnBeat: (NSUInteger) beat withResponder: (NSObject<BeatResponder> *) resp andSequencer: (BeatSequencer *) seq
 {
 	if ((self = [super initOnBeat:beat])) {
-		responder = [resp retain];
-		sequencer = [seq retain];
+		_responder = [resp retain];
+		_sequencer = [seq retain];
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[responder release];
-	[sequencer release];
+	[_responder release];
+	[_sequencer release];
 	[super dealloc];
 }
 
 - (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time 
 {
-	[sequencer removeResponder:responder];
-	responded = YES;
+	[_sequencer removeResponder:_responder];
+	_responded = YES;
 }
 
 @end
@@ -78,21 +78,21 @@
 - (id) initOnBeat: (NSUInteger) beat to: (GameState *) state after: (NSTimeInterval) time 
 {
 	if ((self = [super initOnBeat:beat])) {
-		nextState = [state retain];
-		nextTime = time;
+		_nextState = [state retain];
+		_nextTime = time;
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[nextState release];
+	[_nextState release];
 	[super dealloc];
 }
 
 - (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time 
 {
-	[[GameState getCurrentState] changeTo:nextState after:nextTime];
-	responded = YES;
+	[[GameState getCurrentState] changeTo:_nextState after:_nextTime];
+	_responded = YES;
 }
 
 @end

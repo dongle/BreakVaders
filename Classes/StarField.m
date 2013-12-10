@@ -19,7 +19,7 @@
 	if ((self=[super init])) {
 		CGSize winSize = [[CCDirector sharedDirector] winSize];
 		self.position = ccp(winSize.width/2.0, winSize.height/2.0);
-		CCSpriteSheet *sheet = [CCSpriteSheet spriteSheetWithFile:@"stars.png"];
+		CCSpriteBatchNode *sheet = [CCSpriteBatchNode spriteSheetWithFile:@"stars.png"];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"stars.plist"];
 		
 		NSString *starList[] = {@"star1.png", @"star2.png", @"star3.png"};
@@ -41,7 +41,7 @@
 		}
 		
 		for (int i=0; i<NUM_STARS; i++) {
-			star[i] = [CCSprite spriteWithSpriteFrameName:starList[rand() % 3]];
+			_star[i] = [CCSprite spriteWithSpriteFrameName:starList[rand() % 3]];
 			int e = 1, f = 1;
 			for (int j=0; j < (int) log2(STARFIELD_DIVS); j++) {
 				char *p = &probs[e][f][0];
@@ -51,17 +51,17 @@
 			e -= STARFIELD_DIVS;
 			f -= STARFIELD_DIVS;
 			CGRect bin = rects[e][f];
-			star[i].position = ccp(bin.origin.x + rand() % (int) bin.size.width - STARFIELD_SIZE / 2.0 , 
+			_star[i].position = ccp(bin.origin.x + rand() % (int) bin.size.width - STARFIELD_SIZE / 2.0 ,
 								   bin.origin.y + rand() % (int) bin.size.height - STARFIELD_SIZE / 2.0);
-			[sheet addChild:star[i]];
+			[sheet addChild:_star[i]];
 		}
 		
 		
 		//star[0] = [CCSprite spriteWithSpriteFrameName:starList[2]];
 		//[sheet addChild:star[0]];
 		[self addChild:sheet];
-		curTime = 0;
-		driftTime = 0;
+		_curTime = 0;
+		_driftTime = 0;
 	}
 	return self;
 }
@@ -73,7 +73,7 @@
 }
 
 - (void) doDrift {
-	driftTime = curTime;
+	_driftTime = _curTime;
 	float newwidth = STARFIELD_SIZE - COSMIC_DRIFT * 3;
 	[self runAction:
 	 [CCEaseExponentialOut actionWithAction:
@@ -84,8 +84,8 @@
 }
 
 - (void) reset {
-	curTime = 0;
-	driftTime = 0;
+	_curTime = 0;
+	_driftTime = 0;
 	[self runAction:
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCScaleTo actionWithDuration:PLANET_SHAKE_DURATION scale:1]]];
@@ -97,9 +97,9 @@
 
 	for (int i=0; i<NUM_STARS; i++) {
 		if ((beat % 2) == 0)
-			star[i].scale = 1.3;
+			_star[i].scale = 1.3;
 		else 
-			star[i].scale = 1;
+			_star[i].scale = 1;
 
 		
 //		[self runAction:
@@ -110,9 +110,9 @@
 }
 
 - (void) tick: (ccTime) dt {
-	curTime += dt;
+	_curTime += dt;
 	self.rotation -= dt * M_PI/COSMIC_ROT_FACTOR;
-	if (curTime > (driftTime + PLANET_SHAKE_DURATION)) self.scale = (self.scale*149 + 1.0) / 150.0;
+	if (_curTime > (_driftTime + PLANET_SHAKE_DURATION)) self.scale = (self.scale*149 + 1.0) / 150.0;
 }
 
 @end

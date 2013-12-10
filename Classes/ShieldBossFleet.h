@@ -13,8 +13,8 @@
 #define LINEFLEET_ANIM_TIME 0.1
 
 @interface ShieldBossFleet : Fleet {
-	ShieldBoss *boss;
-	int direction;
+	ShieldBoss *_boss;
+	int _direction;
 }
 
 - (id) init;

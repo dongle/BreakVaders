@@ -12,16 +12,9 @@
 #import "GameStates.h"
 #import <vector>
 #import "Utils.h"
-//#import "TapZillaCoupon.h"
-#import "OpenFeint.h"
-#import "OFAchievement.h"
-#import "OFHighScoreService.h"
-#import "OFAchievementService.h"
 #import "ADMBrainSeg.h"
 #import "ADMBrainTail.h"
 #import "UFO.h"
-#import "AdLoader.h"
-#import "Reachable.h"
 
 #define RADIANS( degrees ) ( degrees * M_PI / 180 )
 
@@ -51,7 +44,8 @@ enum {
 
 @implementation CCRepeatForever (Access)
 - (CCAction *) getOther {
-	return other;
+//	return other;
+    return nil;
 }
 @end
 
@@ -61,16 +55,44 @@ enum {
 
 #pragma mark initialization routines ----------------------------------------
 
-@synthesize world, fleets, starfield, balls, bossTime, frozen, OFstarted, bulletTime, innerBulletRadius, bulletTimeDistance, sheet, settings, 
-	numBalls, minSpeed, maxSpeed, gotFireball, gameBeat, track1, track2, track3, track4, smallFont, mediumFont, largeFont,
-	paddle1, paddle2, powerups, sentRequest, mainViewController, oldImpulse, accelNormalized;
+@synthesize world = _world;
+@synthesize fleets = _fleets;
+@synthesize starfield = _starfield;
+@synthesize balls = _balls;
+@synthesize bossTime = _bossTime;
+@synthesize frozen = _frozen;
+@synthesize OFstarted = _OFstarted;
+@synthesize bulletTime = _bulletTime;
+@synthesize innerBulletRadius = _innerBulletRadius;
+@synthesize bulletTimeDistance = _bulletTimeDistance;
+@synthesize sheet = _sheet;
+@synthesize settings = _settings;
+@synthesize numBalls = _numBalls;
+@synthesize minSpeed = _minSpeed;
+@synthesize maxSpeed = _maxSpeed;
+@synthesize gotFireball = _gotFireball;
+@synthesize gameBeat = _gameBeat;
+@synthesize track1 = _track1;
+@synthesize track2 = _track2;
+@synthesize track3 = _track3;
+@synthesize track4 = _track4;
+@synthesize smallFont = _smallFont;
+@synthesize mediumFont = _mediumFont;
+@synthesize largeFont = _largeFont;
+@synthesize paddle1 = _paddle1;
+@synthesize paddle2 = _paddle2;
+@synthesize powerups = _powerups;
+@synthesize sentRequest = _sentRequest;
+@synthesize mainViewController = _mainViewController;
+@synthesize oldImpulse = _oldImpulse;
+@synthesize accelNormalized = _accelNormalized;
 
 - (Player **) player {
-	return player;
+	return _player;
 }
 
 - (Planet **) planet {
-	return planet;
+	return _planet;
 }
 
 +(id) scene {
@@ -101,15 +123,15 @@ static PongVader *_globalSceneInst = nil;
 		
 		// allocate variables
 		
-		activeParticles = [[NSMutableArray array] retain];
-		inactiveParticles = [[NSMutableDictionary dictionary] retain];
-		inactiveInvaders = [[NSMutableDictionary dictionary] retain];
+		_activeParticles = [[NSMutableArray array] retain];
+		_inactiveParticles = [[NSMutableDictionary dictionary] retain];
+		_inactiveInvaders = [[NSMutableDictionary dictionary] retain];
 		
-		fleets = [[NSMutableArray array] retain];
+		_fleets = [[NSMutableArray array] retain];
 		_contactListener = new ContactListener();
-		touchedSprites = [[NSMutableArray alloc] initWithCapacity:11];
-		balls = [[NSMutableArray array] retain];
-		powerups = [[NSMutableArray array] retain];
+		_touchedSprites = [[NSMutableArray alloc] initWithCapacity:11];
+		_balls = [[NSMutableArray array] retain];
+		_powerups = [[NSMutableArray array] retain];
 		_globalSceneInst = self;
 
 		// enable touches
@@ -124,14 +146,14 @@ static PongVader *_globalSceneInst = nil;
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		CCLOG(@"Screen width %0.2f screen height %0.2f",screenSize.width,screenSize.height);
 		
-		starfield = [StarField starField];
-		[self addChild:starfield];
+		_starfield = [StarField starField];
+		[self addChild:_starfield];
 		
-		planet[0] = [[Planet alloc] initAt:ccp(screenSize.width/2.0, 0) upsideDown:NO];
-		planet[1] = [[Planet alloc] initAt:ccp(screenSize.width/2.0, screenSize.height) upsideDown:YES];
+		_planet[0] = [[Planet alloc] initAt:ccp(screenSize.width/2.0, 0) upsideDown:NO];
+		_planet[1] = [[Planet alloc] initAt:ccp(screenSize.width/2.0, screenSize.height) upsideDown:YES];
 		//planet[1].rotation = 180;
-		[self addChild:planet[0]];
-		[self addChild:planet[1]];
+		[self addChild:_planet[0]];
+		[self addChild:_planet[1]];
 		
 		// Define the gravity vector.
 		b2Vec2 gravity;
@@ -142,22 +164,22 @@ static PongVader *_globalSceneInst = nil;
 		bool doSleep = true;
 		
 		// Construct a world object, which will hold and simulate the rigid bodies.
-		world = new b2World(gravity, doSleep);
+		_world = new b2World(gravity);
 		
-		world->SetContactListener(_contactListener);
-		world->SetContinuousPhysics(true);
+		_world->SetContactListener(_contactListener);
+		_world->SetContinuousPhysics(true);
 		
 		// Debug Draw functions
-		m_debugDraw = new GLESDebugDraw( PTM_RATIO );
-		world->SetDebugDraw(m_debugDraw);
+//		m_debugDraw = new GLESDebugDraw( PTM_RATIO );
+//		world->SetDebugDraw(m_debugDraw);
 		
-		uint32 flags = 0;
-		flags += b2DebugDraw::e_shapeBit;
+//		uint32 flags = 0;
+//		flags += b2DebugDraw::e_shapeBit;
 		//		flags += b2DebugDraw::e_jointBit;
 		//		flags += b2DebugDraw::e_aabbBit;
 		//		flags += b2DebugDraw::e_pairBit;
 		//		flags += b2DebugDraw::e_centerOfMassBit;
-		m_debugDraw->SetFlags(flags);		
+//		m_debugDraw->SetFlags(flags);		
 		
 		
 		// Define the ground body.
@@ -167,10 +189,10 @@ static PongVader *_globalSceneInst = nil;
 		// Call the body factory which allocates memory for the ground body
 		// from a pool and creates the ground box shape (also from a pool).
 		// The body is also added to the world.
-		groundBody = world->CreateBody(&groundBodyDef);
+		_groundBody = _world->CreateBody(&groundBodyDef);
 		
 		// Define the ground box shape.
-		b2PolygonShape groundBox;
+		b2EdgeShape groundBox;
 		b2FixtureDef groundShapeDef;
 		groundShapeDef.shape = &groundBox;
 		groundShapeDef.density = 0.0f;
@@ -178,63 +200,63 @@ static PongVader *_globalSceneInst = nil;
 		groundShapeDef.filter.maskBits = COL_CAT_BALL | COL_CAT_DYNVADER;
 		
 		// bottom
-		groundBox.SetAsEdge(b2Vec2(0,0), b2Vec2(screenSize.width/PTM_RATIO,0));
-		bottomFixture = groundBody->CreateFixture(&groundShapeDef);
+		groundBox.Set(b2Vec2(0,0), b2Vec2(screenSize.width/PTM_RATIO,0));
+		_bottomFixture = _groundBody->CreateFixture(&groundShapeDef);
 		
 		// top
-		groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO));
-		topFixture = groundBody->CreateFixture(&groundShapeDef);
+		groundBox.Set(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO));
+		_topFixture = _groundBody->CreateFixture(&groundShapeDef);
 		
 		// left
-		groundBox.SetAsEdge(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
-		leftFixture = groundBody->CreateFixture(&groundShapeDef);
+		groundBox.Set(b2Vec2(0,screenSize.height/PTM_RATIO), b2Vec2(0,0));
+		_leftFixture = _groundBody->CreateFixture(&groundShapeDef);
 		
 		// right
-		groundBox.SetAsEdge(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
-		rightFixture = groundBody->CreateFixture(&groundShapeDef);
+		groundBox.Set(b2Vec2(screenSize.width/PTM_RATIO,screenSize.height/PTM_RATIO), b2Vec2(screenSize.width/PTM_RATIO,0));
+		_rightFixture = _groundBody->CreateFixture(&groundShapeDef);
 		
 		// init players
 		// TODO: change this static player initialization to prompt for player names
 		
-		player[0] = [[Player alloc] initWithName: @"player1"];
-		player[1] = [[Player alloc] initWithName: @"player2"];
+		_player[0] = [[Player alloc] initWithName: @"player1"];
+		_player[1] = [[Player alloc] initWithName: @"player2"];
 		
 		// make paddles
 		if (_IPAD) {
-			paddle1 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 132) withForce: ccp(0,0) inWorld: world];
-			paddle2 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 892) withForce: ccp(0,0) inWorld: world];
+			_paddle1 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 132) withForce: ccp(0,0) inWorld: _world];
+			_paddle2 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 892) withForce: ccp(0,0) inWorld: _world];
 		}
 		else {
-			paddle1 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 66) withForce: ccp(0,0) inWorld: world];
-			paddle2 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 414) withForce: ccp(0,0) inWorld: world];
+			_paddle1 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 66) withForce: ccp(0,0) inWorld: _world];
+			_paddle2 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 414) withForce: ccp(0,0) inWorld: _world];
 		}
 		
-		paddle1.player = player[0];
-		paddle2.player = player[1];
+		_paddle1.player = _player[0];
+		_paddle2.player = _player[1];
 		
-		[self addChild:paddle1];
-		[self addChild:paddle2];
+		[self addChild:_paddle1];
+		[self addChild:_paddle2];
 		
 		[self showPaddles:NO];
 
 		// add effect ring
 		
-		effectring = [[CCSprite spriteWithFile:@"effectring0.png"] retain];
-		effectring.scale = _IPAD?2.0:1.0;
-		[effectring.texture setAliasTexParameters];
-		effectring.visible = NO;
+		_effectring = [[CCSprite spriteWithFile:@"effectring0.png"] retain];
+		_effectring.scale = _IPAD?2.0:1.0;
+		[_effectring.texture setAliasTexParameters];
+		_effectring.visible = NO;
 		//effectring.position = ccp(screenSize.width/2, screenSize.height/2);
 
-		[self addChild:effectring];
+		[self addChild:_effectring];
 		
-		effectringanim = [[CCAnimation animationWithName:@"anim" delay:0.2] retain];
+		_effectringanim = [[CCAnimation animationWithName:@"anim" delay:0.2] retain];
 		for (int i=0; i<8; i++) {
 			CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:[NSString stringWithFormat:@"effectring%d.png", i]];
 			CGRect rect = CGRectZero;
 			rect.size = texture.contentSize;
 			CCSpriteFrame *frame = [CCSpriteFrame frameWithTexture:texture rect:rect offset:CGPointZero];
 			[frame.texture setAliasTexParameters];
-			[effectringanim addFrame:frame];
+			[_effectringanim addFrame:frame];
 		}
 		
 		/*
@@ -247,15 +269,15 @@ static PongVader *_globalSceneInst = nil;
 		effectringanim = [CCAnimation animationWithName:@"anim" delay:GAME_SPB/3.0f frames:animFrames];
 		*/
 
-		CCAnimate *animate = [CCAnimate actionWithAnimation:effectringanim restoreOriginalFrame:NO];
-		CCAction *action = [effectring runAction:[CCRepeatForever actionWithAction: animate]];
+		CCAnimate *animate = [CCAnimate actionWithAnimation:_effectringanim restoreOriginalFrame:NO];
+		CCAction *action = [_effectring runAction:[CCRepeatForever actionWithAction: animate]];
 		action.tag = EFFECT_ACTION;
 		
 		// starting last acceleration
 
-		baseAccel[0] = 0.0;
-		baseAccel[1] = 0.0;
-		baseAccel[2] = -1.0;
+		_baseAccel[0] = 0.0;
+		_baseAccel[1] = 0.0;
+		_baseAccel[2] = -1.0;
 		
 		
 		// create global sprite sheet
@@ -268,12 +290,12 @@ static PongVader *_globalSceneInst = nil;
 //			[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"pongvaders-low.plist"];
 //		}
 		
-		sheet = [CCSpriteSheet spriteSheetWithFile:@"pongvaders-low.png"];
+		_sheet = [CCSpriteBatchNode spriteSheetWithFile:@"pongvaders-low.png"];
 		[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"pongvaders-low.plist"];
 		
-		[self addChild:sheet];	
+		[self addChild:_sheet];
 		
-		[[sheet texture] setAliasTexParameters];
+		[[_sheet texture] setAliasTexParameters];
 		
 		// preload stuff for cocosdenshion sound
 		
@@ -290,24 +312,24 @@ static PongVader *_globalSceneInst = nil;
 		[[SimpleAudioEngine sharedEngine] preloadEffect:@"lose.wav"];
 		[[SimpleAudioEngine sharedEngine] preloadEffect:@"slice.wav"];
 		//[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"fuzz.wav"];
-		fuzz = [[[SimpleAudioEngine sharedEngine] soundSourceForFile:@"homing.wav"] retain];
-		fuzz.looping = YES;
+		_fuzz = [[[SimpleAudioEngine sharedEngine] soundSourceForFile:@"homing.wav"] retain];
+		_fuzz.looping = YES;
 		
 		// [SimpleAudioEngine sharedEngine].backgroundMusicVolume = 0.2;
 		//[[SimpleAudioEngine sharedEngine] preloadBackgroundMusic:@"draftloop-01.mp3"];
 //		[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"draftloop-01.mp3"];
 //		[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 		
-		track1 = @"draftloop-01.mp3";
-		track2 = @"draftloop-02.mp3";
-		track3 = @"draftloop-03.mp3";
-		track4 = @"draftloop-04.mp3";
+		_track1 = @"draftloop-01.mp3";
+		_track2 = @"draftloop-02.mp3";
+		_track3 = @"draftloop-03.mp3";
+		_track4 = @"draftloop-04.mp3";
 		NSLog(@"loading hifi music \n");
 		
 		if (_IPAD) {			
-			smallFont = @"pvaders16.fnt";
-			mediumFont = @"pvaders24.fnt";
-			largeFont = @"pvaders32.fnt";
+			_smallFont = @"pvaders16.fnt";
+			_mediumFont = @"pvaders24.fnt";
+			_largeFont = @"pvaders32.fnt";
 		}
 		
 		else {
@@ -319,16 +341,16 @@ static PongVader *_globalSceneInst = nil;
 			NSLog(@"loading lowfi music \n");
 			*/
 			
-			smallFont = @"pvaders12.fnt";
-			mediumFont = @"pvaders16.fnt";
-			largeFont = @"pvaders24.fnt";
+			_smallFont = @"pvaders12.fnt";
+			_mediumFont = @"pvaders16.fnt";
+			_largeFont = @"pvaders24.fnt";
 		}
 		
 		// preload fonts and set alias tex params
 		
-		CCLabelBMFont * smAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:smallFont];
-		CCLabelBMFont * mdAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:mediumFont];
-		CCLabelBMFont * lgAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:largeFont];
+		CCLabelBMFont * smAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:_smallFont];
+		CCLabelBMFont * mdAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:_mediumFont];
+		CCLabelBMFont * lgAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:_largeFont];
 		[smAtlas.texture setAliasTexParameters];
 		[mdAtlas.texture setAliasTexParameters];
 		[lgAtlas.texture setAliasTexParameters];
@@ -343,203 +365,162 @@ static PongVader *_globalSceneInst = nil;
 		[self cacheSomeSpriteBodies:[ShieldInvader class] number:10];
 		
 		// fetch settings
-		appPList = [[NSMutableDictionary dictionaryWithDictionary:[Utils applicationPlistFromFile:@"appdata.plist"]] retain];	
-		settings = [[SettingsManager alloc] init];
+		_appPList = [[NSMutableDictionary dictionaryWithDictionary:[Utils applicationPlistFromFile:@"appdata.plist"]] retain];
+		_settings = [[SettingsManager alloc] init];
 		
-		if (![appPList objectForKey:@"settings"]) { 
+		if (![_appPList objectForKey:@"settings"]) {
 			
 			// first time launch
 
 			// initialize player scores to 0
-			[settings addIntFor: player[0].scoreKey init:0];
-			[settings addIntFor: player[1].scoreKey init:0];
+			[_settings addIntFor: _player[0].scoreKey init:0];
+			[_settings addIntFor: _player[1].scoreKey init:0];
 
-			[settings setMetaFor: player[0].scoreKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
-			[settings setMetaFor: player[1].scoreKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
+			[_settings setMetaFor: _player[0].scoreKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
+			[_settings setMetaFor: _player[1].scoreKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
 		
 			// initialize player lastlevelscore to 0
-			[settings addIntFor: player[0].lastLevelScoreKey init:0];
-			[settings addIntFor: player[1].lastLevelScoreKey init:0];
-			[settings setMetaFor: player[0].lastLevelScoreKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
-			[settings setMetaFor: player[1].lastLevelScoreKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
+			[_settings addIntFor: _player[0].lastLevelScoreKey init:0];
+			[_settings addIntFor: _player[1].lastLevelScoreKey init:0];
+			[_settings setMetaFor: _player[0].lastLevelScoreKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
+			[_settings setMetaFor: _player[1].lastLevelScoreKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
 			
 			// initialize player chain to 0
-			[settings addIntFor: player[0].chainKey init:0];
-			[settings addIntFor: player[1].chainKey init:0];
-			[settings setMetaFor: player[0].chainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
-			[settings setMetaFor: player[1].chainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
+			[_settings addIntFor: _player[0].chainKey init:0];
+			[_settings addIntFor: _player[1].chainKey init:0];
+			[_settings setMetaFor: _player[0].chainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
+			[_settings setMetaFor: _player[1].chainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
 			
 			// initialize player maxchain to 0
-			[settings addIntFor: player[0].maxChainKey init:0];
-			[settings addIntFor: player[1].maxChainKey init:0];
-			[settings setMetaFor: player[0].maxChainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
-			[settings setMetaFor: player[1].maxChainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
+			[_settings addIntFor: _player[0].maxChainKey init:0];
+			[_settings addIntFor: _player[1].maxChainKey init:0];
+			[_settings setMetaFor: _player[0].maxChainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
+			[_settings setMetaFor: _player[1].maxChainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
 			
 			// initialize player lastLevelChain to 0
-			[settings addIntFor: player[0].lastLevelChainKey init:0];
-			[settings addIntFor: player[1].lastLevelChainKey init:0];
-			[settings setMetaFor: player[0].lastLevelChainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
-			[settings setMetaFor: player[1].lastLevelChainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
+			[_settings addIntFor: _player[0].lastLevelChainKey init:0];
+			[_settings addIntFor: _player[1].lastLevelChainKey init:0];
+			[_settings setMetaFor: _player[0].lastLevelChainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
+			[_settings setMetaFor: _player[1].lastLevelChainKey to:[NSDictionary dictionaryWithObjectsAndKeys:@"%@ points",  @"label", nil]];
 
 			// initialize last level to 0
-			[settings addIntFor:@"lastLevel" init:0];
-			[settings setMetaFor:@"lastLevel" to:[NSDictionary dictionaryWithObjectsAndKeys:@"Last level played: %@",  @"label", nil]];
+			[_settings addIntFor:@"lastLevel" init:0];
+			[_settings setMetaFor:@"lastLevel" to:[NSDictionary dictionaryWithObjectsAndKeys:@"Last level played: %@",  @"label", nil]];
 			
 			// set player to not having logged in to OpenFeint upon first launch
-			[settings addIntFor:@"OFwanted" init:0];
-			[settings setMetaFor:@"OFwanted" to:[NSDictionary dictionaryWithObjectsAndKeys:@"OpenFeint acct status: %@",  @"label", nil]];
+			[_settings addIntFor:@"OFwanted" init:0];
+			[_settings setMetaFor:@"OFwanted" to:[NSDictionary dictionaryWithObjectsAndKeys:@"OpenFeint acct status: %@",  @"label", nil]];
 			
 			// set scoreboards enabled
-			[settings addIntFor:@"Scoreboards" init:1];
-			[settings setMetaFor:@"Scoreboards" to:[NSDictionary dictionaryWithObjectsAndKeys:@"Scoreboards status: %@",  @"label", nil]];
+			[_settings addIntFor:@"Scoreboards" init:1];
+			[_settings setMetaFor:@"Scoreboards" to:[NSDictionary dictionaryWithObjectsAndKeys:@"Scoreboards status: %@",  @"label", nil]];
 			
 			// count times run
-			[settings addIntFor:@"TimesRun" init:0];
-			[settings setMetaFor:@"TimesRun" to:[NSDictionary dictionaryWithObjectsAndKeys:@"App has been launched this many times: %@",  @"label", nil]];
+			[_settings addIntFor:@"TimesRun" init:0];
+			[_settings setMetaFor:@"TimesRun" to:[NSDictionary dictionaryWithObjectsAndKeys:@"App has been launched this many times: %@",  @"label", nil]];
 			
 			// track whether player has signed up for the koduco list when starting 10th game
-			[settings addIntFor:@"SignedUp" init:0];
-			[settings setMetaFor:@"SignedUp" to:[NSDictionary dictionaryWithObjectsAndKeys:@"Has user signed up for list: %@",  @"label", nil]];
+			[_settings addIntFor:@"SignedUp" init:0];
+			[_settings setMetaFor:@"SignedUp" to:[NSDictionary dictionaryWithObjectsAndKeys:@"Has user signed up for list: %@",  @"label", nil]];
 			
 			// SETTINGS V2 --------------------------------
 			
 			// allow selection of human/computer players
-			[settings addOptionsFor:@"Player1Type" with:[NSArray arrayWithObjects:@"HUMAN", @"COMPUTER", nil] init:0];
-			[settings addOptionsFor:@"Player2Type" with:[NSArray arrayWithObjects:@"HUMAN", @"COMPUTER", nil] init:0];
+			[_settings addOptionsFor:@"Player1Type" with:[NSArray arrayWithObjects:@"HUMAN", @"COMPUTER", nil] init:0];
+			[_settings addOptionsFor:@"Player2Type" with:[NSArray arrayWithObjects:@"HUMAN", @"COMPUTER", nil] init:0];
 			
 			// SETTINGS V3 --------------------------------
 			
 			// track settings version
-			[settings addIntFor:@"SettingsVersion" init:3];
+			[_settings addIntFor:@"SettingsVersion" init:3];
 
 			// track if the tutorial has been played or not
-			[settings addIntFor:@"TutorialPlayed" init:0];
+			[_settings addIntFor:@"TutorialPlayed" init:0];
 
 			// have we asked player to review the game on start?
-			[settings addIntFor:@"Reviewed" init:0];
+			[_settings addIntFor:@"Reviewed" init:0];
 			
 			// have we asked player to review the game after winning a boss fight?
-			[settings addIntFor:@"ReviewBoss" init:0];
+			[_settings addIntFor:@"ReviewBoss" init:0];
 			
 			// have we asked player to review the game after 6 levels?
-			[settings addIntFor:@"Review6" init:0];
+			[_settings addIntFor:@"Review6" init:0];
 			
 			// have we asked player to review the game after 12 levels?
-			[settings addIntFor:@"Review12" init:0];
+			[_settings addIntFor:@"Review12" init:0];
 			
 			// track whether player has beaten a boss fight
-			[settings addIntFor:@"BeatBoss" init:0];
+			[_settings addIntFor:@"BeatBoss" init:0];
 			
 			// have we asked player to signup on the list after beating 3 bosses?
-			[settings addIntFor:@"Beat3SignUp" init:0];
+			[_settings addIntFor:@"Beat3SignUp" init:0];
 			
 			// has player beaten prologue?
-			[settings addIntFor:@"BeatPrologue" init:0];
+			[_settings addIntFor:@"BeatPrologue" init:0];
 			
 			// has player beaten episode one?
-			[settings addIntFor:@"BeatEpOne" init:0];
+			[_settings addIntFor:@"BeatEpOne" init:0];
 			
 			// has player beaten episode two?
-			[settings addIntFor:@"BeatEpTwo" init:0];
+			[_settings addIntFor:@"BeatEpTwo" init:0];
 			
 			// last time ads were synced
-			[settings addStringFor:@"LastAdSync" init:@""];
+			[_settings addStringFor:@"LastAdSync" init:@""];
 			
 			// upgrade purchase
-			[settings addStringFor:@"EpisodesProduct" init:@""];
-			[settings addIntFor:@"EpisodesBought" init:0];
+			[_settings addStringFor:@"EpisodesProduct" init:@""];
+			[_settings addIntFor:@"EpisodesBought" init:0];
 			
-			[settings addIntFor:@"UnlockedEpOneNag" init:0];
-			[settings addIntFor:@"UnlockedEpTwoNag" init:0];
+			[_settings addIntFor:@"UnlockedEpOneNag" init:0];
+			[_settings addIntFor:@"UnlockedEpTwoNag" init:0];
 			
 		} else {
-			[settings addSettingsFromPlistDict:[appPList objectForKey:@"settings"]];
+			[_settings addSettingsFromPlistDict:[_appPList objectForKey:@"settings"]];
 			
-			if (![settings exists:@"Player1Type"]) { // SETTINGS V2 --------------------------------
+			if (![_settings exists:@"Player1Type"]) { // SETTINGS V2 --------------------------------
 				// allow selection of human/computer players
-				[settings addOptionsFor:@"Player1Type" with:[NSArray arrayWithObjects:@"HUMAN", @"COMPUTER", nil] init:0];
-				[settings addOptionsFor:@"Player2Type" with:[NSArray arrayWithObjects:@"HUMAN", @"COMPUTER", nil] init:0];
+				[_settings addOptionsFor:@"Player1Type" with:[NSArray arrayWithObjects:@"HUMAN", @"COMPUTER", nil] init:0];
+				[_settings addOptionsFor:@"Player2Type" with:[NSArray arrayWithObjects:@"HUMAN", @"COMPUTER", nil] init:0];
 			}
-			if (![settings exists:@"TutorialPlayed"]) { // SETTINGS V3 --------------------------------
-				[settings addIntFor:@"TutorialPlayed" init:0];
-				[settings addIntFor:@"Reviewed" init:0];
-				[settings addIntFor:@"ReviewBoss" init:0];
-				[settings addIntFor:@"Review6" init:0];
-				[settings addIntFor:@"Review12" init:0];
-				[settings addIntFor:@"BeatBoss" init:0];
-				[settings addIntFor:@"Beat3SignUp" init:0];
-				[settings addIntFor:@"BeatPrologue" init:0];
-				[settings addIntFor:@"BeatEpOne" init:0];
-				[settings addIntFor:@"BeatEpTwo" init:0];
-				[settings addIntFor:@"StartedEpOne" init:0];
-				[settings addIntFor:@"StartedEpTwo" init:0];
-				[settings addStringFor:@"LastAdSync" init:@""];
-				[settings addStringFor:@"EpisodesProduct" init:@""];
-				[settings addIntFor:@"EpisodesBought" init:0];
-				[settings addIntFor:@"UnlockedEpOneNag" init:0];
-				[settings addIntFor:@"UnlockedEpTwoNag" init:0];
+			if (![_settings exists:@"TutorialPlayed"]) { // SETTINGS V3 --------------------------------
+				[_settings addIntFor:@"TutorialPlayed" init:0];
+				[_settings addIntFor:@"Reviewed" init:0];
+				[_settings addIntFor:@"ReviewBoss" init:0];
+				[_settings addIntFor:@"Review6" init:0];
+				[_settings addIntFor:@"Review12" init:0];
+				[_settings addIntFor:@"BeatBoss" init:0];
+				[_settings addIntFor:@"Beat3SignUp" init:0];
+				[_settings addIntFor:@"BeatPrologue" init:0];
+				[_settings addIntFor:@"BeatEpOne" init:0];
+				[_settings addIntFor:@"BeatEpTwo" init:0];
+				[_settings addIntFor:@"StartedEpOne" init:0];
+				[_settings addIntFor:@"StartedEpTwo" init:0];
+				[_settings addStringFor:@"LastAdSync" init:@""];
+				[_settings addStringFor:@"EpisodesProduct" init:@""];
+				[_settings addIntFor:@"EpisodesBought" init:0];
+				[_settings addIntFor:@"UnlockedEpOneNag" init:0];
+				[_settings addIntFor:@"UnlockedEpTwoNag" init:0];
 			}
 		}
 		
-		NSLog(@"%@",[settings get:player[0].scoreKey metaReplace:@"label"]);
-		NSLog(@"%@",[settings get:player[1].scoreKey metaReplace:@"label"]);
+		NSLog(@"%@",[_settings get:_player[0].scoreKey metaReplace:@"label"]);
+		NSLog(@"%@",[_settings get:_player[1].scoreKey metaReplace:@"label"]);
 //		[settings set:player[0].scoreKey toInt:0];
 //		[settings set:player[1].scoreKey toInt:0];
-		[settings set:@"Scoreboards" toInt:1];
-		[settings inc:@"TimesRun" by:1];
-		
-		// setup tapzilla and openfeint
-		
-		[[ShakeDispatcher sharedInstance] addShakeListener:self];
-		
-		if([settings getInt:@"OFwanted"] == 1) {
-			[self initOpenFeint];	
-		}
+		[_settings set:@"Scoreboards" toInt:1];
+		[_settings inc:@"TimesRun" by:1];
 		
 		// init state
 		
-		gameBeat = NO;
-		sentRequest = NO;
-		soloInvader = false;
-		bulletTime = false;
-		bulletTimeDistance = _IPAD?200.0:100.0;
+		_gameBeat = NO;
+		_sentRequest = NO;
+		_soloInvader = false;
+		_bulletTime = false;
+		_bulletTimeDistance = _IPAD?200.0:100.0;
 		
-		physDt = -10;
+		_physDt = -10;
 		
-		oldImpulse = b2Vec2(0,0);
-		
-		// restore adloader's last sync
-		
-		[[AdLoader sharedLoader] setLastSync:[settings get:@"LastAdSync"]];
-		
-		// check paid or free
-		
-		// if paid
-		
-		if ([settings getInt:@"EpisodesBought"] == 1) {
-			if (_IPAD) {
-				if ([Reachable connectedToNetwork] && [[AdLoader sharedLoader] needsSync]) {
-					[[AdLoader sharedLoader] queryServer:ADQUERY_PAD_PAID];
-				}
-			}
-			else {
-				if ([Reachable connectedToNetwork] && [[AdLoader sharedLoader] needsSync]) {
-					[[AdLoader sharedLoader] queryServer:ADQUERY_PHONE_PAID];
-				}
-			}
-		}
-		else {
-			if (_IPAD) {
-				if ([Reachable connectedToNetwork] && [[AdLoader sharedLoader] needsSync]) {
-					[[AdLoader sharedLoader] queryServer:ADQUERY_PAD_FREE];
-				}
-			}
-			else {
-				if ([Reachable connectedToNetwork] && [[AdLoader sharedLoader] needsSync]) {
-					[[AdLoader sharedLoader] queryServer:ADQUERY_PHONE_FREE];
-				}
-			}
-		}		
+		_oldImpulse = b2Vec2(0,0);
 		
 		// should be the last line
 		[self schedule: @selector(tick:)];
@@ -550,30 +531,8 @@ static PongVader *_globalSceneInst = nil;
 
 - (void) writeToPersist
 {
-	[appPList setObject:[settings toPlistDict] forKey:@"settings"];
-	[settings set:@"LastAdSync" to: [[AdLoader sharedLoader] lastSyncStr]]; 
-	[Utils writeApplicationPlist:(id) appPList toFile:@"appdata.plist"];
-}
-
-
-- (void) initOpenFeint {
-	OFstarted = YES;
-	
-	ofDelegate = [CCOFDelegate new];
-	
-	NSDictionary* pvOFsettings = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:UIInterfaceOrientationPortrait], OpenFeintSettingDashboardOrientation, 
-							  [NSNumber numberWithBool:NO], OpenFeintSettingEnablePushNotifications,
-							  [NSNumber numberWithBool:YES], OpenFeintSettingDisableUserGeneratedContent,
-								  [NSNumber numberWithBool:YES], OpenFeintSettingGameCenterEnabled, nil  ];
-	
-	[OpenFeint initializeWithProductKey:@"9QrMFwh45rH83PXgmx9WyA"
-                              andSecret:@"KoFOPqjyEIthYgJzXiMZ25oJGoV4TC7qexlzesfTx4"
-                         andDisplayName:@"PongVaders"
-                            andSettings:pvOFsettings    // see OpenFeintSettings.h
-                           andDelegates:[OFDelegatesContainer containerWithOpenFeintDelegate:ofDelegate]]; 
-	
-	myAchievementDelegate = [CCOFAchievementDelegate new];
-	[OFAchievement setDelegate: myAchievementDelegate];
+	[_appPList setObject:[_settings toPlistDict] forKey:@"settings"];
+	[Utils writeApplicationPlist:(id) _appPList toFile:@"appdata.plist"];
 }
 
 - (void) clearScene {
@@ -585,51 +544,51 @@ static PongVader *_globalSceneInst = nil;
 
 - (void) resetScene {
 	self.position = ccp(0,0);
-	oldImpulse = b2Vec2(0,0);
-	[planet[0] reset];
-	[planet[1] reset];
-	[starfield reset];
+	_oldImpulse = b2Vec2(0,0);
+	[_planet[0] reset];
+	[_planet[1] reset];
+	[_starfield reset];
 	
-	soloInvader = false;
-	[fuzz stop];
+	_soloInvader = false;
+	[_fuzz stop];
 	
-	bulletTimeDistance = _IPAD?200.0:100.0;
+	_bulletTimeDistance = _IPAD?200.0:100.0;
 }
 
 // on "dealloc" you need to release all your retained objects
 - (void) dealloc {
 	// destroy any remaining invaders in the cache
-	for (NSMutableArray *invarray in [inactiveInvaders allValues]) {
+	for (NSMutableArray *invarray in [_inactiveInvaders allValues]) {
 		for (Invader *invader in invarray) {
 			// remove from world
-			world->DestroyBody(invader.b2dBody);
+			_world->DestroyBody(invader.b2dBody);
 		}
 		[invarray release];
 	}
-	[inactiveInvaders release];
+	[_inactiveInvaders release];
 
-	[fleets release];
-	[activeParticles release];
-	[inactiveParticles release];
-	[touchedSprites release];
+	[_fleets release];
+	[_activeParticles release];
+	[_inactiveParticles release];
+	[_touchedSprites release];
 	
 	// delete box2d stuff
-	delete world;
+	delete _world;
 	delete _contactListener;
-	delete m_debugDraw;
+//	delete _m_debugDraw;
 	
 	// PongVader scene stuff
-	world = NULL;
-	paddle1 = NULL;
-	paddle2 = NULL;
+	_world = NULL;
+	_paddle1 = NULL;
+	_paddle2 = NULL;
 	
-	[effectring release];
-	[effectringanim release];
+	[_effectring release];
+	[_effectringanim release];
 	
 	// settings, players and other game level stuff
-	[player[0] release];
-	[player[1] release];
-	[settings release];
+	[_player[0] release];
+	[_player[1] release];
+	[_settings release];
 	
 	// don't forget to call "super dealloc"
 	[super dealloc];
@@ -677,7 +636,7 @@ static PongVader *_globalSceneInst = nil;
 
 	
 	NamedParticleSystem *ps = nil;
-	NSMutableArray *array = [inactiveParticles objectForKey:partType];
+	NSMutableArray *array = [_inactiveParticles objectForKey:partType];
 	if ([array count] == 0) {
 		ps = [[NamedParticleSystem particleWithFile:partType] retain];
 	} else {
@@ -685,7 +644,7 @@ static PongVader *_globalSceneInst = nil;
 		[array removeObjectAtIndex:0];
 	}
 	
-	[activeParticles addObject:ps];
+	[_activeParticles addObject:ps];
 	ps.position = pos;
 	[self addChild: ps];
 	[ps release];
@@ -703,17 +662,17 @@ static PongVader *_globalSceneInst = nil;
 - (void) retireParticles {
 	NSMutableArray *retiring = [[NSMutableArray alloc] initWithCapacity:10];
 	
-	for (NamedParticleSystem *p in activeParticles) {
+	for (NamedParticleSystem *p in _activeParticles) {
 		if (!p.active && !p.particleCount) {
 			
 			[retiring addObject:p];
 			
 			[p resetSystem];
 			
-			NSMutableArray *array = [inactiveParticles objectForKey:p.pFile];
+			NSMutableArray *array = [_inactiveParticles objectForKey:p.pFile];
 			if (array == nil) {
 				array = [NSMutableArray array];
-				[inactiveParticles setObject: array forKey:p.pFile];
+				[_inactiveParticles setObject: array forKey:p.pFile];
 			}
 			[array addObject:p];	
 			
@@ -724,7 +683,7 @@ static PongVader *_globalSceneInst = nil;
 	
 	for (NamedParticleSystem *p in retiring) 
 	{
-		[activeParticles removeObject:p];
+		[_activeParticles removeObject:p];
 	}
 	
 	[retiring release];
@@ -732,7 +691,7 @@ static PongVader *_globalSceneInst = nil;
 
 - (void) cacheSomeParticles: (NSString *) pType number: (int) num {
 	NamedParticleSystem *ps = nil;
-	NSMutableArray *array = [inactiveParticles objectForKey:pType];
+	NSMutableArray *array = [_inactiveParticles objectForKey:pType];
 	for (int i=0; i<num; i++) 
 	{
 		// create and add to world. Note they start off deactivated
@@ -741,7 +700,7 @@ static PongVader *_globalSceneInst = nil;
 		// add to inactive cache
 		if (array == nil) {
 			array = [NSMutableArray array];
-			[inactiveParticles setObject: array forKey:pType];
+			[_inactiveParticles setObject: array forKey:pType];
 		}
 		[array addObject:ps];
 	}
@@ -831,10 +790,10 @@ static PongVader *_globalSceneInst = nil;
 	if (p.state == POW_LTWADDLE && actualHit && ![b isDead]) {
 		Ball *newball;
 		if (p.position.y > (ssz.height/2)) { 
-			newball = (Ball *) [Ball spriteBodyAt:ccp(b.position.x, b.position.y - (b.contentSize.width) - 5) withForce: ccp(0,0) inWorld:world];
+			newball = (Ball *) [Ball spriteBodyAt:ccp(b.position.x, b.position.y - (b.contentSize.width) - 5) withForce: ccp(0,0) inWorld:_world];
 		}
 		else {
-			newball = (Ball *) [Ball spriteBodyAt:ccp(b.position.x, b.position.y + (b.contentSize.width) + 5) withForce: ccp(0,0) inWorld:world];
+			newball = (Ball *) [Ball spriteBodyAt:ccp(b.position.x, b.position.y + (b.contentSize.width) + 5) withForce: ccp(0,0) inWorld:_world];
 		}
 		
 		newball.b2dBody->SetLinearVelocity(b2Vec2(1.1*magnitude*sin(RADIANS(angle)),1.1*magnitude*cos(RADIANS(angle))));
@@ -843,7 +802,7 @@ static PongVader *_globalSceneInst = nil;
 		[newball makeFireball];
 		}
 		[self addChild:newball];
-		[balls addObject:newball];	
+		[_balls addObject:newball];
 		[[SimpleAudioEngine sharedEngine] playEffect:@"slice.wav"];
 	}
 	
@@ -889,8 +848,8 @@ static PongVader *_globalSceneInst = nil;
 - (void) paddleContact: (Paddle*) p withPowerup: (Powerup*) pow {
 	// if paddle is computer, return
 	if (![[GameState getCurrentState] isKindOfClass: [StateMovie class]] && 
-		((p == paddle1 && [[settings get:@"Player1Type"] isEqualToString:@"COMPUTER"]) ||
-		(p == paddle2 && [[settings get:@"Player2Type"] isEqualToString:@"COMPUTER"]))) {
+		((p == _paddle1 && [[_settings get:@"Player1Type"] isEqualToString:@"COMPUTER"]) ||
+		(p == _paddle2 && [[_settings get:@"Player2Type"] isEqualToString:@"COMPUTER"]))) {
 		[pow doKill];
 		[self addParticleAt:ccp(pow.position.x, pow.position.y) particleType:PART_POW];
 		return;
@@ -930,7 +889,7 @@ static PongVader *_globalSceneInst = nil;
 - (void) destroyBalls {
 	NSMutableArray *destroyedBalls = [[NSMutableArray alloc] init];
 
-	for (Ball *ball in balls) {
+	for (Ball *ball in _balls) {
 		if ([ball isDead]) {
 			//[ball reset];
 			[destroyedBalls addObject:ball];	
@@ -943,7 +902,7 @@ static PongVader *_globalSceneInst = nil;
 		[self addParticleAt:ccp(deadBall.position.x, deadBall.position.y) particleType:PART_BALL];
 
 		// remove from world
-		world->DestroyBody(deadBall.b2dBody);
+		_world->DestroyBody(deadBall.b2dBody);
 		
 		// cleanup ball (ribbons)
 		[deadBall cleanup];
@@ -952,13 +911,13 @@ static PongVader *_globalSceneInst = nil;
 		// remove from scene
 		[self removeChild:deadBall cleanup:YES];
 		
-		[balls removeObject: deadBall];		
+		[_balls removeObject: deadBall];
 	}
 	[destroyedBalls release];
 }
 
 - (void) clearBalls {
-	for (Ball *ball in balls) {
+	for (Ball *ball in _balls) {
 		[ball doKill];	
 	}
 	
@@ -966,19 +925,19 @@ static PongVader *_globalSceneInst = nil;
 }
 
 - (void) clearPowerups {
-	for (Powerup *pow in powerups) {
+	for (Powerup *pow in _powerups) {
 		[pow doKill];	
 	}
 	
 	[self destroyPowerups];
-	[paddle1 reset];
-	[paddle2 reset];
+	[_paddle1 reset];
+	[_paddle2 reset];
 }
 
 - (void) destroyPowerups {
 	NSMutableArray *destroyedPowerups = [[NSMutableArray alloc] init];
 	
-	for (Powerup *pow in powerups) {
+	for (Powerup *pow in _powerups) {
 		if ([pow isDead]) {
 			[destroyedPowerups addObject:pow];	
 		}
@@ -987,12 +946,12 @@ static PongVader *_globalSceneInst = nil;
 	for (Ball *deadPow in destroyedPowerups) {
 		
 		// remove from world
-		world->DestroyBody(deadPow.b2dBody);
+		_world->DestroyBody(deadPow.b2dBody);
 		
 		// remove from scene
 		[self removeChild:deadPow cleanup:YES];
 		
-		[powerups removeObject: deadPow];
+		[_powerups removeObject: deadPow];
 	}
 	[destroyedPowerups release];
 }
@@ -1011,7 +970,7 @@ static PongVader *_globalSceneInst = nil;
 		int effect=0;
 		int powerupChance = [[GameState getCurrentState] getPowerupChance];
 		if ([[GameState getCurrentState] isKindOfClass:[StatePlaying class]] &&
-			([[settings get:@"Player1Type"] isEqualToString:@"HUMAN"] || [[settings get:@"Player2Type"] isEqualToString:@"HUMAN"]) && 
+			([[_settings get:@"Player1Type"] isEqualToString:@"HUMAN"] || [[_settings get:@"Player2Type"] isEqualToString:@"HUMAN"]) &&
 			(arc4random() % 100 <= powerupChance) && ![deadInvader isMemberOfClass:[DynamicInvader class]] &&
 			(effect = [[GameState getCurrentState] getPowerup]) != 0) {
 			
@@ -1028,16 +987,16 @@ static PongVader *_globalSceneInst = nil;
 			}
 			
 			if (arc4random() % 2 == 0) {
-				dir = [[settings get:@"Player1Type"] isEqualToString:@"HUMAN"]?ccp(0,-magnitude):ccp(0,0);
+				dir = [[_settings get:@"Player1Type"] isEqualToString:@"HUMAN"]?ccp(0,-magnitude):ccp(0,0);
 			}
 			else {
-				dir = [[settings get:@"Player2Type"] isEqualToString:@"HUMAN"]?ccp(0,magnitude):ccp(0,0);
+				dir = [[_settings get:@"Player2Type"] isEqualToString:@"HUMAN"]?ccp(0,magnitude):ccp(0,0);
 			}
 			
-			if (!bulletTime && (dir.y != 0)) {
-				Powerup *powerup = (Powerup *) [Powerup spriteBodyAt:ccp(deadInvader.position.x, deadInvader.position.y) withEffect: effect withForce:dir inWorld:world];
+			if (!_bulletTime && (dir.y != 0)) {
+				Powerup *powerup = (Powerup *) [Powerup spriteBodyAt:ccp(deadInvader.position.x, deadInvader.position.y) withEffect: effect withForce:dir inWorld:_world];
 				[self addChild:powerup];
-				[powerups addObject:powerup];
+				[_powerups addObject:powerup];
 			}
 		}
 		
@@ -1075,7 +1034,7 @@ static PongVader *_globalSceneInst = nil;
 	[deadInvader cleanupSpriteBody];
 	
 	// remove from fleet
-	for (Fleet *fleet in fleets) {
+	for (Fleet *fleet in _fleets) {
 		[fleet removeInvader:deadInvader];
 	}
 	
@@ -1086,10 +1045,10 @@ static PongVader *_globalSceneInst = nil;
 	[deadInvader reset];
 	
 	// add to inactive cache
-	NSMutableArray *array = [inactiveInvaders objectForKey:[[deadInvader class] description]];
+	NSMutableArray *array = [_inactiveInvaders objectForKey:[[deadInvader class] description]];
 	if (array == nil) {
 		array = [NSMutableArray array];
-		[inactiveInvaders setObject: array forKey:[[deadInvader class] description]];
+		[_inactiveInvaders setObject: array forKey:[[deadInvader class] description]];
 	}
 	[array addObject:deadInvader];		
 }
@@ -1097,7 +1056,7 @@ static PongVader *_globalSceneInst = nil;
 - (void) destroyInvaders {
 	NSMutableArray *destroyedInvaders = [[NSMutableArray alloc] init];
 	
-	for (Fleet *fleet in fleets) {
+	for (Fleet *fleet in _fleets) {
 		for (SpriteBody<Shooter> *invader in fleet.invaders) {
 			if ([invader isDead] && invader.b2dBody->IsActive()) {
 				[destroyedInvaders addObject:invader];
@@ -1118,19 +1077,19 @@ static PongVader *_globalSceneInst = nil;
 	
 	NSMutableArray *deadfleets = [[NSMutableArray alloc] init];
 
-	for (Fleet *fleet in fleets) {
+	for (Fleet *fleet in _fleets) {
 		if ([fleet.invaders count] == 0 && fleet.numNukes == 0)
 			[deadfleets addObject:fleet];
 	}
 	
-	[fleets removeObjectsInArray:deadfleets];
+	[_fleets removeObjectsInArray:deadfleets];
 	[deadfleets release];
 }
 
 - (void) clearInvaders {
 	NSMutableArray *destroyedInvaders = [[NSMutableArray alloc] init];
 	
-	for (Fleet *fleet in fleets) {
+	for (Fleet *fleet in _fleets) {
 		for (SpriteBody<Shooter> *invader in fleet.invaders) {
 			[destroyedInvaders addObject:invader];
 		}
@@ -1143,22 +1102,22 @@ static PongVader *_globalSceneInst = nil;
 	[destroyedInvaders release];
 	
 	// remove dead fleets
-	[fleets removeAllObjects];
+	[_fleets removeAllObjects];
 }
 
 
 - (void) cacheSomeSpriteBodies: (Class) spriteBodyClass number: (int) num {
 	SpriteBody *sb = nil;
-	NSMutableArray *array = [inactiveInvaders objectForKey:[spriteBodyClass description]];
+	NSMutableArray *array = [_inactiveInvaders objectForKey:[spriteBodyClass description]];
 	for (int i=0; i<num; i++) 
 	{
 		// create and add to world. Note they start off deactivated
-		sb = [spriteBodyClass spriteBodyAt: ccp(0,0) withForce:ccp(0,0) inWorld: world];
+		sb = [spriteBodyClass spriteBodyAt: ccp(0,0) withForce:ccp(0,0) inWorld: _world];
 		
 		// add to inactive cache
 		if (array == nil) {
 			array = [NSMutableArray array];
-			[inactiveInvaders setObject: array forKey:[spriteBodyClass description]];
+			[_inactiveInvaders setObject: array forKey:[spriteBodyClass description]];
 		}
 		[array addObject:sb];
 	}
@@ -1218,7 +1177,7 @@ static PongVader *_globalSceneInst = nil;
 	int32 velocityIterations = 5;
 	int32 positionIterations = 1;
 	
-	bulletTime = false;
+	_bulletTime = false;
 	
 	// check if bullettime should be entered
 	// check if there is only one fleet which is still alive
@@ -1227,7 +1186,7 @@ static PongVader *_globalSceneInst = nil;
 	int fleetsAlive = 0;
 	Fleet *lastFleet;
 	
-	for (Fleet *f in fleets) {
+	for (Fleet *f in _fleets) {
 		if (![f isDead]) {
 			fleetsAlive += 1;	
 			lastFleet = f;
@@ -1235,31 +1194,31 @@ static PongVader *_globalSceneInst = nil;
 	}
 	
 	
-	if (!bossTime && !soloInvader && (fleetsAlive == 1)) {
+	if (!_bossTime && !_soloInvader && (fleetsAlive == 1)) {
 		if ([[lastFleet getInvadersThatCount] count] == 1) {
-			soloInvader = true;	
+			_soloInvader = true;
 			// fade out bg music
-			id action = [CCPropertyAction actionWithDuration:MUSIC_FADE_TIME_BULLET key:@"BackgroundVolume" from:1.0 to:0.0];
+			id action = [CCActionTween actionWithDuration:MUSIC_FADE_TIME_BULLET key:@"BackgroundVolume" from:1.0 to:0.0];
 			[self runAction:action];
 			
-			fuzz.gain = .2;
-			[fuzz play];
+			_fuzz.gain = .2;
+			[_fuzz play];
 		}
 	}
 	
 	// from that fleet, return an invader that counts
 	// if yes, check if ball within bullet time distance
 	
-	if (frozen) {
-		bulletTime = YES;
+	if (_frozen) {
+		_bulletTime = YES;
 	}
 
-	if (soloInvader || frozen) {
+	if (_soloInvader || _frozen) {
 		Invader *lastInvader = [[lastFleet getInvadersThatCount] lastObject];
-		for (Ball *ball in balls) {
+		for (Ball *ball in _balls) {
 			b2Filter ballFilter = ball.b2dBody->GetFixtureList()->GetFilterData();
-			if (ballFilter.maskBits == (0xFFFF & ~COL_CAT_BALL) && [PongVader spriteDistance: ball sprite2: lastInvader] < bulletTimeDistance) {
-				bulletTime = true;	
+			if (ballFilter.maskBits == (0xFFFF & ~COL_CAT_BALL) && [PongVader spriteDistance: ball sprite2: lastInvader] < _bulletTimeDistance) {
+				_bulletTime = true;
 				[ball enterBulletTime];
 			}
 			else {
@@ -1267,16 +1226,16 @@ static PongVader *_globalSceneInst = nil;
 			}
 		}
 		
-		if (bulletTime) {
+		if (_bulletTime) {
 			
 			// draw effect
-			effectring.visible = YES;
-			effectring.position = lastInvader.position;
+			_effectring.visible = YES;
+			_effectring.position = lastInvader.position;
 			
 			Ball *nearestBall;
 			float dist = 10000;
 			
-			for (Ball *ball in balls) {
+			for (Ball *ball in _balls) {
 				float ndist = [Utils distanceFrom:ball.position to:lastInvader.position];
 				
 				if ((ndist < dist)) 
@@ -1289,32 +1248,32 @@ static PongVader *_globalSceneInst = nil;
 			// float dist = [Utils distanceFrom:nearestBall.position to:lastInvader.position];
 			
 			if (_IPAD) {
-				if (dist <= .75*bulletTimeDistance) {
-					innerBulletRadius = YES;
+				if (dist <= .75*_bulletTimeDistance) {
+					_innerBulletRadius = YES;
 				}
 				else {
-					innerBulletRadius = NO;
+					_innerBulletRadius = NO;
 				}
 			}
 			else {
-				if (dist <= .75*bulletTimeDistance) {
-					innerBulletRadius = YES;
+				if (dist <= .75*_bulletTimeDistance) {
+					_innerBulletRadius = YES;
 				}
 				else {
-					innerBulletRadius = NO;
+					_innerBulletRadius = NO;
 				}
 			}
 			
-			fuzz.gain = .2 + (1.5*(1-(dist/bulletTimeDistance))) * (1.5*(1-(dist/bulletTimeDistance)));
+			_fuzz.gain = .2 + (1.5*(1-(dist/_bulletTimeDistance))) * (1.5*(1-(dist/_bulletTimeDistance)));
 			
 			//printf("dist: %f, gain: %f \n", dist, fuzz.gain);
 		}
 	}
 	
-	if (!bulletTime) {
-		fuzz.gain = .2;	
-		oldImpulse = b2Vec2(0,0);
-		effectring.visible = NO;
+	if (!_bulletTime) {
+		_fuzz.gain = .2;
+		_oldImpulse = b2Vec2(0,0);
+		_effectring.visible = NO;
 	}
 	
 	
@@ -1328,14 +1287,14 @@ static PongVader *_globalSceneInst = nil;
 	
 	
 	// Instruct the world to perform a single step of simulation.
-	if (bulletTime) {
+	if (_bulletTime) {
 		dt = dt*BULLETTIME;
 	}
 	
-	world->Step(dt, velocityIterations, positionIterations);
+	_world->Step(dt, velocityIterations, positionIterations);
 
 	//Iterate over the bodies in the physics world & tick
-	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())	{
+	for (b2Body* b = _world->GetBodyList(); b; b = b->GetNext())	{
 		if ((b->GetUserData() != NULL) && b->IsActive()) {
 			SpriteBody *myActor = (SpriteBody*)b->GetUserData();
 			[myActor tick: dt];
@@ -1354,47 +1313,47 @@ static PongVader *_globalSceneInst = nil;
 	
 	
 	// Check paddle state
-	if (paddle1.state > 0) {
+	if (_paddle1.state > 0) {
 		
 		// decrement counter for paddle state if non-normal
-		paddle1.stateRemaining -= dt;
-		if (paddle1.stateRemaining <= 0) {
-			[paddle1 reset];
+		_paddle1.stateRemaining -= dt;
+		if (_paddle1.stateRemaining <= 0) {
+			[_paddle1 reset];
 		}
 		
 		// generate balls if paddle has POW_CDRBOBBLE powerup
-		if (paddle1.state == POW_CDRBOBBLE) {
-			paddle1.lastShot +=dt;
+		if (_paddle1.state == POW_CDRBOBBLE) {
+			_paddle1.lastShot +=dt;
 			
-			if (paddle1.lastShot >= 1) {
-				paddle1.lastShot = 0;
-				Ball *newball = (Ball *) [Ball spriteBodyAt:ccp(paddle1.position.x, paddle1.position.y + paddle1.contentSize.height + 2) withForce: ccp(0,5) inWorld:world];
+			if (_paddle1.lastShot >= 1) {
+				_paddle1.lastShot = 0;
+				Ball *newball = (Ball *) [Ball spriteBodyAt:ccp(_paddle1.position.x, _paddle1.position.y + _paddle1.contentSize.height + 2) withForce: ccp(0,5) inWorld:_world];
 				[newball makeFireball];
-				newball.lastPlayer = paddle1.player;
+				newball.lastPlayer = _paddle1.player;
 				[self addChild:newball];
-				[balls addObject:newball];
+				[_balls addObject:newball];
 				[[SimpleAudioEngine sharedEngine] playEffect:@"greenshot.wav"];
 			}
 		}
 	}
 	
-	if (paddle2.state > 0) {
-		paddle2.stateRemaining -= dt;
-		if (paddle2.stateRemaining <= 0) {
-			[paddle2 reset];
+	if (_paddle2.state > 0) {
+		_paddle2.stateRemaining -= dt;
+		if (_paddle2.stateRemaining <= 0) {
+			[_paddle2 reset];
 		}
 		
 		// generate balls if paddle has POW_CDRBOBBLE powerup
-		if (paddle2.state == POW_CDRBOBBLE) {
-			paddle2.lastShot +=dt;
+		if (_paddle2.state == POW_CDRBOBBLE) {
+			_paddle2.lastShot +=dt;
 			
-			if (paddle2.lastShot >= 1) {
-				paddle2.lastShot = 0;
-				Ball *newball = (Ball *) [Ball spriteBodyAt:ccp(paddle2.position.x, paddle2.position.y - paddle1.contentSize.height - 2) withForce: ccp(0,-5) inWorld:world];
+			if (_paddle2.lastShot >= 1) {
+				_paddle2.lastShot = 0;
+				Ball *newball = (Ball *) [Ball spriteBodyAt:ccp(_paddle2.position.x, _paddle2.position.y - _paddle1.contentSize.height - 2) withForce: ccp(0,-5) inWorld:_world];
 				[newball makeFireball];
-				newball.lastPlayer = paddle2.player;
+				newball.lastPlayer = _paddle2.player;
 				[self addChild:newball];
-				[balls addObject:newball];
+				[_balls addObject:newball];
 				[[SimpleAudioEngine sharedEngine] playEffect:@"greenshot.wav"];
 			}
 		}
@@ -1412,67 +1371,67 @@ static PongVader *_globalSceneInst = nil;
 		NSObject *objA = (NSObject *) contact.fixtureA->GetBody()->GetUserData();
 		NSObject *objB = (NSObject *) contact.fixtureB->GetBody()->GetUserData();
 		
-		if (contact.fixtureA == topFixture && [objB class]  == [Ball class]) {
+		if (contact.fixtureA == _topFixture && [objB class]  == [Ball class]) {
 			Ball *b = (Ball*) objB;
 			//[destroyedBalls addObject:b];					
 			[b doKill];
 			//[self addParticleAt:ccp(b.position.x,b.position.y) particleType:PART_BALL];			
-			if (!planet[1].shaking) {
-				[planet[1] doHit];
-				[starfield doDrift];
-				[paddle2.player incScoreBy:SCORE_PLANETHIT];
-				[paddle2.player resetChain];
+			if (!_planet[1].shaking) {
+				[_planet[1] doHit];
+				[_starfield doDrift];
+				[_paddle2.player incScoreBy:SCORE_PLANETHIT];
+				[_paddle2.player resetChain];
 			}
 		}
-		else if ([objA class]  == [Ball class] && contact.fixtureB == topFixture) {
+		else if ([objA class]  == [Ball class] && contact.fixtureB == _topFixture) {
 			Ball *b = (Ball*) objA;
 			[b doKill];
 			//[self addParticleAt:ccp(b.position.x,b.position.y) particleType:PART_BALL];
-			if (!planet[1].shaking) {
-				[planet[1] doHit];
-				[starfield doDrift];
-				[paddle2.player incScoreBy:SCORE_PLANETHIT];
-				[paddle2.player resetChain];
+			if (!_planet[1].shaking) {
+				[_planet[1] doHit];
+				[_starfield doDrift];
+				[_paddle2.player incScoreBy:SCORE_PLANETHIT];
+				[_paddle2.player resetChain];
 			}
 		}
-		else if (contact.fixtureA == bottomFixture && [objB class]  == [Ball class]) {
+		else if (contact.fixtureA == _bottomFixture && [objB class]  == [Ball class]) {
 			Ball *b = (Ball*) objB;
 			[b doKill];
 			//[self addParticleAt:ccp(b.position.x,b.position.y) particleType:PART_BALL];
-			if (!planet[0].shaking) {
-				[planet[0] doHit];
-				[starfield doDrift];
-				[paddle1.player incScoreBy:SCORE_PLANETHIT];
-				[paddle1.player resetChain];
+			if (!_planet[0].shaking) {
+				[_planet[0] doHit];
+				[_starfield doDrift];
+				[_paddle1.player incScoreBy:SCORE_PLANETHIT];
+				[_paddle1.player resetChain];
 			}
 		}
-		else if ([objA class]  == [Ball class] && contact.fixtureB == bottomFixture) {
+		else if ([objA class]  == [Ball class] && contact.fixtureB == _bottomFixture) {
 			Ball *b = (Ball*) objA;
 			[b doKill];
 			//[self addParticleAt:ccp(b.position.x,b.position.y) particleType:PART_BALL];
-			if (!planet[0].shaking) {
-				[planet[0] doHit];
-				[starfield doDrift];
-				[paddle1.player incScoreBy:SCORE_PLANETHIT];
-				[paddle1.player resetChain];
+			if (!_planet[0].shaking) {
+				[_planet[0] doHit];
+				[_starfield doDrift];
+				[_paddle1.player incScoreBy:SCORE_PLANETHIT];
+				[_paddle1.player resetChain];
 			}
 		}
 		
 		// check for ball hitting sides
 		
-		if (contact.fixtureA == leftFixture && [objB class]  == [Ball class]) {
+		if (contact.fixtureA == _leftFixture && [objB class]  == [Ball class]) {
 			Ball *b = (Ball*) objB;
 			[b addBounceAgainst:nil];
 		}
-		else if ([objA class]  == [Ball class] && contact.fixtureB == leftFixture) {
+		else if ([objA class]  == [Ball class] && contact.fixtureB == _leftFixture) {
 			Ball *b = (Ball*) objA;
 			[b addBounceAgainst:nil];
 		}
-		else if (contact.fixtureA == rightFixture && [objB class]  == [Ball class]) {
+		else if (contact.fixtureA == _rightFixture && [objB class]  == [Ball class]) {
 			Ball *b = (Ball*) objB;
 			[b addBounceAgainst:nil];
 		}
-		else if ([objA class]  == [Ball class] && contact.fixtureB == rightFixture) {
+		else if ([objA class]  == [Ball class] && contact.fixtureB == _rightFixture) {
 			Ball *b = (Ball*) objA;
 			[b addBounceAgainst:nil];
 		}
@@ -1577,66 +1536,66 @@ static PongVader *_globalSceneInst = nil;
 		}
 		
 		// with planets
-		if (contact.fixtureA == topFixture && [objB class]  == [DynamicInvader class]) {
+		if (contact.fixtureA == _topFixture && [objB class]  == [DynamicInvader class]) {
 			DynamicInvader *dyn = (DynamicInvader *) objB;
 			[self doExplosionAt:ccp(dyn.position.x, dyn.position.y) fromDyn:dyn];
 			
-			if (!planet[1].shaking) {
-				[planet[1] doHit];
-				[starfield doDrift];
-				[paddle2.player incScoreBy:SCORE_PLANETHIT];
-				[paddle2.player resetChain];
+			if (!_planet[1].shaking) {
+				[_planet[1] doHit];
+				[_starfield doDrift];
+				[_paddle2.player incScoreBy:SCORE_PLANETHIT];
+				[_paddle2.player resetChain];
 			}
 		}
-		else if ([objA class]  == [DynamicInvader class] && contact.fixtureB == topFixture) {
+		else if ([objA class]  == [DynamicInvader class] && contact.fixtureB == _topFixture) {
 			DynamicInvader *dyn = (DynamicInvader *) objA;
 			[self doExplosionAt:ccp(dyn.position.x, dyn.position.y) fromDyn:dyn];
 			
-			if (!planet[1].shaking) {
-				[planet[1] doHit];
-				[starfield doDrift];
-				[paddle2.player incScoreBy:SCORE_PLANETHIT];
-				[paddle2.player resetChain];
+			if (!_planet[1].shaking) {
+				[_planet[1] doHit];
+				[_starfield doDrift];
+				[_paddle2.player incScoreBy:SCORE_PLANETHIT];
+				[_paddle2.player resetChain];
 			}
 		}
-		else if (contact.fixtureA == bottomFixture && [objB class]  == [DynamicInvader class]) {
+		else if (contact.fixtureA == _bottomFixture && [objB class]  == [DynamicInvader class]) {
 			DynamicInvader *dyn = (DynamicInvader *) objB;
 			[self doExplosionAt:ccp(dyn.position.x, dyn.position.y) fromDyn:dyn];
 			
-			if (!planet[0].shaking) {
-				[planet[0] doHit];
-				[starfield doDrift];
-				[paddle1.player incScoreBy:SCORE_PLANETHIT];
-				[paddle1.player resetChain];
+			if (!_planet[0].shaking) {
+				[_planet[0] doHit];
+				[_starfield doDrift];
+				[_paddle1.player incScoreBy:SCORE_PLANETHIT];
+				[_paddle1.player resetChain];
 			}
 		}
-		else if ([objA class]  == [DynamicInvader class] && contact.fixtureB == bottomFixture) {
+		else if ([objA class]  == [DynamicInvader class] && contact.fixtureB == _bottomFixture) {
 			DynamicInvader *dyn = (DynamicInvader *) objA;
 			[self doExplosionAt:ccp(dyn.position.x, dyn.position.y) fromDyn:dyn];
 			
-			if (!planet[0].shaking) {
-				[planet[0] doHit];
-				[starfield doDrift];
-				[paddle1.player incScoreBy:SCORE_PLANETHIT];
-				[paddle1.player resetChain];
+			if (!_planet[0].shaking) {
+				[_planet[0] doHit];
+				[_starfield doDrift];
+				[_paddle1.player incScoreBy:SCORE_PLANETHIT];
+				[_paddle1.player resetChain];
 			}
 		}
 		
 		// check for powerup hitting top or bottom
 		
-		else if (contact.fixtureA == topFixture && [(SpriteBody*) contact.fixtureB->GetBody()->GetUserData() class]  == [Powerup class]) {
+		else if (contact.fixtureA == _topFixture && [(SpriteBody*) contact.fixtureB->GetBody()->GetUserData() class]  == [Powerup class]) {
 			Powerup *pow = (Powerup*) contact.fixtureB->GetBody()->GetUserData();				
 			[pow doKill];
 		}
-		else if ([(SpriteBody*) contact.fixtureA->GetBody()->GetUserData() class]  == [Powerup class] && contact.fixtureB == topFixture) {
+		else if ([(SpriteBody*) contact.fixtureA->GetBody()->GetUserData() class]  == [Powerup class] && contact.fixtureB == _topFixture) {
 			Powerup *pow = (Powerup*) contact.fixtureA->GetBody()->GetUserData();
 			[pow doKill];
 		}
-		else if (contact.fixtureA == bottomFixture && [(SpriteBody*) contact.fixtureB->GetBody()->GetUserData() class]  == [Powerup class]) {
+		else if (contact.fixtureA == _bottomFixture && [(SpriteBody*) contact.fixtureB->GetBody()->GetUserData() class]  == [Powerup class]) {
 			Powerup *pow = (Powerup*) contact.fixtureB->GetBody()->GetUserData();
 			[pow doKill];
 		}
-		else if ([(SpriteBody*) contact.fixtureA->GetBody()->GetUserData() class]  == [Powerup class] && contact.fixtureB == bottomFixture) {
+		else if ([(SpriteBody*) contact.fixtureA->GetBody()->GetUserData() class]  == [Powerup class] && contact.fixtureB == _bottomFixture) {
 			Powerup *pow = (Powerup*) contact.fixtureA->GetBody()->GetUserData();
 			[pow doKill];
 		}
@@ -1659,13 +1618,13 @@ static PongVader *_globalSceneInst = nil;
 	// check for balls that have gone out of bounds
 	// apply strobe effect if ball is approaching a paddle
 	
-	for (Ball *ball in balls) {
+	for (Ball *ball in _balls) {
 		[ball updateRibbon:dt];
 		
-		if ([ball isWhite] && (ball.position.y < ssz.height/3) && [ball lastPlayer] == player[1]) {
+		if ([ball isWhite] && (ball.position.y < ssz.height/3) && [ball lastPlayer] == _player[1]) {
 			[ball strobe:dt];
 		}
-		if ([ball isWhite] && (ball.position.y > 2*ssz.height/3) && [ball lastPlayer] == player[0]) {
+		if ([ball isWhite] && (ball.position.y > 2*ssz.height/3) && [ball lastPlayer] == _player[0]) {
 			[ball strobe:dt];
 		}
 
@@ -1686,27 +1645,27 @@ static PongVader *_globalSceneInst = nil;
 	
 	//for (Fleet *fleet in fleets) [fleet tick:dt];
 		
-	[planet[0] tick:dt];
-	[planet[1] tick:dt];
-	[starfield tick:dt];
+	[_planet[0] tick:dt];
+	[_planet[1] tick:dt];
+	[_starfield tick:dt];
 	
 	[self retireParticles];
 	
 	// adjust ball speeds
 	
-	if (!bulletTime) {
-		for (Ball *ball in balls) {
+	if (!_bulletTime) {
+		for (Ball *ball in _balls) {
 			b2Vec2 velocity = ball.b2dBody->GetLinearVelocity();
 			// debugging
 //			float vel = velocity.Length();
 //			printf("ball velocity: %f \n", vel);
-			if (velocity.Length() > maxSpeed) {
-				velocity *= (maxSpeed/velocity.Length());
+			if (velocity.Length() > _maxSpeed) {
+				velocity *= (_maxSpeed/velocity.Length());
 				ball.b2dBody->SetLinearVelocity(velocity);
 				//printf("slowing ball \n");
 			}
-			else if (velocity.Length() < minSpeed) {
-				velocity *= (minSpeed/velocity.Length());
+			else if (velocity.Length() < _minSpeed) {
+				velocity *= (_minSpeed/velocity.Length());
 				ball.b2dBody->SetLinearVelocity(velocity);
 				//printf("speeding ball \n");
 			}
@@ -1721,7 +1680,7 @@ static PongVader *_globalSceneInst = nil;
 
 	// replace any nukes that have blown
 	
-	for (Fleet *fleet in fleets) {
+	for (Fleet *fleet in _fleets) {
 		if ([fleet vacantNuke]) {
 			
 			// create a UFO and drop a new nuke at the vacan't nuke's position
@@ -1738,32 +1697,32 @@ static PongVader *_globalSceneInst = nil;
 	
 	int randOffset = arc4random() % 100;
 	randOffset -= 50;
-	Ball *nearestBall = [balls lastObject];
+	Ball *nearestBall = [_balls lastObject];
 
-	if ([[settings get:@"Player2Type"] isEqualToString:@"COMPUTER"] && [[GameState getCurrentState] isKindOfClass:[StatePlaying class]]) {
+	if ([[_settings get:@"Player2Type"] isEqualToString:@"COMPUTER"] && [[GameState getCurrentState] isKindOfClass:[StatePlaying class]]) {
 		// find nearest ball
 		
-		for (Ball *b in balls) {
+		for (Ball *b in _balls) {
 			if ((b.position.y > nearestBall.position.y) && 
-				(b.position.y < paddle2.position.y) && 
+				(b.position.y < _paddle2.position.y) &&
 				(b.b2dBody->GetLinearVelocity().y > 0))
 			{
 				nearestBall = b;	
 			}
 		}
-		if (nearestBall) [paddle2 moveTo:(paddle2.position.x * 2.0 + (nearestBall.position.x + nearestBall.AIOffset)) / 3.0];
+		if (nearestBall) [_paddle2 moveTo:(_paddle2.position.x * 2.0 + (nearestBall.position.x + nearestBall.AIOffset)) / 3.0];
 	}	
 
-	if ([[settings get:@"Player1Type"] isEqualToString:@"COMPUTER"] && [[GameState getCurrentState] isKindOfClass:[StatePlaying class]]) {
-		for (Ball *b in balls) {
+	if ([[_settings get:@"Player1Type"] isEqualToString:@"COMPUTER"] && [[GameState getCurrentState] isKindOfClass:[StatePlaying class]]) {
+		for (Ball *b in _balls) {
 			if ((b.position.y < nearestBall.position.y) &&
-				(b.position.y > paddle1.position.y) && 
+				(b.position.y > _paddle1.position.y) &&
 				(b.b2dBody->GetLinearVelocity().y < 0))
 			{
 				nearestBall = b;	
 			}
 		}
-		if (nearestBall) [paddle1 moveTo:(paddle1.position.x * 2.0 + (nearestBall.position.x + nearestBall.AIOffset)) / 3.0];
+		if (nearestBall) [_paddle1 moveTo:(_paddle1.position.x * 2.0 + (nearestBall.position.x + nearestBall.AIOffset)) / 3.0];
 	}
 	
 	_contactListener->clearContacts();
@@ -1792,17 +1751,17 @@ static vector<MouseJointStruct> joints;
 		TouchedSprite *touched = nil;
 		
 		// check for collision with … paddle itself? define larger rect to test collision?
-		if (CGRectContainsPoint([paddle1 getRect], location) && [[settings get:@"Player1Type"] isEqualToString:@"HUMAN"]) {
+		if (CGRectContainsPoint([_paddle1 getRect], location) && [[_settings get:@"Player1Type"] isEqualToString:@"HUMAN"]) {
 			
-			if (!USE_DYNAMIC_PADDLES) [paddle1 moveTo: location.x];
+			if (!USE_DYNAMIC_PADDLES) [_paddle1 moveTo: location.x];
 			
-			touched = [[TouchedSprite alloc] initWithSpriteBody:paddle1 touch:touch];
+			touched = [[TouchedSprite alloc] initWithSpriteBody:_paddle1 touch:touch];
 		}
-		else if (CGRectContainsPoint([paddle2 getRect], location) && [[settings get:@"Player2Type"] isEqualToString:@"HUMAN"]) {
+		else if (CGRectContainsPoint([_paddle2 getRect], location) && [[_settings get:@"Player2Type"] isEqualToString:@"HUMAN"]) {
 			
-			if (!USE_DYNAMIC_PADDLES) [paddle2 moveTo: location.x];
+			if (!USE_DYNAMIC_PADDLES) [_paddle2 moveTo: location.x];
 			
-			touched = [[TouchedSprite alloc] initWithSpriteBody:paddle2 touch:touch];
+			touched = [[TouchedSprite alloc] initWithSpriteBody:_paddle2 touch:touch];
 		}
 		
 		if (touched) {
@@ -1810,25 +1769,25 @@ static vector<MouseJointStruct> joints;
 			if (USE_DYNAMIC_PADDLES) {
 				b2Body* body = touched.sb.b2dBody;
 				b2MouseJointDef md;
-				md.bodyA = groundBody;
+				md.bodyA = _groundBody;
 				md.bodyB = body;
 				md.target = b2Vec2(location.x / PTM_RATIO, location.y / PTM_RATIO);
 				md.maxForce = 5000.0f * body->GetMass();
-				b2MouseJoint *joint = (b2MouseJoint*)world->CreateJoint(&md);
+				b2MouseJoint *joint = (b2MouseJoint*)_world->CreateJoint(&md);
 				body->SetAwake(true);
 				touched.mj = joint;
 			}
 			
 			BOOL exists = NO;
-			for (NSUInteger i=0; i< [touchedSprites count]; i++ ) {
-				TouchedSprite *touchedSprite = [touchedSprites objectAtIndex:i];
+			for (NSUInteger i=0; i< [_touchedSprites count]; i++ ) {
+				TouchedSprite *touchedSprite = [_touchedSprites objectAtIndex:i];
 				if ([touch isEqual: touchedSprite.touch]) {
 					exists = YES;
-					[touchedSprites replaceObjectAtIndex:i withObject:touched];
+					[_touchedSprites replaceObjectAtIndex:i withObject:touched];
 				}
 			}
 			
-			if (!exists) [touchedSprites addObject: touched];
+			if (!exists) [_touchedSprites addObject: touched];
 					
 		}
 		 
@@ -1837,7 +1796,7 @@ static vector<MouseJointStruct> joints;
 
 - (void)doTouchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
 
-	for (TouchedSprite *touchedSprite in touchedSprites) {
+	for (TouchedSprite *touchedSprite in _touchedSprites) {
 		for( UITouch *touch in touches ) {
 			if ([touch isEqual: touchedSprite.touch]) {
 				
@@ -1862,7 +1821,7 @@ static vector<MouseJointStruct> joints;
 			CGPoint location = [touch locationInView: [touch view]];
 			//if ((location.y > 400) && (location.y < 600)) {
 			
-			for (Fleet *fleet in fleets) {
+			for (Fleet *fleet in _fleets) {
 				for (SpriteBody<Shooter> *invader in fleet.invaders) {
 					[invader doHitFrom:nil withDamage:100];
 				}
@@ -1872,7 +1831,7 @@ static vector<MouseJointStruct> joints;
 
 	NSMutableArray *discardedItems = [NSMutableArray array];
 	
-	for (TouchedSprite *touched in touchedSprites) {
+	for (TouchedSprite *touched in _touchedSprites) {
 		for( UITouch *touch in touches ) {
 			if ([touch isEqual: touched.touch]) {
 				
@@ -1880,34 +1839,34 @@ static vector<MouseJointStruct> joints;
 				[discardedItems addObject: touched];
 				
 				if (touched.mj) {
-					world->DestroyJoint(touched.mj);
+					_world->DestroyJoint(touched.mj);
 					touched.mj = NULL;
 				}
 			}
 		}
 	}
-	[touchedSprites removeObjectsInArray:discardedItems];
+	[_touchedSprites removeObjectsInArray:discardedItems];
 }
 
 - (void) clearTouches {
-	for (TouchedSprite *touchedSprite in touchedSprites) {
+	for (TouchedSprite *touchedSprite in _touchedSprites) {
 		if (touchedSprite.mj) {
-			world->DestroyJoint(touchedSprite.mj);
+			_world->DestroyJoint(touchedSprite.mj);
 		}
 	}
-	[touchedSprites removeAllObjects];
+	[_touchedSprites removeAllObjects];
 }
 
 #define vec2angle(vec) (180 * atan2(-vec.y, vec.x)/M_PI + 90)
 
 - (void)accelerometer:(UIAccelerometer*)accelerometer didAccelerate:(UIAcceleration*)acceleration {	
 	
-	if (!bulletTime) {
-		effectring.rotation = vec2angle(acceleration);
+	if (!_bulletTime) {
+		_effectring.rotation = vec2angle(acceleration);
 		if (!self.accelNormalized) {
-			baseAccel[0] = baseAccel[0]*0.9 + acceleration.x*0.1;
-			baseAccel[1] = baseAccel[1]*0.9 + acceleration.y*0.1;
-			baseAccel[2] = baseAccel[2]*0.9 + acceleration.z*0.1;
+			_baseAccel[0] = _baseAccel[0]*0.9 + acceleration.x*0.1;
+			_baseAccel[1] = _baseAccel[1]*0.9 + acceleration.y*0.1;
+			_baseAccel[2] = _baseAccel[2]*0.9 + acceleration.z*0.1;
 		}
 		return;
 	}
@@ -1917,20 +1876,20 @@ static vector<MouseJointStruct> joints;
 	b2Vec2 impulse;
 	float k = 0.2;
 	CGFloat accel[3] = {
-		acceleration.x-baseAccel[0], 
-		acceleration.y-baseAccel[1], 
-		acceleration.z-baseAccel[2]};
+		static_cast<CGFloat>(acceleration.x-_baseAccel[0]),
+		static_cast<CGFloat>(acceleration.y-_baseAccel[1]),
+		static_cast<CGFloat>(acceleration.z-_baseAccel[2])};
 	
 	if (_IPAD) {
-		impulse = b2Vec2( 0*oldImpulse.x + accel[0], oldImpulse.y * 0.0 + accel[1]);
-		oldImpulse = impulse;
+		impulse = b2Vec2( 0*_oldImpulse.x + accel[0], _oldImpulse.y * 0.0 + accel[1]);
+		_oldImpulse = impulse;
 	}
 	else {
-		impulse = b2Vec2( 0*oldImpulse.x + accel[0]/2.0, 0*oldImpulse.y + accel[1]/2.0);
-		oldImpulse = impulse;
+		impulse = b2Vec2( 0*_oldImpulse.x + accel[0]/2.0, 0*_oldImpulse.y + accel[1]/2.0);
+		_oldImpulse = impulse;
 	}
 	
-	for (Ball *ball in balls) {
+	for (Ball *ball in _balls) {
 		if (ball.isBulletTime) {
 			b2Vec2 point( ball.position.x, ball.position.y);
 			
@@ -1942,7 +1901,7 @@ static vector<MouseJointStruct> joints;
 	b2Vec2 effectVec = impulse;
 	float32 effectMag = effectVec.Normalize();
 	if (effectMag > 0.9) effectMag = 0.9;
-	CCRepeatForever *action = (CCRepeatForever *)[effectring getActionByTag:EFFECT_ACTION];
+	CCRepeatForever *action = (CCRepeatForever *)[_effectring getActionByTag:EFFECT_ACTION];
 	CCAnimate *animate = (CCAnimate *) [action getOther];
 	animate.duration = animate.duration*(1-k)+k*0.20*(1.0-effectMag);
 	//[effectring runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:effectringanim restoreOriginalFrame:NO] ]];
@@ -1951,44 +1910,44 @@ static vector<MouseJointStruct> joints;
 	while (rotTgt >= 360) rotTgt -= 360;
 	while (rotTgt <    0) rotTgt += 360;
 
-	if      (abs((rotTgt + 360) - effectring.rotation) < abs(rotTgt-effectring.rotation)) 
-		effectring.rotation = effectring.rotation * (1-k) + (rotTgt+360) * k;
-	else if (abs((rotTgt - 360) - effectring.rotation) < abs(rotTgt-effectring.rotation)) 
-		effectring.rotation = effectring.rotation * (1-k) + (rotTgt-360) * k;
+	if      (abs((rotTgt + 360) - _effectring.rotation) < abs(rotTgt-_effectring.rotation))
+		_effectring.rotation = _effectring.rotation * (1-k) + (rotTgt+360) * k;
+	else if (abs((rotTgt - 360) - _effectring.rotation) < abs(rotTgt-_effectring.rotation))
+		_effectring.rotation = _effectring.rotation * (1-k) + (rotTgt-360) * k;
 	else
-		effectring.rotation = effectring.rotation * (1-k) + rotTgt * k;
+		_effectring.rotation = _effectring.rotation * (1-k) + rotTgt * k;
 
-	NSLog(@"%8.4f dur, %8.4f angle", animate.duration, effectring.rotation);
+	NSLog(@"%8.4f dur, %8.4f angle", animate.duration, _effectring.rotation);
 }
 
 #pragma mark Scene entity management -------------------------------------
 
 - (BOOL) isGameLost {
 	//return FALSE;
-	return [planet[0] isDead] || [planet[1] isDead];
+	return [_planet[0] isDead] || [_planet[1] isDead];
 }
 
 - (BOOL) isGameWon {
 	BOOL fleetsGone = YES;
-	for (Fleet *fleet in fleets) 
+	for (Fleet *fleet in _fleets)
 		if (![fleet isDead])
 			fleetsGone = NO;
 	
 	if (fleetsGone) {
-		[fuzz stop];
+		[_fuzz stop];
 	}
 	return fleetsGone;
 }
 
 - (void) addFleet:(Fleet *)fleet {
-	[fleets addObject:fleet];
+	[_fleets addObject:fleet];
 }
 
 - (SpriteBody *) addSpriteBody: (Class) spriteBodyClass atPos: (CGPoint) p withForce: (CGPoint) f {
 	SpriteBody *sb = nil;
-	NSMutableArray *array = [inactiveInvaders objectForKey:[spriteBodyClass description]];
+	NSMutableArray *array = [_inactiveInvaders objectForKey:[spriteBodyClass description]];
 	if ([array count] == 0) {
-		sb = [spriteBodyClass spriteBodyAt: p withForce: f inWorld: world];
+		sb = [spriteBodyClass spriteBodyAt: p withForce: f inWorld: _world];
 		//if (sb) printf("its something!");
 		[self.sheet addChild:sb];
 	} else {
@@ -2006,10 +1965,10 @@ static vector<MouseJointStruct> joints;
 }
 
 - (void) showPaddles: (BOOL) isVisible {
-	paddle1.visible = isVisible;
-	paddle2.visible = isVisible;
-	paddle1.b2dBody->SetActive(isVisible);
-	paddle2.b2dBody->SetActive(isVisible);
+	_paddle1.visible = isVisible;
+	_paddle2.visible = isVisible;
+	_paddle1.b2dBody->SetActive(isVisible);
+	_paddle2.b2dBody->SetActive(isVisible);
 }
 
 + (float) spriteDistance: (SpriteBody *) sprite1 sprite2: (SpriteBody *) sprite2 {
@@ -2034,7 +1993,7 @@ static vector<MouseJointStruct> joints;
 		aabb.upperBound.Set((p.x + 20)/PTM_RATIO, (p.y + 20)/PTM_RATIO);
 	}
 	
-	world->QueryAABB(&callback, aabb);
+	_world->QueryAABB(&callback, aabb);
 	
 	std::vector<b2Body *>::iterator pos;
 	
@@ -2057,18 +2016,18 @@ static vector<MouseJointStruct> joints;
 }
 
 - (void) setDifficulty: (int) level {
-	numBalls = 5 + (int) (level/5);
+	_numBalls = 5 + (int) (level/5);
 //	if (level > LEVELSTOMAX) {
 //		maxSpeed = IMPOSSIBLEBALLSPEED;
 //		minSpeed = MINBALLSPEED;
 //	}
 //	else {
-		maxSpeed = 20; // + ((float) level / LEVELSTOMAX)*10;
-		minSpeed = MINBALLSPEED;
+		_maxSpeed = 20; // + ((float) level / LEVELSTOMAX)*10;
+		_minSpeed = MINBALLSPEED;
 	
 	if (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPad) {
-		minSpeed = minSpeed/8.0;
-		maxSpeed = maxSpeed/2.0;
+		_minSpeed = _minSpeed/8.0;
+		_maxSpeed = _maxSpeed/2.0;
 	}
 //	}
 	
@@ -2077,7 +2036,7 @@ static vector<MouseJointStruct> joints;
 - (float) randBallMagnitude {
 	float rand = 1.25 + (( (float) (arc4random() % 5))/5);
 	//printf("randmag: %f \n", rand);
-	return rand * minSpeed;
+	return rand * _minSpeed;
 	
 //	float rand = (50.0f + (arc4random() % 200))/100;
 //	printf("randmag: %f \n", rand);
@@ -2100,63 +2059,63 @@ static vector<MouseJointStruct> joints;
 }
 
 - (void) updateOFScores {
-	BOOL p1h = [[settings get:@"Player1Type"] isEqualToString:@"HUMAN"];
-	BOOL p2h = [[settings get:@"Player2Type"] isEqualToString:@"HUMAN"];
+	BOOL p1h = [[_settings get:@"Player1Type"] isEqualToString:@"HUMAN"];
+	BOOL p2h = [[_settings get:@"Player2Type"] isEqualToString:@"HUMAN"];
 
 	// set high score
-	int combinedHighScore = (p1h?player[0].score:0) + (p2h?player[1].score:0);
+	int combinedHighScore = (p1h ? _player[0].score:0) + (p2h ? _player[1].score:0);
 	
 	
 	// set maxChain record
-	int combinedMaxChain = (p1h?paddle1.player.maxChain:0) + (p2h?paddle2.player.maxChain:0);
+	int combinedMaxChain = (p1h ?_paddle1.player.maxChain:0) + (p2h ? _paddle2.player.maxChain:0);
 	
 	
-	if (_IPAD) {
-		[OFHighScoreService setHighScore:combinedMaxChain forLeaderboard:@"438994" 
-							   onSuccess:OFDelegate() onFailure:OFDelegate()];
-		[OFHighScoreService setHighScore:combinedHighScore forLeaderboard:@"438984" 
-							   onSuccess:OFDelegate() onFailure:OFDelegate()];
-	}
-	else {
-		[OFHighScoreService setHighScore:combinedMaxChain forLeaderboard:@"552304" 
-							   onSuccess:OFDelegate() onFailure:OFDelegate()];
-		[OFHighScoreService setHighScore:combinedHighScore forLeaderboard:@"552294" 
-							   onSuccess:OFDelegate() onFailure:OFDelegate()];
-	}
+//	if (_IPAD) {
+//		[OFHighScoreService setHighScore:combinedMaxChain forLeaderboard:@"438994" 
+//							   onSuccess:OFDelegate() onFailure:OFDelegate()];
+//		[OFHighScoreService setHighScore:combinedHighScore forLeaderboard:@"438984" 
+//							   onSuccess:OFDelegate() onFailure:OFDelegate()];
+//	}
+//	else {
+//		[OFHighScoreService setHighScore:combinedMaxChain forLeaderboard:@"552304" 
+//							   onSuccess:OFDelegate() onFailure:OFDelegate()];
+//		[OFHighScoreService setHighScore:combinedHighScore forLeaderboard:@"552294" 
+//							   onSuccess:OFDelegate() onFailure:OFDelegate()];
+//	}
 	
 	//check for ah-ah-ah-achievements
 	
 	
-	// Hotballs Fireball
-	if (gotFireball) {
-		[OFAchievementService updateAchievement:HOT_BALLS andPercentComplete:100 andShowNotification:YES];
-		//myAchievement = [[OFAchievement achievement:@"516324"] autorelease];
-//		[myAchievement unlock];
-	}
-	
-	// Ball Juggler
-	if (combinedMaxChain >= 10) {
-		[OFAchievementService updateAchievement:BALL_JUGGLER_10 andPercentComplete:100 andShowNotification:YES];
-	}
-	if (combinedMaxChain >= 20) {
-		[OFAchievementService updateAchievement:BALL_JUGGLER_20 andPercentComplete:100 andShowNotification:YES];
-	}
-	if (combinedMaxChain >= 50) {
-		[OFAchievementService updateAchievement:BALL_JUGGLER_50 andPercentComplete:100 andShowNotification:YES];
-	}
-	if (combinedMaxChain >= 100) {
-		[OFAchievementService updateAchievement:BALL_JUGGLER_100 andPercentComplete:100 andShowNotification:YES];
-	}
-	
-	// High as balls score
-	if (combinedHighScore >= 100000) {
-		[OFAchievementService updateAchievement:HIGH_AS_BALLS andPercentComplete:100 andShowNotification:YES];
-	}
-	
-	// Ball Bouncer combo
-	if ((p1h && (paddle1.player.maxCombo >= 5)) || (p2h && (paddle2.player.maxCombo >= 5))) {
-		[OFAchievementService updateAchievement:BALL_BOUNCER andPercentComplete:100 andShowNotification:YES];
-	}
+//	// Hotballs Fireball
+//	if (gotFireball) {
+//		[OFAchievementService updateAchievement:HOT_BALLS andPercentComplete:100 andShowNotification:YES];
+//		//myAchievement = [[OFAchievement achievement:@"516324"] autorelease];
+////		[myAchievement unlock];
+//	}
+//	
+//	// Ball Juggler
+//	if (combinedMaxChain >= 10) {
+//		[OFAchievementService updateAchievement:BALL_JUGGLER_10 andPercentComplete:100 andShowNotification:YES];
+//	}
+//	if (combinedMaxChain >= 20) {
+//		[OFAchievementService updateAchievement:BALL_JUGGLER_20 andPercentComplete:100 andShowNotification:YES];
+//	}
+//	if (combinedMaxChain >= 50) {
+//		[OFAchievementService updateAchievement:BALL_JUGGLER_50 andPercentComplete:100 andShowNotification:YES];
+//	}
+//	if (combinedMaxChain >= 100) {
+//		[OFAchievementService updateAchievement:BALL_JUGGLER_100 andPercentComplete:100 andShowNotification:YES];
+//	}
+//	
+//	// High as balls score
+//	if (combinedHighScore >= 100000) {
+//		[OFAchievementService updateAchievement:HIGH_AS_BALLS andPercentComplete:100 andShowNotification:YES];
+//	}
+//	
+//	// Ball Bouncer combo
+//	if ((p1h && (paddle1.player.maxCombo >= 5)) || (p2h && (paddle2.player.maxCombo >= 5))) {
+//		[OFAchievementService updateAchievement:BALL_BOUNCER andPercentComplete:100 andShowNotification:YES];
+//	}
 }
 
 - (void) setBackgroundVolume: (float) volume {
@@ -2167,7 +2126,7 @@ static vector<MouseJointStruct> joints;
 	float dist = 100000;
 	Ball *curball = nil;
 	
-	for (Ball *ball in balls) {
+	for (Ball *ball in _balls) {
 		float ndist = [Utils distanceFrom:ball.position to:pos];
 		
 		CGPoint balldir = [ball getDir];
@@ -2206,11 +2165,11 @@ static vector<MouseJointStruct> joints;
 
 - (void) productsRequestComplete: (NSArray *) products 
 {
-	if ([products count] > 0) {
-		SKProduct *epProduct = [products objectAtIndex:0];
-		[settings set:@"EpisodesProduct" to:epProduct.productIdentifier]; 
-	}
-	
+//	if ([products count] > 0) {
+//		SKProduct *epProduct = [products objectAtIndex:0];
+//		[settings set:@"EpisodesProduct" to:epProduct.productIdentifier]; 
+//	}
+//	
 }
 
 - (void) productsRequestFailed {}

@@ -31,7 +31,7 @@
 				StationaryInvader *invader = (StationaryInvader *) [pv addSpriteBody:[StationaryInvader class] atPos:ccp(upsidedown ? -1300 : 1300 + position.x,  upsidedown ? -1300 : 1300 + position.y) withForce:ccp(0,0)];
 				invader.scale = LINEFLEET_START_SIZE;
 				if (i%2 == upsidedown) invader.rotation = 180;
-				[invaders addObject:invader];
+				[_invaders addObject:invader];
 				
 				[invader runAction:
 				 [CCEaseExponentialOut actionWithAction:
@@ -51,7 +51,7 @@
 }
 
 - (void) makePhysical {
-	for (StationaryInvader *invader in invaders) {
+	for (StationaryInvader *invader in _invaders) {
 		[invader makeActive];
 	}
 }

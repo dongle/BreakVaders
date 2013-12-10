@@ -54,10 +54,10 @@ BOOL isInvPromoted(char invType);
 BOOL shouldAnimateReveal(char invType);
 
 @interface BlockFleet : Fleet {
-	CGPoint origin;
-	CGPoint dimensions;
-	CGFloat spacing;
-	NSString *score;
+	CGPoint _origin;
+	CGPoint _dimensions;
+	CGFloat _spacing;
+	NSString *_score;
 	//bool lastShotUp;
 }
 

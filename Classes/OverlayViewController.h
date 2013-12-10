@@ -9,12 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface OverlayViewController : UIViewController {
-	UIWindow *window, *prevWindow;
+	UIWindow *_window, *_prevWindow;
 }
+
 @property (nonatomic, retain) UIWindow *window;
+
 + (id) sharedController;
 - (void) show;
 - (void) hide;
-
 
 @end

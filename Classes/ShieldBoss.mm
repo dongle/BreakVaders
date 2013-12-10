@@ -10,7 +10,8 @@
 
 
 @implementation ShieldBoss
-@synthesize shield;
+
+@synthesize shield = _shield;
 
 + (SpriteBody*) spriteBodyAt: (CGPoint) p withForce: (CGPoint) f inWorld: (b2World *) w {
 	// make boss sprite
@@ -60,15 +61,15 @@
 	// Create shield body
 	b2BodyDef shieldBodyDef;
 	shieldBodyDef.type = b2_staticBody;
-	shieldBodyDef.position.Set((self.position.x + shield.position.x)/PTM_RATIO, (self.position.y + shield.position.y)/PTM_RATIO);
-	shieldBodyDef.userData = shield;
+	shieldBodyDef.position.Set((self.position.x + _shield.position.x)/PTM_RATIO, (self.position.y + _shield.position.y)/PTM_RATIO);
+	shieldBodyDef.userData = _shield;
 	b2Body *shieldBody = w->CreateBody(&shieldBodyDef);
-	shield.b2dBody = shieldBody;
+	_shield.b2dBody = shieldBody;
 	
 	// Create block shape
 	b2PolygonShape shieldShape;
-	shieldShape.SetAsBox(shield.contentSize.width/PTM_RATIO/2,
-					  shield.contentSize.height/PTM_RATIO/2);
+	shieldShape.SetAsBox(_shield.contentSize.width/PTM_RATIO/2,
+					  _shield.contentSize.height/PTM_RATIO/2);
 	
 	// Create shape definition and add to body
 	b2FixtureDef shieldShapeDef;
@@ -83,7 +84,7 @@
 
 - (void) tick: (ccTime) dt {
 	[super tick: dt];
-	[shield tick: dt];
+	[_shield tick: dt];
 }
 
 @end

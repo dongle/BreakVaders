@@ -13,15 +13,15 @@
 
 - (id) init {
 	if ((self = [super init])) {
-		lastBeat = -1;
+		_lastBeat = -1;
 	}
 	return self;
 }
 
 - (BOOL) shouldRespondToBeat: (NSUInteger) beat { return YES; }
-- (BOOL) respondedToBeat: (NSUInteger) beat { return (((NSInteger) beat) <= lastBeat); }
-- (void) reset { lastBeat = -1; }
-- (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time { lastBeat = beat; }
+- (BOOL) respondedToBeat: (NSUInteger) beat { return (((NSInteger) beat) <= _lastBeat); }
+- (void) reset { _lastBeat = -1; }
+- (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time { _lastBeat = beat; }
 
 
 @end

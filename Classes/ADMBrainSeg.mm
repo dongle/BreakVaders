@@ -27,7 +27,7 @@
 	invader.scale = 2.0;
 	}
 	
-	invader->head = nil;
+	invader->_head = nil;
 	
 	if (w) [invader createBodyInWorld: w];
 	
@@ -47,7 +47,7 @@
 -(BOOL) isBoss {return YES;}
 
 - (void) reset {
-	health = 1;
+	_health = 1;
 }
 
 - (BOOL) doesCount {return NO;}

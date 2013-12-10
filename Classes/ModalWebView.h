@@ -16,7 +16,7 @@
 
 @interface ModalWebView : ModalUIView <UIWebViewDelegate, UIAlertViewDelegate> {
 	BOOL _checkReachable;
-	id<InterceptLinkDelegate> linkdelegate;
+	id<InterceptLinkDelegate> _linkdelegate;
 }
 
 @property (readwrite, retain) id<InterceptLinkDelegate> linkdelegate;

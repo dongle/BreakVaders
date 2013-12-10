@@ -14,10 +14,10 @@
 
 @interface SpriteBody : CCSprite {
 	@public
-	b2Body *b2dBody;
-	b2World *world;
-	CCAnimation *idle, *armored, *pop;
-	float baseScale;
+	b2Body *_b2dBody;
+	b2World *_world;
+	CCAnimation *_idle, *_armored, *_pop;
+	float _baseScale;
 }
 
 @property (readwrite, assign) b2Body *b2dBody;

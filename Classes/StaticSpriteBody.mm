@@ -33,7 +33,7 @@
 	CGFloat x = worldPos.x / PTM_RATIO;
 	CGFloat y = worldPos.y / PTM_RATIO;
 	
-	b2dBody->SetTransform(b2Vec2(x, y), 0);
+	_b2dBody->SetTransform(b2Vec2(x, y), 0);
 	
 //	if ([self isKindOfClass:[ShieldBoss class]]) {
 //		printf("shieldboss coords: %5.2f, %5.2f \n", worldPos.x, worldPos.y);	

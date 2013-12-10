@@ -113,11 +113,11 @@
 }
 
 - (void) makeActive {
-	if (b2dBody == nil) {
-		if (world == nil) world = [PongVader getInstance].world;
-		[self createBodyInWorld:world];
+	if (_b2dBody == nil) {
+		if (_world == nil) _world = [PongVader getInstance].world;
+		[self createBodyInWorld:_world];
 	}
-	b2dBody->SetActive(TRUE);
+	_b2dBody->SetActive(TRUE);
 }
 
 - (void) promote:(int)level {}

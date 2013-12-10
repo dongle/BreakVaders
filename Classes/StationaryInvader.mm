@@ -46,7 +46,7 @@
 - (Ball *) ballWithDirection: (CGPoint) dir
 {
 	CGPoint pos = ccp(self.position.x, self.position.y);
-	return (Ball *) [Ball spriteBodyAt:pos withForce: dir inWorld:world];
+	return (Ball *) [Ball spriteBodyAt:pos withForce: dir inWorld:_world];
 }
 
 - (BOOL) doHitFrom: (Ball *) ball withDamage: (int) damage {

@@ -14,10 +14,10 @@
 
 
 @interface Paddle : SpriteBody {
-	Player *player;
-	int state;
-	float stateRemaining;
-	float lastShot;
+	Player *_player;
+	int _state;
+	float _stateRemaining;
+	float _lastShot;
 }
 
 @property (nonatomic, retain) Player *player;

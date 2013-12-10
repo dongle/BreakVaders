@@ -15,23 +15,23 @@
 @interface ADMBrain : Invader {
 	//CCAnimation *fly;
 @public
-	BOOL upsidedown;
-	BOOL shaking;
-	BOOL paused;
-	ccTime shakeTime;
-	Invader *tail;
-	Invader *segs[BRAIN_MAX_SEGS];
-	CGPoint prevs[BRAIN_MAX_SEGS+1];
-	int segcount;
-	float xmax, xmin, ymax, ymin;
-	float bspeed; // brain speed 
-	CGPoint bdir; // brain direction
-	Fleet *fleet;
+	BOOL _upsidedown;
+	BOOL _shaking;
+	BOOL _paused;
+	ccTime _shakeTime;
+	Invader *_tail;
+	Invader *_segs[BRAIN_MAX_SEGS];
+	CGPoint _prevs[BRAIN_MAX_SEGS+1];
+	int _segcount;
+	float _xmax, _xmin, _ymax, _ymin;
+	float _bspeed; // brain speed
+	CGPoint _bdir; // brain direction
+	Fleet *_fleet;
 	
-	float scaleFactor;
+	float _scaleFactor;
 }
 
-@property (nonatomic, retain) SpriteBody *tail;
+@property (nonatomic, retain) Invader *tail;
 @property (nonatomic, readonly) Fleet *fleet;
 @property (readwrite, assign) BOOL paused;
 @property (readwrite, assign) BOOL upsidedown;

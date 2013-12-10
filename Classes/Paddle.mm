@@ -10,22 +10,25 @@
 #import "Ball.h"
 
 @implementation Paddle
-@synthesize player, state, stateRemaining, lastShot;
+@synthesize player = _player;
+@synthesize state = _state;
+@synthesize stateRemaining = _stateRemaining;
+@synthesize lastShot = _lastShot;
 
 - (void) dealloc {
-	[player release];
+	[_player release];
 	[super dealloc];
 }
 
 - (void) moveTo: (int) x {
 	self.position = ccp(x, self.position.y);
-	b2dBody->SetTransform(b2Vec2((float) x / PTM_RATIO, self.position.y / PTM_RATIO), 0);
+	_b2dBody->SetTransform(b2Vec2((float) x / PTM_RATIO, self.position.y / PTM_RATIO), 0);
 }
 
 -(void) tick: (ccTime)dt {
 	// sync CC2D w/ Box2D
-	self.position = ccp(b2dBody->GetPosition().x * PTM_RATIO,
-						b2dBody->GetPosition().y * PTM_RATIO);
+	self.position = ccp(_b2dBody->GetPosition().x * PTM_RATIO,
+						_b2dBody->GetPosition().y * PTM_RATIO);
 }
 
 -(CGRect) getRect {
@@ -38,7 +41,7 @@
 	
 	[self runAction:[CCScaleTo actionWithDuration:.5 scaleX: PADDLE_SCALE scaleY: 1]];
 	
-	b2Fixture *fixture = b2dBody->GetFixtureList();
+	b2Fixture *fixture = _b2dBody->GetFixtureList();
 	
 	b2PolygonShape *shape = (b2PolygonShape*) fixture->GetShape();
 	
@@ -55,12 +58,12 @@
 }
 
 - (void) shrink {
-	state = SHRINK;
-	stateRemaining = POWERUP_LENGTH;
+	_state = SHRINK;
+	_stateRemaining = POWERUP_LENGTH;
 	[self tintEffect:POW_ENSPRANCE];
 	[self runAction:[CCScaleTo actionWithDuration:.5 scaleX: 1.0/PADDLE_SCALE scaleY: 1]];
 	
-	b2Fixture *fixture = b2dBody->GetFixtureList();
+	b2Fixture *fixture = _b2dBody->GetFixtureList();
 	
 	b2PolygonShape *shape = (b2PolygonShape*) fixture->GetShape();
 	
@@ -78,11 +81,11 @@
 - (void) reset {
 	[self runAction:[CCScaleTo actionWithDuration:.5 scaleX: 1 scaleY: 1]];
 	[self runAction:[CCTintTo actionWithDuration:.5 red:255 green:255 blue:255]];
-	state = 0;
-	stateRemaining = 0;
-	lastShot = 0;
+	_state = 0;
+	_stateRemaining = 0;
+	_lastShot = 0;
 	
-	b2Fixture *fixture = b2dBody->GetFixtureList();
+	b2Fixture *fixture = _b2dBody->GetFixtureList();
 	b2PolygonShape *shape = (b2PolygonShape*) fixture->GetShape();
 	
 	if (_IPAD) {

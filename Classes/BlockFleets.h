@@ -17,10 +17,11 @@
 @end
 
 @interface DirBlockFleet : BlockFleet {
-	float maxWidth;
-	CGPoint direction;
-	CGFloat step;
+	float _maxWidth;
+	CGPoint _direction;
+	CGFloat _step;
 }
+
 - (id) initWithConfig: (char *) config
 			  andDims: (CGPoint) dims 
 		  withSpacing: (CGFloat) space
@@ -34,9 +35,9 @@
 @end
 
 @interface CycleBlockFleet : BlockFleet {
-	unsigned char cycle[MAXCYCLEBLOCKSIZE];
-	SpriteBody<Shooter> *positions[2][MAXCYCLEBLOCKSIZE];
-	int posBuf;
+	unsigned char _cycle[MAXCYCLEBLOCKSIZE];
+	SpriteBody<Shooter> *_positions[2][MAXCYCLEBLOCKSIZE];
+	int _posBuf;
 }
 - (id) initWithConfig: (char *) config
 			  andDims: (CGPoint) dims 

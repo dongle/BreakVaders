@@ -11,28 +11,28 @@
 @implementation ModalUIView
 
 - (void) dealloc {
-	[doneSelector release];
-	[doneObject release];
-	[parentvc release];
-	[content release];
+	[_doneSelector release];
+	[_doneObject release];
+	[_parentvc release];
+	[_content release];
 	[super dealloc];
 }
 
 - (void) dismiss {
-	[parentvc dismissModalViewControllerAnimated:YES];
-	[doneObject performSelector:[doneSelector pointerValue] withObject:nil afterDelay:0.5];   
+	[_parentvc dismissModalViewControllerAnimated:YES];
+	[_doneObject performSelector:[_doneSelector pointerValue] withObject:nil afterDelay:0.5];
 }
 
 
 - (void) launchWithTitle:(NSString *) title andView: (UIView *) view fromController: (UIViewController *) parent useSpinner: (BOOL) spinner whenDonePerform: (SEL) selector on: (NSObject *) object
 {
-	[content autorelease];
-	content = [view retain];
+	[_content autorelease];
+	_content = [view retain];
 	
-	[doneObject autorelease];
-	doneObject = [object retain];
-	[doneSelector autorelease];
-	doneSelector = [[NSValue valueWithPointer:selector] retain];
+	[_doneObject autorelease];
+	_doneObject = [object retain];
+	[_doneSelector autorelease];
+	_doneSelector = [[NSValue valueWithPointer:selector] retain];
 	
 	// pause main view
 	
@@ -80,8 +80,8 @@
 								   autorelease];
 	[tempViewController.navigationItem setLeftBarButtonItem:doneButton animated:NO];
 
-	[parentvc autorelease];
-	parentvc = [parent retain];
+	[_parentvc autorelease];
+	_parentvc = [parent retain];
 	
 	[parent presentModalViewController:tempNavigationController animated:YES];
 	[tempNavigationController release];

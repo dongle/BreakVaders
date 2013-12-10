@@ -11,7 +11,10 @@
 
 @implementation UFO
 
-@synthesize enterAnim, releaseAnim, leaveAnim, mynuke;
+@synthesize enterAnim = _enterAnim;
+@synthesize releaseAnim = _releaseAnim;
+@synthesize leaveAnim = _leaveAnim;
+@synthesize mynuke = _mynuke;
 
 -(id) initUFO {
 	if ((self = [super initWithSpriteFrameName:@"ufo_closed1.png"])) {
@@ -52,15 +55,15 @@
 }
 
 - (void) dealloc {
-	[enterAnim release];
-	[leaveAnim release];
-	[releaseAnim release];
-	[mynuke release];
+	[_enterAnim release];
+	[_leaveAnim release];
+	[_releaseAnim release];
+	[_mynuke release];
 	[super dealloc];
 }
 
 - (void) drop {
-	[mynuke makeActive];
+	[_mynuke makeActive];
 	[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.leaveAnim restoreOriginalFrame:NO] ]];
 }
 

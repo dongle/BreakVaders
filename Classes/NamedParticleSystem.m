@@ -11,7 +11,7 @@
 
 @implementation NamedParticleSystem
 
-@synthesize pFile;
+@synthesize pFile = _pFile;
 
 - (id) initWithFile: (NSString *) f {
 	if ((self = [super initWithFile:f])) {
@@ -25,7 +25,7 @@
 }
 
 -(void) dealloc {
-	[pFile release];
+	[_pFile release];
 	[super dealloc];
 }
 @end

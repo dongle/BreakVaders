@@ -15,9 +15,9 @@
 #define DYN_DETONATION 300
 
 @interface DynamicInvader : SpriteBody<Shooter> {
-	int health;
-	float detonationTimer;
-	Ball *lastBall;
+	int _health;
+	float _detonationTimer;
+	Ball *_lastBall;
 }
 
 @property (readwrite, assign) int health;

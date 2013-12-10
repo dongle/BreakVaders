@@ -13,7 +13,18 @@
 
 @implementation SNEye
 
-@synthesize frozen, shaking, preShoot, eyeOpen, eyeClose, deadEye, frozenTime, fragment1, fragment2, fragment3, fragment4, flash;
+@synthesize frozen = _frozen;
+@synthesize shaking = _shaking;
+@synthesize preShoot = _preShoot;
+@synthesize eyeOpen = _eyeOpen;
+@synthesize eyeClose = _eyeClose;
+@synthesize deadEye = _deadEye;
+@synthesize frozenTime = _frozenTime;
+@synthesize fragment1 = _fragment1;
+@synthesize fragment2 = _fragment2;
+@synthesize fragment3 = _fragment3;
+@synthesize fragment4 = _fragment4;
+@synthesize flash = _flash;
 
 - (void) createBodyInWorld: (b2World *) w {
 	// Create invader body
@@ -152,21 +163,21 @@
 }
 
 - (void) tick: (ccTime) dt {
-	if (shaking) {
-		b2Vec2 vec = b2dBody->GetPosition();
+	if (_shaking) {
+		b2Vec2 vec = _b2dBody->GetPosition();
 		int deltaPos = arc4random() % 10;
 		self.position = ccp(vec.x*PTM_RATIO + deltaPos, vec.y*PTM_RATIO + deltaPos);
-		shakeTime+=dt;
-		explosionTime += dt;
+		_shakeTime+=dt;
+		_explosionTime += dt;
 		
-		if (shakeTime > 1.5) {
-			shaking = NO;
-			shakeTime = 0;
-			explosionTime = 0;
+		if (_shakeTime > 1.5) {
+			_shaking = NO;
+			_shakeTime = 0;
+			_explosionTime = 0;
 			self.position = ccp(vec.x*PTM_RATIO, vec.y*PTM_RATIO);
 		}
 		
-		if (explosionTime > .3) {
+		if (_explosionTime > .3) {
 			printf("boom \n");
 			// spawn particles
 			int xOffset, yOffset;
@@ -176,7 +187,7 @@
 			[[PongVader getInstance] addParticleAt:ccp(self.position.x + xOffset, self.position.y + yOffset) particleType: PART_DYN];
 			
 			// reset explosionTime
-			explosionTime = 0;
+			_explosionTime = 0;
 		}
 		
 	} 
@@ -184,12 +195,12 @@
 		[super tick:dt];
 	}
 	
-	if (frozen) {
-		frozenTime += dt;
+	if (_frozen) {
+		_frozenTime += dt;
 		
 		//printf("frozenTime: %f \n", frozenTime);
 		
-		if (frozenTime > EYE_FREEZETIME) {
+		if (_frozenTime > EYE_FREEZETIME) {
 			[self unfreeze];
 		}
 	}
@@ -279,7 +290,7 @@
 	}
 	
 	//Ball *newball = [self ballWithDirection:force ];
-	Ball *newball = (Ball *) [Ball spriteBodyAt:pos withForce: force inWorld:world];
+	Ball *newball = (Ball *) [Ball spriteBodyAt:pos withForce: force inWorld:_world];
 	
 	
 	[[PongVader getInstance] addChild:newball];
@@ -293,9 +304,9 @@
 
 - (void) shoot {
 	
-	if (frozen || shaking || [self isDead]) { return; }
+	if (_frozen || _shaking || [self isDead]) { return; }
 	
-	preShoot = YES;
+	_preShoot = YES;
 	
 	CGSize ssz = [CCDirector sharedDirector].winSize;
 	self.position = ccp(ssz.width/2, ssz.height/2);
@@ -314,14 +325,14 @@
 
 
 - (BOOL) doHitFrom: (Ball *) ball withDamage: (int) damage {
-	if (!frozen) {
+	if (!_frozen) {
 		[ball doKill];
 		return NO;
 	}
 	else {
 		[super doHitFrom:ball withDamage:1];
-		[[SimpleAudioEngine sharedEngine] playEffect:@"EyeWail.wav"];
-		if (![self isDead]) shaking = YES;
+		[[SimpleAudioEngine _sharedEngine] playEffect:@"EyeWail.wav"];
+		if (![self isDead]) _shaking = YES;
 		for (Ball *ball in [PongVader getInstance].balls) {
 			[ball doKill];
 		}
@@ -337,7 +348,7 @@
 
 - (void) moveWithDir: (CGPoint) direction andDistance: (int) dist {
 	
-	if (frozen || shaking || [self isDead]) {
+	if (_frozen || _shaking || [self isDead]) {
 		return;	
 	}
 	
@@ -352,7 +363,7 @@
 		dX = arc4random() % ((int) ssz.width - (2 * EYE_BUFFERX_PAD));
 		dY = arc4random() % ((int) ssz.height - (2 * EYE_BUFFERY_PAD));
 		
-		if (preShoot) {
+		if (_preShoot) {
 			// used to be self.position
 			newPos = ccp(EYE_BUFFERX_PAD + dX, ssz.height/2);
 		}
@@ -364,7 +375,7 @@
 		dX = arc4random() % ((int) ssz.width - (2 * EYE_BUFFERX_PHN));
 		dY = arc4random() % ((int) ssz.height - (2 * EYE_BUFFERY_PHN));
 		
-		if (preShoot) {
+		if (_preShoot) {
 			newPos = ccp(EYE_BUFFERX_PHN + dX, ssz.height/2);
 		}
 		else {
@@ -393,78 +404,78 @@
 	[self runAction:[CCFadeOut actionWithDuration:3.0]];
 	[self runAction:[CCScaleTo actionWithDuration:3.0 scale: .05]];
 	
-	int xOffset = fragment1.contentSize.width;
-	int yOffset = fragment1.contentSize.height;
+	int xOffset = _fragment1.contentSize.width;
+	int yOffset = _fragment1.contentSize.height;
 	CGSize ssz = [CCDirector sharedDirector].winSize;
 	
 	// position and rotate and scale the fragments
 	// upper left
-	fragment1.position = ccp(self.position.x-xOffset, self.position.y+yOffset);
-	fragment1.scale = 2.0;
+	_fragment1.position = ccp(self.position.x-xOffset, self.position.y+yOffset);
+	_fragment1.scale = 2.0;
 	
 	// lower right
-	fragment2.position = ccp(self.position.x+xOffset, self.position.y-yOffset);
-	fragment2.scale = 2.0;
-	fragment2.rotation = 180;
+	_fragment2.position = ccp(self.position.x+xOffset, self.position.y-yOffset);
+	_fragment2.scale = 2.0;
+	_fragment2.rotation = 180;
 	
 	
 	// upper right
-	fragment3.position = ccp(self.position.x+xOffset, self.position.y+yOffset);
-	fragment3.scaleX = -2.0;
-	fragment3.scaleY = 2.0;
+	_fragment3.position = ccp(self.position.x+xOffset, self.position.y+yOffset);
+	_fragment3.scaleX = -2.0;
+	_fragment3.scaleY = 2.0;
 	
 	// lower left
-	fragment4.position = ccp(self.position.x-xOffset, self.position.y-yOffset);
-	fragment4.scaleY = -2.0;
-	fragment4.scaleX = 2.0;
+	_fragment4.position = ccp(self.position.x-xOffset, self.position.y-yOffset);
+	_fragment4.scaleY = -2.0;
+	_fragment4.scaleX = 2.0;
 	
 	
 	// add fragments to pv scene
-	[[PongVader getInstance] addChild: fragment1];
-	[[PongVader getInstance] addChild: fragment2];
-	[[PongVader getInstance] addChild: fragment3];
-	[[PongVader getInstance] addChild: fragment4];
+	[[PongVader getInstance] addChild: _fragment1];
+	[[PongVader getInstance] addChild: _fragment2];
+	[[PongVader getInstance] addChild: _fragment3];
+	[[PongVader getInstance] addChild: _fragment4];
 	
 	// move and rotate actions on fragments
-	[fragment1 runAction:[CCMoveTo actionWithDuration:2.0 position:ccp(-100, ssz.height+100)]];
-	[fragment2 runAction:[CCMoveTo actionWithDuration:2.0 position:ccp(ssz.width+100, -100)]];
-	[fragment3 runAction:[CCMoveTo actionWithDuration:2.0 position:ccp(ssz.width+100, ssz.height+100)]];
-	[fragment4 runAction:[CCMoveTo actionWithDuration:2.0 position:ccp(-100, -100)]];
+	[_fragment1 runAction:[CCMoveTo actionWithDuration:2.0 position:ccp(-100, ssz.height+100)]];
+	[_fragment2 runAction:[CCMoveTo actionWithDuration:2.0 position:ccp(ssz.width+100, -100)]];
+	[_fragment3 runAction:[CCMoveTo actionWithDuration:2.0 position:ccp(ssz.width+100, ssz.height+100)]];
+	[_fragment4 runAction:[CCMoveTo actionWithDuration:2.0 position:ccp(-100, -100)]];
 	
-	[fragment1 runAction:[CCRotateBy actionWithDuration:2.5 angle:720]];
-	[fragment2 runAction:[CCRotateBy actionWithDuration:2.5 angle:720]];
-	[fragment3 runAction:[CCRotateBy actionWithDuration:2.5 angle:720]];
-	[fragment4 runAction:[CCRotateBy actionWithDuration:2.5 angle:720]];
+	[_fragment1 runAction:[CCRotateBy actionWithDuration:2.5 angle:720]];
+	[_fragment2 runAction:[CCRotateBy actionWithDuration:2.5 angle:720]];
+	[_fragment3 runAction:[CCRotateBy actionWithDuration:2.5 angle:720]];
+	[_fragment4 runAction:[CCRotateBy actionWithDuration:2.5 angle:720]];
 }
 
 - (void) reset {
-	health = EYE_MAX_HEALTH;
-	b2dBody->SetTransform(b2dBody->GetPosition(), 0);
-	frozen = NO;
-	shaking = NO;
-	shakeTime = 0;
-	explosionTime = 0;
-	frozenTime = 0;
+	_health = EYE_MAX_HEALTH;
+	_b2dBody->SetTransform(_b2dBody->GetPosition(), 0);
+	_frozen = NO;
+	_shaking = NO;
+	_shakeTime = 0;
+	_explosionTime = 0;
+	_frozenTime = 0;
 }
 
 - (void) dealloc {
 	PongVader *pv = [PongVader getInstance];
-	[pv removeChild:fragment1 cleanup:YES];
-	[pv removeChild:fragment2 cleanup:YES];
-	[pv removeChild:fragment3 cleanup:YES];
-	[pv removeChild:fragment4 cleanup:YES];
+	[pv removeChild:_fragment1 cleanup:YES];
+	[pv removeChild:_fragment2 cleanup:YES];
+	[pv removeChild:_fragment3 cleanup:YES];
+	[pv removeChild:_fragment4 cleanup:YES];
 	
-	[fragment1 release];
-	[fragment2 release];
-	[fragment3 release];
-	[fragment4 release];
+	[_fragment1 release];
+	[_fragment2 release];
+	[_fragment3 release];
+	[_fragment4 release];
 	
-	[pv removeChild:flash cleanup:YES];
-	[flash release];
+	[pv removeChild:_flash cleanup:YES];
+	[_flash release];
 	
-	[eyeOpen release];
-	[eyeClose release];
-	[deadEye release];
+	[_eyeOpen release];
+	[_eyeClose release];
+	[_deadEye release];
 	
 	[super dealloc];
 }

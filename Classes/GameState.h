@@ -25,11 +25,11 @@
 
 @interface GameState : NSObject
 {
-	CFTimeInterval timeElapsed, nextStateTime;
-	GameState *nextState, *lastState;
-	BOOL waitingOnSignal;
-	NSData *dataBin;
-	int closeDataBin;
+	CFTimeInterval _timeElapsed, _nextStateTime;
+	GameState *_nextState, *_lastState;
+	BOOL _waitingOnSignal;
+	NSData *_dataBin;
+	int _closeDataBin;
 }
 
 @property(readwrite) CFTimeInterval timeElapsed;

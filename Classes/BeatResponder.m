@@ -9,81 +9,86 @@
 #import "BeatResponder.h"
 
 @implementation BeatEvent
-@synthesize eventBeat;
+
+@synthesize eventBeat = _eventBeat;
+
 - (id) init {
 	if ((self = [super init])) {
-		eventBeat = 0;
-		responded = NO;
+		_eventBeat = 0;
+		_responded = NO;
 	}
 	return self;
 }
 
 - (id) initOnBeat: (NSUInteger) beat {
 	if ((self = [super init])) {
-		eventBeat = beat;
-		responded = NO;
+		_eventBeat = beat;
+		_responded = NO;
 	}
 	return self;
 }
 
 - (void) reset {
-	responded = NO;
+	_responded = NO;
 }
 
-- (BOOL) shouldRespondToBeat: (NSUInteger) beat { return beat == eventBeat; }
-- (BOOL) respondedToBeat: (NSUInteger) beat { return responded; }
-- (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time { responded = YES; }
+- (BOOL) shouldRespondToBeat: (NSUInteger) beat { return beat == _eventBeat; }
+- (BOOL) respondedToBeat: (NSUInteger) beat { return _responded; }
+- (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time { _responded = YES; }
 
 @end
 
 @implementation BeatEventWithDuration
-@synthesize startTime, endTime;
+
+@synthesize startTime = _startTime;
+@synthesize endTime = _endTime;
+
 - (id) init {
 	if ((self = [super init])) {
-		startTime = 0;
-		endTime = 0;
-		started = NO;
+		_startTime = 0;
+		_endTime = 0;
+		_started = NO;
 	}
 	return self;
 }
 
 - (id) initOnBeat: (NSUInteger) beat starting: (NSTimeInterval) start ending: (NSTimeInterval) end {
 	if ((self = [super initOnBeat:beat])) {
-		startTime = start;
-		endTime = end;
-		started = NO;
+		_startTime = start;
+		_endTime = end;
+		_started = NO;
 	}
 	return self;
 }
 
 - (void) reset {
-	started = NO;
+	_started = NO;
 	[super reset];
 }
 
-- (BOOL) respondingToBeat: (NSUInteger) beat { return started; }
-- (NSTimeInterval) startTimeForBeat: (NSUInteger) beat { return startTime; }
-- (NSTimeInterval) endTimeForBeat: (NSUInteger) beat { return endTime; }
-- (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time { started = YES; }
-- (void) endBeat: (NSUInteger) beat atTime: (NSTimeInterval) time { responded = YES; }
+- (BOOL) respondingToBeat: (NSUInteger) beat { return _started; }
+- (NSTimeInterval) startTimeForBeat: (NSUInteger) beat { return _startTime; }
+- (NSTimeInterval) endTimeForBeat: (NSUInteger) beat { return _endTime; }
+- (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time { _started = YES; }
+- (void) endBeat: (NSUInteger) beat atTime: (NSTimeInterval) time { _responded = YES; }
 - (void) doTimer: (NSTimeInterval) dtime forBeat: (NSUInteger) beat {}
 
 @end
 
 @implementation ContinuousBeatResponder
 
-@synthesize lastBeat;
+@synthesize lastBeat = _lastBeat;
 
 - (id) init {
 	if ((self = [super init])) {
-		lastBeat = -1;
+		_lastBeat = -1;
 	}
 	return self;
 }
 
 - (BOOL) shouldRespondToBeat: (NSUInteger) beat { return YES; }
-- (BOOL) respondedToBeat: (NSUInteger) beat { return (((NSInteger) beat) <= lastBeat); }
-- (void) reset { lastBeat = -1; }
-- (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time { lastBeat = beat; }
+- (BOOL) respondedToBeat: (NSUInteger) beat { return (((NSInteger) beat) <= _lastBeat); }
+- (void) reset { _lastBeat = -1; }
+- (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time { _lastBeat = beat; }
 
 @end

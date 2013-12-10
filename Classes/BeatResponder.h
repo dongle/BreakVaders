@@ -28,8 +28,8 @@
 
 @interface BeatEvent : NSObject<BeatResponder>
 {
-	NSUInteger eventBeat;
-	BOOL responded;
+	NSUInteger _eventBeat;
+	BOOL _responded;
 }
 @property (readwrite, assign) NSUInteger eventBeat;
 
@@ -42,8 +42,8 @@
 
 @interface BeatEventWithDuration : BeatEvent
 {
-	NSTimeInterval startTime, endTime;
-	BOOL started;
+	NSTimeInterval _startTime, _endTime;
+	BOOL _started;
 }
 @property (readwrite, assign) NSTimeInterval startTime;
 @property (readwrite, assign) NSTimeInterval endTime;
@@ -61,7 +61,7 @@
 
 @interface ContinuousBeatResponder : NSObject<BeatResponder>
 {
-	NSInteger lastBeat;
+	NSInteger _lastBeat;
 }
 
 @property (nonatomic, readonly) NSInteger lastBeat;

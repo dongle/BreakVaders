@@ -14,7 +14,7 @@
 // ContinuousBeatResponder on a CCNode
 
 @interface BeatNode : CCNode <BeatResponder> {
-	NSInteger lastBeat;
+	NSInteger _lastBeat;
 }
 
 - (BOOL) shouldRespondToBeat: (NSUInteger) beat;

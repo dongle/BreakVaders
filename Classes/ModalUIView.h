@@ -10,10 +10,10 @@
 
 
 @interface ModalUIView : NSObject {
-	UIViewController *parentvc;
-	UIView *content;
-	NSValue *doneSelector;
-	NSObject *doneObject;
+	UIViewController *_parentvc;
+	UIView *_content;
+	NSValue *_doneSelector;
+	NSObject *_doneObject;
 }
 
 - (void) launchWithTitle: (NSString *) title 

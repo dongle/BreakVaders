@@ -17,9 +17,9 @@
 
 @interface SelectedNode : NSObject
 {
-	NSString *labelname;
-	BOOL selected, selectable;
-	CCNode *node;
+	NSString *_labelname;
+	BOOL _selected, _selectable;
+	CCNode *_node;
 }
 @property (nonatomic, retain) NSString *labelname;
 @property (readwrite, assign) BOOL selected;
@@ -29,9 +29,9 @@
 
 @interface StateMenu : GameState {
 	NSMutableArray *_labels;
-	CCSprite *pvTitle;
-	BOOL setupTitle;
-	BOOL shouldClearFirst;
+	CCSprite *_pvTitle;
+	BOOL _setupTitle;
+	BOOL _shouldClearFirst;
 }
 
 @property (readwrite, assign) BOOL shouldClearFirst;
@@ -48,35 +48,32 @@
 @end
 
 @interface StateSettingsMenu : StateMenu  {
-	CCSprite *arrow[3];
+	CCSprite *_arrow[3];
 	// CCLabelBMFont *ptype[2];
 }
 @end
 
 @interface StatePausedMenu : StateMenu {
-	CCSprite *arrow[3];
+	CCSprite *_arrow[3];
 	// CCLabelBMFont *ptype[2];
-	CCLayerColor *flash;
+	CCLayerColor *_flash;
 }
 @end
 
 @interface StateLoseMenu : StateMenu {
-	CCLabelBMFont *scores[2];
-	CCLabelBMFont *scoreLabels[2];
-	CCLabelBMFont *maxChains[2];
-	CCLabelBMFont *curChains[2];
-	CCLabelBMFont *combinedChain;
-	CCLabelBMFont *combinedScore;
-	
-	UIAlertView * signupAlert;
-	UIAlertView * appStoreAlert;
+	CCLabelBMFont *_scores[2];
+	CCLabelBMFont *_scoreLabels[2];
+	CCLabelBMFont *_maxChains[2];
+	CCLabelBMFont *_curChains[2];
+	CCLabelBMFont *_combinedChain;
+	CCLabelBMFont *_combinedScore;
 }
 @end
 
 @interface StateInfo : GameState <InterceptLinkDelegate, UIAlertViewDelegate> {
-	ModalWebView * modalView;
-	UIAlertView * appStoreAlert;
-	GameState * returnState;
+	ModalWebView *_modalView;
+	UIAlertView *_appStoreAlert;
+	GameState *_returnState;
 }
 @end
 
@@ -86,26 +83,26 @@
 
 @interface StateGetReady : GameState {
 	CCLabelBMFont *_label[4];
-	BOOL shouldClearFirst;
+	BOOL _shouldClearFirst;
 }
 @property (readwrite, assign) BOOL shouldClearFirst;
 @end
 
 @interface StatePlaying : GameState
 {
-	CCLabelBMFont *scores[2];
-	CCLabelBMFont *scoreLabels[2];
-	CCLabelBMFont *maxChains[2];
-	CCLabelBMFont *curChains[2];
-	CCLabelBMFont *bulletLabels[2];
+	CCLabelBMFont *_scores[2];
+	CCLabelBMFont *_scoreLabels[2];
+	CCLabelBMFont *_maxChains[2];
+	CCLabelBMFont *_curChains[2];
+	CCLabelBMFont *_bulletLabels[2];
 	//CCLabelBMFont *pauseLabels[2];
-	CCSprite *pauseLabels[2];
-	BOOL hasEnteredBulletTime;
-	BOOL btLabelDisplayed;
-	BOOL isPaused;
-	BOOL touchingPause;
-	BOOL shouldClearFirst;
-	int lastScores[2];
+	CCSprite *_pauseLabels[2];
+	BOOL _hasEnteredBulletTime;
+	BOOL _btLabelDisplayed;
+	BOOL _isPaused;
+	BOOL _touchingPause;
+	BOOL _shouldClearFirst;
+	int _lastScores[2];
 }
 @property (readwrite, assign) BOOL shouldClearFirst;
 @end
@@ -126,20 +123,20 @@
 @end
 
 @interface StateTransition : GameState {
-	UIAlertView * appStoreAlert;
+	UIAlertView * _appStoreAlert;
 }
 @end
 
 @interface StateMovie : GameState
 {
-	NSTimeInterval times[MAX_MOVIE_ACTIONS];
-	int curAction;
-	CCSprite *textBubble;
-	CCNode *messageLabel;
-	CCSprite *textWedge;	
-	CCSprite *ltrbox[2];
+	NSTimeInterval _times[MAX_MOVIE_ACTIONS];
+	int _curAction;
+	CCSprite *_textBubble;
+	CCNode *_messageLabel;
+	CCSprite *_textWedge;
+	CCSprite *_ltrbox[2];
 	//SelectedNode *skiplabel;
-	CCLabelBMFont *skiplabel;
+	CCLabelBMFont *_skiplabel;
 }
 - (GameState *) doAction: (int) action;
 - (void) placeBubble:(CGPoint) p rlen: (float) rowlength rc:(int) rowcount;
@@ -149,43 +146,43 @@
 @end
 
 @interface StateCredits : StateMovie {
-	CCNode *scrollNode;
+	CCNode *_scrollNode;
 	
 	// logos
-	CCSprite *pvLogo, *kdcLogo, *apLogo, *nsLogo, *humaneLogo;
-	CCSprite *jonvader, *colevader;
+	CCSprite *_pvLogo, *_kdcLogo, *_apLogo, *_nsLogo, *_humaneLogo;
+	CCSprite *_jonvader, *_colevader;
 	
 	// captions
-	CCLabelBMFont *producedBy, *artBy, *musicBy, *starring, *supportedBy;
-	CCLabelBMFont *cameos, *humaneNotice1, *humaneNotice2, *humaneTitle;
+	CCLabelBMFont *_producedBy, *_artBy, *_musicBy, *_starring, *_supportedBy;
+	CCLabelBMFont *_cameos, *_humaneNotice1, *_humaneNotice2, *_humaneTitle;
 	
 	// labels
-	CCLabelBMFont *ensign, *lieutenant, *commander, *tank, *sweetCheeks;
-	CCLabelBMFont *seaman, *captain, *admiral;
+	CCLabelBMFont *_ensign, *_lieutenant, *_commander, *_tank, *_sweetCheeks;
+	CCLabelBMFont *_seaman, *_captain, *_admiral;
 	
 	// characters
-	Invader *ensPrance, *ltWaddle, *cdrBobble, *shieldvader, *redvader;
-	Invader *smnEye, *cptDawdle, *admBrain;
+	Invader *_ensPrance, *_ltWaddle, *_cdrBobble, *_shieldvader, *_redvader;
+	Invader *_smnEye, *_cptDawdle, *_admBrain;
 }
 @end
 
 @interface StateTutorial : StateMovie
 {
-	CGFloat pad1x, pad2x;
-	CGPoint powerupSpawn, i1, i2;
-	BOOL viewReset;
+	CGFloat _pad1x, _pad2x;
+	CGPoint _powerupSpawn, _i1, _i2;
+	BOOL _viewReset;
 	
-	CCLabelBMFont *tutorialLabel;
+	CCLabelBMFont *_tutorialLabel;
 	
-	Invader *invader1, *invader2;
+	Invader *_invader1, *_invader2;
 }
 @end
 
 @interface StateTutorialShort : StateMovie
 {
-	CGFloat pad1x, pad2x;
-	CGPoint powerupSpawn;
-	BOOL viewReset;
+	CGFloat _pad1x, _pad2x;
+	CGPoint _powerupSpawn;
+	BOOL _viewReset;
 }
 @end
 
@@ -196,39 +193,39 @@
 
 @interface StateOutro : StateMovie
 {
-	SpriteBody *peon;
+	SpriteBody *_peon;
 }
 @end
 
 @interface StateOutroPro : StateMovie
 {
-	CGFloat pad1x, pad2x;
-	CGPoint powerupSpawn, i1, i2;
-	BOOL viewReset;
+	CGFloat _pad1x, _pad2x;
+	CGPoint _powerupSpawn, _i1, _i2;
+	BOOL _viewReset;
 	
-	Invader *invader1, *invader2;
+	Invader *_invader1, *_invader2;
 }
 @end
 
 @interface StateOutroProUpsell : StateMovie
 {
-	CGFloat pad1x, pad2x;
-	CGPoint powerupSpawn, i1, i2;
-	BOOL viewReset;
-	UIAlertView *appStoreAlert;
-	Invader *invader1, *invader2;
+	CGFloat _pad1x, _pad2x;
+	CGPoint _powerupSpawn, _i1, _i2;
+	BOOL _viewReset;
+	UIAlertView *_appStoreAlert;
+	Invader *_invader1, *_invader2;
 }
 @end
 
 @interface StateOutroEp2 : StateMovie
 {
-	SpriteBody *peon;
+	SpriteBody *_peon;
 }
 @end
 
 @interface StateOutroOld : StateMovie
 {
-	SpriteBody *peon;
+	SpriteBody *_peon;
 }
 @end
 

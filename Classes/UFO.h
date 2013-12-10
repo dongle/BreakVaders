@@ -11,8 +11,8 @@
 //#import "cocos2d.h"
 
 @interface UFO : CCSprite {
-	CCAnimation *enterAnim, *leaveAnim, *releaseAnim;
-	DynamicInvader *mynuke;
+	CCAnimation *_enterAnim, *_leaveAnim, *_releaseAnim;
+	DynamicInvader *_mynuke;
 }
 
 @property (nonatomic, retain) CCAnimation* enterAnim;

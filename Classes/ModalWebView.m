@@ -7,11 +7,10 @@
 //
 
 #import "ModalWebView.h"
-#import "Reachable.h"
 
 @implementation ModalWebView
 
-@synthesize linkdelegate;
+@synthesize linkdelegate = _linkdelegate;
 
 - (void) launchWithTitle: (NSString *) title 
 				 andView: (UIWebView *) view 
@@ -28,13 +27,11 @@
 
 - (void) checkReachable
 {
-	if (_checkReachable && ![Reachable connectedToNetwork]) {
-		[[[[UIAlertView alloc] initWithTitle:@"Network not available" message:@"You need to be in range of your cellular carrier's network, or a wifi network to provide feedback." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil] autorelease] show];
-	}
+
 }
 
 - (BOOL)webView:(UIWebView*)webView shouldStartLoadWithRequest:(NSURLRequest*)request navigationType:(UIWebViewNavigationType)navigationType {
-	return linkdelegate ? [linkdelegate shouldLoad:request.URL] : YES;
+	return _linkdelegate ? [_linkdelegate shouldLoad:request.URL] : YES;
 }
 
 - (void) webViewDidStartLoad: (UIWebView *) webView {
@@ -47,7 +44,7 @@
 	[UIView beginAnimations:@"webFadeIn" context:nil];
 	[UIView setAnimationDuration:0.5];
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
-	content.alpha = 1.0;
+	_content.alpha = 1.0;
 	[UIView commitAnimations];
 }
 

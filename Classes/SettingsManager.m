@@ -16,13 +16,13 @@
 
 - (id) init {
 	if ((self = [super init])) {
-		settings = [[NSMutableDictionary alloc] init];
+		_settings = [[NSMutableDictionary alloc] init];
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[settings release];
+	[_settings release];
 	[super dealloc];
 }
 
@@ -30,21 +30,21 @@
 	SettingsObject *so = [[[SettingsObject alloc]init]autorelease];
 	so.sval = value;
 	so.type = kSOSTR;
-	[settings setObject:so forKey: key];
+	[_settings setObject:so forKey: key];
 }
 
 - (void) addIntFor: (NSString *) key init: (int) value {
 	SettingsObject *so = [[[SettingsObject alloc]init]autorelease];
 	so.nval = [NSNumber numberWithInt:value];
 	so.type = kSONUM;
-	[settings setObject:so forKey: key];
+	[_settings setObject:so forKey: key];
 }
 
 - (void) addFloatFor: (NSString *) key init: (float) value {
 	SettingsObject *so = [[[SettingsObject alloc]init]autorelease];
 	so.nval = [NSNumber numberWithFloat:value];
 	so.type = kSONUM;
-	[settings setObject:so forKey: key];
+	[_settings setObject:so forKey: key];
 }
 
 - (void) addOptionsFor: (NSString *) key with: (NSArray *) options init: (int) value {
@@ -52,20 +52,20 @@
 	so.options = options;
 	so.curopt = value;
 	so.type = kSOOPT;
-	[settings setObject:so forKey: key];
+	[_settings setObject:so forKey: key];
 }
 
 - (void) remove: (NSString *) key {
-	[settings removeObjectForKey:key];
+	[_settings removeObjectForKey:key];
 }
 
 
 - (BOOL) exists: (NSString *) key {
-	return [settings objectForKey:key] != nil;
+	return [_settings objectForKey:key] != nil;
 }
 
 - (NSString *) get: (NSString *) key {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	NSString *ret = nil;
 	switch (so.type) {
 		case kSOSTR: ret = so.sval; break;
@@ -76,7 +76,7 @@
 }
 
 - (int) getInt: (NSString *) key {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	int ret = 0;
 	switch (so.type) {
 		case kSOSTR: ret = 0; break;
@@ -87,7 +87,7 @@
 }
 
 - (float) getFloat: (NSString *) key {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	float ret = 0;
 	switch (so.type) {
 		case kSOSTR: ret = 0; break;
@@ -98,7 +98,7 @@
 }
 
 - (void) set: (NSString *) key to: (NSString *) value {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	switch (so.type) {
 		case kSOSTR: so.sval = value; break;
 		case kSONUM: so.nval = [NSNumber numberWithFloat:[value floatValue]]; break;
@@ -113,34 +113,34 @@
 			if (so.curopt < 0) so.curopt = [value intValue];
 			break;
 	}
-	[settings setObject:so forKey:key];
+	[_settings setObject:so forKey:key];
 }
 
 - (void) set: (NSString *) key toInt: (int) value
 {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	switch (so.type) {
 		case kSOSTR: so.sval = [NSString stringWithFormat:@"%d", value]; break;
 		case kSONUM: so.nval = [NSNumber numberWithInt: value]; break;
 		case kSOOPT: so.curopt = value; break;
 	}
-	[settings setObject:so forKey:key];
+	[_settings setObject:so forKey:key];
 }
 
 - (void) set: (NSString *) key toFloat: (float) value
 {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	switch (so.type) {
 		case kSOSTR: so.sval = [NSString stringWithFormat:@"%.5f", value]; break;
 		case kSONUM: so.nval = [NSNumber numberWithFloat: value]; break;
 		case kSOOPT: so.curopt = (int) value; break;
 	}
-	[settings setObject:so forKey:key];
+	[_settings setObject:so forKey:key];
 }
 
 - (void) inc: (NSString *) key 
 {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	switch (so.type) {
 		case kSONUM: so.nval = [NSNumber numberWithFloat: [so.nval floatValue] + 1.0]; break;
 		case kSOOPT: 
@@ -148,12 +148,12 @@
 			if (so.curopt >= [so.options count]) so.curopt = 0;
 			break;
 	}
-	[settings setObject:so forKey:key];
+	[_settings setObject:so forKey:key];
 }
 
 - (void) dec: (NSString *) key 
 {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	switch (so.type) {
 		case kSONUM: so.nval = [NSNumber numberWithFloat: [so.nval floatValue] - 1.0]; break;
 		case kSOOPT: 
@@ -161,12 +161,12 @@
 			if (so.curopt < 0) so.curopt = [so.options count]-1;
 			break;
 	}
-	[settings setObject:so forKey:key];
+	[_settings setObject:so forKey:key];
 }
 
 - (void) inc: (NSString *) key by: (float) num
 {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	switch (so.type) {
 		case kSONUM: so.nval = [NSNumber numberWithFloat: [so.nval floatValue] + num]; break;
 		case kSOOPT: 
@@ -175,12 +175,12 @@
 			if (so.curopt < 0) so.curopt = [so.options count]-1;
 			break;
 	}
-	[settings setObject:so forKey:key];
+	[_settings setObject:so forKey:key];
 }
 
 - (void) dec: (NSString *) key by: (float) num
 {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	switch (so.type) {
 		case kSONUM: so.nval = [NSNumber numberWithFloat: [so.nval floatValue] - num]; break;
 		case kSOOPT: 
@@ -189,25 +189,25 @@
 			if (so.curopt < 0) so.curopt = [so.options count]-1;
 			break;
 	}
-	[settings setObject:so forKey:key];
+	[_settings setObject:so forKey:key];
 }
 
 - (void) setMetaFor: (NSString *) key to: (NSDictionary *) value
 {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	so.meta = value;
-	[settings setObject:so forKey:key];
+	[_settings setObject:so forKey:key];
 }
 
 - (id) get: (NSString *) key meta: (NSString *) metakey
 {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	return [so.meta objectForKey:metakey];
 }
 
 - (id) get: (NSString *) key metaLookup: (NSString *) format
 {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	id metaobj = [so.meta objectForKey:[NSString stringWithFormat:format, [self get: key]]];
 	if (!metaobj && (so.type == kSOOPT)) metaobj = [so.meta objectForKey:[NSString stringWithFormat:format, [NSNumber numberWithInt:so.curopt]]];
 	if (!metaobj) metaobj = [so.meta objectForKey:[NSString stringWithFormat:format, @"*"]];
@@ -216,7 +216,7 @@
 
 - (NSString *) get: (NSString *) key metaReplace: (NSString *) metakey
 {
-	SettingsObject *so = [settings objectForKey:key];
+	SettingsObject *so = [_settings objectForKey:key];
 	return [NSString stringWithFormat:[so.meta valueForKey:metakey], [self get: key]];
 }
 
@@ -229,14 +229,14 @@
 {
 	for (NSString *k in [pdict keyEnumerator]) {
 		SettingsObject *so = [[[SettingsObject alloc] initWithPlistArray:[pdict objectForKey:k]] autorelease];
-		[settings setObject:so forKey:k];
+		[_settings setObject:so forKey:k];
 	}	
 }
 
 - (NSDictionary *) toPlistDict {
 	NSMutableDictionary *retd = [NSMutableDictionary dictionary];
-	for (NSString *k in [settings keyEnumerator]) {
-		NSArray *obj = [[settings objectForKey:k] toPlistArray];
+	for (NSString *k in [_settings keyEnumerator]) {
+		NSArray *obj = [[_settings objectForKey:k] toPlistArray];
 		[retd setObject: obj forKey:k];
 	}
 	return retd;
@@ -245,16 +245,21 @@
 @end
 
 @implementation SettingsObject 
-@synthesize sval, nval, options, curopt, type, meta;
+@synthesize sval = _sval;
+@synthesize nval = _nval;
+@synthesize options = _options;
+@synthesize curopt = _curopt;
+@synthesize type = _type;
+@synthesize meta = _meta;
 
 - (id) init {
 	if ((self = [super init])) {
-		sval = [[NSString string] retain];
-		nval = [[NSNumber numberWithInt:0] retain];
-		options = [[NSArray array] retain];
-		curopt = 0;
-		type = 0;
-		meta = [[NSDictionary dictionary] retain];
+		_sval = [[NSString string] retain];
+		_nval = [[NSNumber numberWithInt:0] retain];
+		_options = [[NSArray array] retain];
+		_curopt = 0;
+		_type = 0;
+		_meta = [[NSDictionary dictionary] retain];
 	}
 	return self;
 }
@@ -272,21 +277,21 @@
 }
 
 - (void) dealloc {
-	[sval release];
-	[nval release];
-	[options release];
-	[meta release];
+	[_sval release];
+	[_nval release];
+	[_options release];
+	[_meta release];
 	[super dealloc];
 }
 
 - (NSArray *) toPlistArray {
 	NSMutableArray *ret = [NSMutableArray array];
-	[ret addObject:sval];
-	[ret addObject:nval];
-	[ret addObject:options];
-	[ret addObject:[NSNumber numberWithInt:curopt]];
-	[ret addObject:[NSNumber numberWithInt:type]];
-	[ret addObject:meta];	
+	[ret addObject:_sval];
+	[ret addObject:_nval];
+	[ret addObject:_options];
+	[ret addObject:[NSNumber numberWithInt:_curopt]];
+	[ret addObject:[NSNumber numberWithInt:_type]];
+	[ret addObject:_meta];
 	return ret;
 }
 

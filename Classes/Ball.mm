@@ -12,11 +12,13 @@
 #import "SimpleAudioEngine.h"
 
 @implementation Bounce
-@synthesize pos, hit;
+@synthesize pos = _pos;
+@synthesize hit = _hit;
+
 - (id) initWithPos: (CGPoint) p hit: (id) h { 
 	if ((self=[super init])) {
-		pos=p;
-		hit=h;
+		_pos=p;
+		_hit=h;
 	}
 	return self;
 }
@@ -27,7 +29,16 @@
 
 @implementation Ball
 
-@synthesize lastPlayer, health, combo, volley, isBulletTime, AIOffset, isNuke, strobeTime, bounces, ribbon;
+@synthesize lastPlayer = _lastPlayer;
+@synthesize health = _health;
+@synthesize combo = _combo;
+@synthesize volley = _volley;
+@synthesize isBulletTime = _isBulletTime;
+@synthesize AIOffset = _AIOffset;
+@synthesize isNuke = _isNuke;
+@synthesize strobeTime = _strobeTime;
+@synthesize bounces = _bounces;
+@synthesize ribbon = _ribbon;
 
 + (SpriteBody*) spriteBodyAt: (CGPoint) p withForce: (CGPoint) f inWorld: (b2World *) w {
 	// Create sprite and add it to the layer
@@ -125,15 +136,15 @@
 	// don't need to filter double-contacts anymore since cole ninja-ed the
 	// contact listener
 	//if (lastHit == hitwhat) return NO;
-	lastHit = hitwhat;
+	_lastHit = hitwhat;
 	
 	[self addBounceAgainst:hitwhat];
 	
-	if ([lastHit isKindOfClass:[Player class]]) {
+	if ([_lastHit isKindOfClass:[Player class]]) {
 		
 		
-		if (lastPlayer != (Player *) lastHit) {
-			volley +=1;	
+		if (_lastPlayer != (Player *) _lastHit) {
+			_volley +=1;
 		}
 		
 		if ([self isHot]) {
@@ -143,16 +154,16 @@
 		[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.armored restoreOriginalFrame:NO]]];
 
 		// set ball filter so that it will collide with invaders
-		b2Fixture *fixture = b2dBody->GetFixtureList();
+		b2Fixture *fixture = _b2dBody->GetFixtureList();
 		b2Filter filter = fixture->GetFilterData();
 		filter.maskBits = 0xFFFF & ~COL_CAT_BALL;
 		fixture->SetFilterData(filter);
 		
-		if ((volley == 2) && ![self isHot]) {
+		if ((_volley == 2) && ![self isHot]) {
 			[self makeFireball];
 		}
 
-		lastPlayer = (Player *) lastHit;
+		_lastPlayer = (Player *) _lastHit;
 		
 
 	}
@@ -162,14 +173,14 @@
 
 - (void) makeFireball {
 	[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.armored restoreOriginalFrame:NO]]];
-	if (health > 1) {
-		health = 1;
+	if (_health > 1) {
+		_health = 1;
 	}
-	isFireball = YES;
+	_isFireball = YES;
 	
 	// TODO: is it necessary to do this twice?
 	// set ball filter so that it will collide with invaders
-	b2Fixture *fixture = b2dBody->GetFixtureList();
+	b2Fixture *fixture = _b2dBody->GetFixtureList();
 	b2Filter filter = fixture->GetFilterData();
 	filter.maskBits = 0xFFFF & ~COL_CAT_BALL;
 	fixture->SetFilterData(filter);
@@ -178,33 +189,33 @@
 	
 	if (_IPAD) {
 //		streak = [CCMotionStreak streakWithFade:.5 minSeg:3 image:@"Ball.png" width:16 length:16 color:ccc4(255,0,0,128)];
-        streak = [CCMotionStreak streakWithFade:.5 minSeg:3 width:16 color:ccc3(255, 0, 0) textureFilename:@"Ball.png"];
+        _streak = [CCMotionStreak streakWithFade:.5 minSeg:3 width:16 color:ccc3(255, 0, 0) textureFilename:@"Ball.png"];
 //		ribbon = [CCMotionStreak streakWithWidth:8 image:@"Ball.png" length:16 color:ccc4(128,128,128,128) fade:RIBBON_FADE_TIME];
-        ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
+        _ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
 	}
 	else {
-        streak = [CCMotionStreak streakWithFade:.5 minSeg:3 width:8 color:ccc3(255, 0, 0) textureFilename:@"Ball.png"];
-        ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
+        _streak = [CCMotionStreak streakWithFade:.5 minSeg:3 width:8 color:ccc3(255, 0, 0) textureFilename:@"Ball.png"];
+        _ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
 	}
 	
-	streak.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
+	_streak.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
 	//ribbon.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
 
 	PongVader *PV = [PongVader getInstance];
 
 	unsigned int start = 0;
 
-	for (int i=[bounces count]-1; i>=0; i--) {
-		Bounce *b = [bounces objectAtIndex:i];
-		if (b.hit == lastPlayer) {
+	for (int i=[_bounces count]-1; i>=0; i--) {
+		Bounce *b = [_bounces objectAtIndex:i];
+		if (b.hit == _lastPlayer) {
 			start = i;
 			break;
 		}
 	}
 	
 	CGPoint lastPoint = ccp(-1,-1);
-	for (unsigned int i=start; i<[bounces count]; i++) {
-		Bounce *b = [bounces objectAtIndex:i];
+	for (unsigned int i=start; i<[_bounces count]; i++) {
+		Bounce *b = [_bounces objectAtIndex:i];
 		CGPoint p = b.pos;
 
 		if (i==start && RIBBON_TO_CUR_POS) {
@@ -213,20 +224,20 @@
 
 		float maxwidth = (_IPAD)?16:8;
 		float width = maxwidth;
-		if (RIBBON_TAPER) float width = (0.5*maxwidth/([bounces count]-start)) * ((i-start)*2.0);
+		if (RIBBON_TAPER) float width = (0.5*maxwidth/([_bounces count]-start)) * ((i-start)*2.0);
 		if (lastPoint.x > -1) {
-			[ribbon addPointAt:ccp((lastPoint.x+p.x)/2.0, (lastPoint.y+p.y)/2.0) width:width];
-			[ribbon update:RIBBON_FADE_TIME/(2.0*[bounces count])];
+			[_ribbon addPointAt:ccp((lastPoint.x+p.x)/2.0, (lastPoint.y+p.y)/2.0) width:width];
+			[_ribbon update:RIBBON_FADE_TIME/(2.0*[_bounces count])];
 		}
-		if (RIBBON_TAPER) width = (0.5*maxwidth/([bounces count]-start)) * ((i-start)*2.0+1);
-		[ribbon addPointAt:p width:width];
+		if (RIBBON_TAPER) width = (0.5*maxwidth/([_bounces count]-start)) * ((i-start)*2.0+1);
+		[_ribbon addPointAt:p width:width];
 		lastPoint = p;
 
-		if (i<[bounces count]-1) [ribbon update:RIBBON_FADE_TIME/(2.0*[bounces count])];
+		if (i<[_bounces count]-1) [_ribbon update:RIBBON_FADE_TIME/(2.0*[_bounces count])];
 	}
 
-	[self addChild:streak];
-	[[PongVader getInstance] addChild:ribbon];
+	[self addChild:_streak];
+	[[PongVader getInstance] addChild:_ribbon];
 	
 	//[ribbon runAction:[CCFadeOut actionWithDuration:RIBBON_FADE_TIME]];
 	
@@ -239,98 +250,98 @@
 }
 
 - (BOOL) doKill {
-	health = 0;
-	strobeTime = 0;	
+	_health = 0;
+	_strobeTime = 0;
 	[self setColor:ccc3(255, 255, 255)];
 
 	return YES;
 }
 
 - (BOOL) isDead {
-	return health <= 0;
+	return _health <= 0;
 }
 
 - (BOOL) isHot {
-	return isFireball;
+	return _isFireball;
 }
 
 - (BOOL) isWhite {
-	return !isFireball && (volley > 0);
+	return !_isFireball && (_volley > 0);
 }
 
 - (void) increaseCombo {
-combo += 1;
-	if (combo > lastPlayer.maxCombo) {
-		lastPlayer.maxCombo = combo;	
+    _combo += 1;
+	if (_combo > _lastPlayer.maxCombo) {
+		_lastPlayer.maxCombo = _combo;
 	}
 }
 
 - (void) resetCombo {
-	combo = 1;	
+	_combo = 1;
 }
 
 - (void) enterBulletTime {
-	if (!isBulletTime) {
-		if (!isFireball){
+	if (!_isBulletTime) {
+		if (!_isFireball){
 			
 			if (_IPAD) {
-				streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:16 length:8 color:ccc4(255,255,255,128)];
+				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:16 length:8 color:ccc4(255,255,255,128)];
 			}
 			else {
-				streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:8 length:4 color:ccc4(255,255,255,128)];
+				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:8 length:4 color:ccc4(255,255,255,128)];
 			}
 		}
 		
 		else {
 			if (_IPAD) {
-				streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:16 length:16 color:ccc4(255,0,0,128)];
+				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:16 length:16 color:ccc4(255,0,0,128)];
 			}
 			else {
-				streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:8 length:8 color:ccc4(255,0,0,128)];
+				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:8 length:8 color:ccc4(255,0,0,128)];
 			}
 		}
 		
 		
-		streak.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
-		[self addChild:streak];
+		_streak.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
+		[self addChild:_streak];
 		
 	}
-	isBulletTime = YES;
+	_isBulletTime = YES;
 }
 
 - (void) exitBulletTime {
-	if (!isFireball){
-		[self removeChild:streak cleanup:YES];
+	if (!_isFireball){
+		[self removeChild:_streak cleanup:YES];
 	}
-	isBulletTime = NO;
+	_isBulletTime = NO;
 }
 
 - (void) strobe: (float) time {
-	strobeTime += time;
-	int k = sin(strobeTime*10)*128;
+	_strobeTime += time;
+	int k = sin(_strobeTime*10)*128;
 	[self setColor:ccc3(255, 255-k, 255-k)];
 }
 
 - (void) addBounceAgainst: (id) thing {
-	if ([bounces count] >= MAX_BOUNCES) {
-		[bounces removeObjectAtIndex:0];
+	if ([_bounces count] >= MAX_BOUNCES) {
+		[_bounces removeObjectAtIndex:0];
 	}
-	[bounces addObject:[Bounce bounceWithPos:self.position hit:thing]];
+	[_bounces addObject:[Bounce bounceWithPos:self.position hit:thing]];
 	//NSLog(@"Bounced at (%5.2f, %5.2f) (%@)\n", self.position.x, self.position.y, [[thing class] description]);
 }
 
 - (void) updateRibbon: (ccTime) dt {
-	if (ribbon) [ribbon update:dt];
+	if (_ribbon) [_ribbon update:dt];
 }
 
 - (void) cleanup {
-	[[PongVader getInstance] removeChild:ribbon cleanup: YES];
+	[[PongVader getInstance] removeChild:_ribbon cleanup: YES];
 }
 
 - (void) dealloc 
 {
-	[bounces removeAllObjects];
-	[bounces release];
+	[_bounces removeAllObjects];
+	[_bounces release];
 	[super dealloc];
 }
 

@@ -11,7 +11,9 @@
 #define RADIANS( degrees ) ( degrees * M_PI / 180 )
 
 @implementation DynamicInvader
-@synthesize health, lastBall, detonationTimer;
+@synthesize health = _health;
+@synthesize lastBall = _lastBall;
+@synthesize detonationTimer = _detonationTimer;
 
 - (void) createBodyInWorld: (b2World *) w {
 	// Create invader body
@@ -72,14 +74,14 @@
 }
 
 - (void) dealloc {
-	[lastBall release];
+	[_lastBall release];
 	[super dealloc];
 }
 
 - (Ball *) ballWithDirection: (CGPoint) dir {
 	CGPoint pos = ccp(self.position.x, self.position.y + dir.y*30);
 	CGPoint force = ccp(dir.x, dir.y);
-	return (Ball *) [Ball spriteBodyAt:pos withForce: force inWorld:world];
+	return (Ball *) [Ball spriteBodyAt:pos withForce: force inWorld:_world];
 }
 
 - (void) shoot {
@@ -88,16 +90,16 @@
 
 - (void) makeActive 
 {
-	if (b2dBody == nil) {
-		if (world == nil) world = [PongVader getInstance].world;
-		[self createBodyInWorld:world];
+	if (_b2dBody == nil) {
+		if (_world == nil) _world = [PongVader getInstance].world;
+		[self createBodyInWorld:_world];
 	}
-	b2dBody->SetTransform(b2Vec2(self.position.x/PTM_RATIO, self.position.y/PTM_RATIO), 0);
-	b2dBody->SetActive(TRUE);
+	_b2dBody->SetTransform(b2Vec2(self.position.x/PTM_RATIO, self.position.y/PTM_RATIO), 0);
+	_b2dBody->SetActive(TRUE);
 }
 
 - (void) doKill {
-	health = 0;	
+	_health = 0;
 }
 
 - (BOOL) doHitFrom: (Ball *) ball withDamage: (int) damage {
@@ -112,14 +114,14 @@
 	// ball's personality but doesn't interact with the world.
 	// This way the lastBall wont be destroyed before the dynInvader
 	// explodes and needs to reference it. lastBall is released on dealloc
-	lastBall = [[Ball alloc] init];
-	lastBall.lastPlayer = ball.lastPlayer;
-	lastBall.health = ball.health;
-	lastBall.combo = ball.combo;
-	lastBall.volley = ball.volley;
-	lastBall.isNuke = YES;
+	_lastBall = [[Ball alloc] init];
+	_lastBall.lastPlayer = ball.lastPlayer;
+	_lastBall.health = ball.health;
+	_lastBall.combo = ball.combo;
+	_lastBall.volley = ball.volley;
+	_lastBall.isNuke = YES;
 	
-	if (damage > 5) health = 0;
+	if (damage > 5) _health = 0;
 	
 	return NO; // DynamicInvaders don't hurt balls <- did you mean balls don't hurt DI?
 }
@@ -133,14 +135,14 @@
 }
 
 -(BOOL) isDead {
-	return health <= 0;
+	return _health <= 0;
 }
 
 - (void) reset {
-	health = 1;	
+	_health = 1;
 	b2Vec2 vel = b2Vec2(0,0);
-	b2dBody->SetLinearVelocity(vel);
-	detonationTimer = DYN_DETONATION;
+	_b2dBody->SetLinearVelocity(vel);
+	_detonationTimer = DYN_DETONATION;
 }
 
 
@@ -176,9 +178,9 @@
 		self.b2dBody->SetLinearVelocity(b2Vec2(velocity.x, velocity.y*1.1));
 	}
 	
-	detonationTimer -= dt;
+	_detonationTimer -= dt;
 	
-	if (detonationTimer <= 0) {
+	if (_detonationTimer <= 0) {
 		[self doKill];	
 	}
 }

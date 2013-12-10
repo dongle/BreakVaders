@@ -21,7 +21,7 @@
 			StationaryInvader *invader = (StationaryInvader *) [pv addSpriteBody:[StationaryInvader class] atPos:ccp(pos.x, upsidedown ? -300 : 1300 + i*spacing) withForce:ccp(0,0)];
 			invader.scale = LINEFLEET_START_SIZE;
 			if (i%2 == upsidedown) invader.rotation = 180;
-			[invaders addObject:invader];
+			[_invaders addObject:invader];
 			[invader runAction:
 			 [CCEaseExponentialOut actionWithAction:
 			  [CCMoveTo actionWithDuration:LINEFLEET_ANIM_TIME*(i+1) position:ccp(pos.x, pos.y + i * spacing)]]];
@@ -30,7 +30,7 @@
 			  [CCScaleTo actionWithDuration:LINEFLEET_ANIM_TIME*(i+1) scale:1.0]]];
 		}
 		[self performSelector:@selector(makePhysical) withObject:nil afterDelay:LINEFLEET_ANIM_TIME*size];   
-		stationary = stat;
+		_stationary = stat;
 	}
 	return self;
 }
@@ -42,7 +42,7 @@
 }
 
 - (void) makePhysical {
-	for (StationaryInvader *invader in invaders) {
+	for (StationaryInvader *invader in _invaders) {
 		[invader makeActive];
 	}
 }
