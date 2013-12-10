@@ -42,9 +42,6 @@
 		CB9020E21852DE9400F3B416 /* city4.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90202C1852DE9300F3B416 /* city4.png */; };
 		CB9020E31852DE9400F3B416 /* cole-waddle-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90202D1852DE9300F3B416 /* cole-waddle-ipad.png */; };
 		CB9020E41852DE9400F3B416 /* cole-waddle-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90202E1852DE9300F3B416 /* cole-waddle-iphone.png */; };
-		CB9020E51852DE9400F3B416 /* Base.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CB9020301852DE9300F3B416 /* Base.xcconfig */; };
-		CB9020E61852DE9400F3B416 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CB9020311852DE9300F3B416 /* Debug.xcconfig */; };
-		CB9020E71852DE9400F3B416 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = CB9020321852DE9300F3B416 /* Release.xcconfig */; };
 		CB9020E91852DE9400F3B416 /* DawdleHurt.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020341852DE9300F3B416 /* DawdleHurt.wav */; };
 		CB9020EA1852DE9400F3B416 /* DawdleWail.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020351852DE9300F3B416 /* DawdleWail.wav */; };
 		CB9020EB1852DE9400F3B416 /* draftloop-01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CB9020361852DE9300F3B416 /* draftloop-01.mp3 */; };
@@ -111,7 +108,6 @@
 		CB90212D1852DE9400F3B416 /* mountains2-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020791852DE9400F3B416 /* mountains2-low.png */; };
 		CB90212E1852DE9400F3B416 /* mountains2.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90207A1852DE9400F3B416 /* mountains2.png */; };
 		CB90212F1852DE9400F3B416 /* nsLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90207B1852DE9400F3B416 /* nsLogo.png */; };
-		CB9021301852DE9400F3B416 /* OFGameCenter.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB90207C1852DE9400F3B416 /* OFGameCenter.plist */; };
 		CB9021311852DE9400F3B416 /* oldpowerupParticle.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90207D1852DE9400F3B416 /* oldpowerupParticle.png */; };
 		CB9021321852DE9400F3B416 /* oldstreak.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90207E1852DE9400F3B416 /* oldstreak.png */; };
 		CB9021331852DE9400F3B416 /* Paddle-low-half.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90207F1852DE9400F3B416 /* Paddle-low-half.png */; };
@@ -119,11 +115,9 @@
 		CB9021351852DE9400F3B416 /* Paddle.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020811852DE9400F3B416 /* Paddle.png */; };
 		CB9021361852DE9400F3B416 /* paddle.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020821852DE9400F3B416 /* paddle.wav */; };
 		CB9021381852DE9400F3B416 /* pixplanet.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020841852DE9400F3B416 /* pixplanet.png */; };
-		CB9021391852DE9400F3B416 /* pixplanet.pxi in Resources */ = {isa = PBXBuildFile; fileRef = CB9020851852DE9400F3B416 /* pixplanet.pxi */; };
 		CB90213A1852DE9400F3B416 /* pixplanet2.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020861852DE9400F3B416 /* pixplanet2.png */; };
 		CB90213B1852DE9400F3B416 /* planet.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020871852DE9400F3B416 /* planet.wav */; };
 		CB90213C1852DE9400F3B416 /* Pong.cfxr in Resources */ = {isa = PBXBuildFile; fileRef = CB9020881852DE9400F3B416 /* Pong.cfxr */; };
-		CB90213D1852DE9400F3B416 /* pongvaders sound effects round infinity.cfxr in Resources */ = {isa = PBXBuildFile; fileRef = CB9020891852DE9400F3B416 /* pongvaders sound effects round infinity.cfxr */; };
 		CB90213E1852DE9400F3B416 /* pongvaders-low.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB90208A1852DE9400F3B416 /* pongvaders-low.plist */; };
 		CB90213F1852DE9400F3B416 /* pongvaders-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90208B1852DE9400F3B416 /* pongvaders-low.png */; };
 		CB9021401852DE9400F3B416 /* pongvaders-low.zss in Resources */ = {isa = PBXBuildFile; fileRef = CB90208C1852DE9400F3B416 /* pongvaders-low.zss */; };
@@ -176,7 +170,6 @@
 		CB9021711852DE9400F3B416 /* streak.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020BD1852DE9400F3B416 /* streak.png */; };
 		CB9021721852DE9400F3B416 /* textbubble-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020BE1852DE9400F3B416 /* textbubble-low.png */; };
 		CB9021731852DE9400F3B416 /* textbubble.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020BF1852DE9400F3B416 /* textbubble.png */; };
-		CB9021741852DE9400F3B416 /* textbubble.psd in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C01852DE9400F3B416 /* textbubble.psd */; };
 		CB9021751852DE9400F3B416 /* textbubblewedge-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C11852DE9400F3B416 /* textbubblewedge-low.png */; };
 		CB9021761852DE9400F3B416 /* textbubblewedge.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C21852DE9400F3B416 /* textbubblewedge.png */; };
 		CB9021771852DE9400F3B416 /* waddle1.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C31852DE9400F3B416 /* waddle1.png */; };
@@ -1076,7 +1069,6 @@
 				CB90214B1852DE9400F3B416 /* pvaders.ttf in Resources */,
 				CB90212F1852DE9400F3B416 /* nsLogo.png in Resources */,
 				CB90210A1852DE9400F3B416 /* bobblesm.png in Resources */,
-				CB9021741852DE9400F3B416 /* textbubble.psd in Resources */,
 				CB90214E1852DE9400F3B416 /* pvaders12.fnt in Resources */,
 				CB90216E1852DE9400F3B416 /* stars.zss in Resources */,
 				CB90213B1852DE9400F3B416 /* planet.wav in Resources */,
@@ -1158,7 +1150,6 @@
 				CB9021781852DE9400F3B416 /* wail.wav in Resources */,
 				CB9021151852DE9400F3B416 /* slice.png in Resources */,
 				CB9021021852DE9400F3B416 /* fuzz.mp3 in Resources */,
-				CB9020E71852DE9400F3B416 /* Release.xcconfig in Resources */,
 				CB9021481852DE9400F3B416 /* prance1.png in Resources */,
 				CB9021041852DE9400F3B416 /* greenPill-low.png in Resources */,
 				CB9021731852DE9400F3B416 /* textbubble.png in Resources */,
@@ -1176,7 +1167,6 @@
 				CB90216B1852DE9400F3B416 /* speech.wav in Resources */,
 				CB90211F1852DE9400F3B416 /* intro.mp3 in Resources */,
 				CB9020EA1852DE9400F3B416 /* DawdleWail.wav in Resources */,
-				CB9020E51852DE9400F3B416 /* Base.xcconfig in Resources */,
 				CB9020CD1852DE9400F3B416 /* blip.wav in Resources */,
 				CB90211E1852DE9400F3B416 /* hsLogo.png in Resources */,
 				CB9021551852DE9400F3B416 /* pvaders32.png in Resources */,
@@ -1184,22 +1174,18 @@
 				CB90215B1852DE9400F3B416 /* redpaddle.wav in Resources */,
 				CB9021681852DE9400F3B416 /* solvalou_combat_aircraft__solid.ttf in Resources */,
 				CB9021121852DE9400F3B416 /* pvaders-webfont.svg in Resources */,
-				CB9020E61852DE9400F3B416 /* Debug.xcconfig in Resources */,
 				CB9021051852DE9400F3B416 /* greenPill.png in Resources */,
 				CB9021061852DE9400F3B416 /* greenshot.wav in Resources */,
 				CB9021671852DE9400F3B416 /* smallExplosion.png in Resources */,
-				CB9021301852DE9400F3B416 /* OFGameCenter.plist in Resources */,
 				CB9020C91852DE9400F3B416 /* arrow.png in Resources */,
 				CB9021331852DE9400F3B416 /* Paddle-low-half.png in Resources */,
 				CB9020E41852DE9400F3B416 /* cole-waddle-iphone.png in Resources */,
 				CB90213F1852DE9400F3B416 /* pongvaders-low.png in Resources */,
 				CB9021411852DE9400F3B416 /* pongvaders.plist in Resources */,
-				CB90213D1852DE9400F3B416 /* pongvaders sound effects round infinity.cfxr in Resources */,
 				CB90212A1852DE9400F3B416 /* mine.wav in Resources */,
 				CB9020F01852DE9400F3B416 /* effectring0.png in Resources */,
 				CB90210F1852DE9400F3B416 /* magPill2x.png in Resources */,
 				CB9020F21852DE9400F3B416 /* effectring2.png in Resources */,
-				CB9021391852DE9400F3B416 /* pixplanet.pxi in Resources */,
 				CB9020EF1852DE9400F3B416 /* dynamic1.png in Resources */,
 				CB9020FA1852DE9400F3B416 /* explosion.plist in Resources */,
 				CB1077FC1851AA6300A0D2FB /* Images.xcassets in Resources */,
