@@ -161,7 +161,7 @@ static PongVader *_globalSceneInst = nil;
 		
 		// Do we want to let bodies sleep?
 		// This will speed up the physics simulation
-		bool doSleep = true;
+//		bool doSleep = true;
 		
 		// Construct a world object, which will hold and simulate the rigid bodies.
 		_world = new b2World(gravity);
@@ -621,16 +621,16 @@ static PongVader *_globalSceneInst = nil;
 	
 	if (_IPAD) {
 		switch(ptype) {
-			case 1: partType = [NSString stringWithString:@"mine-explosion.plist"]; break;
-			case 2:	partType = [NSString stringWithString:@"smallExplosion.plist"]; break;
-			case 3: partType = [NSString stringWithString:@"powerupParticle.plist"]; break;
+			case 1: partType = @"mine-explosion.plist"; break;
+			case 2:	partType = @"smallExplosion.plist"; break;
+			case 3: partType = @"powerupParticle.plist"; break;
 		}
 	}
 	else {
 		switch(ptype) {
-			case 1: partType = [NSString stringWithString:@"mine-explosion-iphone.plist"]; break;
-			case 2:	partType = [NSString stringWithString:@"smallExplosion-iphone.plist"]; break;
-			case 3: partType = [NSString stringWithString:@"powerupParticle.plist"]; break;
+			case 1: partType = @"mine-explosion-iphone.plist"; break;
+			case 2:	partType = @"smallExplosion-iphone.plist"; break;
+			case 3: partType = @"powerupParticle.plist"; break;
 		}
 	}
 
@@ -1818,7 +1818,7 @@ static vector<MouseJointStruct> joints;
 	if (DEBUG_SKIPLEVEL) {
 		for( UITouch *touch in touches ) {
 			
-			CGPoint location = [touch locationInView: [touch view]];
+//			CGPoint location = [touch locationInView: [touch view]];
 			//if ((location.y > 400) && (location.y < 600)) {
 			
 			for (Fleet *fleet in _fleets) {
@@ -2059,15 +2059,15 @@ static vector<MouseJointStruct> joints;
 }
 
 - (void) updateOFScores {
-	BOOL p1h = [[_settings get:@"Player1Type"] isEqualToString:@"HUMAN"];
-	BOOL p2h = [[_settings get:@"Player2Type"] isEqualToString:@"HUMAN"];
+//	BOOL p1h = [[_settings get:@"Player1Type"] isEqualToString:@"HUMAN"];
+//	BOOL p2h = [[_settings get:@"Player2Type"] isEqualToString:@"HUMAN"];
 
 	// set high score
-	int combinedHighScore = (p1h ? _player[0].score:0) + (p2h ? _player[1].score:0);
+//	int combinedHighScore = (p1h ? _player[0].score:0) + (p2h ? _player[1].score:0);
 	
 	
 	// set maxChain record
-	int combinedMaxChain = (p1h ?_paddle1.player.maxChain:0) + (p2h ? _paddle2.player.maxChain:0);
+//	int combinedMaxChain = (p1h ?_paddle1.player.maxChain:0) + (p2h ? _paddle2.player.maxChain:0);
 	
 	
 //	if (_IPAD) {
