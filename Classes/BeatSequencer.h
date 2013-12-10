@@ -16,7 +16,8 @@
 #define PLAYDELAY 0.3
 
 @interface BeatSequencer : NSObject <BeatResponder> {
-	NSMutableArray **_sequence, *_responders;
+	NSMutableArray __weak **_sequence;
+    NSMutableArray *_responders;
 	NSTimeInterval _timeElapsed, _songTime;
 	CGFloat _bpmin;
 	int _seqCapacity;

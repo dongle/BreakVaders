@@ -28,7 +28,7 @@
 @property (nonatomic) float lastShot;
 @property (nonatomic) float lastMovement;
 @property (readwrite, assign) BOOL shouldShoot;
-@property (readonly) DynamicInvader **nukes;
+@property (readonly) DynamicInvader __weak **nukes;
 @property (readonly) CGPoint *nukepos;
 @property (readonly) int numNukes;
 

@@ -132,8 +132,8 @@
 @property (readwrite, assign) NSMutableArray *balls;
 @property (readwrite, assign) BOOL bossTime, OFstarted, gotFireball, frozen;
 @property (readonly) SettingsManager *settings;
-@property (readonly) Player **player;
-@property (readonly) Planet **planet;
+@property (readonly) Player __weak **player;
+@property (readonly) Planet __weak **planet;
 @property (readonly) Paddle *paddle1, *paddle2;
 @property (readwrite, assign) float numBalls, minSpeed, maxSpeed, bulletTimeDistance;
 @property (readwrite, assign) BOOL gameBeat;
