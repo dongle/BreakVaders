@@ -26,8 +26,8 @@
 	
 	// Try to use CADisplayLink director
 	// if it fails (SDK < 3.1) use the default director
-	if( ! [CCDirector setDirectorType:CCDirectorTypeDisplayLink] )
-		[CCDirector setDirectorType:CCDirectorTypeDefault];
+//	if( ! [CCDirector setDirectorType:CCDirectorTypeDisplayLink] )
+//		[CCDirector setDirectorType:CCDirectorTypeDefault];
 	
 	// Use RGBA_8888 buffers
 	// Default is: RGB_565 buffers
@@ -58,7 +58,7 @@
 	[[OverlayViewController sharedController] hide];
     
 	// jump into the initial state
-    [GameState handleEvent: [[[StateMainMenu alloc] init] autorelease]];
+    [GameState handleEvent: [[StateMainMenu alloc] init]];
     
     _window.backgroundColor = [UIColor blackColor];
     [_window makeKeyAndVisible];
@@ -100,7 +100,7 @@
 		[cur isKindOfClass:[StateMainMenu class]] ||
 		[cur isKindOfClass:[StateMovie class]]) {
 		
-        [GameState handleEvent: [[[StateMainMenu alloc] init] autorelease]];
+        [GameState handleEvent: [[StateMainMenu alloc] init]];
 	}
 }
 
