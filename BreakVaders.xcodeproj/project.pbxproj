@@ -237,7 +237,6 @@
 		CBFA56F91852F41100879246 /* TriangleFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56B91852F41100879246 /* TriangleFleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CBFA56FA1852F41100879246 /* UFO.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BB1852F41100879246 /* UFO.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CBFA56FB1852F41100879246 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BD1852F41100879246 /* Utils.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		CBFA56FC1852F41100879246 /* VictoryScreen.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56BF1852F41100879246 /* VictoryScreen.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CBFA56FD1852F41100879246 /* XFleet.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA56C11852F41100879246 /* XFleet.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
@@ -506,7 +505,7 @@
 		CBFA56981852F41100879246 /* Planet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Planet.m; path = Classes/Planet.m; sourceTree = "<group>"; };
 		CBFA56991852F41100879246 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Player.h; path = Classes/Player.h; sourceTree = "<group>"; };
 		CBFA569A1852F41100879246 /* Player.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Player.mm; path = Classes/Player.mm; sourceTree = "<group>"; };
-		CBFA569B1852F41100879246 /* PongVaderScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PongVaderScene.h; path = Classes/PongVaderScene.h; sourceTree = "<group>"; };
+		CBFA569B1852F41100879246 /* PongVaderScene.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; fileEncoding = 4; name = PongVaderScene.h; path = Classes/PongVaderScene.h; sourceTree = "<group>"; };
 		CBFA569C1852F41100879246 /* PongVaderScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = PongVaderScene.mm; path = Classes/PongVaderScene.mm; sourceTree = "<group>"; };
 		CBFA569D1852F41100879246 /* Powerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Powerup.h; path = Classes/Powerup.h; sourceTree = "<group>"; };
 		CBFA569E1852F41100879246 /* Powerup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Powerup.mm; path = Classes/Powerup.mm; sourceTree = "<group>"; };
@@ -539,8 +538,6 @@
 		CBFA56BB1852F41100879246 /* UFO.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = UFO.mm; path = Classes/UFO.mm; sourceTree = "<group>"; };
 		CBFA56BC1852F41100879246 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utils.h; path = Classes/Utils.h; sourceTree = "<group>"; };
 		CBFA56BD1852F41100879246 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Utils.m; path = Classes/Utils.m; sourceTree = "<group>"; };
-		CBFA56BE1852F41100879246 /* VictoryScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VictoryScreen.h; path = Classes/VictoryScreen.h; sourceTree = "<group>"; };
-		CBFA56BF1852F41100879246 /* VictoryScreen.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VictoryScreen.mm; path = Classes/VictoryScreen.mm; sourceTree = "<group>"; };
 		CBFA56C01852F41100879246 /* XFleet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XFleet.h; path = Classes/XFleet.h; sourceTree = "<group>"; };
 		CBFA56C11852F41100879246 /* XFleet.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = XFleet.mm; path = Classes/XFleet.mm; sourceTree = "<group>"; };
 		CBFA57021852F5F700879246 /* GameSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GameSettings.h; path = Classes/GameSettings.h; sourceTree = "<group>"; };
@@ -892,8 +889,6 @@
 				CBFA56B71852F41100879246 /* TouchedSprite.mm */,
 				CBFA56BC1852F41100879246 /* Utils.h */,
 				CBFA56BD1852F41100879246 /* Utils.m */,
-				CBFA56BE1852F41100879246 /* VictoryScreen.h */,
-				CBFA56BF1852F41100879246 /* VictoryScreen.mm */,
 			);
 			name = "PV files";
 			sourceTree = "<group>";
@@ -1317,7 +1312,6 @@
 				CBFA56EE1852F41100879246 /* Rock.mm in Sources */,
 				CBFA56F61852F41100879246 /* StaticSpriteBody.mm in Sources */,
 				CBFA56DA1852F41100879246 /* GameStates.mm in Sources */,
-				CBFA56FC1852F41100879246 /* VictoryScreen.mm in Sources */,
 				CBFA56E91852F41100879246 /* Planet.m in Sources */,
 				CBFA56461852E33D00879246 /* BVAppDelegate.m in Sources */,
 				CBFA56D31852F41100879246 /* ContactListener.mm in Sources */,
@@ -1378,6 +1372,7 @@
 /* Begin XCBuildConfiguration section */
 		CB1078101851AA6300A0D2FB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB9020311852DE9300F3B416 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
@@ -1418,6 +1413,7 @@
 		};
 		CB1078111851AA6300A0D2FB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CB9020321852DE9300F3B416 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
