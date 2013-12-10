@@ -81,6 +81,7 @@
 						invader = (ShieldInvader *) [pv addSpriteBody:[ShieldInvader class] atPos:ccp(upsidedown ? -300 : 1000 + pos.x, pos.y) withForce:ccp(0,0)];
 						break;
 					default:
+                        invader = nil;
 						break;
 				}
 			}
