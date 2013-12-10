@@ -61,6 +61,7 @@
 	// jump into the initial state
     [GameState handleEvent: [[StateMainMenu alloc] init]];
     
+    _window.rootViewController = dir;
     _window.backgroundColor = [UIColor blackColor];
     [_window makeKeyAndVisible];
     return YES;
