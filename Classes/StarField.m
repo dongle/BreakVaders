@@ -19,7 +19,7 @@
 	if ((self=[super init])) {
 		CGSize winSize = [[CCDirector sharedDirector] winSize];
 		self.position = ccp(winSize.width/2.0, winSize.height/2.0);
-		CCSpriteBatchNode *sheet = [CCSpriteBatchNode spriteSheetWithFile:@"stars.png"];
+		CCSpriteBatchNode *sheet = [CCSpriteBatchNode batchNodeWithFile:@"stars.png"];
         [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"stars.plist"];
 		
 		NSString *starList[] = {@"star1.png", @"star2.png", @"star3.png"};
