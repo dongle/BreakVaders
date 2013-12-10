@@ -155,7 +155,7 @@ static int numLevels = 33;
 	if (_setupTitle) {
 		CGSize ssz = [CCDirector sharedDirector].winSize;
 		_pvTitle = [CCSprite spriteWithFile:@"pvTitle.png"];
-		ccTexParams tp = {GL_NEAREST, GL_NEAREST, GL_REPEAT, GL_REPEAT};
+		ccTexParams tp = {GL_NEAREST, GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE};
 		[_pvTitle.texture setTexParameters:&tp];
 		
 		if (_IPAD) {
