@@ -171,7 +171,7 @@
 
 - (float) randBallMagnitude;
 
-- (void) initOpenFeint;
+//- (void) initOpenFeint;
 - (void) updateOFScores;
 
 // these should probably not be called directly, use clearScene / resetScene
