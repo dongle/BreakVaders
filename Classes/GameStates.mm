@@ -653,7 +653,7 @@ static int numLevels = 33;
 }
 
 - (void) enter {
-	CGSize ssz = [CCDirector sharedDirector].winSize;
+//	CGSize ssz = [CCDirector sharedDirector].winSize;
 	PongVader *pv = [PongVader getInstance];
 	[super enter];
 	CGPoint p;
@@ -1284,9 +1284,9 @@ static int numLevels = 33;
 		}
 	}
 	else if ([label.labelname isEqualToString:@"POST SCORE"]) {
-		BOOL p1h = [[pv.settings get:@"Player1Type"] isEqualToString:@"HUMAN"];
-		BOOL p2h = [[pv.settings get:@"Player2Type"] isEqualToString:@"HUMAN"];
-//		[FlurryAPI logEvent:@"POSTED_SCORE"];	
+//		BOOL p1h = [[pv.settings get:@"Player1Type"] isEqualToString:@"HUMAN"];
+//		BOOL p2h = [[pv.settings get:@"Player2Type"] isEqualToString:@"HUMAN"];
+//		[FlurryAPI logEvent:@"POSTED_SCORE"];
 //		if ([PongVader getInstance].OFstarted) {
 //			int combScore = (p1h?pv.player[0].score:0) + (p2h?pv.player[1].score:0);
 //			[OFSocialNotificationService sendWithText:[NSString stringWithFormat:@"scored %d points while saving the world from PongVaders. http://bit.ly/koduco", combScore] imageNamed:@"default"];
@@ -1315,7 +1315,7 @@ static int numLevels = 33;
 @implementation StateInfo
 
 - (id) init {
-	if ((self == [super init])) {
+	if ((self = [super init])) {
 		_modalView = [[ModalWebView alloc] init];
 		_modalView.linkdelegate = self;
 		_appStoreAlert = [[UIAlertView alloc] initWithTitle:@"To the App Store…" message:@"You are headed to the Apple App Store, hopefully to write us a great review. (Thanks.)" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:nil];
@@ -2365,12 +2365,12 @@ static int numLevels = 33;
 		NSString *tbubble, *twedge;
 		
 		if (_IPAD) {
-			tbubble = [NSString stringWithString:@"textbubble.png"];
-			twedge = [NSString stringWithString:@"textbubblewedge.png"];
+			tbubble = @"textbubble.png";
+			twedge = @"textbubblewedge.png";
 		}
 		else {
-			tbubble = [NSString stringWithString:@"textbubble-low.png"];
-			twedge = [NSString stringWithString:@"textbubblewedge-low.png"];
+			tbubble = @"textbubble-low.png";
+			twedge = @"textbubblewedge-low.png";
 		}
 		_textBubble = [[CCSprite spriteWithFile:tbubble] retain];
 		[_textBubble.texture setAliasTexParameters];
@@ -3830,7 +3830,7 @@ static int numLevels = 33;
 
 - (GameState *) doAction:(int) action {
 	PongVader *pv = [PongVader getInstance];
-	CGSize ssz = [CCDirector sharedDirector].winSize;
+//	CGSize ssz = [CCDirector sharedDirector].winSize;
 	Fleet *bossFleet = [pv.fleets objectAtIndex:0];
 	SpriteBody *boss = [bossFleet.invaders objectAtIndex:0];
 	GameState *next = self;
@@ -3983,7 +3983,7 @@ static int numLevels = 33;
 
 - (GameState *) doAction:(int) action {
 	PongVader *pv = [PongVader getInstance];
-	CGSize ssz = [CCDirector sharedDirector].winSize;
+//	CGSize ssz = [CCDirector sharedDirector].winSize;
 	
 	GameState *next = self;
 	
@@ -4136,8 +4136,8 @@ static int numLevels = 33;
 
 - (GameState *) doAction:(int) action {
 
-	PongVader *pv = [PongVader getInstance];
-	CGSize ssz = [CCDirector sharedDirector].winSize;
+//	PongVader *pv = [PongVader getInstance];
+//	CGSize ssz = [CCDirector sharedDirector].winSize;
 
 	GameState *next = self;
     
@@ -4308,7 +4308,7 @@ static int numLevels = 33;
 
 - (GameState *) doAction:(int) action {
 	PongVader *pv = [PongVader getInstance];
-	CGSize ssz = [CCDirector sharedDirector].winSize;
+//	CGSize ssz = [CCDirector sharedDirector].winSize;
 	Fleet *bossFleet = [pv.fleets objectAtIndex:0];
 	SpriteBody *boss = [bossFleet.invaders objectAtIndex:0];
 	GameState *next = self;
@@ -4441,10 +4441,10 @@ static int numLevels = 33;
 }
 
 - (GameState *) doAction:(int) action {
-	PongVader *pv = [PongVader getInstance];
-	CGSize ssz = [CCDirector sharedDirector].winSize;
-	Fleet *bossFleet = [pv.fleets objectAtIndex:0];
-	SpriteBody *boss = [bossFleet.invaders objectAtIndex:0];
+//	PongVader *pv = [PongVader getInstance];
+//	CGSize ssz = [CCDirector sharedDirector].winSize;
+//	Fleet *bossFleet = [pv.fleets objectAtIndex:0];
+//	SpriteBody *boss = [bossFleet.invaders objectAtIndex:0];
 	GameState *next = self;
     
     /*
@@ -4678,10 +4678,10 @@ QwwwQxxqxq\
 QwwwQxxqxq\
 QQQQQxxqxq";
 		
-		char block2[] = "\
-		QwwwQxxqxq\
-		QwwwQxxqxq\
-		QQQQQxxqxq";
+//		char block2[] = "\
+//		QwwwQxxqxq\
+//		QwwwQxxqxq\
+//		QQQQQxxqxq";
 		
 		CGPoint origins[] = {ccp(ssz.width/2, ssz.height/2)};
 		
