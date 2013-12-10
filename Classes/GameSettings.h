@@ -11,13 +11,6 @@
 #import <UIKit/UIKit.h>
 #endif
 
-// AD SERVER AND STOREKIT STUFF
-#define ADQUERY_PAD_FREE @"pongvaders_free_pad"
-#define ADQUERY_PAD_PAID @"pongvaders_paid_pad"
-#define ADQUERY_PHONE_FREE @"pongvaders_free_phone_portrait"
-#define ADQUERY_PHONE_PAID @"pongvaders_paid_phone_portrait"
-#define EPISODES_PRODUCT_ID @"com.koduco.pvaders.episodes"
-
 // DEBUG
 #define DEBUG_SKIPLEVEL NO
 #define BOUGHT_FULLGAME NO
