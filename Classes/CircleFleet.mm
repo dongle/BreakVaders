@@ -16,7 +16,7 @@
 - (id) initWithSize:(int) size andRadius:(int) rad atPos:(CGPoint) pos upsideDown:(BOOL) upsidedown stationary:(BOOL) stat difficulty: (int) level classes:(Class *) classes 
  {
 	if ((self = [super init])) {
-		CGSize screenSize = [CCDirector sharedDirector].winSize;
+//		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		PongVader *pv = [PongVader getInstance];
 		//float currentAngle = 0;
 		float deltaAngle = 360/size;

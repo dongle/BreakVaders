@@ -50,9 +50,9 @@
 	NSString *invType=nil;
 	
 	switch(i) {
-		case 0: invType = [NSString stringWithString:@"invader1"]; break;
-		case 1:	invType = [NSString stringWithString:@"invader1"]; break;
-		case 2: invType = [NSString stringWithString:@"invader1"]; break;
+		case 0: invType = @"invader1"; break;
+		case 1:	invType = @"invader1"; break;
+		case 2: invType = @"invader1"; break;
 	}
 	
 	invader = [Invader spriteWithSpriteFrameName:[NSString stringWithFormat:@"%@_walk1.png", invType]];

@@ -18,7 +18,7 @@
 @implementation TriangleFleet
 - (id) initWithSize:(int) rows atPos:(CGPoint) pos withSpacing:(int) spacing upsideDown:(BOOL) upsidedown sideways:(BOOL) sideways difficulty: (int) level {
 	if ((self = [super init])) {
-		CGSize screenSize = [CCDirector sharedDirector].winSize;
+//		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		PongVader *pv = [PongVader getInstance];
 		
 		for(int i = 0; i < rows; i++) {

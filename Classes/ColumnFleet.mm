@@ -14,7 +14,7 @@
 
 - (id) initWithSize:(int) size andSpacing:(int) spacing atPos:(CGPoint) pos upsideDown:(BOOL) upsidedown stationary:(BOOL) stat difficulty: (int) level {
 	if ((self = [super init])) {
-		CGSize screenSize = [CCDirector sharedDirector].winSize;
+//		CGSize screenSize = [CCDirector sharedDirector].winSize;
 		PongVader *pv = [PongVader getInstance];
 
 		for(int i = 0; i < size; i++) {

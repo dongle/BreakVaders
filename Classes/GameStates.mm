@@ -912,7 +912,7 @@ static int numLevels = 33;
 }
 
 - (void) enter {
-	CGSize ssz = [CCDirector sharedDirector].winSize;
+//	CGSize ssz = [CCDirector sharedDirector].winSize;
 	PongVader *pv = [PongVader getInstance];
 	
 	[pv addChild: _flash];
