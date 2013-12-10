@@ -138,7 +138,7 @@
 	while (index <= [text length]) {
 
 		if (index == [text length]) {
-			CCLabelBMFont *tip = [CCLabelBMFont bitmapFontAtlasWithString:[NSString stringWithString:line]
+			CCLabelBMFont *tip = [CCLabelBMFont labelWithString:[NSString stringWithString:line]
 																		  fntFile:fnt];
 			[container addChild:tip];
 			if ([tip getRect].size.width > maxWidth) maxWidth = [tip getRect].size.width;
@@ -159,7 +159,7 @@
 			isNewLine = NO;
 		
 		if ((lineChars >= length && isSpace) || isNewLine) {
-			CCLabelBMFont *tip = [CCLabelBMFont bitmapFontAtlasWithString:[NSString stringWithString:line]
+			CCLabelBMFont *tip = [CCLabelBMFont labelWithString:[NSString stringWithString:line]
 																		  fntFile:fnt];
 			[container addChild:tip];
 			if ([tip getRect].size.width > maxWidth) maxWidth = [tip getRect].size.width;
