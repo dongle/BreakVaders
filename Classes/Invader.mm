@@ -73,7 +73,7 @@
 		[animFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"%@_walk%d.png", invType, i]]];
 	}
 //	invader.idle = [CCAnimation animationWithName:@"idle" delay:GAME_SPB/3.0f frames:animFrames];
-    invader.idle = [CCAnimation animationWithAnimationFrames:animFrames delayPerUnit:GAME_SPB/3.0f loops:0];
+//    invader.idle = [CCAnimation animationWithAnimationFrames:animFrames delayPerUnit:GAME_SPB/3.0f loops:0];
 	
 	if (w) [invader createBodyInWorld: w];
 	
