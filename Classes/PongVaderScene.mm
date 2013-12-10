@@ -249,15 +249,17 @@ static PongVader *_globalSceneInst = nil;
 
 		[self addChild:_effectring];
 		
-		_effectringanim = [[CCAnimation animationWithName:@"anim" delay:0.2] retain];
+//		_effectringanim = [[CCAnimation animationWithName:@"anim" delay:0.2] retain];
+        NSMutableArray *effectanim = [[[NSMutableArray alloc] init] autorelease];
 		for (int i=0; i<8; i++) {
-			CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:[NSString stringWithFormat:@"effectring%d.png", i]];
-			CGRect rect = CGRectZero;
-			rect.size = texture.contentSize;
-			CCSpriteFrame *frame = [CCSpriteFrame frameWithTexture:texture rect:rect offset:CGPointZero];
-			[frame.texture setAliasTexParameters];
-			[_effectringanim addFrame:frame];
+//			CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:[NSString stringWithFormat:@"effectring%d.png", i]];
+//			CGRect rect = CGRectZero;
+//			rect.size = texture.contentSize;
+//			CCSpriteFrame *frame = [CCSpriteFrame frameWithTexture:texture rect:rect offset:CGPointZero];
+//			[frame.texture setAliasTexParameters];
+//			[effectanim addObject:frame];
 		}
+        _effectringanim = [[CCAnimation animationWithAnimationFrames:effectanim delayPerUnit:0.2 loops:1] retain];
 		
 		/*
 		NSMutableArray *animFrames = [NSMutableArray array];
