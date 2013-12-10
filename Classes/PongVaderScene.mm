@@ -271,10 +271,12 @@ static PongVader *_globalSceneInst = nil;
 		effectringanim = [CCAnimation animationWithName:@"anim" delay:GAME_SPB/3.0f frames:animFrames];
 		*/
 
+        /*
 		CCAnimate *animate = [CCAnimate actionWithAnimation:_effectringanim restoreOriginalFrame:NO];
 		CCAction *action = [_effectring runAction:[CCRepeatForever actionWithAction: animate]];
 		action.tag = EFFECT_ACTION;
-		
+		*/
+        
 		// starting last acceleration
 
 		_baseAccel[0] = 0.0;
@@ -359,12 +361,11 @@ static PongVader *_globalSceneInst = nil;
 		
 		// cache sprite bodies
 		[self cacheSomeSpriteBodies:[Invader class] number:10];
-		[self cacheSomeSpriteBodies:[ENSPrance class] number:10];
-		[self cacheSomeSpriteBodies:[LTWaddle class] number:10];
-		[self cacheSomeSpriteBodies:[CDRBobble class] number:10];
-		//[self cacheSomeSpriteBodies:[StationaryInvader class] number:10];
-		[self cacheSomeSpriteBodies:[DynamicInvader class] number:10];
-		[self cacheSomeSpriteBodies:[ShieldInvader class] number:10];
+//		[self cacheSomeSpriteBodies:[ENSPrance class] number:10];
+//		[self cacheSomeSpriteBodies:[LTWaddle class] number:10];
+//		[self cacheSomeSpriteBodies:[CDRBobble class] number:10];
+//		[self cacheSomeSpriteBodies:[DynamicInvader class] number:10];
+//		[self cacheSomeSpriteBodies:[ShieldInvader class] number:10];
 		
 		// fetch settings
 		_appPList = [[NSMutableDictionary dictionaryWithDictionary:[Utils applicationPlistFromFile:@"appdata.plist"]] retain];
