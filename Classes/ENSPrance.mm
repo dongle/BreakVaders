@@ -29,19 +29,22 @@
 	for (int i=1; i<=6; i++) {
 		[animFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"invader2_walk%d.png", i]]];
 	}
-	invader.idle = [CCAnimation animationWithName:@"idle" delay:GAME_SPB/3.0f frames:animFrames];
+//	invader.idle = [CCAnimation animationWithName:@"idle" delay:GAME_SPB/3.0f frames:animFrames];
+    invader.idle = [CCAnimation animationWithAnimationFrames:animFrames delayPerUnit:GAME_SPB/3.0f loops:0];
 	
 	NSMutableArray *armoredFrames = [NSMutableArray array];
 	for (int i=1; i<=6; i++) {
 		[armoredFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"invader2_armored%d.png", i]]];
 	}
-	invader.armored = [CCAnimation animationWithName:@"armored" delay:GAME_SPB/3.0f frames:armoredFrames];
+//	invader.armored = [CCAnimation animationWithName:@"armored" delay:GAME_SPB/3.0f frames:armoredFrames];
+    invader.armored = [CCAnimation animationWithAnimationFrames:armoredFrames delayPerUnit:GAME_SPB/3.0f loops:0];
 	
 	NSMutableArray *popFrames = [NSMutableArray array];
 	for (int i=1; i<=4; i++) {
 		[popFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"invader2_pop%d.png", i]]];
 	}
-	invader.pop = [CCAnimation animationWithName:@"pop" delay:GAME_SPB/8.0f frames:popFrames];
+//	invader.pop = [CCAnimation animationWithName:@"pop" delay:GAME_SPB/8.0f frames:popFrames];
+    invader.pop = [CCAnimation animationWithAnimationFrames:popFrames delayPerUnit:GAME_SPB/8.0f loops:0];
 	
 	if (w) [invader createBodyInWorld: w];
 	
@@ -51,11 +54,13 @@
 - (void) promote: (int) level {
 	self.promoted = true;
 	self.health = 2;
-	[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.armored restoreOriginalFrame:NO] ]];
+//	[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.armored restoreOriginalFrame:NO] ]];
+    
+    [self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.armored] ]];
 }
 
 - (void) removeArmor {
-	[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.idle restoreOriginalFrame:NO] ]];
+	[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.idle] ]];
 }
 
 - (void) doDestroyedScore: (Ball *) ball {
