@@ -183,7 +183,7 @@
 		CB9021781852DE9400F3B416 /* wail.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C41852DE9400F3B416 /* wail.wav */; };
 		CB9021791852DE9400F3B416 /* warp.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C51852DE9400F3B416 /* warp.wav */; };
 		CB90217A1852DE9400F3B416 /* yellowPill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C61852DE9400F3B416 /* yellowPill.png */; };
-		CBFA56461852E33D00879246 /* BVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */; };
+		CBFA56461852E33D00879246 /* BVAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F91851AA6300A0D2FB /* BVAppDelegate.mm */; };
 		CBFA56481852E36100879246 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F51851AA6300A0D2FB /* main.m */; };
 		CBFA56C21852F41100879246 /* AABBQueryCallback.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564B1852F41100879246 /* AABBQueryCallback.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		CBFA56C31852F41100879246 /* ADMBrain.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564D1852F41100879246 /* ADMBrain.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -262,7 +262,7 @@
 		CB1077F51851AA6300A0D2FB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CB1077F71851AA6300A0D2FB /* BreakVaders-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BreakVaders-Prefix.pch"; sourceTree = "<group>"; };
 		CB1077F81851AA6300A0D2FB /* BVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BVAppDelegate.h; sourceTree = "<group>"; };
-		CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BVAppDelegate.m; sourceTree = "<group>"; };
+		CB1077F91851AA6300A0D2FB /* BVAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = BVAppDelegate.mm; sourceTree = "<group>"; };
 		CB1077FB1851AA6300A0D2FB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Resources/Images.xcassets; sourceTree = "<group>"; };
 		CB1078011851AA6300A0D2FB /* BreakVadersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BreakVadersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1078021851AA6300A0D2FB /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -607,7 +607,7 @@
 			children = (
 				CBFA56491852F40000879246 /* PV files */,
 				CB1077F81851AA6300A0D2FB /* BVAppDelegate.h */,
-				CB1077F91851AA6300A0D2FB /* BVAppDelegate.m */,
+				CB1077F91851AA6300A0D2FB /* BVAppDelegate.mm */,
 				CBFA57021852F5F700879246 /* GameSettings.h */,
 			);
 			name = BreakVaders;
@@ -1313,7 +1313,7 @@
 				CBFA56F61852F41100879246 /* StaticSpriteBody.mm in Sources */,
 				CBFA56DA1852F41100879246 /* GameStates.mm in Sources */,
 				CBFA56E91852F41100879246 /* Planet.m in Sources */,
-				CBFA56461852E33D00879246 /* BVAppDelegate.m in Sources */,
+				CBFA56461852E33D00879246 /* BVAppDelegate.mm in Sources */,
 				CBFA56D31852F41100879246 /* ContactListener.mm in Sources */,
 				CBFA56D71852F41100879246 /* ENSPrance.mm in Sources */,
 				CBFA56E11852F41100879246 /* ModalUIView.m in Sources */,
