@@ -12,20 +12,26 @@
 
 @implementation Fleet
 
-@synthesize invaders, lastShot, lastMovement, shouldShoot, numNukes;
+@synthesize invaders = _invaders;
+@synthesize lastShot = _lastShot;
+@synthesize lastMovement = _lastMovement;
+@synthesize shouldShoot = _shouldShoot;
+//@synthesize nukes = _nukes;
+//@synthesize nukepos = _nukepos;
+@synthesize numNukes = _numNukes;
 
 - (id) init { 
 	if ((self = [super init])) {
-		lastShot = 0;
-		lastMovement = 0;
-		invaders = [[NSMutableArray alloc] init];
-		shouldShoot = YES;
+		_lastShot = 0;
+		_lastMovement = 0;
+		_invaders = [[NSMutableArray alloc] init];
+		_shouldShoot = YES;
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[invaders release];
+	[_invaders release];
 	[super dealloc];
 }
 
@@ -33,26 +39,26 @@
 
 - (void) doBeat: (NSUInteger) beat atTime: (NSTimeInterval) time {
 	[self moveFleet];
-	if (shouldShoot) [self shoot];
-	lastBeat = beat;
+	if (_shouldShoot) [self shoot];
+	_lastBeat = beat;
 }
 
 
 -(void) tick: (ccTime)dt {
 	
-	lastShot += dt;
-	lastMovement += dt;
+	_lastShot += dt;
+	_lastMovement += dt;
 	
-	if (lastMovement >= TIMETOMOVE) {
+	if (_lastMovement >= TIMETOMOVE) {
 		
 		[self moveFleet];
-		lastMovement = 0;
+		_lastMovement = 0;
 	}
 
-	if (lastShot >= TIMETOSHOOT) {
+	if (_lastShot >= TIMETOSHOOT) {
 		
 		[self shoot];
-		lastShot = 0;
+		_lastShot = 0;
 	}
 	
 }
@@ -75,7 +81,7 @@
 }
 
 - (void) shoot {
-	if ([invaders count]==0) return;
+	if ([_invaders count]==0) return;
 	//if ([[PongVader getInstance].balls count] >= [PongVader getInstance].numBalls) return;
 	
 	NSMutableArray *liveInvaders = [self getInvadersThatCount];
@@ -155,7 +161,7 @@
 
 
 - (BOOL) isDead {
-	for (Invader *i in invaders) {
+	for (Invader *i in _invaders) {
 		if ([i doesCount] && ![i isDead]) return NO;
 	}
 	return YES;
@@ -164,7 +170,7 @@
 - (NSMutableArray *) getInvadersThatCount {
 	NSMutableArray *invadersShoot = [NSMutableArray array];
 	
-	for (Invader *i in invaders) {
+	for (Invader *i in _invaders) {
 		if ([i doesCount] && ![i isDead]) {
 			[invadersShoot addObject:i];	
 		}
@@ -174,37 +180,35 @@
 }
 
 - (void) removeInvader: (SpriteBody<Shooter> *) inv {
-	[invaders removeObject:inv];
+	[_invaders removeObject:inv];
 
-	
-	
 	// remove from nukes array
-	for (int i=0; i<numNukes; i++) {
-		if (nukes[i] == inv) {
-			nukes[i] = nil;
+	for (int i=0; i<_numNukes; i++) {
+		if (_nukes[i] == inv) {
+			_nukes[i] = nil;
 		}
 	}
 }
 
 - (DynamicInvader**) nukes {
-	return (DynamicInvader**) nukes;
+	return (DynamicInvader**) _nukes;
 }
 
 - (CGPoint*) nukepos {
-	return (CGPoint*) nukepos;
+	return (CGPoint*) _nukepos;
 }
 
 - (void) designateAsNuke: (DynamicInvader *) nuke at:(CGPoint) pos {
-	if (numNukes==MAX_NUKES) return;
-	nukes[numNukes] = nuke;
-	nukepos[numNukes] = pos;
-	numNukes++;
-	NSLog(@"%d nukes", numNukes);
+	if (_numNukes==MAX_NUKES) return;
+	_nukes[_numNukes] = nuke;
+	_nukepos[_numNukes] = pos;
+	_numNukes++;
+	NSLog(@"%d nukes", _numNukes);
 }
 
 - (BOOL) vacantNuke { 
-	for (int i=0; i<numNukes; i++) {
-		if (nukes[i] == nil) return YES;
+	for (int i=0; i<_numNukes; i++) {
+		if (_nukes[i] == nil) return YES;
 	}
 	return NO;
 }
@@ -214,8 +218,8 @@
 // HACK: should be called before replaceNuke
 // otherwise it will return nothing
 {
-	for (int i=0; i<numNukes; i++) {
-		if (nukes[i] == nil) return nukepos[i];
+	for (int i=0; i<_numNukes; i++) {
+		if (_nukes[i] == nil) return _nukepos[i];
 	}
 	return ccp(0,0);
 }
@@ -225,10 +229,10 @@
 // at the same coordinates as what would be returned by vacantNukePos
 // so nothing is done to ensure nukes[] and nukepos[] stay in sync
 {
-	for (int i=0; i<numNukes; i++) {
-		if (nukes[i] == nil) { 
-			nukes[i] = nuke;
-			[invaders addObject:nuke];
+	for (int i=0; i<_numNukes; i++) {
+		if (_nukes[i] == nil) {
+			_nukes[i] = nuke;
+			[_invaders addObject:nuke];
 			break;
 		}
 	}

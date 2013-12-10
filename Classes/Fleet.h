@@ -15,13 +15,13 @@
 #define MAX_NUKES 16
 
 @interface Fleet : ContinuousBeatResponder {
-	NSMutableArray *invaders;
-	DynamicInvader *nukes[MAX_NUKES]; // referenecs not managed
-	CGPoint nukepos[MAX_NUKES];
-	int numNukes;
-	float lastShot;
-	float lastMovement;
-	BOOL shouldShoot;
+	NSMutableArray *_invaders;
+	DynamicInvader *_nukes[MAX_NUKES]; // referenecs not managed
+	CGPoint _nukepos[MAX_NUKES];
+	int _numNukes;
+	float _lastShot;
+	float _lastMovement;
+	BOOL _shouldShoot;
 }
 
 @property (nonatomic, retain) NSMutableArray *invaders;
