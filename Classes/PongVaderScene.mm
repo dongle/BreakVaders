@@ -292,7 +292,7 @@ static PongVader *_globalSceneInst = nil;
 //			[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"pongvaders-low.plist"];
 //		}
 		
-		_sheet = [CCSpriteBatchNode spriteSheetWithFile:@"pongvaders-low.png"];
+		_sheet = [CCSpriteBatchNode batchNodeWithFile:@"pongvaders-low.png"];
 		[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"pongvaders-low.plist"];
 		
 		[self addChild:_sheet];
