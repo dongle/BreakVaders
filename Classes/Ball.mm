@@ -224,7 +224,7 @@
 
 		float maxwidth = (_IPAD)?16:8;
 		float width = maxwidth;
-		if (RIBBON_TAPER) float width = (0.5*maxwidth/([_bounces count]-start)) * ((i-start)*2.0);
+		if (RIBBON_TAPER) width = (0.5*maxwidth/([_bounces count]-start)) * ((i-start)*2.0);
 		if (lastPoint.x > -1) {
 			[_ribbon addPointAt:ccp((lastPoint.x+p.x)/2.0, (lastPoint.y+p.y)/2.0) width:width];
 			[_ribbon update:RIBBON_FADE_TIME/(2.0*[_bounces count])];
