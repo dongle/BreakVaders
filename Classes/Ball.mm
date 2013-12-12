@@ -60,7 +60,7 @@
 	else {
 	[animFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"hollowBall.png"]];
 	}
-	ball.idle = [CCAnimation animationWithName:@"idle" delay:GAME_SPB/3.0f frames:animFrames];
+	ball.idle = [CCAnimation animationWithSpriteFrames:animFrames delay:GAME_SPB/3.0f];
 	
 	NSMutableArray *armoredFrames = [NSMutableArray array];
 	if (_IPAD) {
@@ -69,7 +69,7 @@
 	else {
 		[armoredFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"Ball.png"]];
 	}
-	ball.armored = [CCAnimation animationWithName:@"armored" delay:GAME_SPB/3.0f frames:armoredFrames];
+	ball.armored = [CCAnimation animationWithSpriteFrames:armoredFrames delay:GAME_SPB/3.0f];
 	
 	ball.position = p;
 	ball.world = w;

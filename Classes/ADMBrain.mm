@@ -139,7 +139,7 @@
 	}
 
 //	invader.idle = [CCAnimation animationWithName:@"idle" delay:GAME_SPB/8.0f frames:animFrames];
-    invader.idle = [CCAnimation animationWithAnimationFrames:animFrames delayPerUnit:GAME_SPB/8.0f loops:1];
+    invader.idle = [CCAnimation animationWithSpriteFrames:animFrames delay:GAME_SPB/8.0f];
 
 	for (int i=0; i<=maxSegs; i++) {
 		invader->_prevs[i] = p;

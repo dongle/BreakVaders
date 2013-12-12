@@ -29,19 +29,19 @@
 	for (int i=1; i<=6; i++) {
 		[animFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"invader3_walk%d.png", i]]];
 	}
-	invader.idle = [CCAnimation animationWithName:@"idle" delay:GAME_SPB/3.0f frames:animFrames];
+	invader.idle = [CCAnimation animationWithSpriteFrames:animFrames delay:GAME_SPB/3.0f];
 	
 	NSMutableArray *armoredFrames = [NSMutableArray array];
 	for (int i=1; i<=6; i++) {
 		[armoredFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"invader3_armored%d.png", i]]];
 	}
-	invader.armored = [CCAnimation animationWithName:@"armored" delay:GAME_SPB/3.0f frames:armoredFrames];
+	invader.armored = [CCAnimation animationWithSpriteFrames:armoredFrames delay:GAME_SPB/3.0f];
 	
 	NSMutableArray *popFrames = [NSMutableArray array];
 	for (int i=1; i<=4; i++) {
 		[popFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"invader3_pop%d.png", i]]];
 	}
-	invader.pop = [CCAnimation animationWithName:@"pop" delay:GAME_SPB/8.0f frames:popFrames];
+	invader.pop = [CCAnimation animationWithSpriteFrames:popFrames delay:GAME_SPB/8.0f];
 
 	if (w) [invader createBodyInWorld: w];
 	

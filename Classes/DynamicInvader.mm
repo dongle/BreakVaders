@@ -64,7 +64,7 @@
 	for (int i=1; i<=4; i++) {
 		[animFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"satellite%d.png", i]]];
 	}
-	invader.idle = [CCAnimation animationWithName:@"idle" delay:GAME_SPB/3.0f frames:animFrames];
+	invader.idle = [CCAnimation animationWithSpriteFrames:animFrames delay:GAME_SPB/3.0f];
 	
 	if (w) [invader createBodyInWorld: w];
 	

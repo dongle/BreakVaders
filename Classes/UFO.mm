@@ -30,7 +30,7 @@
 			self.scale = 2.0;
 		}
 		
-		self.enterAnim = [CCAnimation animationWithName:@"idle" delay:GAME_SPB/3.0f frames:animFrames];
+		self.enterAnim = [CCAnimation animationWithSpriteFrames:animFrames delay:GAME_SPB/3.0f];
 		
 		animFrames = [NSMutableArray array];
 		for (int i=1; i<=4; i++) {
@@ -38,7 +38,7 @@
 			[frame.texture setAliasTexParameters];
 			[animFrames addObject:frame];		
 		}
-		self.leaveAnim = [CCAnimation animationWithName:@"idleopen" delay:GAME_SPB/3.0f frames:animFrames];
+		self.leaveAnim = [CCAnimation animationWithSpriteFrames:animFrames delay:GAME_SPB/3.0f];
 		
 		animFrames = [NSMutableArray array];
 		for (int i=1; i<=4; i++) {
@@ -46,7 +46,7 @@
 			[frame.texture setAliasTexParameters];
 			[animFrames addObject:frame];		
 		}
-		self.releaseAnim = [CCAnimation animationWithName:@"release" delay:GAME_SPB/3.0f frames:animFrames];
+		self.releaseAnim = [CCAnimation animationWithSpriteFrames:animFrames delay:GAME_SPB/3.0f];
 		
 		[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.enterAnim restoreOriginalFrame:NO] ]];
 

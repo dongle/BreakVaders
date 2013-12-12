@@ -30,13 +30,13 @@
 	[animFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"static2.png"]];
 	[animFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"static1.png"]];
 	[animFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"static3.png"]];
-	invader.idle = [CCAnimation animationWithName:@"idle" delay:0.25 frames:animFrames];
+	invader.idle = [CCAnimation animationWithSpriteFrames:animFrames delay:0.25];
 
 	NSMutableArray *popFrames = [NSMutableArray array];
 	for (int i=1; i<=4; i++) {
 		[popFrames addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"static_pop%d.png", i]]];
 	}
-	invader.pop = [CCAnimation animationWithName:@"pop" delay:GAME_SPB/8.0f frames:popFrames];
+	invader.pop = [CCAnimation animationWithSpriteFrames:popFrames delay:GAME_SPB/8.0f];
 	
 	if (w) [invader createBodyInWorld: w];
 	

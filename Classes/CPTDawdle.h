@@ -22,4 +22,6 @@
 	ccTime _shakeTime, _explosionTime;
 }
 
+@property (nonatomic, retain) CCAnimation *dawdle;
+
 @end

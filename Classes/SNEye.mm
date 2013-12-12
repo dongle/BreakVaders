@@ -121,22 +121,22 @@
 	//invader.eyeOpen = [CCAnimation animationWithName:@"eyeOpen" delay:GAME_SPB/3.0f frames:animFrames];
 	//[invader addAnimation: [CCAnimation animationWithName:@"eyeOpen" delay:GAME_SPB/3.0f frames:animFrames]];
 	
-	invader.eyeOpen = [CCAnimation animationWithName:@"eyeOpen" delay:(((float) NUMSHOTS)/[BeatSequencer getInstance].bpmin) frames:animFrames];
-	[invader addAnimation: [CCAnimation animationWithName:@"eyeOpen" delay:(((float) NUMSHOTS)/[BeatSequencer getInstance].bpmin) frames:animFrames]];
+	invader.eyeOpen = [CCAnimation animationWithSpriteFrames:animFrames delay:(((float) NUMSHOTS)/[BeatSequencer getInstance].bpmin)];
+//	[invader addAnimation: [CCAnimation animationWithName:@"eyeOpen" delay:(((float) NUMSHOTS)/[BeatSequencer getInstance].bpmin) frames:animFrames]];
 	
 	for (int i=1; i<=EYE_NUM_FRAMES-1; i++) {
 		CCSpriteFrame *frame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"boss2_%d.png", i]];
 		[frame.texture setAliasTexParameters];
 		[closeFrames addObject:frame];		
 	}
-	invader.eyeClose = [CCAnimation animationWithName:@"eyeClose" delay:EYE_FREEZETIME * 10.0/ (float) (EYE_NUM_FRAMES-1) frames:closeFrames];
+	invader.eyeClose = [CCAnimation animationWithSpriteFrames:closeFrames delay:EYE_FREEZETIME * 10.0/ (float) (EYE_NUM_FRAMES-1)];
 	
 	for (int i=1; i<=4; i++) {
 		CCSpriteFrame *frame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"boss2_bigeye%d.png", i]];
 		[frame.texture setAliasTexParameters];
 		[dyingFrames addObject:frame];		
 	}
-	invader.deadEye = [CCAnimation animationWithName:@"deadEye" delay:GAME_SPB/3.0f frames:dyingFrames];
+	invader.deadEye = [CCAnimation animationWithSpriteFrames:dyingFrames delay:GAME_SPB/3.0f];
 	
 	//CCSpriteFrame *idleFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"boss2_5.png"];
 	//[idleFrame.texture setAliasTexParameters];

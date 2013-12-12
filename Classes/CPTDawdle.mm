@@ -60,6 +60,8 @@ b2Vec2 *getDVerts(int frame) {
 
 @implementation CPTDawdle
 
+@synthesize dawdle = _dawdle;
+
 - (void) createBodyInWorld: (b2World *) w {
 	// Create invader body
 	b2BodyDef invBodyDef;
@@ -108,7 +110,7 @@ b2Vec2 *getDVerts(int frame) {
 		[frame.texture setAliasTexParameters];
 		[animFrames addObject:frame];		
 	}
-	[invader addAnimation: [CCAnimation animationWithName:@"dawdle" delay:GAME_SPB/8.0f frames:animFrames]];
+	invader.dawdle = [CCAnimation animationWithSpriteFrames:animFrames delay:GAME_SPB/8.0f];
 	invader->_animTime = 0;
 	
 	if (w) [invader createBodyInWorld: w];
@@ -165,7 +167,7 @@ b2Vec2 *getDVerts(int frame) {
 	int frame = DAWDLE_NUM_FRAMES * _animTime / duration;
 	if (frame != _lastFrame) {
 	
-		[self setDisplayFrame: @"dawdle" index:frame];
+		[self setDisplayFrame:[_dawdle.frames objectAtIndex:frame]];
 
 		if ((frame%4)==0) {
 			b2Fixture *fixture = _b2dBody->GetFixtureList();
