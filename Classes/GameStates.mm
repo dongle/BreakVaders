@@ -336,7 +336,7 @@ static int numLevels = 33;
 		}
 		
 		
-		int maxLabels = 5;
+		int maxLabels = 1;
 		
 		for (int i=0; i<maxLabels; i++) {
 			NSString *font = pv.mediumFont;
@@ -609,17 +609,9 @@ static int numLevels = 33;
 			if (i == 8) _label.labelname = [NSString stringWithFormat:@"PRO"];
 			if (i == 9) {
 				_label.labelname = [NSString stringWithFormat:@"EP1"];
-				if ([pv.settings getInt:@"BeatPrologue"] == 0 && !ALL_LEVELS_AVAIL) {
-					bmlabel.color = ccc3(92, 92, 92);
-					_label.selectable = NO;
-				}
 			}
 			if (i == 10) { 
 				_label.labelname = [NSString stringWithFormat:@"EP2"];
-				if ([pv.settings getInt:@"BeatEpOne"] == 0 && !ALL_LEVELS_AVAIL) {
-					bmlabel.color = ccc3(92, 92, 92);
-					_label.selectable = NO;
-				}
 			}
 			
 			_label.node = bmlabel;
@@ -1049,6 +1041,8 @@ static int numLevels = 33;
 		else {
 			menuitems = 2;
 		}
+        
+        menuitems = 2;
 		
 		//int menuSize[] = {64, 32, 32, 32, 32, 18};
 		BOOL menuSel[] = {YES, YES, YES, YES, YES, YES};
