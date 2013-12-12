@@ -252,14 +252,14 @@ static PongVader *_globalSceneInst = nil;
 //		_effectringanim = [[CCAnimation animationWithName:@"anim" delay:0.2] retain];
         NSMutableArray *effectanim = [[[NSMutableArray alloc] init] autorelease];
 		for (int i=0; i<8; i++) {
-//			CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:[NSString stringWithFormat:@"effectring%d.png", i]];
-//			CGRect rect = CGRectZero;
-//			rect.size = texture.contentSize;
-//			CCSpriteFrame *frame = [CCSpriteFrame frameWithTexture:texture rect:rect offset:CGPointZero];
-//			[frame.texture setAliasTexParameters];
-//			[effectanim addObject:frame];
+			CCTexture2D *texture = [[CCTextureCache sharedTextureCache] addImage:[NSString stringWithFormat:@"effectring%d.png", i]];
+			CGRect rect = CGRectZero;
+			rect.size = texture.contentSize;
+			CCSpriteFrame *frame = [CCSpriteFrame frameWithTexture:texture rect:rect];
+			[frame.texture setAliasTexParameters];
+			[effectanim addObject:frame];
 		}
-        _effectringanim = [[CCAnimation animationWithAnimationFrames:effectanim delayPerUnit:0.2 loops:1] retain];
+        _effectringanim = [[CCAnimation animationWithSpriteFrames:effectanim delay:0.2] retain];
 		
 		/*
 		NSMutableArray *animFrames = [NSMutableArray array];
@@ -271,11 +271,10 @@ static PongVader *_globalSceneInst = nil;
 		effectringanim = [CCAnimation animationWithName:@"anim" delay:GAME_SPB/3.0f frames:animFrames];
 		*/
 
-        /*
 		CCAnimate *animate = [CCAnimate actionWithAnimation:_effectringanim restoreOriginalFrame:NO];
 		CCAction *action = [_effectring runAction:[CCRepeatForever actionWithAction: animate]];
 		action.tag = EFFECT_ACTION;
-		*/
+
         
 		// starting last acceleration
 
@@ -1907,7 +1906,7 @@ static vector<MouseJointStruct> joints;
 	CCRepeatForever *action = (CCRepeatForever *)[_effectring getActionByTag:EFFECT_ACTION];
 	CCAnimate *animate = (CCAnimate *) [action getOther];
 	animate.duration = animate.duration*(1-k)+k*0.20*(1.0-effectMag);
-	//[effectring runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:effectringanim restoreOriginalFrame:NO] ]];
+	[_effectring runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:_effectringanim restoreOriginalFrame:NO] ]];
 
 	float32 rotTgt = vec2angle(effectVec);
 	while (rotTgt >= 360) rotTgt -= 360;
