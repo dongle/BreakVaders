@@ -191,11 +191,11 @@
 //		streak = [CCMotionStreak streakWithFade:.5 minSeg:3 image:@"Ball.png" width:16 length:16 color:ccc4(255,0,0,128)];
         _streak = [CCMotionStreak streakWithFade:.5 minSeg:3 width:16 color:ccc3(255, 0, 0) textureFilename:@"Ball.png"];
 //		ribbon = [CCMotionStreak streakWithWidth:8 image:@"Ball.png" length:16 color:ccc4(128,128,128,128) fade:RIBBON_FADE_TIME];
-        _ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
+//        _ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
 	}
 	else {
         _streak = [CCMotionStreak streakWithFade:.5 minSeg:3 width:8 color:ccc3(255, 0, 0) textureFilename:@"Ball.png"];
-        _ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
+//        _ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
 	}
 	
 	_streak.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
@@ -222,22 +222,22 @@
 				p = b.hit==PV.paddle1.player?PV.paddle1.position:PV.paddle2.position;
 		}
 
-		float maxwidth = (_IPAD)?16:8;
-		float width = maxwidth;
-		if (RIBBON_TAPER) width = (0.5*maxwidth/([_bounces count]-start)) * ((i-start)*2.0);
-		if (lastPoint.x > -1) {
-			[_ribbon addPointAt:ccp((lastPoint.x+p.x)/2.0, (lastPoint.y+p.y)/2.0) width:width];
-			[_ribbon update:RIBBON_FADE_TIME/(2.0*[_bounces count])];
-		}
-		if (RIBBON_TAPER) width = (0.5*maxwidth/([_bounces count]-start)) * ((i-start)*2.0+1);
-		[_ribbon addPointAt:p width:width];
-		lastPoint = p;
-
-		if (i<[_bounces count]-1) [_ribbon update:RIBBON_FADE_TIME/(2.0*[_bounces count])];
+//		float maxwidth = (_IPAD)?16:8;
+//		float width = maxwidth;
+//		if (RIBBON_TAPER) width = (0.5*maxwidth/([_bounces count]-start)) * ((i-start)*2.0);
+//		if (lastPoint.x > -1) {
+//			[_ribbon addPointAt:ccp((lastPoint.x+p.x)/2.0, (lastPoint.y+p.y)/2.0) width:width];
+//			[_ribbon update:RIBBON_FADE_TIME/(2.0*[_bounces count])];
+//		}
+//		if (RIBBON_TAPER) width = (0.5*maxwidth/([_bounces count]-start)) * ((i-start)*2.0+1);
+//		[_ribbon addPointAt:p width:width];
+//		lastPoint = p;
+//
+//		if (i<[_bounces count]-1) [_ribbon update:RIBBON_FADE_TIME/(2.0*[_bounces count])];
 	}
 
 	[self addChild:_streak];
-	[[PongVader getInstance] addChild:_ribbon];
+//	[[PongVader getInstance] addChild:_ribbon];
 	
 	//[ribbon runAction:[CCFadeOut actionWithDuration:RIBBON_FADE_TIME]];
 	
@@ -285,19 +285,19 @@
 		if (!_isFireball){
 			
 			if (_IPAD) {
-				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:16 length:8 color:ccc4(255,255,255,128)];
+				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 width:16 color:ccc3(255,255,255) textureFilename:@"Ball.png"];
 			}
 			else {
-				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:8 length:4 color:ccc4(255,255,255,128)];
+				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 width:8 color:ccc3(255,255,255) textureFilename:@"Ball.png"];
 			}
 		}
 		
 		else {
 			if (_IPAD) {
-				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:16 length:16 color:ccc4(255,0,0,128)];
+				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 width:16 color:ccc3(255,0,0) textureFilename:@"Ball.png"];
 			}
 			else {
-				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 image:@"Ball.png" width:8 length:8 color:ccc4(255,0,0,128)];
+				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 width:8 color:ccc3(255,0,0) textureFilename:@"Ball.png"];
 			}
 		}
 		
