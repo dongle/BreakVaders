@@ -95,7 +95,7 @@
 			
 			invader.scale = LINEFLEET_START_SIZE;
 			if (i%2 == upsidedown) invader.rotation = 180;
-			[_invaders addObject:invader];
+			if (invader) [_invaders addObject:invader];
 			
 			// move to final positions in an x
 			[invader runAction:
