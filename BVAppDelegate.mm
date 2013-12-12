@@ -24,22 +24,18 @@
 	[_window setMultipleTouchEnabled:YES];
     
     CCGLView *glView = [CCGLView viewWithFrame:[_window bounds]
-								   pixelFormat:kEAGLColorFormatRGBA8
-								   depthFormat:0
-							preserveBackbuffer:NO
-									sharegroup:nil
-								 multiSampling:NO
-							   numberOfSamples:0];
+								   pixelFormat:kEAGLColorFormatRGBA8];
     [glView setMultipleTouchEnabled:YES];
     
     CCDirectorIOS *dir = (CCDirectorIOS *) [CCDirector sharedDirector];
-	
+    _window.rootViewController = dir;
+    
 	dir.wantsFullScreenLayout = YES;
 	[dir setDisplayStats:NO];
 	[dir setAnimationInterval:1.0/60];
 	[dir setView:glView];
 	[dir setProjection:kCCDirectorProjection2D];
-	if( ! [dir enableRetinaDisplay:YES] )
+	if( ! [dir enableRetinaDisplay:NO] )
 		CCLOG(@"Retina Display Not supported");
 	[CCTexture2D setDefaultAlphaPixelFormat:kCCTexture2DPixelFormat_RGBA8888];
 	
@@ -50,7 +46,7 @@
 	CCFileUtils *sharedFileUtils = [CCFileUtils sharedFileUtils];
 	[sharedFileUtils setEnableFallbackSuffixes:NO];				// Default: NO. No fallback suffixes are going to be used
 	[sharedFileUtils setiPhoneRetinaDisplaySuffix:@"-hd"];		// Default on iPhone RetinaDisplay is "-hd"
-	[sharedFileUtils setiPadSuffix:@"-ipad"];					// Default on iPad is "ipad"
+	[sharedFileUtils setiPadSuffix:@"-hd"];					// Default on iPad is "ipad"
 	[sharedFileUtils setiPadRetinaDisplaySuffix:@"-ipadhd"];	// Default on iPad RetinaDisplay is "-ipadhd"
 	
 	// Assume that PVR images have premultiplied alpha
@@ -61,7 +57,6 @@
 	// jump into the initial state
     [GameState handleEvent: [[StateMainMenu alloc] init]];
     
-    _window.rootViewController = dir;
     _window.backgroundColor = [UIColor blackColor];
     [_window makeKeyAndVisible];
     return YES;
