@@ -361,11 +361,11 @@ static PongVader *_globalSceneInst = nil;
 		
 		// cache sprite bodies
 		[self cacheSomeSpriteBodies:[Invader class] number:10];
-//		[self cacheSomeSpriteBodies:[ENSPrance class] number:10];
-//		[self cacheSomeSpriteBodies:[LTWaddle class] number:10];
-//		[self cacheSomeSpriteBodies:[CDRBobble class] number:10];
-//		[self cacheSomeSpriteBodies:[DynamicInvader class] number:10];
-//		[self cacheSomeSpriteBodies:[ShieldInvader class] number:10];
+		[self cacheSomeSpriteBodies:[ENSPrance class] number:10];
+		[self cacheSomeSpriteBodies:[LTWaddle class] number:10];
+		[self cacheSomeSpriteBodies:[CDRBobble class] number:10];
+		[self cacheSomeSpriteBodies:[DynamicInvader class] number:10];
+		[self cacheSomeSpriteBodies:[ShieldInvader class] number:10];
 		
 		// fetch settings
 		_appPList = [[NSMutableDictionary dictionaryWithDictionary:[Utils applicationPlistFromFile:@"appdata.plist"]] retain];
