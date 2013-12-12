@@ -38,7 +38,6 @@
 @synthesize isNuke = _isNuke;
 @synthesize strobeTime = _strobeTime;
 @synthesize bounces = _bounces;
-@synthesize ribbon = _ribbon;
 
 + (SpriteBody*) spriteBodyAt: (CGPoint) p withForce: (CGPoint) f inWorld: (b2World *) w {
 	// Create sprite and add it to the layer
@@ -125,11 +124,18 @@
 	ball.strobeTime = 0;
 	
 	ball.bounces = [NSMutableArray arrayWithCapacity:10];
-	ball.ribbon = nil;
+    
+    ball->_streak = nil;
 	
 	// NSLog(@"created ball %@", ball);
 
 	return ball;
+}
+
+- (void)tick:(ccTime)dt
+{
+    [super tick:dt];
+    if (_streak) _streak.position = self.position;
 }
 
 - (BOOL) doHit: (NSObject *) hitwhat {
@@ -188,20 +194,13 @@
 	[self setColor:ccc3(255, 0, 0)];
 	
 	if (_IPAD) {
-//		streak = [CCMotionStreak streakWithFade:.5 minSeg:3 image:@"Ball.png" width:16 length:16 color:ccc4(255,0,0,128)];
         _streak = [CCMotionStreak streakWithFade:.5 minSeg:3 width:16 color:ccc3(255, 0, 0) textureFilename:@"Ball.png"];
-//		ribbon = [CCMotionStreak streakWithWidth:8 image:@"Ball.png" length:16 color:ccc4(128,128,128,128) fade:RIBBON_FADE_TIME];
-//        _ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
 	}
 	else {
         _streak = [CCMotionStreak streakWithFade:.5 minSeg:3 width:8 color:ccc3(255, 0, 0) textureFilename:@"Ball.png"];
-//        _ribbon = [CCMotionStreak streakWithFade:RIBBON_FADE_TIME minSeg:3 width:8 color:ccc3(128, 128, 128) textureFilename:@"Ball.png"];
 	}
 	
-	_streak.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
-	//ribbon.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
-
-	PongVader *PV = [PongVader getInstance];
+	_streak.position = self.position;
 
 	unsigned int start = 0;
 
@@ -212,34 +211,8 @@
 			break;
 		}
 	}
-	
-	CGPoint lastPoint = ccp(-1,-1);
-	for (unsigned int i=start; i<[_bounces count]; i++) {
-		Bounce *b = [_bounces objectAtIndex:i];
-		CGPoint p = b.pos;
 
-		if (i==start && RIBBON_TO_CUR_POS) {
-				p = b.hit==PV.paddle1.player?PV.paddle1.position:PV.paddle2.position;
-		}
-
-//		float maxwidth = (_IPAD)?16:8;
-//		float width = maxwidth;
-//		if (RIBBON_TAPER) width = (0.5*maxwidth/([_bounces count]-start)) * ((i-start)*2.0);
-//		if (lastPoint.x > -1) {
-//			[_ribbon addPointAt:ccp((lastPoint.x+p.x)/2.0, (lastPoint.y+p.y)/2.0) width:width];
-//			[_ribbon update:RIBBON_FADE_TIME/(2.0*[_bounces count])];
-//		}
-//		if (RIBBON_TAPER) width = (0.5*maxwidth/([_bounces count]-start)) * ((i-start)*2.0+1);
-//		[_ribbon addPointAt:p width:width];
-//		lastPoint = p;
-//
-//		if (i<[_bounces count]-1) [_ribbon update:RIBBON_FADE_TIME/(2.0*[_bounces count])];
-	}
-
-	[self addChild:_streak];
-//	[[PongVader getInstance] addChild:_ribbon];
-	
-	//[ribbon runAction:[CCFadeOut actionWithDuration:RIBBON_FADE_TIME]];
+	[[PongVader getInstance] addChild:_streak];
 	
 	[PongVader getInstance].gotFireball = YES;
 	
@@ -252,6 +225,9 @@
 - (BOOL) doKill {
 	_health = 0;
 	_strobeTime = 0;
+    PongVader *pv = [PongVader getInstance];
+    [pv removeChild:_streak cleanup:YES];
+    _streak = nil;
 	[self setColor:ccc3(255, 255, 255)];
 
 	return YES;
@@ -285,25 +261,24 @@
 		if (!_isFireball){
 			
 			if (_IPAD) {
-				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 width:16 color:ccc3(255,255,255) textureFilename:@"Ball.png"];
+				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 width:16 color:ccWHITE textureFilename:@"Ball.png"];
 			}
 			else {
-				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 width:8 color:ccc3(255,255,255) textureFilename:@"Ball.png"];
+				_streak = [CCMotionStreak streakWithFade:2.0f minSeg:3.0f width:8.0f color:ccWHITE textureFilename:@"Ball.png"];
 			}
 		}
 		
 		else {
 			if (_IPAD) {
-				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 width:16 color:ccc3(255,0,0) textureFilename:@"Ball.png"];
+				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 width:16 color:ccRED textureFilename:@"Ball.png"];
 			}
 			else {
-				_streak = [CCMotionStreak streakWithFade:2 minSeg:3 width:8 color:ccc3(255,0,0) textureFilename:@"Ball.png"];
+				_streak = [CCMotionStreak streakWithFade:2.0f minSeg:3.0f width:8.0f color:ccRED textureFilename:@"Ball.png"];
 			}
 		}
 		
-		
-		_streak.position = ccp(self.contentSize.width/2, self.contentSize.height/2);
-		[self addChild:_streak];
+		_streak.position = self.position;
+		[[PongVader getInstance] addChild:_streak];
 		
 	}
 	_isBulletTime = YES;
@@ -311,7 +286,9 @@
 
 - (void) exitBulletTime {
 	if (!_isFireball){
-		[self removeChild:_streak cleanup:YES];
+        PongVader *pv = [PongVader getInstance];
+		[pv removeChild:_streak cleanup:YES];
+        _streak = nil;
 	}
 	_isBulletTime = NO;
 }
@@ -328,14 +305,6 @@
 	}
 	[_bounces addObject:[Bounce bounceWithPos:self.position hit:thing]];
 	//NSLog(@"Bounced at (%5.2f, %5.2f) (%@)\n", self.position.x, self.position.y, [[thing class] description]);
-}
-
-- (void) updateRibbon: (ccTime) dt {
-	if (_ribbon) [_ribbon update:dt];
-}
-
-- (void) cleanup {
-	[[PongVader getInstance] removeChild:_ribbon cleanup: YES];
 }
 
 - (void) dealloc 
