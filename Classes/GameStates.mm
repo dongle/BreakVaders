@@ -1288,9 +1288,7 @@ static int numLevels = 33;
 	}
 	
 	if (next != self) {
-		if ([pv.settings getInt:@"EpisodesBought"] == 1) {
-			[self changeTo:next after:MENU_TRANSITION_PAUSE];
-		}
+        [self changeTo:next after:MENU_TRANSITION_PAUSE];
 	}
 	return self;
 }
