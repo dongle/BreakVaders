@@ -117,7 +117,11 @@ static BeatSequencer *__bs = nil;
 }
 
 - (void) addResponder: (NSObject<BeatResponder> *) responder {
-	[_responders addObject:responder];
+    dispatch_async(dispatch_get_main_queue(),
+                   ^{
+        [_responders addObject:responder];
+                   }
+                   );
 }
 
 - (void) removeResponder: (NSObject<BeatResponder> *) responder {
