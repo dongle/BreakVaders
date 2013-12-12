@@ -1621,7 +1621,6 @@ static PongVader *_globalSceneInst = nil;
 	// apply strobe effect if ball is approaching a paddle
 	
 	for (Ball *ball in _balls) {
-		[ball updateRibbon:dt];
 		
 		if ([ball isWhite] && (ball.position.y < ssz.height/3) && [ball lastPlayer] == _player[1]) {
 			[ball strobe:dt];

@@ -37,7 +37,6 @@
 	float _AIOffset; // computer paddle will always hit this ball at the same angle
 	float _strobeTime;
 	NSMutableArray *_bounces;
-	CCMotionStreak *_ribbon;
 }
 
 @property (readwrite, assign) Player *lastPlayer;  // weak ref
@@ -47,7 +46,6 @@
 @property (readwrite, assign) float strobeTime;
 @property (readwrite, assign) BOOL isNuke; // used to keep track of ball data for dynamic invaders
 @property (nonatomic, retain) NSMutableArray *bounces;
-@property (nonatomic, retain) CCMotionStreak *ribbon;
 
 + (SpriteBody*) spriteBodyAt: (CGPoint) p withForce: (CGPoint) f inWorld: (b2World *) world;
 - (BOOL) doHit: (NSObject *) hitwhat;
@@ -62,7 +60,6 @@
 - (void) exitBulletTime;
 - (void) strobe: (float) time;
 - (void) addBounceAgainst: (id) thing;
-- (void) updateRibbon: (ccTime) dt;
 - (void) cleanup;
 
 - (void) doHitFrom: (Ball *) ball withDamage: (int) d;
