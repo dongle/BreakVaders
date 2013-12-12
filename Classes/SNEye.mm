@@ -244,7 +244,7 @@
 	[[SimpleAudioEngine sharedEngine] playEffect:@"EyeUnfreeze.wav"];
 	
 	[self stopAllActions];
-	[self setDisplayFrame: @"eyeOpen" index:0];
+	[self setDisplayFrame:_eyeOpen.frames[0]];
 }
 
 - (void) nowShoot: (NSNumber *) ang {
