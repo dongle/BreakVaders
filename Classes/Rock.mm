@@ -31,44 +31,44 @@
 //		b2Vec2(31.0f / PTM_RATIO, -31.0f / PTM_RATIO)
 //	};
 	
-//	int num = 8;
-//	b2Vec2 verts[] = {
-//		b2Vec2(22.9f / PTM_RATIO, 31.2f / PTM_RATIO),
-//		b2Vec2(-23.5f / PTM_RATIO, 31.0f / PTM_RATIO),
-//		b2Vec2(-30.6f / PTM_RATIO, 25.6f / PTM_RATIO),
-//		b2Vec2(-30.7f / PTM_RATIO, -23.7f / PTM_RATIO),
-//		b2Vec2(-26.1f / PTM_RATIO, -30.9f / PTM_RATIO),
-//		b2Vec2(23.7f / PTM_RATIO, -31.0f / PTM_RATIO),
-//		b2Vec2(31.1f / PTM_RATIO, -24.1f / PTM_RATIO),
-//		b2Vec2(30.9f / PTM_RATIO, 25.4f / PTM_RATIO)
-//	};
+	int num = 8;
+	b2Vec2 verts[] = {
+		b2Vec2(22.9f / PTM_RATIO, 31.2f / PTM_RATIO),
+		b2Vec2(-23.5f / PTM_RATIO, 31.0f / PTM_RATIO),
+		b2Vec2(-30.6f / PTM_RATIO, 25.6f / PTM_RATIO),
+		b2Vec2(-30.7f / PTM_RATIO, -23.7f / PTM_RATIO),
+		b2Vec2(-26.1f / PTM_RATIO, -30.9f / PTM_RATIO),
+		b2Vec2(23.7f / PTM_RATIO, -31.0f / PTM_RATIO),
+		b2Vec2(31.1f / PTM_RATIO, -24.1f / PTM_RATIO),
+		b2Vec2(30.9f / PTM_RATIO, 25.4f / PTM_RATIO)
+	};
 	
-	int num = 9;
-	b2Vec2 verts[9];
-	
-	
-	if (_IPAD) {
-		verts[0] = b2Vec2(5.5f / PTM_RATIO, 30.9f / PTM_RATIO);
-		verts[1] = b2Vec2(-14.3f / PTM_RATIO, 30.9f / PTM_RATIO);
-		verts[2] = b2Vec2(-30.2f / PTM_RATIO, 17.0f / PTM_RATIO);
-		verts[3] = b2Vec2(-30.4f / PTM_RATIO, -11.1f / PTM_RATIO);
-		verts[4] = b2Vec2(-11.8f / PTM_RATIO, -30.4f / PTM_RATIO);
-		verts[5] = b2Vec2(6.9f / PTM_RATIO, -30.8f / PTM_RATIO);
-		verts[6] = b2Vec2(26.5f / PTM_RATIO, -20.2f / PTM_RATIO);
-		verts[7] = b2Vec2(31.1f / PTM_RATIO, -9.7f / PTM_RATIO);
-		verts[8] = b2Vec2(30.8f / PTM_RATIO, 18.0f / PTM_RATIO);
-	}
-	else {
-		verts[0] = b2Vec2(2.7f / PTM_RATIO, 15.5f / PTM_RATIO);
-		verts[1] = b2Vec2(-7.1f / PTM_RATIO, 15.5f / PTM_RATIO);
-		verts[2] = b2Vec2(-15.1f / PTM_RATIO, 8.5f / PTM_RATIO);
-		verts[3] = b2Vec2(-15.1f / PTM_RATIO, -5.5f / PTM_RATIO);
-		verts[4] = b2Vec2(-5.5f / PTM_RATIO, -15.2f / PTM_RATIO);
-		verts[5] = b2Vec2(3.5f / PTM_RATIO, -15.2f / PTM_RATIO);
-		verts[6] = b2Vec2(13.2f / PTM_RATIO, -10.1f / PTM_RATIO);
-		verts[7] = b2Vec2(15.5f / PTM_RATIO, -4.8f / PTM_RATIO);
-		verts[8] = b2Vec2(15.4f / PTM_RATIO, 9.0f / PTM_RATIO);
-	}
+//	int num = 9;
+//	b2Vec2 verts[9];
+//	
+//	
+//	if (_IPAD) {
+//		verts[0] = b2Vec2(5.5f / PTM_RATIO, 30.9f / PTM_RATIO);
+//		verts[1] = b2Vec2(-14.3f / PTM_RATIO, 30.9f / PTM_RATIO);
+//		verts[2] = b2Vec2(-30.2f / PTM_RATIO, 17.0f / PTM_RATIO);
+//		verts[3] = b2Vec2(-30.4f / PTM_RATIO, -11.1f / PTM_RATIO);
+//		verts[4] = b2Vec2(-11.8f / PTM_RATIO, -30.4f / PTM_RATIO);
+//		verts[5] = b2Vec2(6.9f / PTM_RATIO, -30.8f / PTM_RATIO);
+//		verts[6] = b2Vec2(26.5f / PTM_RATIO, -20.2f / PTM_RATIO);
+//		verts[7] = b2Vec2(31.1f / PTM_RATIO, -9.7f / PTM_RATIO);
+//		verts[8] = b2Vec2(30.8f / PTM_RATIO, 18.0f / PTM_RATIO);
+//	}
+//	else {
+//		verts[0] = b2Vec2(2.7f / PTM_RATIO, 15.5f / PTM_RATIO);
+//		verts[1] = b2Vec2(-7.1f / PTM_RATIO, 15.5f / PTM_RATIO);
+//		verts[2] = b2Vec2(-15.1f / PTM_RATIO, 8.5f / PTM_RATIO);
+//		verts[3] = b2Vec2(-15.1f / PTM_RATIO, -5.5f / PTM_RATIO);
+//		verts[4] = b2Vec2(-5.5f / PTM_RATIO, -15.2f / PTM_RATIO);
+//		verts[5] = b2Vec2(3.5f / PTM_RATIO, -15.2f / PTM_RATIO);
+//		verts[6] = b2Vec2(13.2f / PTM_RATIO, -10.1f / PTM_RATIO);
+//		verts[7] = b2Vec2(15.5f / PTM_RATIO, -4.8f / PTM_RATIO);
+//		verts[8] = b2Vec2(15.4f / PTM_RATIO, 9.0f / PTM_RATIO);
+//	}
 	
 
 
