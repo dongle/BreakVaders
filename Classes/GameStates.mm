@@ -4742,8 +4742,24 @@ xxzqqqqqqzxx";
 	}
 }
 
-- (int) getPowerup { return 4; }
-- (int) getPowerupChance { return 100; }
+- (int) getPowerup {
+	int effect;
+	// spawn powerups of random type
+	int powerupType = arc4random() % 2;
+	switch (powerupType) {
+		case 0:
+			effect = 1;
+			break;
+		case 1:
+			effect = POW_CDRBOBBLE;
+			break;
+		default:
+			effect = 0;
+			break;
+	}
+	return effect;
+}
+- (int) getPowerupChance { return 50; }
 
 @end
 
