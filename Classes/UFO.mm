@@ -9,6 +9,14 @@
 #import "UFO.h"
 #include "GameSettings.h"
 
+@interface UFO()
+{
+    CCAction *_enterAction;
+    CCAction *_releaseAction;
+}
+
+@end
+
 @implementation UFO
 
 @synthesize enterAnim = _enterAnim;
@@ -48,7 +56,7 @@
 		}
 		self.releaseAnim = [CCAnimation animationWithSpriteFrames:animFrames delay:GAME_SPB/3.0f];
 		
-		[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.enterAnim restoreOriginalFrame:NO] ]];
+		_enterAction = [self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.enterAnim restoreOriginalFrame:NO] ]];
 
 	}
 	return self;
@@ -64,6 +72,7 @@
 
 - (void) drop {
 	[_mynuke makeActive];
+    [self stopAction:_releaseAction];
 	[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.leaveAnim restoreOriginalFrame:NO] ]];
 }
 
@@ -93,11 +102,19 @@
 	self.position = ccp(from, pos.y+offset);
 
 	id action1 = [CCMoveTo actionWithDuration:2 position:ccp(pos.x, pos.y+offset)];
-	id action2 = [CCAnimate actionWithAnimation:self.releaseAnim restoreOriginalFrame:NO];
-	id action3 = [CCMoveTo actionWithDuration:2  position: ccp(to,pos.y+offset)];
-	[self runAction: [CCSequence actions:action1, action2, 
-					  [CCCallFuncN actionWithTarget:self selector:@selector(drop)], action3, 
+    id action2 = [CCCallFuncN actionWithTarget:self selector:@selector(stopEnterAnim)];
+	id action3 = [CCAnimate actionWithAnimation:self.releaseAnim restoreOriginalFrame:NO];
+	id action4 = [CCMoveTo actionWithDuration:2  position: ccp(to,pos.y+offset)];
+	[self runAction: [CCSequence actions:action1, action2, action3,
+					  [CCCallFuncN actionWithTarget:self selector:@selector(drop)], action4,
 					  [CCCallFuncN actionWithTarget:self selector:@selector(die)], nil]];
+    
+    _releaseAction = action3;
+}
+
+- (void)stopEnterAnim
+{
+    [self stopAction:_enterAction];
 }
 
 @end
