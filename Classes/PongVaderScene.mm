@@ -1919,7 +1919,7 @@ static vector<MouseJointStruct> joints;
 	else
 		_effectring.rotation = _effectring.rotation * (1-k) + rotTgt * k;
 
-	NSLog(@"%8.4f dur, %8.4f angle", animate.duration, _effectring.rotation);
+//	NSLog(@"%8.4f dur, %8.4f angle", animate.duration, _effectring.rotation);
 }
 
 #pragma mark Scene entity management -------------------------------------
