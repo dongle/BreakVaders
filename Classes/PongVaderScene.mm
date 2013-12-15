@@ -1064,7 +1064,7 @@ static PongVader *_globalSceneInst = nil;
 			if ([invader isDead] && invader.b2dBody->IsActive()) {
 				[destroyedInvaders addObject:invader];
 			}
-			if ([invader isDead] && [invader isMemberOfClass:[DynamicInvader class]]) {
+			else if ([invader isDead] && [invader isMemberOfClass:[DynamicInvader class]]) {
 				[destroyedInvaders addObject:invader];
 			}
 		}
