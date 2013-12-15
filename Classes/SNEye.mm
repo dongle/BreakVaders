@@ -331,7 +331,7 @@
 	}
 	else {
 		[super doHitFrom:ball withDamage:1];
-		[[SimpleAudioEngine _sharedEngine] playEffect:@"EyeWail.wav"];
+		[[SimpleAudioEngine sharedEngine] playEffect:@"EyeWail.wav"];
 		if (![self isDead]) _shaking = YES;
 		for (Ball *ball in [PongVader getInstance].balls) {
 			[ball doKill];
