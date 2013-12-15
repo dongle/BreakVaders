@@ -167,7 +167,8 @@ b2Vec2 *getDVerts(int frame) {
 	int frame = DAWDLE_NUM_FRAMES * _animTime / duration;
 	if (frame != _lastFrame) {
 	
-		[self setDisplayFrame:[_dawdle.frames objectAtIndex:frame]];
+        CCSpriteFrame *currentFrame = [(CCAnimationFrame *)[_dawdle.frames objectAtIndex:frame] spriteFrame];
+		[self setDisplayFrame:currentFrame];
 
 		if ((frame%4)==0) {
 			b2Fixture *fixture = _b2dBody->GetFixtureList();
