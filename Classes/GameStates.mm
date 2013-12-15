@@ -1702,14 +1702,6 @@ static int numLevels = 33;
 	[[BeatSequencer getInstance] addResponder:pv.starfield];
 	[[BeatSequencer getInstance] startWithSong:music andBPM:bpm shifted: -0.1];
 	
-	// set Ep1 or Ep2 as played if entering first level
-	if (curLevel == EPISODE_ONE_LEVEL) {
-		[pv.settings set:@"PlayedEpOne" toInt:1];
-	}
-	else if (curLevel == EPISODE_TWO_LEVEL) {
-		[pv.settings set:@"PlayedEpTwo" toInt:1];
-	}
-	
 	pv.accelNormalized = NO;
 	
 }
