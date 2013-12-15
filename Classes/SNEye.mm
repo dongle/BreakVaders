@@ -118,11 +118,8 @@
 		[frame.texture setAliasTexParameters];
 		[animFrames addObject:frame];		
 	}
-	//invader.eyeOpen = [CCAnimation animationWithName:@"eyeOpen" delay:GAME_SPB/3.0f frames:animFrames];
-	//[invader addAnimation: [CCAnimation animationWithName:@"eyeOpen" delay:GAME_SPB/3.0f frames:animFrames]];
 	
 	invader.eyeOpen = [CCAnimation animationWithSpriteFrames:animFrames delay:(((float) NUMSHOTS)/[BeatSequencer getInstance].bpmin)];
-//	[invader addAnimation: [CCAnimation animationWithName:@"eyeOpen" delay:(((float) NUMSHOTS)/[BeatSequencer getInstance].bpmin) frames:animFrames]];
 	
 	for (int i=1; i<=EYE_NUM_FRAMES-1; i++) {
 		CCSpriteFrame *frame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"boss2_%d.png", i]];
@@ -137,11 +134,6 @@
 		[dyingFrames addObject:frame];		
 	}
 	invader.deadEye = [CCAnimation animationWithSpriteFrames:dyingFrames delay:GAME_SPB/3.0f];
-	
-	//CCSpriteFrame *idleFrame = [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"boss2_5.png"];
-	//[idleFrame.texture setAliasTexParameters];
-	//[idleFrames addObject:idleFrame];	
-	//invader.idle = [CCAnimation animationWithName:@"idle" delay:GAME_SPB/8.0f frames:idleFrames];
 	
 	if (w) [invader createBodyInWorld: w];
 	
@@ -244,7 +236,8 @@
 	[[SimpleAudioEngine sharedEngine] playEffect:@"EyeUnfreeze.wav"];
 	
 	[self stopAllActions];
-	[self setDisplayFrame:_eyeOpen.frames[0]];
+    CCSpriteFrame *normal = [(CCAnimationFrame *)[_eyeOpen.frames objectAtIndex:0] spriteFrame];
+	[self setDisplayFrame:normal];
 }
 
 - (void) nowShoot: (NSNumber *) ang {
