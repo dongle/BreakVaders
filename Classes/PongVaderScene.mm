@@ -1004,6 +1004,7 @@ static PongVader *_globalSceneInst = nil;
 		
 		// display pop animation
 		if (deadInvader.pop) {
+            [deadInvader stopAllActions];
 			CCSequence *popAction = [CCSequence actions:
 									 [CCAnimate actionWithAnimation:deadInvader.pop restoreOriginalFrame:NO],
 									 [CCCallFuncN actionWithTarget:self selector:@selector(cleanupInvader:)], nil];

@@ -15,6 +15,7 @@
 @interface Invader : StaticSpriteBody<Shooter> {
 	int _health;
 	BOOL _promoted;
+    CCAction *_promotedAction;
 }
 
 @property (readwrite, assign) int health;

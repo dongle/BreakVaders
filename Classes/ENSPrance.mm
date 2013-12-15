@@ -54,13 +54,11 @@
 - (void) promote: (int) level {
 	self.promoted = true;
 	self.health = 2;
-//	[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.armored restoreOriginalFrame:NO] ]];
-    
-    [self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.armored] ]];
+    [super promote:level];
 }
 
 - (void) removeArmor {
-	[self runAction:[CCRepeatForever actionWithAction: [CCAnimate actionWithAnimation:self.idle] ]];
+    [super removeArmor];
 }
 
 - (void) doDestroyedScore: (Ball *) ball {
