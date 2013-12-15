@@ -31,17 +31,17 @@
 //		b2Vec2(31.0f / PTM_RATIO, -31.0f / PTM_RATIO)
 //	};
 	
-	int num = 8;
-	b2Vec2 verts[] = {
-		b2Vec2(22.9f / PTM_RATIO, 31.2f / PTM_RATIO),
-		b2Vec2(-23.5f / PTM_RATIO, 31.0f / PTM_RATIO),
-		b2Vec2(-30.6f / PTM_RATIO, 25.6f / PTM_RATIO),
-		b2Vec2(-30.7f / PTM_RATIO, -23.7f / PTM_RATIO),
-		b2Vec2(-26.1f / PTM_RATIO, -30.9f / PTM_RATIO),
-		b2Vec2(23.7f / PTM_RATIO, -31.0f / PTM_RATIO),
-		b2Vec2(31.1f / PTM_RATIO, -24.1f / PTM_RATIO),
-		b2Vec2(30.9f / PTM_RATIO, 25.4f / PTM_RATIO)
-	};
+//	int num = 8;
+//	b2Vec2 verts[] = {
+//		b2Vec2(22.9f / PTM_RATIO, 31.2f / PTM_RATIO),
+//		b2Vec2(-23.5f / PTM_RATIO, 31.0f / PTM_RATIO),
+//		b2Vec2(-30.6f / PTM_RATIO, 25.6f / PTM_RATIO),
+//		b2Vec2(-30.7f / PTM_RATIO, -23.7f / PTM_RATIO),
+//		b2Vec2(-26.1f / PTM_RATIO, -30.9f / PTM_RATIO),
+//		b2Vec2(23.7f / PTM_RATIO, -31.0f / PTM_RATIO),
+//		b2Vec2(31.1f / PTM_RATIO, -24.1f / PTM_RATIO),
+//		b2Vec2(30.9f / PTM_RATIO, 25.4f / PTM_RATIO)
+//	};
 	
 //	int num = 9;
 //	b2Vec2 verts[9];
@@ -71,7 +71,28 @@
 //	}
 	
 
+	const int num = 7;
+	b2Vec2 verts[num];
 
+
+	if (_IPAD) {
+		verts[0] = b2Vec2(30.0f / PTM_RATIO, 16.0f / PTM_RATIO);
+		verts[1] = b2Vec2(-4.0f / PTM_RATIO, 30.0f / PTM_RATIO);
+		verts[2] = b2Vec2(-14.0f / PTM_RATIO, 30.0f / PTM_RATIO);
+		verts[3] = b2Vec2(-30.0f / PTM_RATIO, 16.0f / PTM_RATIO);
+		verts[4] = b2Vec2(-30.0f / PTM_RATIO, -6.0f / PTM_RATIO);
+		verts[5] = b2Vec2(-4.0f / PTM_RATIO, -32.0f / PTM_RATIO);
+		verts[6] = b2Vec2(24.0f / PTM_RATIO, -22.0f / PTM_RATIO);
+	}
+	else {
+		verts[0] = b2Vec2(15.0f / PTM_RATIO, 8.0f / PTM_RATIO);
+		verts[1] = b2Vec2(-2.0f / PTM_RATIO, 15.0f / PTM_RATIO);
+		verts[2] = b2Vec2(-7.0f / PTM_RATIO, 15.0f / PTM_RATIO);
+		verts[3] = b2Vec2(-15.0f / PTM_RATIO, 8.0f / PTM_RATIO);
+		verts[4] = b2Vec2(-15.0f / PTM_RATIO, -3.0f / PTM_RATIO);
+		verts[5] = b2Vec2(-2.0f / PTM_RATIO, -16.0f / PTM_RATIO);
+		verts[6] = b2Vec2(12.0f / PTM_RATIO, -11.0f / PTM_RATIO);
+	}
 
 
 	invShape.Set(verts, num);
