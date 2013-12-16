@@ -751,8 +751,9 @@ static int numLevels = 33;
 	else if ([label.labelname isEqualToString:@"EP2"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:10] node] position];
 		_arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
-		curLevel = EPISODE_TWO_LEVEL;
-	} 
+//		curLevel = EPISODE_TWO_LEVEL;
+        curLevel = 25;
+	}
 	
 	return self;
 }
@@ -6739,7 +6740,7 @@ rrr";
 //xxxxxxxxx";
 	
 char block1[] = "\
-xxxxxxxyx\
+xxyxxxyxx\
 xfffffffx\
 xfxxxxxfx\
 xfxxxxxfx\
@@ -6747,7 +6748,7 @@ xfxxxxxrx\
 xrxxxxxrx\
 xrxxxxxrx\
 xrrrrrrrx\
-xyxxxxxx";
+xxyxxxyx";
 
 char block2[] = "\
 xxxxxxxxx\
@@ -7932,7 +7933,7 @@ xxxxxxxxxxxxxxxx";
 		16,   17,   18,   19,   20,   21,   22,   23,   24,   25,   26,   27,   28,   29,   30,   31,  
 		32,   33,   34,   35,   36,   37,   38,   39,   55,  40,  41,  42,  44,   45,   46,   47,
 		48,   49,   50,   51,   52,   53,   54,   70,  57,  58,  59,  76,  43,  61,   62,   63,
-		64,   65,   66,   67,   68,   69,   85,  5,  73,  74,  75,  92,  93,  60,  78,   79,
+		64,   65,   66,   67,   68,   69,   85,  56,  73,  74,  75,  92,  93,  60,  78,   79,
 		80,   81,   82,   83,   84,   100, 71,  72,  88,   89,   90,   91,   109,  110, 77,  95,
 		96,   97,   98,   99,   116, 86,  87, 103,  104,  105,  106,  107,  108,  125, 126, 94,
 		112,  113,  114,  115,  132, 101, 102, 119,  120,  121,  122,  123,  124,  141, 142, 111,
@@ -8002,17 +8003,6 @@ xxxxxxxxxxxxxxxx";
 										 playing: @"bxbxmxmx"
 									  difficulty: curLevel] autorelease]};
 		
-		if ([[pv.settings get:@"Player1Type"] isEqualToString:@"HUMAN"] && [[pv.settings get:@"Player2Type"] isEqualToString:@"HUMAN"]) {
-			bombFleet1 = [[[BlockFleet alloc] initWithConfig: block3
-									andDims: ccp(1,1) 
-								withSpacing: _IPAD ? 32 : 16
-								   atOrigin: _IPAD ? origins[1] : originsphn[1]
-								  fromRight: NO 
-									playing: @"xxxxxxxx"
-								 difficulty: curLevel] autorelease];
-			
-		}
-		else {
 			bombFleet1 = [[[BlockFleet alloc] initWithConfig: block3
 										andDims: ccp(1,1) 
 									withSpacing: _IPAD ? 32 : 16
@@ -8028,42 +8018,12 @@ xxxxxxxxxxxxxxxx";
 												   fromRight: NO 
 													 playing: @"xxxxxxxx"
 												  difficulty: curLevel] autorelease];
-		}
-		
-//		[[[BlockFleet alloc] initWithConfig: block3
-//									andDims: ccp(1,1) 
-//								withSpacing: _IPAD ? 28 : 14
-//								   atOrigin: _IPAD ? origins[2] : originsphn[2]
-//								  fromRight: NO 
-//									playing: @"xxxxxxxx"
-//								 difficulty: curLevel] autorelease],
-//		[[[BlockFleet alloc] initWithConfig: block3
-//									andDims: ccp(1,1) 
-//								withSpacing: _IPAD ? 28 : 14
-//								   atOrigin: _IPAD ? origins[3] : originsphn[3]
-//								  fromRight: NO 
-//									playing: @"xxxxxxxx"
-//								 difficulty: curLevel] autorelease],
-//		[[[BlockFleet alloc] initWithConfig: block3
-//									andDims: ccp(1,1) 
-//								withSpacing: _IPAD ? 28 : 14
-//								   atOrigin: _IPAD ? origins[4] : originsphn[4]
-//								  fromRight: NO 
-//									playing: @"xxxxxxxx"
-//								 difficulty: curLevel] autorelease],
-		
-//	};	
+
 	
 	[pv addFleet: fleets[0]];
 	[pv addFleet: fleets[1]];
 	[pv addFleet: bombFleet1];
-	
-	if ([[pv.settings get:@"Player1Type"] isEqualToString:@"COMPUTER"] || [[pv.settings get:@"Player2Type"] isEqualToString:@"COMPUTER"]) {
-		[pv addFleet: bombFleet2];
-		[[BeatSequencer getInstance] addEvent:
-		 [AddBeatResponderEvent eventOnBeat:8 withResponder:bombFleet2 andSequencer:[BeatSequencer getInstance]]];
-	}
-
+    [pv addFleet: bombFleet2];
 	
 	for (Fleet *fleet in pv.fleets) {
 		[[BeatSequencer getInstance] addEvent:
@@ -8072,6 +8032,8 @@ xxxxxxxxxxxxxxxx";
 	
 	[[BeatSequencer getInstance] addEvent:
 	 [AddBeatResponderEvent eventOnBeat:8 withResponder:bombFleet1 andSequencer:[BeatSequencer getInstance]]];
+    [[BeatSequencer getInstance] addEvent:
+     [AddBeatResponderEvent eventOnBeat:8 withResponder:bombFleet2 andSequencer:[BeatSequencer getInstance]]];
 }
 
 @end
