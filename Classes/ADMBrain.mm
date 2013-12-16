@@ -311,7 +311,7 @@
 	
 	float delay = (15*speed)/[BeatSequencer getInstance].bpmin;
 	
-	printf("                             segs: %d, base %2d, (measure: %2d.%d) pulse: %2d, nshots: %2d\n", _segcount, 2+((BRAIN_MAX_SEGS-_segcount)/2), 1+(beat/8)/4, 1+(beat/8)%4, (int)(pulse*pulsefac), nshots);
+//	printf("                             segs: %d, base %2d, (measure: %2d.%d) pulse: %2d, nshots: %2d\n", _segcount, 2+((BRAIN_MAX_SEGS-_segcount)/2), 1+(beat/8)/4, 1+(beat/8)%4, (int)(pulse*pulsefac), nshots);
 	
 	for (int i=1; i<nshots; i++) {
 		[self performSelector:@selector(nowShoot:) withObject:[NSNumber numberWithInt:angle+i*10] afterDelay:i*delay];
