@@ -38,6 +38,7 @@
 @synthesize isNuke = _isNuke;
 @synthesize strobeTime = _strobeTime;
 @synthesize bounces = _bounces;
+@synthesize streak = _streak;
 
 + (SpriteBody*) spriteBodyAt: (CGPoint) p withForce: (CGPoint) f inWorld: (b2World *) w {
 	// Create sprite and add it to the layer
@@ -125,7 +126,7 @@
 	
 	ball.bounces = [NSMutableArray arrayWithCapacity:10];
     
-    ball->_streak = nil;
+    ball.streak = nil;
 	
 	// NSLog(@"created ball %@", ball);
 

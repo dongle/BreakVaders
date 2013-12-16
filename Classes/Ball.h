@@ -45,6 +45,7 @@
 @property (readwrite, assign) float AIOffset;
 @property (readwrite, assign) float strobeTime;
 @property (readwrite, assign) BOOL isNuke; // used to keep track of ball data for dynamic invaders
+@property (readwrite, assign) CCMotionStreak *streak;
 @property (nonatomic, retain) NSMutableArray *bounces;
 
 + (SpriteBody*) spriteBodyAt: (CGPoint) p withForce: (CGPoint) f inWorld: (b2World *) world;
