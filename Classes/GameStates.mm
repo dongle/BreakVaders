@@ -752,7 +752,7 @@ static int numLevels = 33;
 		p = [[(SelectedNode*)[_labels objectAtIndex:10] node] position];
 		_arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
 //		curLevel = EPISODE_TWO_LEVEL;
-        curLevel = 25;
+        curLevel = 27;
 	}
 	
 	return self;
@@ -1001,7 +1001,9 @@ static int numLevels = 33;
 		((StatePlaying *) next).shouldClearFirst = NO;
 	}	
 	else if ([label.labelname isEqualToString:@"MAIN MENU"]) {
-		next = [[[StateMainMenu alloc] init] autorelease]; 
+        PongVader *pv = [PongVader getInstance];
+        [pv.settings set:@"lastLevel" toInt:0];
+		next = [[[StateMainMenu alloc] init] autorelease];
 		((StatePlaying *) next).shouldClearFirst = YES;
 	}	
 	
@@ -2173,7 +2175,7 @@ static int numLevels = 33;
 //		[pv.player[i] setLastLevelScore];
 //		[pv.player[i] setLastLevelChain];
 //	}
-//	[pv.settings set:@"lastLevel" toInt:curLevel];
+	[pv.settings set:@"lastLevel" toInt:curLevel];
 }
 
 - (void) leave {
@@ -7478,11 +7480,11 @@ AAAAA";
 char block1[] = "\
 rrrrrrrr\
 rxxxaxxr\
-rxrrrrxr\
 rxxxxxxr\
-rrrrxrrr\
-xxrrxrxx\
 rxxxxxxr\
+rrrxxrrr\
+xxrxxrxx\
+xxxxxxxx\
 rrrrrrrr";
 
 	
