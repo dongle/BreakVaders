@@ -6837,14 +6837,14 @@ xxxxxxxxx";
 	
 	CGSize ssz = [CCDirector sharedDirector].winSize;
 	
-	char block1[] = "zzzz";
+	char block1[] = "xzzz";
 	
 char block2[] = "\
-TTTTTTTTTTT\
-qqqqqqqqqQQ\
-aaDESWSEDAA\
-aaaaaaaaaAA\
-ttttttttttt";
+TTTTTTTTTT\
+qqqqqqqqQQ\
+aDESWSEDAA\
+aaaaaaaaAA\
+tttttttttt";
 	
 	
 	//	unsigned char cycle[] = {
@@ -6885,7 +6885,7 @@ ttttttttttt";
 								 difficulty: curLevel] autorelease],		
 		
 		[[[DirBlockFleet alloc] initWithConfig: block2
-									   andDims: ccp(11,5) 
+									   andDims: ccp(10,5)
 								   withSpacing: _IPAD ? 40 : 20
 									  atOrigin: _IPAD ?  origins[2] : originsphn[2]
 									  maxWidth: _IPAD ? 350 : 175
