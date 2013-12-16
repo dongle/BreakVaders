@@ -1865,11 +1865,9 @@ static vector<MouseJointStruct> joints;
 	
 	if (!_bulletTime) {
 		_effectring.rotation = vec2angle(acceleration);
-		if (!self.accelNormalized) {
-			_baseAccel[0] = _baseAccel[0]*0.9 + acceleration.x*0.1;
-			_baseAccel[1] = _baseAccel[1]*0.9 + acceleration.y*0.1;
-			_baseAccel[2] = _baseAccel[2]*0.9 + acceleration.z*0.1;
-		}
+        _baseAccel[0] = _baseAccel[0]*0.9 + acceleration.x*0.1;
+        _baseAccel[1] = _baseAccel[1]*0.9 + acceleration.y*0.1;
+        _baseAccel[2] = _baseAccel[2]*0.9 + acceleration.z*0.1;
 		return;
 	}
 	
@@ -1887,7 +1885,7 @@ static vector<MouseJointStruct> joints;
 		_oldImpulse = impulse;
 	}
 	else {
-		impulse = b2Vec2( 0*_oldImpulse.x + accel[0]/2.0, 0*_oldImpulse.y + accel[1]/2.0);
+		impulse = b2Vec2( 0*_oldImpulse.x + accel[0]/3.0, 0*_oldImpulse.y + accel[1]/3.0);
 		_oldImpulse = impulse;
 	}
 	
