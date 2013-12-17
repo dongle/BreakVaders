@@ -751,8 +751,7 @@ static int numLevels = 33;
 	else if ([label.labelname isEqualToString:@"EP2"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:10] node] position];
 		_arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
-//		curLevel = EPISODE_TWO_LEVEL;
-        curLevel = 27;
+		curLevel = EPISODE_TWO_LEVEL;
 	}
 	
 	return self;

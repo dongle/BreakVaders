@@ -118,12 +118,9 @@
 		CB90213A1852DE9400F3B416 /* pixplanet2.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020861852DE9400F3B416 /* pixplanet2.png */; };
 		CB90213B1852DE9400F3B416 /* planet.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020871852DE9400F3B416 /* planet.wav */; };
 		CB90213C1852DE9400F3B416 /* Pong.cfxr in Resources */ = {isa = PBXBuildFile; fileRef = CB9020881852DE9400F3B416 /* Pong.cfxr */; };
-		CB90213E1852DE9400F3B416 /* pongvaders-low.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB90208A1852DE9400F3B416 /* pongvaders-low.plist */; };
-		CB90213F1852DE9400F3B416 /* pongvaders-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90208B1852DE9400F3B416 /* pongvaders-low.png */; };
-		CB9021401852DE9400F3B416 /* pongvaders-low.zss in Resources */ = {isa = PBXBuildFile; fileRef = CB90208C1852DE9400F3B416 /* pongvaders-low.zss */; };
-		CB9021411852DE9400F3B416 /* pongvaders.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB90208D1852DE9400F3B416 /* pongvaders.plist */; };
-		CB9021421852DE9400F3B416 /* pongvaders.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90208E1852DE9400F3B416 /* pongvaders.png */; };
-		CB9021431852DE9400F3B416 /* pongvaders.zss in Resources */ = {isa = PBXBuildFile; fileRef = CB90208F1852DE9400F3B416 /* pongvaders.zss */; };
+		CB9021411852DE9400F3B416 /* pongvaders-hd.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB90208D1852DE9400F3B416 /* pongvaders-hd.plist */; };
+		CB9021421852DE9400F3B416 /* pongvaders-hd.png in Resources */ = {isa = PBXBuildFile; fileRef = CB90208E1852DE9400F3B416 /* pongvaders-hd.png */; };
+		CB9021431852DE9400F3B416 /* pongvaders-hd.zss in Resources */ = {isa = PBXBuildFile; fileRef = CB90208F1852DE9400F3B416 /* pongvaders-hd.zss */; };
 		CB9021441852DE9400F3B416 /* portal.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020901852DE9400F3B416 /* portal.wav */; };
 		CB9021451852DE9400F3B416 /* powerup.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020911852DE9400F3B416 /* powerup.wav */; };
 		CB9021461852DE9400F3B416 /* powerupParticle.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9020921852DE9400F3B416 /* powerupParticle.plist */; };
@@ -176,6 +173,15 @@
 		CB9021781852DE9400F3B416 /* wail.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C41852DE9400F3B416 /* wail.wav */; };
 		CB9021791852DE9400F3B416 /* warp.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C51852DE9400F3B416 /* warp.wav */; };
 		CB90217A1852DE9400F3B416 /* yellowPill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C61852DE9400F3B416 /* yellowPill.png */; };
+		CBBB27151860142A003C4A18 /* pongvaders-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = CBBB27121860142A003C4A18 /* pongvaders-ipad.plist */; };
+		CBBB27161860142A003C4A18 /* pongvaders-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBB27131860142A003C4A18 /* pongvaders-ipad.png */; };
+		CBBB27171860142A003C4A18 /* pongvaders-ipad.zss in Resources */ = {isa = PBXBuildFile; fileRef = CBBB27141860142A003C4A18 /* pongvaders-ipad.zss */; };
+		CBBB271E18601783003C4A18 /* pongvaders-ipadhd.plist in Resources */ = {isa = PBXBuildFile; fileRef = CBBB271818601783003C4A18 /* pongvaders-ipadhd.plist */; };
+		CBBB271F18601783003C4A18 /* pongvaders-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBB271918601783003C4A18 /* pongvaders-ipadhd.png */; };
+		CBBB272018601783003C4A18 /* pongvaders-ipadhd.zss in Resources */ = {isa = PBXBuildFile; fileRef = CBBB271A18601783003C4A18 /* pongvaders-ipadhd.zss */; };
+		CBBB272118601783003C4A18 /* pongvaders.plist in Resources */ = {isa = PBXBuildFile; fileRef = CBBB271B18601783003C4A18 /* pongvaders.plist */; };
+		CBBB272218601783003C4A18 /* pongvaders.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBB271C18601783003C4A18 /* pongvaders.png */; };
+		CBBB272318601783003C4A18 /* pongvaders.zss in Resources */ = {isa = PBXBuildFile; fileRef = CBBB271D18601783003C4A18 /* pongvaders.zss */; };
 		CBFA56461852E33D00879246 /* BVAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F91851AA6300A0D2FB /* BVAppDelegate.mm */; };
 		CBFA56481852E36100879246 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CB1077F51851AA6300A0D2FB /* main.m */; };
 		CBFA56C21852F41100879246 /* AABBQueryCallback.mm in Sources */ = {isa = PBXBuildFile; fileRef = CBFA564B1852F41100879246 /* AABBQueryCallback.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -368,12 +374,9 @@
 		CB9020871852DE9400F3B416 /* planet.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = planet.wav; path = Resources/planet.wav; sourceTree = "<group>"; };
 		CB9020881852DE9400F3B416 /* Pong.cfxr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Pong.cfxr; path = Resources/Pong.cfxr; sourceTree = "<group>"; };
 		CB9020891852DE9400F3B416 /* pongvaders sound effects round infinity.cfxr */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "pongvaders sound effects round infinity.cfxr"; path = "Resources/pongvaders sound effects round infinity.cfxr"; sourceTree = "<group>"; };
-		CB90208A1852DE9400F3B416 /* pongvaders-low.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "pongvaders-low.plist"; path = "Resources/pongvaders-low.plist"; sourceTree = "<group>"; };
-		CB90208B1852DE9400F3B416 /* pongvaders-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pongvaders-low.png"; path = "Resources/pongvaders-low.png"; sourceTree = "<group>"; };
-		CB90208C1852DE9400F3B416 /* pongvaders-low.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = "pongvaders-low.zss"; path = "Resources/pongvaders-low.zss"; sourceTree = "<group>"; };
-		CB90208D1852DE9400F3B416 /* pongvaders.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = pongvaders.plist; path = Resources/pongvaders.plist; sourceTree = "<group>"; };
-		CB90208E1852DE9400F3B416 /* pongvaders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pongvaders.png; path = Resources/pongvaders.png; sourceTree = "<group>"; };
-		CB90208F1852DE9400F3B416 /* pongvaders.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = pongvaders.zss; path = Resources/pongvaders.zss; sourceTree = "<group>"; };
+		CB90208D1852DE9400F3B416 /* pongvaders-hd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "pongvaders-hd.plist"; path = "Resources/pongvaders-hd.plist"; sourceTree = "<group>"; };
+		CB90208E1852DE9400F3B416 /* pongvaders-hd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pongvaders-hd.png"; path = "Resources/pongvaders-hd.png"; sourceTree = "<group>"; };
+		CB90208F1852DE9400F3B416 /* pongvaders-hd.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = "pongvaders-hd.zss"; path = "Resources/pongvaders-hd.zss"; sourceTree = "<group>"; };
 		CB9020901852DE9400F3B416 /* portal.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = portal.wav; path = Resources/portal.wav; sourceTree = "<group>"; };
 		CB9020911852DE9400F3B416 /* powerup.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = powerup.wav; path = Resources/powerup.wav; sourceTree = "<group>"; };
 		CB9020921852DE9400F3B416 /* powerupParticle.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = powerupParticle.plist; path = Resources/powerupParticle.plist; sourceTree = "<group>"; };
@@ -427,6 +430,15 @@
 		CB9020C41852DE9400F3B416 /* wail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = wail.wav; path = Resources/wail.wav; sourceTree = "<group>"; };
 		CB9020C51852DE9400F3B416 /* warp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = warp.wav; path = Resources/warp.wav; sourceTree = "<group>"; };
 		CB9020C61852DE9400F3B416 /* yellowPill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yellowPill.png; path = Resources/yellowPill.png; sourceTree = "<group>"; };
+		CBBB27121860142A003C4A18 /* pongvaders-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "pongvaders-ipad.plist"; path = "Resources/pongvaders-ipad.plist"; sourceTree = "<group>"; };
+		CBBB27131860142A003C4A18 /* pongvaders-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pongvaders-ipad.png"; path = "Resources/pongvaders-ipad.png"; sourceTree = "<group>"; };
+		CBBB27141860142A003C4A18 /* pongvaders-ipad.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = "pongvaders-ipad.zss"; path = "Resources/pongvaders-ipad.zss"; sourceTree = "<group>"; };
+		CBBB271818601783003C4A18 /* pongvaders-ipadhd.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "pongvaders-ipadhd.plist"; path = "Resources/pongvaders-ipadhd.plist"; sourceTree = "<group>"; };
+		CBBB271918601783003C4A18 /* pongvaders-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pongvaders-ipadhd.png"; path = "Resources/pongvaders-ipadhd.png"; sourceTree = "<group>"; };
+		CBBB271A18601783003C4A18 /* pongvaders-ipadhd.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = "pongvaders-ipadhd.zss"; path = "Resources/pongvaders-ipadhd.zss"; sourceTree = "<group>"; };
+		CBBB271B18601783003C4A18 /* pongvaders.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = pongvaders.plist; path = Resources/pongvaders.plist; sourceTree = "<group>"; };
+		CBBB271C18601783003C4A18 /* pongvaders.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pongvaders.png; path = Resources/pongvaders.png; sourceTree = "<group>"; };
+		CBBB271D18601783003C4A18 /* pongvaders.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = pongvaders.zss; path = Resources/pongvaders.zss; sourceTree = "<group>"; };
 		CBFA564A1852F41100879246 /* AABBQueryCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AABBQueryCallback.h; path = Classes/AABBQueryCallback.h; sourceTree = "<group>"; };
 		CBFA564B1852F41100879246 /* AABBQueryCallback.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AABBQueryCallback.mm; path = Classes/AABBQueryCallback.mm; sourceTree = "<group>"; };
 		CBFA564C1852F41100879246 /* ADMBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADMBrain.h; path = Classes/ADMBrain.h; sourceTree = "<group>"; };
@@ -724,12 +736,18 @@
 				CB9020871852DE9400F3B416 /* planet.wav */,
 				CB9020881852DE9400F3B416 /* Pong.cfxr */,
 				CB9020891852DE9400F3B416 /* pongvaders sound effects round infinity.cfxr */,
-				CB90208A1852DE9400F3B416 /* pongvaders-low.plist */,
-				CB90208B1852DE9400F3B416 /* pongvaders-low.png */,
-				CB90208C1852DE9400F3B416 /* pongvaders-low.zss */,
-				CB90208D1852DE9400F3B416 /* pongvaders.plist */,
-				CB90208E1852DE9400F3B416 /* pongvaders.png */,
-				CB90208F1852DE9400F3B416 /* pongvaders.zss */,
+				CBBB271818601783003C4A18 /* pongvaders-ipadhd.plist */,
+				CBBB271918601783003C4A18 /* pongvaders-ipadhd.png */,
+				CBBB271A18601783003C4A18 /* pongvaders-ipadhd.zss */,
+				CBBB271B18601783003C4A18 /* pongvaders.plist */,
+				CBBB271C18601783003C4A18 /* pongvaders.png */,
+				CBBB271D18601783003C4A18 /* pongvaders.zss */,
+				CB90208D1852DE9400F3B416 /* pongvaders-hd.plist */,
+				CB90208E1852DE9400F3B416 /* pongvaders-hd.png */,
+				CB90208F1852DE9400F3B416 /* pongvaders-hd.zss */,
+				CBBB27121860142A003C4A18 /* pongvaders-ipad.plist */,
+				CBBB27131860142A003C4A18 /* pongvaders-ipad.png */,
+				CBBB27141860142A003C4A18 /* pongvaders-ipad.zss */,
 				CB9020901852DE9400F3B416 /* portal.wav */,
 				CB9020911852DE9400F3B416 /* powerup.wav */,
 				CB9020921852DE9400F3B416 /* powerupParticle.plist */,
@@ -1059,12 +1077,14 @@
 				CB9020F41852DE9400F3B416 /* effectring4.png in Resources */,
 				CB9020D81852DE9400F3B416 /* boss1.png in Resources */,
 				CB9021091852DE9400F3B416 /* bobblearsm.png in Resources */,
+				CBBB272318601783003C4A18 /* pongvaders.zss in Resources */,
 				CB9021141852DE9400F3B416 /* redPill2x.png in Resources */,
 				CB9021521852DE9400F3B416 /* pvaders24.fnt in Resources */,
 				CB9020D01852DE9400F3B416 /* bluePill.png in Resources */,
 				CB90212B1852DE9400F3B416 /* mountains1-low.png in Resources */,
-				CB9021421852DE9400F3B416 /* pongvaders.png in Resources */,
+				CB9021421852DE9400F3B416 /* pongvaders-hd.png in Resources */,
 				CB9021211852DE9400F3B416 /* invader128.png in Resources */,
+				CBBB27151860142A003C4A18 /* pongvaders-ipad.plist in Resources */,
 				CB9021221852DE9400F3B416 /* jon-bobble-ipad.png in Resources */,
 				CB90214B1852DE9400F3B416 /* pvaders.ttf in Resources */,
 				CB90212F1852DE9400F3B416 /* nsLogo.png in Resources */,
@@ -1086,8 +1106,8 @@
 				CB9021171852DE9400F3B416 /* smcity2.png in Resources */,
 				CB9020DC1852DE9400F3B416 /* city1.png in Resources */,
 				CB9021631852DE9400F3B416 /* slice.wav in Resources */,
-				CB9021401852DE9400F3B416 /* pongvaders-low.zss in Resources */,
 				CB9020F31852DE9400F3B416 /* effectring3.png in Resources */,
+				CBBB271E18601783003C4A18 /* pongvaders-ipadhd.plist in Resources */,
 				CB9021131852DE9400F3B416 /* redball.png in Resources */,
 				CB9021381852DE9400F3B416 /* pixplanet.png in Resources */,
 				CB9021101852DE9400F3B416 /* prancearsm.png in Resources */,
@@ -1099,6 +1119,7 @@
 				CB90214A1852DE9400F3B416 /* pvaders.hiero in Resources */,
 				CB9020CC1852DE9400F3B416 /* BallDoubleHollow.png in Resources */,
 				CB9020DF1852DE9400F3B416 /* city3-low.png in Resources */,
+				CBBB272018601783003C4A18 /* pongvaders-ipadhd.zss in Resources */,
 				CB9021201852DE9400F3B416 /* invader32.png in Resources */,
 				CB9020E01852DE9400F3B416 /* city3.png in Resources */,
 				CB90215E1852DE9400F3B416 /* shield32.png in Resources */,
@@ -1123,6 +1144,7 @@
 				CB9020DE1852DE9400F3B416 /* city2.png in Resources */,
 				CB9020F61852DE9400F3B416 /* effectring5.png in Resources */,
 				CB9020F91852DE9400F3B416 /* expand.wav in Resources */,
+				CBBB27161860142A003C4A18 /* pongvaders-ipad.png in Resources */,
 				CB9021661852DE9400F3B416 /* smallExplosion.plist in Resources */,
 				CB9020E91852DE9400F3B416 /* DawdleHurt.wav in Resources */,
 				CB90212C1852DE9400F3B416 /* mountains1.png in Resources */,
@@ -1134,7 +1156,6 @@
 				CB90215A1852DE9400F3B416 /* quarterplanet.png in Resources */,
 				CB9021161852DE9400F3B416 /* smcity1.png in Resources */,
 				CBFA56DD1852F41100879246 /* Info.xib in Resources */,
-				CB90213E1852DE9400F3B416 /* pongvaders-low.plist in Resources */,
 				CB9021761852DE9400F3B416 /* textbubblewedge.png in Resources */,
 				CB9020EE1852DE9400F3B416 /* draftloop-04.mp3 in Resources */,
 				CB90212D1852DE9400F3B416 /* mountains2-low.png in Resources */,
@@ -1151,6 +1172,7 @@
 				CB9021151852DE9400F3B416 /* slice.png in Resources */,
 				CB9021021852DE9400F3B416 /* fuzz.mp3 in Resources */,
 				CB9021481852DE9400F3B416 /* prance1.png in Resources */,
+				CBBB272218601783003C4A18 /* pongvaders.png in Resources */,
 				CB9021041852DE9400F3B416 /* greenPill-low.png in Resources */,
 				CB9021731852DE9400F3B416 /* textbubble.png in Resources */,
 				CB9021321852DE9400F3B416 /* oldstreak.png in Resources */,
@@ -1160,6 +1182,7 @@
 				CB9020C81852DE9400F3B416 /* arrow-low.png in Resources */,
 				CB90214D1852DE9400F3B416 /* pvaders8.png in Resources */,
 				CB9021691852DE9400F3B416 /* solvalou.fnt in Resources */,
+				CBBB27171860142A003C4A18 /* pongvaders-ipad.zss in Resources */,
 				CB9020E21852DE9400F3B416 /* city4.png in Resources */,
 				CB90216D1852DE9400F3B416 /* stars.png in Resources */,
 				CB9021451852DE9400F3B416 /* powerup.wav in Resources */,
@@ -1175,18 +1198,19 @@
 				CB9021681852DE9400F3B416 /* solvalou_combat_aircraft__solid.ttf in Resources */,
 				CB9021121852DE9400F3B416 /* pvaders-webfont.svg in Resources */,
 				CB9021051852DE9400F3B416 /* greenPill.png in Resources */,
+				CBBB272118601783003C4A18 /* pongvaders.plist in Resources */,
 				CB9021061852DE9400F3B416 /* greenshot.wav in Resources */,
 				CB9021671852DE9400F3B416 /* smallExplosion.png in Resources */,
 				CB9020C91852DE9400F3B416 /* arrow.png in Resources */,
 				CB9021331852DE9400F3B416 /* Paddle-low-half.png in Resources */,
 				CB9020E41852DE9400F3B416 /* cole-waddle-iphone.png in Resources */,
-				CB90213F1852DE9400F3B416 /* pongvaders-low.png in Resources */,
-				CB9021411852DE9400F3B416 /* pongvaders.plist in Resources */,
+				CB9021411852DE9400F3B416 /* pongvaders-hd.plist in Resources */,
 				CB90212A1852DE9400F3B416 /* mine.wav in Resources */,
 				CB9020F01852DE9400F3B416 /* effectring0.png in Resources */,
 				CB90210F1852DE9400F3B416 /* magPill2x.png in Resources */,
 				CB9020F21852DE9400F3B416 /* effectring2.png in Resources */,
 				CB9020EF1852DE9400F3B416 /* dynamic1.png in Resources */,
+				CBBB271F18601783003C4A18 /* pongvaders-ipadhd.png in Resources */,
 				CB9020FA1852DE9400F3B416 /* explosion.plist in Resources */,
 				CB1077FC1851AA6300A0D2FB /* Images.xcassets in Resources */,
 				CB90214F1852DE9400F3B416 /* pvaders12.png in Resources */,
@@ -1195,7 +1219,7 @@
 				CB9021651852DE9400F3B416 /* smallExplosion-iphone.png in Resources */,
 				CB9021721852DE9400F3B416 /* textbubble-low.png in Resources */,
 				CB9020CF1852DE9400F3B416 /* bluePill-low.png in Resources */,
-				CB9021431852DE9400F3B416 /* pongvaders.zss in Resources */,
+				CB9021431852DE9400F3B416 /* pongvaders-hd.zss in Resources */,
 				CB90213A1852DE9400F3B416 /* pixplanet2.png in Resources */,
 				CB9020FE1852DE9400F3B416 /* EyeWail.wav in Resources */,
 				CB9021031852DE9400F3B416 /* fuzz.wav in Resources */,
@@ -1394,6 +1418,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1429,6 +1454,7 @@
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 armv7s";
 			};
 			name = Release;
 		};
