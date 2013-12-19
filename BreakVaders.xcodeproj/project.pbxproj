@@ -18,6 +18,9 @@
 		CB1078051851AA6300A0D2FB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB1077ED1851AA6300A0D2FB /* UIKit.framework */; };
 		CB10780D1851AA6300A0D2FB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CB10780B1851AA6300A0D2FB /* InfoPlist.strings */; };
 		CB10780F1851AA6300A0D2FB /* BreakVadersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CB10780E1851AA6300A0D2FB /* BreakVadersTests.m */; };
+		CB29792118601EF2004C2432 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB29792018601EF2004C2432 /* SystemConfiguration.framework */; };
+		CB29792318601EFA004C2432 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB29792218601EFA004C2432 /* CoreData.framework */; };
+		CB29792518601F00004C2432 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB29792418601F00004C2432 /* libz.dylib */; };
 		CB9020C71852DE9400F3B416 /* apLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020111852DE9300F3B416 /* apLogo.png */; };
 		CB9020C81852DE9400F3B416 /* arrow-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020121852DE9300F3B416 /* arrow-low.png */; };
 		CB9020C91852DE9400F3B416 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020131852DE9300F3B416 /* arrow.png */; };
@@ -268,6 +271,10 @@
 		CB10780A1851AA6300A0D2FB /* BreakVadersTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BreakVadersTests-Info.plist"; sourceTree = "<group>"; };
 		CB10780C1851AA6300A0D2FB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CB10780E1851AA6300A0D2FB /* BreakVadersTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BreakVadersTests.m; sourceTree = "<group>"; };
+		CB29792018601EF2004C2432 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CB29792218601EFA004C2432 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		CB29792418601F00004C2432 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		CB297926186024AB004C2432 /* BVLocalOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BVLocalOptions.h; sourceTree = "<group>"; };
 		CB9020111852DE9300F3B416 /* apLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = apLogo.png; path = Resources/apLogo.png; sourceTree = "<group>"; };
 		CB9020121852DE9300F3B416 /* arrow-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow-low.png"; path = "Resources/arrow-low.png"; sourceTree = "<group>"; };
 		CB9020131852DE9300F3B416 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Resources/arrow.png; sourceTree = "<group>"; };
@@ -361,7 +368,6 @@
 		CB9020791852DE9400F3B416 /* mountains2-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "mountains2-low.png"; path = "Resources/mountains2-low.png"; sourceTree = "<group>"; };
 		CB90207A1852DE9400F3B416 /* mountains2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mountains2.png; path = Resources/mountains2.png; sourceTree = "<group>"; };
 		CB90207B1852DE9400F3B416 /* nsLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nsLogo.png; path = Resources/nsLogo.png; sourceTree = "<group>"; };
-		CB90207C1852DE9400F3B416 /* OFGameCenter.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = OFGameCenter.plist; path = Resources/OFGameCenter.plist; sourceTree = "<group>"; };
 		CB90207D1852DE9400F3B416 /* oldpowerupParticle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oldpowerupParticle.png; path = Resources/oldpowerupParticle.png; sourceTree = "<group>"; };
 		CB90207E1852DE9400F3B416 /* oldstreak.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = oldstreak.png; path = Resources/oldstreak.png; sourceTree = "<group>"; };
 		CB90207F1852DE9400F3B416 /* Paddle-low-half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Paddle-low-half.png"; path = "Resources/Paddle-low-half.png"; sourceTree = "<group>"; };
@@ -553,6 +559,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB29792518601F00004C2432 /* libz.dylib in Frameworks */,
+				CB29792318601EFA004C2432 /* CoreData.framework in Frameworks */,
+				CB29792118601EF2004C2432 /* SystemConfiguration.framework in Frameworks */,
 				CB1077EC1851AA6300A0D2FB /* CoreGraphics.framework in Frameworks */,
 				CB1077EE1851AA6300A0D2FB /* UIKit.framework in Frameworks */,
 				CB1077EA1851AA6300A0D2FB /* Foundation.framework in Frameworks */,
@@ -598,6 +607,9 @@
 		CB1077E81851AA6300A0D2FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB29792418601F00004C2432 /* libz.dylib */,
+				CB29792218601EFA004C2432 /* CoreData.framework */,
+				CB29792018601EF2004C2432 /* SystemConfiguration.framework */,
 				CB1077E91851AA6300A0D2FB /* Foundation.framework */,
 				CB1077EB1851AA6300A0D2FB /* CoreGraphics.framework */,
 				CB1077ED1851AA6300A0D2FB /* UIKit.framework */,
@@ -613,6 +625,7 @@
 				CBFA56491852F40000879246 /* PV files */,
 				CB1077F81851AA6300A0D2FB /* BVAppDelegate.h */,
 				CB1077F91851AA6300A0D2FB /* BVAppDelegate.mm */,
+				CB297926186024AB004C2432 /* BVLocalOptions.h */,
 				CBFA57021852F5F700879246 /* GameSettings.h */,
 			);
 			name = BreakVaders;
@@ -723,7 +736,6 @@
 				CB9020791852DE9400F3B416 /* mountains2-low.png */,
 				CB90207A1852DE9400F3B416 /* mountains2.png */,
 				CB90207B1852DE9400F3B416 /* nsLogo.png */,
-				CB90207C1852DE9400F3B416 /* OFGameCenter.plist */,
 				CB90207D1852DE9400F3B416 /* oldpowerupParticle.png */,
 				CB90207E1852DE9400F3B416 /* oldstreak.png */,
 				CB90207F1852DE9400F3B416 /* Paddle-low-half.png */,
@@ -1039,6 +1051,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Jonathan Beilin";
 				TargetAttributes = {
+					CB1077E51851AA6300A0D2FB = {
+						DevelopmentTeam = B2NLKQ6922;
+					};
 					CB1078001851AA6300A0D2FB = {
 						TestTargetID = CB1077E51851AA6300A0D2FB;
 					};
@@ -1385,7 +1400,7 @@
 			baseConfigurationReference = CB9020311852DE9300F3B416 /* Debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1427,7 +1442,7 @@
 			baseConfigurationReference = CB9020321852DE9300F3B416 /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1464,6 +1479,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BreakVaders-Prefix.pch";
 				INFOPLIST_FILE = "BreakVaders-Info.plist";
@@ -1478,6 +1494,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BreakVaders-Prefix.pch";
 				INFOPLIST_FILE = "BreakVaders-Info.plist";

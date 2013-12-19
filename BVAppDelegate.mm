@@ -10,6 +10,9 @@
 #import "OverlayViewController.h"
 #import "cocos2d.h"
 #import "PongVaderScene.h"
+#import "BVLocalOptions.h"
+
+#import "GAI.h"
 
 @implementation BVAppDelegate
 
@@ -61,6 +64,11 @@
     
     _window.backgroundColor = [UIColor blackColor];
     [_window makeKeyAndVisible];
+    
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:GAID];
+//    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
     return YES;
 }
 
