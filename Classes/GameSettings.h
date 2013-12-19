@@ -109,19 +109,6 @@
 // action tags
 #define ACTION_TAG_FLASHING 101
 
-// ACHIEVEMENTS
-#pragma once 
-
-#define HOT_BALLS @"516324" 
-#define BALL_MASTER @"516824" 
-#define HIGH_AS_BALLS @"516834" 
-#define BALL_BOUNCER @"516844" 
-#define BALL_JUGGLER_10 @"516854" 
-#define BALL_JUGGLER_20 @"516864" 
-#define BALL_JUGGLER_50 @"516874" 
-#define BALL_JUGGLER_100 @"516884" 
-#define BIG_BALLER @"516894" 
-
 // MUSIC
 
 #define MUSIC_FADE_TIME .5

@@ -1273,20 +1273,12 @@ static int numLevels = 33;
 		next = [[[StateInfo alloc] init] autorelease];
 	}
 	else if ([label.labelname isEqualToString:@"TOP SCORES"]) {
-//		[FlurryAPI logEvent:@"CHECKED_OF"];	
+//		[FlurryAPI logEvent:@"CHECKED_OF"];
 		if ([PongVader getInstance].OFstarted) {
 //			[OpenFeint launchDashboardWithHighscorePage:@"438984"];
 		}
 	}
 	else if ([label.labelname isEqualToString:@"POST SCORE"]) {
-//		BOOL p1h = [[pv.settings get:@"Player1Type"] isEqualToString:@"HUMAN"];
-//		BOOL p2h = [[pv.settings get:@"Player2Type"] isEqualToString:@"HUMAN"];
-//		[FlurryAPI logEvent:@"POSTED_SCORE"];
-//		if ([PongVader getInstance].OFstarted) {
-//			int combScore = (p1h?pv.player[0].score:0) + (p2h?pv.player[1].score:0);
-//			[OFSocialNotificationService sendWithText:[NSString stringWithFormat:@"scored %d points while saving the world from PongVaders. http://bit.ly/koduco", combScore] imageNamed:@"default"];
-//			[OFAchievementService updateAchievement:BIG_BALLER andPercentComplete:100 andShowNotification:YES];
-//		}
 	}
 	
 	if (next != self) {
@@ -3801,7 +3793,6 @@ static int numLevels = 33;
 		_peon.baseScale = 2.0;
 	}
 	if (pv.OFstarted) {
-//		[OFAchievementService updateAchievement:BALL_MASTER andPercentComplete:100 andShowNotification:YES];
 	}
 	[pv.settings set:@"BeatEpOne" toInt:1];
 	[pv.settings set:@"lastLevel" toInt:0];
@@ -4411,9 +4402,6 @@ static int numLevels = 33;
 	 [CCEaseExponentialOut actionWithAction:
 	  [CCMoveTo actionWithDuration:0.8 position:ccp(200, 512)]]];
 	peon = [[pv addSpriteBody:[ENSPrance class] atPos:ccp(800, boss.position.y) withForce:ccp(0,0)] retain];
-	if (pv.OFstarted) {
-		[OFAchievementService updateAchievement:BALL_MASTER andPercentComplete:100 andShowNotification:YES];
-	}
      */
 }
 

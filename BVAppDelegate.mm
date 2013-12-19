@@ -67,7 +67,7 @@
     
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:GAID];
-//    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     
     return YES;
 }
