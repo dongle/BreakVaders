@@ -104,9 +104,10 @@
 	NSString *_track3;
 	NSString *_track4;
 	
-	NSString *_smallFont;
-	NSString *_mediumFont;
-	NSString *_largeFont;
+    NSString *_fontName;
+	CGFloat  _smallFont;
+	CGFloat  _mediumFont;
+	CGFloat  _largeFont;
 	
 	CDSoundSource *_fuzz;
 	
@@ -137,7 +138,8 @@
 @property (readonly) Paddle *paddle1, *paddle2;
 @property (readwrite, assign) float numBalls, minSpeed, maxSpeed, bulletTimeDistance;
 @property (readwrite, assign) BOOL gameBeat;
-@property (readonly) NSString *track1, *track2, *track3, *track4, *smallFont, *mediumFont, *largeFont;
+@property (readonly) NSString *track1, *track2, *track3, *track4, *fontName;
+@property (readonly) CGFloat smallFont, mediumFont, largeFont;
 @property (readwrite, assign) BOOL sentRequest, accelNormalized;
 @property(nonatomic, retain) UIViewController *mainViewController;
 

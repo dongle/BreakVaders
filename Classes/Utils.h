@@ -15,7 +15,7 @@
 #define CGPointAdd(v1, v2) (CGPointMake(v1.x+v2.x, v1.y+v2.y))
 #define CGPointSub(v1, v2) (CGPointMake(v1.x-v2.x, v1.y-v2.y))
 
-@interface CCLabelBMFont (GetRect)
+@interface CCLabelTTF (GetRect)
 - (CGRect) getRect;
 @end
 
@@ -25,7 +25,7 @@
 + (id)applicationPlistFromFile:(NSString *)fileName;
 + (BOOL) dictionary: (NSDictionary *) dictionary hasKey: (NSString *) key;
 + (void) checkPrefsWithKnownKey: (NSString *) knownKey;
-+ (CCNode *)multilineNodeWithText:(NSString *)text font:(NSString *)fnt color:(ccColor3B) col rowlength:(int)length rowheight:(int) height;
++ (CCNode *)multilineNodeWithText:(NSString *)text fontSize:(CGFloat)font color:(ccColor3B) col rowlength:(int)length rowheight:(int) height;
 + (CGFloat) distanceFrom: (CGPoint) first to: (CGPoint) second;
 + (CGFloat) angleFrom:(CGPoint) first to: (CGPoint) second;
 + (CGFloat) angleFrom:(CGPoint) line1Start and: (CGPoint) line1End to: (CGPoint) line2Start and: (CGPoint) line2End;

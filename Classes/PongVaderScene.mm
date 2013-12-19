@@ -76,6 +76,7 @@ enum {
 @synthesize track2 = _track2;
 @synthesize track3 = _track3;
 @synthesize track4 = _track4;
+@synthesize fontName = _fontName;
 @synthesize smallFont = _smallFont;
 @synthesize mediumFont = _mediumFont;
 @synthesize largeFont = _largeFont;
@@ -329,34 +330,20 @@ static PongVader *_globalSceneInst = nil;
 		_track4 = @"draftloop-04.mp3";
 		NSLog(@"loading hifi music \n");
 		
+        _fontName = @"pvaders.ttf";
+        
 		if (_IPAD) {			
-			_smallFont = @"pvaders16.fnt";
-			_mediumFont = @"pvaders24.fnt";
-			_largeFont = @"pvaders32.fnt";
+			_smallFont = 16.0f;
+			_mediumFont = 24.0f;
+			_largeFont = 32.0f;
 		}
 		
 		else {
-			/*
-			track1 = @"draftloop01-low.mp3";
-			track2 = @"draftloop02-low.mp3";
-			track3 = @"draftloop03-low.mp3";
-			track4 = @"draftloop04-low.mp3";
-			NSLog(@"loading lowfi music \n");
-			*/
 			
-			_smallFont = @"pvaders12.fnt";
-			_mediumFont = @"pvaders16.fnt";
-			_largeFont = @"pvaders24.fnt";
+			_smallFont = 12.0f;
+			_mediumFont = 16.0f;
+			_largeFont = 24.0f;
 		}
-		
-		// preload fonts and set alias tex params
-		
-//		CCLabelBMFont * smAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:_smallFont];
-//		CCLabelBMFont * mdAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:_mediumFont];
-//		CCLabelBMFont * lgAtlas = [CCLabelBMFont bitmapFontAtlasWithString:@"tmp" fntFile:_largeFont];
-//		[smAtlas.texture setAliasTexParameters];
-//		[mdAtlas.texture setAliasTexParameters];
-//		[lgAtlas.texture setAliasTexParameters];
 		
 		// cache sprite bodies
 		[self cacheSomeSpriteBodies:[Invader class] number:10];

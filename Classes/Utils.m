@@ -9,7 +9,7 @@
 #import "Utils.h"
 #import "GameSettings.h"
 
-@implementation CCLabelBMFont (GetRect) 
+@implementation CCLabelTTF (GetRect) 
 
 -(CGRect) getRect {
 	return CGRectMake(self.position.x - ((self.anchorPoint.x*self.contentSize.width*self.scale) ),
@@ -125,7 +125,7 @@
  *   CCNode *credits = [self multilineNodeWithText:creditsText length:&length];
  * 
  */
-+ (CCNode *)multilineNodeWithText:(NSString *)text font:(NSString *)fnt color:(ccColor3B) col rowlength:(int)length rowheight:(int) height {
++ (CCNode *)multilineNodeWithText:(NSString *)text fontSize:(CGFloat)fnt color:(ccColor3B) col rowlength:(int)length rowheight:(int) height {
 	NSInteger lineChars = 0;
 	BOOL isSpace = NO, isNewLine = NO;
 	NSInteger index = 0;
@@ -138,8 +138,8 @@
 	while (index <= [text length]) {
 
 		if (index == [text length]) {
-			CCLabelBMFont *tip = [CCLabelBMFont labelWithString:[NSString stringWithString:line]
-																		  fntFile:fnt];
+			CCLabelTTF *tip = [CCLabelTTF labelWithString:[NSString stringWithString:line]
+																		   fontName:@"pvaders.ttf" fontSize:fnt];
 			[container addChild:tip];
 			if ([tip getRect].size.width > maxWidth) maxWidth = [tip getRect].size.width;
 			numLines++;
@@ -159,8 +159,8 @@
 			isNewLine = NO;
 		
 		if ((lineChars >= length && isSpace) || isNewLine) {
-			CCLabelBMFont *tip = [CCLabelBMFont labelWithString:[NSString stringWithString:line]
-																		  fntFile:fnt];
+			CCLabelTTF *tip = [CCLabelTTF labelWithString:[NSString stringWithString:line]
+																		  fontName:@"pvaders.ttf" fontSize:fnt];
 			[container addChild:tip];
 			if ([tip getRect].size.width > maxWidth) maxWidth = [tip getRect].size.width;
 			
@@ -173,7 +173,7 @@
 	}
 
 	for (int i=0; i<[[container children] count]; i++) {
-		CCLabelBMFont *line = [[container children] objectAtIndex:i];
+		CCLabelTTF *line = [[container children] objectAtIndex:i];
 		line.color = col;
 		CGSize sz = [line getRect].size;
 		line.position = ccp((sz.width - maxWidth)/2.0, -i*height + height*(numLines-1)/2.0);

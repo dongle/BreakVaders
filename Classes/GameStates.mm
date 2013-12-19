@@ -54,11 +54,11 @@ static int numLevels = 33;
 @end
 */
 
-@interface CCLabelBMFont (PVAccess)
+@interface CCLabelTTF (PVAccess)
 - (NSString *) getString;
 @end
 
-@implementation CCLabelBMFont (PVAccess)
+@implementation CCLabelTTF (PVAccess)
 
 - (NSString *) getString {
 	return _string;
@@ -76,8 +76,8 @@ static int numLevels = 33;
 
 - (void) setString:(NSString*)str {
 	self.labelname = str;
-	if ([_node isKindOfClass:[CCLabelBMFont class]])
-		[(CCLabelBMFont *)_node setString:str];
+	if ([_node isKindOfClass:[CCLabelTTF class]])
+		[(CCLabelTTF *)_node setString:str];
 }
 -(void) dealloc {
 	[_node release];
@@ -98,8 +98,8 @@ static int numLevels = 33;
 					  _node.contentSize.height*_node.scale + labelPadding * 2);
 }
 - (void) setNode:(CCNode *) innode {
-	if (!self.labelname && [innode isKindOfClass:[CCLabelBMFont class]])
-		self.labelname = [(CCLabelBMFont*) innode getString];
+	if (!self.labelname && [innode isKindOfClass:[CCLabelTTF class]])
+		self.labelname = [(CCLabelTTF*) innode getString];
 	[_node autorelease];
 	_node = [innode retain];
 }
@@ -339,7 +339,7 @@ static int numLevels = 33;
 		int maxLabels = 1;
 		
 		for (int i=0; i<maxLabels; i++) {
-			NSString *font = pv.mediumFont;
+			CGFloat font = pv.mediumFont;
 
 			// special case for first label - play game
 			if (i == 0) {
@@ -351,7 +351,7 @@ static int numLevels = 33;
 				}
 			}
 			
-			CCLabelBMFont *bmlabel = [CCLabelBMFont labelWithString:menuText[i] fntFile:font];
+			CCLabelTTF *bmlabel = [CCLabelTTF labelWithString:menuText[i] fontName:@"pvaders.ttf" fontSize:pv.mediumFont];
 			
 			bmlabel.color = menuColor[i];
 			bmlabel.position = menuPos[i];
@@ -595,7 +595,7 @@ static int numLevels = 33;
 		
 		for (int i=0; i<11; i++) {
 			SelectedNode *_label = [[[SelectedNode alloc] init] autorelease];
-			CCLabelBMFont *bmlabel = [CCLabelBMFont labelWithString:_IPAD?menuTextiPad[i]:menuTextiPhn[i] fntFile:(i==7)?pv.largeFont:pv.mediumFont];
+			CCLabelTTF *bmlabel = [CCLabelTTF labelWithString:_IPAD?menuTextiPad[i]:menuTextiPhn[i]  fontName:@"pvaders.ttf" fontSize:(i==7)?pv.largeFont:pv.mediumFont];
 			
 			_label.selectable = menuSel[i];			
 			bmlabel.color = menuColor[i];
@@ -859,7 +859,7 @@ static int numLevels = 33;
 		
 		for (int i=0; i<8; i++) {
 			SelectedNode *_label = [[[SelectedNode alloc] init] autorelease];
-			CCLabelBMFont *bmlabel = [CCLabelBMFont labelWithString:_IPAD?menuTextiPad[i]:menuTextiPhn[i] fntFile:(i==7)?pv.largeFont:pv.mediumFont];
+			CCLabelTTF *bmlabel = [CCLabelTTF labelWithString:_IPAD?menuTextiPad[i]:menuTextiPhn[i] fontName:@"pvaders.ttf" fontSize:(i==7)?pv.largeFont:pv.mediumFont];
 			
 			_label.selectable = menuSel[i];			
 			bmlabel.color = menuColor[i];
@@ -1073,7 +1073,7 @@ static int numLevels = 33;
 		
 		for (int i=0; i<menuitems; i++) {			
 			SelectedNode *_label = [[[SelectedNode alloc] init] autorelease];
-			CCLabelBMFont *bmlabel = [CCLabelBMFont labelWithString:menuText[i] fntFile:pv.mediumFont];
+			CCLabelTTF *bmlabel = [CCLabelTTF labelWithString:menuText[i] fontName:@"pvaders.ttf" fontSize:pv.mediumFont];
 
 			_label.selectable = menuSel[i];
 			bmlabel.color = menuColor[i];
@@ -1107,8 +1107,8 @@ static int numLevels = 33;
 //			[_labels addObject:_label];
 //		}
 		
-		_scores[0] = [[CCLabelBMFont labelWithString:@"0" fntFile:pv.mediumFont] retain];
-		_scores[1] = [[CCLabelBMFont labelWithString:@"0" fntFile:pv.mediumFont] retain];
+		_scores[0] = [[CCLabelTTF labelWithString:@"0" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
+		_scores[1] = [[CCLabelTTF labelWithString:@"0" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 
 		_scores[0].rotation = 0;
 		_scores[1].rotation = 180;
@@ -1116,8 +1116,8 @@ static int numLevels = 33;
 		[_scores[1] setAnchorPoint:ccp(0, 0.5f)];
 		
 		// points labels
-		_scoreLabels[0] = [[CCLabelBMFont labelWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
-		_scoreLabels[1] = [[CCLabelBMFont labelWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
+		_scoreLabels[0] = [[CCLabelTTF labelWithString:@"SCORE:" fontName:@"pvaders.ttf"  fontSize:pv.mediumFont] retain];
+		_scoreLabels[1] = [[CCLabelTTF labelWithString:@"SCORE:" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 
 		_scoreLabels[0].rotation = 0;
 		_scoreLabels[1].rotation = 180;
@@ -1125,8 +1125,8 @@ static int numLevels = 33;
 		[_scoreLabels[1] setAnchorPoint:ccp(0, 0.5f)];
 	
 		// max chains
-		_maxChains[0] = [[CCLabelBMFont labelWithString:@"MAX CHAIN: 0" fntFile:pv.mediumFont] retain];
-		_maxChains[1] = [[CCLabelBMFont labelWithString:@"MAX CHAIN: 0" fntFile:pv.mediumFont] retain];
+		_maxChains[0] = [[CCLabelTTF labelWithString:@"MAX CHAIN: 0" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
+		_maxChains[1] = [[CCLabelTTF labelWithString:@"MAX CHAIN: 0" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 		
 		_maxChains[0].rotation = 0;
 		_maxChains[1].rotation = 180;
@@ -1146,8 +1146,8 @@ static int numLevels = 33;
 		int combChain = (p1h?pv.player[0].maxChain:0) + (p2h?pv.player[1].maxChain:0);
 		int combScore = (p1h?pv.player[0].score:0) + (p2h?pv.player[1].score:0);
 		
-		_combinedChain = [[CCLabelBMFont labelWithString:[NSString stringWithFormat:@"COMBINED CHAIN: %d", combChain] fntFile:pv.mediumFont] retain];
-		_combinedScore = [[CCLabelBMFont labelWithString:[NSString stringWithFormat:@"COMBINED SCORE: %d", combScore] fntFile:pv.mediumFont] retain];
+		_combinedChain = [[CCLabelTTF labelWithString:[NSString stringWithFormat:@"COMBINED CHAIN: %d", combChain] fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
+		_combinedScore = [[CCLabelTTF labelWithString:[NSString stringWithFormat:@"COMBINED SCORE: %d", combScore] fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 
 		_combinedChain.color = ccc3(255,0,0);
 		_combinedScore.color = ccc3(255,0,0);
@@ -1437,14 +1437,14 @@ static int numLevels = 33;
 				
 		
 		if (_IPAD) {
-			_label[0] = [[CCLabelBMFont labelWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[0] = [[CCLabelTTF labelWithString:l1 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 			_label[0].position = ccp(winSize.width/2+1000, winSize.height/2-(l2?200:250));
 
 			[_label[0] runAction:
 			 [CCEaseExponentialOut actionWithAction:
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-(l2?200:250))]]];
 			
-			_label[1] = [[CCLabelBMFont labelWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[1] = [[CCLabelTTF labelWithString:l1 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 			_label[1].position = ccp(winSize.width/2-1000, winSize.height/2+(l2?200:250));
 			_label[1].rotation = 180;
 			[_label[1] runAction:
@@ -1452,13 +1452,13 @@ static int numLevels = 33;
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2+(l2?200:250))]]];
 			
 			if (l2) {
-				_label[2] = [[CCLabelBMFont labelWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[2] = [[CCLabelTTF labelWithString:l2 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 				_label[2].position = ccp(winSize.width/2+1000, winSize.height/2-250);
 				[_label[2] runAction:
 				 [CCEaseExponentialOut actionWithAction:
 				  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-250)]]];
 				
-				_label[3] = [[CCLabelBMFont labelWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[3] = [[CCLabelTTF labelWithString:l2 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 				_label[3].position = ccp(winSize.width/2-1000, winSize.height/2+250);
 				_label[3].rotation = 180;
 				[_label[3] runAction:
@@ -1467,13 +1467,13 @@ static int numLevels = 33;
 			}
 		}
 		else {
-			_label[0] = [[CCLabelBMFont labelWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[0] = [[CCLabelTTF labelWithString:l1 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 			_label[0].position = ccp(winSize.width/2+1000, winSize.height/2-125);
 			[_label[0] runAction:
 			 [CCEaseExponentialOut actionWithAction:
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-125)]]];
 			
-			_label[1] = [[CCLabelBMFont labelWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[1] = [[CCLabelTTF labelWithString:l1 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 			_label[1].position = ccp(winSize.width/2-1000, winSize.height/2+125);
 			_label[1].rotation = 180;
 			[_label[1] runAction:
@@ -1481,13 +1481,13 @@ static int numLevels = 33;
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2+125)]]];
 			
 			if (l2) {
-				_label[2] = [[CCLabelBMFont labelWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[2] = [[CCLabelTTF labelWithString:l2 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 				_label[2].position = ccp(winSize.width/2+1000, winSize.height/2-150);
 				[_label[2] runAction:
 				 [CCEaseExponentialOut actionWithAction:
 				  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-150)]]];
 				
-				_label[3] = [[CCLabelBMFont labelWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[3] = [[CCLabelTTF labelWithString:l2 fontName:@"pvaders.ttf"  fontSize:pv.mediumFont] retain];
 				_label[3].position = ccp(winSize.width/2-1000, winSize.height/2+150);
 				_label[3].rotation = 180;
 				[_label[3] runAction:
@@ -1798,14 +1798,14 @@ static int numLevels = 33;
 		PongVader *pv = [PongVader getInstance];
 		
 		if (_IPAD) {
-			_label[0] = [[CCLabelBMFont labelWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[0] = [[CCLabelTTF labelWithString:l1 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 			_label[0].position = ccp(winSize.width/2+1000, winSize.height/2-(l2?200:250));
 			
 			[_label[0] runAction:
 			 [CCEaseExponentialOut actionWithAction:
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-(l2?200:250))]]];
 			
-			_label[1] = [[CCLabelBMFont labelWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[1] = [[CCLabelTTF labelWithString:l1 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 			_label[1].position = ccp(winSize.width/2-1000, winSize.height/2+(l2?200:250));
 			_label[1].rotation = 180;
 			[_label[1] runAction:
@@ -1813,13 +1813,13 @@ static int numLevels = 33;
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2+(l2?200:250))]]];
 			
 			if (l2) {
-				_label[2] = [[CCLabelBMFont labelWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[2] = [[CCLabelTTF labelWithString:l2 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 				_label[2].position = ccp(winSize.width/2+1000, winSize.height/2-250);
 				[_label[2] runAction:
 				 [CCEaseExponentialOut actionWithAction:
 				  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-250)]]];
 				
-				_label[3] = [[CCLabelBMFont labelWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[3] = [[CCLabelTTF labelWithString:l2 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 				_label[3].position = ccp(winSize.width/2-1000, winSize.height/2+250);
 				_label[3].rotation = 180;
 				[_label[3] runAction:
@@ -1828,13 +1828,13 @@ static int numLevels = 33;
 			}
 		}
 		else {
-			_label[0] = [[CCLabelBMFont labelWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[0] = [[CCLabelTTF labelWithString:l1 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 			_label[0].position = ccp(winSize.width/2+1000, winSize.height/2-125);
 			[_label[0] runAction:
 			 [CCEaseExponentialOut actionWithAction:
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-125)]]];
 			
-			_label[1] = [[CCLabelBMFont labelWithString:l1 fntFile:pv.mediumFont] retain];
+			_label[1] = [[CCLabelTTF labelWithString:l1 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 			_label[1].position = ccp(winSize.width/2-1000, winSize.height/2+125);
 			_label[1].rotation = 180;
 			[_label[1] runAction:
@@ -1842,13 +1842,13 @@ static int numLevels = 33;
 			  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2+125)]]];
 			
 			if (l2) {
-				_label[2] = [[CCLabelBMFont labelWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[2] = [[CCLabelTTF labelWithString:l2 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 				_label[2].position = ccp(winSize.width/2+1000, winSize.height/2-150);
 				[_label[2] runAction:
 				 [CCEaseExponentialOut actionWithAction:
 				  [CCMoveTo actionWithDuration:BLOCKFLEET_ANIM_TIME*5 position:ccp(winSize.width/2, winSize.height/2-150)]]];
 				
-				_label[3] = [[CCLabelBMFont labelWithString:l2 fntFile:pv.mediumFont] retain];
+				_label[3] = [[CCLabelTTF labelWithString:l2 fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 				_label[3].position = ccp(winSize.width/2-1000, winSize.height/2+150);
 				_label[3].rotation = 180;
 				[_label[3] runAction:
@@ -2013,8 +2013,8 @@ static int numLevels = 33;
 		CGSize winSize = [[CCDirector sharedDirector] winSize];
 		PongVader *pv = [PongVader getInstance];
 		
-		_scores[0] = [[CCLabelBMFont labelWithString:@"0" fntFile:pv.mediumFont] retain];
-		_scores[1] = [[CCLabelBMFont labelWithString:@"0" fntFile:pv.mediumFont] retain];
+		_scores[0] = [[CCLabelTTF labelWithString:@"0" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
+		_scores[1] = [[CCLabelTTF labelWithString:@"0" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 		
 		_scores[0].rotation = 0;
 		_scores[1].rotation = 180;
@@ -2025,8 +2025,8 @@ static int numLevels = 33;
 		_lastScores[1] = 0;
 		
 		// points labels
-		_scoreLabels[0] = [[CCLabelBMFont labelWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
-		_scoreLabels[1] = [[CCLabelBMFont labelWithString:@"SCORE:" fntFile:pv.mediumFont] retain];
+		_scoreLabels[0] = [[CCLabelTTF labelWithString:@"SCORE:" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
+		_scoreLabels[1] = [[CCLabelTTF labelWithString:@"SCORE:" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 		
 		_scoreLabels[0].rotation = 0;
 		_scoreLabels[1].rotation = 180;
@@ -2034,8 +2034,8 @@ static int numLevels = 33;
 		[_scoreLabels[1] setAnchorPoint:ccp(0, 0.5f)];
 		
 //		// max chains
-//		maxChains[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX: 0" fntFile:pv.mediumFont] retain];
-//		maxChains[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"MAX: 0" fntFile:pv.mediumFont] retain];
+//		maxChains[0] = [[CCLabelTTF bitmapFontAtlasWithString:@"MAX: 0" fntFile:pv.mediumFont] retain];
+//		maxChains[1] = [[CCLabelTTF bitmapFontAtlasWithString:@"MAX: 0" fntFile:pv.mediumFont] retain];
 //		maxChains[0].position = ccp(200, 65);
 //		maxChains[1].position = ccp(winSize.width-200, winSize.height-65);
 //		maxChains[0].rotation = 0;
@@ -2044,16 +2044,16 @@ static int numLevels = 33;
 //		[maxChains[1] setAnchorPoint:ccp(1, 0.5f)];
 		
 		// current chains
-		_curChains[0] = [[CCLabelBMFont labelWithString:@"CHAIN: 0" fntFile:pv.mediumFont] retain];
-		_curChains[1] = [[CCLabelBMFont labelWithString:@"CHAIN: 0" fntFile:pv.mediumFont] retain];
+		_curChains[0] = [[CCLabelTTF labelWithString:@"CHAIN: 0" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
+		_curChains[1] = [[CCLabelTTF labelWithString:@"CHAIN: 0" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 		
 		_curChains[0].rotation = 0;
 		_curChains[1].rotation = 180;
 		[_curChains[0] setAnchorPoint:ccp(0, 0.5f)];
 		[_curChains[1] setAnchorPoint:ccp(0, 0.5f)];
 		
-		//pauseLabels[0] = [[CCLabelBMFont bitmapFontAtlasWithString:@"=" fntFile:pv.largeFont] retain];
-		//pauseLabels[1] = [[CCLabelBMFont bitmapFontAtlasWithString:@"=" fntFile:pv.largeFont] retain];
+		//pauseLabels[0] = [[CCLabelTTF bitmapFontAtlasWithString:@"=" fntFile:pv.largeFont] retain];
+		//pauseLabels[1] = [[CCLabelTTF bitmapFontAtlasWithString:@"=" fntFile:pv.largeFont] retain];
 		//pauseLabels[0].rotation = 90;
 		//pauseLabels[1].rotation = 270;
 		
@@ -2069,12 +2069,12 @@ static int numLevels = 33;
 		[_pauseLabels[1] setAnchorPoint:ccp(0, 0.5f)];
 		
 		if _IPAD{
-			_bulletLabels[0] = [[CCLabelBMFont labelWithString:@"TILT IPAD TO STEER BALL" fntFile:pv.mediumFont] retain];
-			_bulletLabels[1] = [[CCLabelBMFont labelWithString:@"TILT IPAD TO STEER BALL" fntFile:pv.mediumFont] retain];
+			_bulletLabels[0] = [[CCLabelTTF labelWithString:@"TILT IPAD TO STEER BALL" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
+			_bulletLabels[1] = [[CCLabelTTF labelWithString:@"TILT IPAD TO STEER BALL" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 		}
 		else {
-			_bulletLabels[0] = [[CCLabelBMFont labelWithString:@"TILT TO STEER BALL" fntFile:pv.mediumFont] retain];
-			_bulletLabels[1] = [[CCLabelBMFont labelWithString:@"TILT TO STEER BALL" fntFile:pv.mediumFont] retain];
+			_bulletLabels[0] = [[CCLabelTTF labelWithString:@"TILT TO STEER BALL" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
+			_bulletLabels[1] = [[CCLabelTTF labelWithString:@"TILT TO STEER BALL" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] retain];
 		}
 		_bulletLabels[0].color = ccc3(255,0,0);
 		_bulletLabels[1].color = ccc3(255,0,0);
@@ -2329,13 +2329,13 @@ static int numLevels = 33;
 		PongVader *pv = [PongVader getInstance];
 		
 		//skiplabel = [[SelectedNode alloc] init];
-//		CCLabelBMFont *labelnode = [[CCLabelBMFont bitmapFontAtlasWithString:@"SKIP" fntFile:pv.largeFont] retain];
+//		CCLabelTTF *labelnode = [[CCLabelTTF bitmapFontAtlasWithString:@"SKIP" fntFile:pv.largeFont] retain];
 //		labelnode.color = ccc3(255, 255, 255);
 //		labelnode.position = SKIP_POS;
 //		skiplabel.selectable = YES;
 //		skiplabel.node = labelnode;
 		
-		_skiplabel = [[CCLabelBMFont labelWithString:@"SKIP" fntFile:pv.largeFont] retain];
+		_skiplabel = [[CCLabelTTF labelWithString:@"SKIP" fontName:@"pvaders.ttf" fontSize:pv.largeFont] retain];
 		_skiplabel.position = SKIP_POS;
 		_skiplabel.color = ccc3(255, 255, 255);
 				
@@ -2480,7 +2480,7 @@ static int numLevels = 33;
 	_textWedge.position = tbs;
 	
 	for (int i=0; i<[[_messageLabel children] count]; i++) {
-		CCLabelBMFont *line = [[_messageLabel children] objectAtIndex:i];
+		CCLabelTTF *line = [[_messageLabel children] objectAtIndex:i];
 		
 		if (speaker == 1) {
 			line.color = ccc3(0, 0, 0);	
@@ -2622,21 +2622,21 @@ static int numLevels = 33;
 		_pvLogo.position = ccp(ssz.width/2, 0);
 		_pvLogo.scale = 2.0;
 		
-		_producedBy = [CCLabelBMFont labelWithString:@"PRODUCED BY" fntFile:pv.largeFont];
+		_producedBy = [CCLabelTTF labelWithString:@"PRODUCED BY" fontName:@"pvaders.ttf" fontSize:pv.largeFont];
 		_producedBy.position = ccp(ssz.width/2, _pvLogo.position.y - ((_pvLogo.contentSize.height) + vPadSmall + (_IPAD? 200 : 400)));
 		_producedBy.color = ccc3(255, 255, 255);
 		
 		_kdcLogo = [CCSprite spriteWithFile:@"kdcLogo.png"];
 		_kdcLogo.position = ccp(ssz.width/2, _producedBy.position.y - ((_producedBy.contentSize.height) + vPadSmall * 2.5));
 		
-		_artBy = [CCLabelBMFont labelWithString:@"ART BY" fntFile:pv.largeFont];
+		_artBy = [CCLabelTTF labelWithString:@"ART BY" fontName:@"pvaders.ttf" fontSize:pv.largeFont];
 		_artBy.position = ccp(ssz.width/2, _kdcLogo.position.y - ((_kdcLogo.contentSize.height) + vPadSmall));
 		_artBy.color = ccc3(255, 255, 255);
 		
 		_apLogo = [CCSprite spriteWithFile:@"apLogo.png"];
 		_apLogo.position = ccp(ssz.width/2, _artBy.position.y - ((_artBy.contentSize.height) + vPadSmall));
 		
-		_musicBy = [CCLabelBMFont labelWithString:@"MUSIC BY" fntFile:pv.largeFont];
+		_musicBy = [CCLabelTTF labelWithString:@"MUSIC BY" fontName:@"pvaders.ttf" fontSize:pv.largeFont];
 		_musicBy.position = ccp(ssz.width/2, _apLogo.position.y - ((_apLogo.contentSize.height) + vPadSmall));
 		_musicBy.color = ccc3(255, 255, 255);
 		
@@ -2644,25 +2644,25 @@ static int numLevels = 33;
 		_nsLogo.position = ccp(ssz.width/2, _musicBy.position.y - ((_musicBy.contentSize.height) + vPadSmall));
 		
 		// STARRING
-		_starring = [CCLabelBMFont labelWithString:@"STARRING" fntFile:pv.largeFont];
+		_starring = [CCLabelTTF labelWithString:@"STARRING" fontName:@"pvaders.ttf" fontSize:pv.largeFont];
 		_starring.position = ccp(ssz.width/2, _nsLogo.position.y - ((_nsLogo.contentSize.height) + vPadLarge));
 		_starring.color = ccc3(255, 255, 255);
 		
-		_ensign = [CCLabelBMFont labelWithString:@"ENSIGN PRANCE" fntFile:pv.mediumFont];
+		_ensign = [CCLabelTTF labelWithString:@"ENSIGN PRANCE" fontName:@"pvaders.ttf" fontSize:pv.mediumFont];
 		_ensign.position = ccp(ssz.width/2, _starring.position.y - ((_starring.contentSize.height) + vPadSmall));
 		_ensign.color = ccc3(255, 255, 255);
 		
 		_ensPrance = (Invader *) [ENSPrance spriteBodyAt: ccp(ssz.width/2, _ensign.position.y - ((_ensign.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		[_ensPrance promote: 1];
 		
-		_lieutenant = [CCLabelBMFont labelWithString:@"LIEUTENANT WADDLE" fntFile:pv.mediumFont];
+		_lieutenant = [CCLabelTTF labelWithString:@"LIEUTENANT WADDLE" fontName:@"pvaders.ttf" fontSize:pv.mediumFont];
 		_lieutenant.position = ccp(ssz.width/2, _ensPrance.position.y - ((_ensPrance.contentSize.height) + vPadSmall));
 		_lieutenant.color = ccc3(255, 255, 255);
 		
 		_ltWaddle = (Invader *) [LTWaddle spriteBodyAt: ccp(ssz.width/2, _lieutenant.position.y - ((_lieutenant.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		[_ltWaddle promote: 1];
 		
-		_commander = [CCLabelBMFont labelWithString:@"COMMANDER BOBBLE" fntFile:pv.mediumFont];
+		_commander = [CCLabelTTF labelWithString:@"COMMANDER BOBBLE" fontName:@"pvaders.ttf" fontSize:pv.mediumFont];
 		_commander.position = ccp(ssz.width/2, _ltWaddle.position.y - ((_ltWaddle.contentSize.height) + vPadSmall));
 		_commander.color = ccc3(255, 255, 255);
 		
@@ -2672,17 +2672,17 @@ static int numLevels = 33;
 
 		
 		// SUPPORTED BY
-		_supportedBy = [CCLabelBMFont labelWithString:@"SUPPORTED BY" fntFile:pv.largeFont];
+		_supportedBy = [CCLabelTTF labelWithString:@"SUPPORTED BY" fontName:@"pvaders.ttf" fontSize:pv.largeFont];
 		_supportedBy.position = ccp(ssz.width/2, _cdrBobble.position.y - ((_cdrBobble.contentSize.height) + vPadLarge));
 		_supportedBy.color = ccc3(255, 255, 255);
 		
-		_tank = [CCLabelBMFont labelWithString:@"TANK" fntFile:pv.mediumFont];
+		_tank = [CCLabelTTF labelWithString:@"TANK" fontName:@"pvaders.ttf" fontSize:pv.mediumFont];
 		_tank.position = ccp(ssz.width/2, _supportedBy.position.y - ((_supportedBy.contentSize.height) + vPadSmall));
 		_tank.color = ccc3(255, 255, 255);
 		
 		_shieldvader = (Invader *) [ShieldInvader spriteBodyAt: ccp(ssz.width/2, _tank.position.y - ((_tank.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
-		_sweetCheeks = [CCLabelBMFont labelWithString:@"SWEET CHEEKS" fntFile:pv.mediumFont];
+		_sweetCheeks = [CCLabelTTF labelWithString:@"SWEET CHEEKS" fontName:@"pvaders.ttf" fontSize:pv.mediumFont];
 		_sweetCheeks.position = ccp(ssz.width/2, _shieldvader.position.y - ((_shieldvader.contentSize.height) + vPadSmall));
 		_sweetCheeks.color = ccc3(255, 255, 255);
 		
@@ -2690,23 +2690,23 @@ static int numLevels = 33;
 		
 		// CAMEOS
 		
-		_cameos = [CCLabelBMFont labelWithString:@"CAMEOS" fntFile:pv.largeFont];
+		_cameos = [CCLabelTTF labelWithString:@"CAMEOS" fontName:@"pvaders.ttf" fontSize:pv.largeFont];
 		_cameos.position = ccp(ssz.width/2, _redvader.position.y - ((_redvader.contentSize.height) + vPadLarge));
 		_cameos.color = ccc3(255, 255, 255);
 
-		_seaman = [CCLabelBMFont labelWithString:@"SEAMAN EYE" fntFile:pv.mediumFont];
+		_seaman = [CCLabelTTF labelWithString:@"SEAMAN EYE" fontName:@"pvaders.ttf" fontSize:pv.mediumFont];
 		_seaman.position = ccp(ssz.width/2, _cameos.position.y - ((_cameos.contentSize.height) + vPadSmall));
 		_seaman.color = ccc3(255, 255, 255);
 		
 		_smnEye = (Invader *) [SNEye spriteBodyAt: ccp(ssz.width/2, _seaman.position.y - ((_seaman.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
-		_captain = [CCLabelBMFont labelWithString:@"CAPTAIN DAWDLE" fntFile:pv.mediumFont] ;
+		_captain = [CCLabelTTF labelWithString:@"CAPTAIN DAWDLE" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] ;
 		_captain.position = ccp(ssz.width/2, _smnEye.position.y - ((_smnEye.contentSize.height) + vPadSmall));
 		_captain.color = ccc3(255, 255, 255);
 		
 		_cptDawdle = (Invader *) [CPTDawdle spriteBodyAt: ccp(ssz.width/2, _captain.position.y - ((_captain.contentSize.height) + vPadSmall)) withForce:ccp(0,0) inWorld: pv.world];
 		
-		_admiral = [CCLabelBMFont labelWithString:@"ADMIRAL BRAIN" fntFile:pv.mediumFont] ;
+		_admiral = [CCLabelTTF labelWithString:@"ADMIRAL BRAIN" fontName:@"pvaders.ttf" fontSize:pv.mediumFont] ;
 		_admiral.position = ccp(ssz.width/2, _cptDawdle.position.y - ((_cptDawdle.contentSize.height) + vPadSmall));
 		_admiral.color = ccc3(255, 255, 255);
 		
@@ -2714,18 +2714,18 @@ static int numLevels = 33;
 		
 		// DISCLAIMER
 		
-		_humaneNotice1 = [CCLabelBMFont labelWithString:@"NO ALIENS WERE HARMED" fntFile:pv.largeFont];
+		_humaneNotice1 = [CCLabelTTF labelWithString:@"NO ALIENS WERE HARMED" fontName:@"pvaders.ttf" fontSize:pv.largeFont];
 		_humaneNotice1.position = ccp(ssz.width/2, _admBrain.position.y - ((_admBrain.contentSize.height) + vPadLarge));
 		_humaneNotice1.color = ccc3(255, 255, 255);
 		
-		_humaneNotice2 = [CCLabelBMFont labelWithString:@"MAKING THIS GAME" fntFile:pv.largeFont];
+		_humaneNotice2 = [CCLabelTTF labelWithString:@"MAKING THIS GAME" fontName:@"pvaders.ttf" fontSize:pv.largeFont];
 		_humaneNotice2.position = ccp(ssz.width/2, _humaneNotice1.position.y - ((_humaneNotice1.contentSize.height) + vPadSmall));
 		_humaneNotice2.color = ccc3(255, 255, 255);
 		
 		_humaneLogo = [CCSprite spriteWithFile:@"hsLogo.png"];
 		_humaneLogo.position = ccp(ssz.width/2, _humaneNotice2.position.y - ((_humaneNotice2.contentSize.height) + vPadLarge *2.0));
 		
-		_humaneTitle = [CCLabelBMFont labelWithString:@"GALACTIC HUMANE SOCIETY" fntFile:pv.largeFont];
+		_humaneTitle = [CCLabelTTF labelWithString:@"GALACTIC HUMANE SOCIETY" fontName:@"pvaders.ttf" fontSize:pv.largeFont];
 		_humaneTitle.position = ccp(ssz.width/2, _humaneLogo.position.y - ((_humaneLogo.contentSize.height) + vPadLarge));
 		_humaneTitle.color = ccc3(255, 255, 255);
 
@@ -2927,7 +2927,7 @@ static int numLevels = 33;
 		_pad1x = _pad2x = [CCDirector sharedDirector].winSize.width / 2.0;
 		
 		PongVader *pv = [PongVader getInstance];
-		_tutorialLabel = [[CCLabelBMFont labelWithString:@"TUTORIAL" fntFile:pv.largeFont] retain];
+		_tutorialLabel = [[CCLabelTTF labelWithString:@"TUTORIAL" fontName:@"pvaders.ttf" fontSize:pv.largeFont] retain];
 		_tutorialLabel.position = TUTLABEL_POS;
 		_tutorialLabel.color = ccc3(255, 0, 0);
 		
@@ -3070,12 +3070,12 @@ static int numLevels = 33;
 	} 
 	else if (action == 2) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"WE HAVE COME TO COLLECT YOUR DEBT TO US FROM WHEN WE BAILED YOU OUT OF THE 3007 FINANCIAL CRISIS." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"WE HAVE COME TO COLLECT YOUR DEBT TO US FROM WHEN WE BAILED YOU OUT OF THE 3007 FINANCIAL CRISIS." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:12];
 	} 
 	else if (action == 3) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"REPAY US OR MEET YOUR DOOM." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"REPAY US OR MEET YOUR DOOM." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i2 rlen:20 rc:4 sp:2];
 	} 
 	else if (action == 4) {
@@ -3087,12 +3087,12 @@ static int numLevels = 33;
 	// LAUNCHING BALLS
 	else if (action == 5) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"WE'RE GOING TO LAUNCH BALLS OF ENERGY AT YOU IN TIME TO THE MUSIC." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"WE'RE GOING TO LAUNCH BALLS OF ENERGY AT YOU IN TIME TO THE MUSIC." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:8];
 	} 
 	else if (action == 6) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"DON'T LET THE SHOTS HIT YOUR PLANET." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"DON'T LET THE SHOTS HIT YOUR PLANET." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i2 rlen:20 rc:5 sp:2];
 		
 		Ball *newball;
@@ -3108,12 +3108,12 @@ static int numLevels = 33;
 	} 
 	else if (action == 7) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"TOO MANY MISSED SHOTS AND YOU LOSE." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"TOO MANY MISSED SHOTS AND YOU LOSE." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i2 rlen:20 rc:5 sp:2];
 	} 
 	else if (action == 8) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"MOVE THE WHITE SHIELD WITH YOUR FINGER (NOT YET)." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"MOVE THE WHITE SHIELD WITH YOUR FINGER (NOT YET)." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:5];
 		
 		[pv.paddle1 moveTo: ssz.width / 2.0];
@@ -3122,7 +3122,7 @@ static int numLevels = 33;
 	} 
 	else if (action == 9) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"USE IT TO DEFLECT OUR SHOTS BACK TO US." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"USE IT TO DEFLECT OUR SHOTS BACK TO US." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:5];
 		
 		Ball *newball;
@@ -3179,7 +3179,7 @@ static int numLevels = 33;
 		}
 		
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"A FRIEND OR A CPU CONTROLS THE OTHER SHIELD" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"A FRIEND OR A CPU CONTROLS THE OTHER SHIELD" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:24 rc:9];
 	} 
 //	else if (action == 11) {
@@ -3199,7 +3199,7 @@ static int numLevels = 33;
 	} 
 	else if (action == 14) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"VOLLEY A SHOT BETWEEN THE SHIELDS TO CHARGE IT IN TO A FIREBALL." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"VOLLEY A SHOT BETWEEN THE SHIELDS TO CHARGE IT IN TO A FIREBALL." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:24 rc:9];
 		
 		Ball *newball;
@@ -3216,7 +3216,7 @@ static int numLevels = 33;
 	} 
 	else if (action == 15) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"A FIREBALL CAN CUT THROUGH SEVERAL INVADERS. BUT DON'T LET IT GET PAST YOUR SHIELD." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"A FIREBALL CAN CUT THROUGH SEVERAL INVADERS. BUT DON'T LET IT GET PAST YOUR SHIELD." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i2 rlen:24 rc:10 sp:2];
 		
 		if (_IPAD) {
@@ -3232,17 +3232,17 @@ static int numLevels = 33;
 	// POWERUP
 	else if (action == 16) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"GIVE ME A SECOND TO SQUEEZE OUT A POWERUP." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"GIVE ME A SECOND TO SQUEEZE OUT A POWERUP." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i2 rlen:20 rc:5 sp:2];
 	} 
 	else if (action == 17) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"URGGHH" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"URGGHH" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i2 rlen:20 rc:3 sp:2];
 	} 
 	else if (action == 18) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"THERE WE GO." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"THERE WE GO." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		
 		[[SimpleAudioEngine sharedEngine] playEffect:@"portal.wav"];
 		[self placeBubble:_i2 rlen:20 rc:3 sp:2];
@@ -3260,7 +3260,7 @@ static int numLevels = 33;
 	} 
 	else if (action == 19) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"CATCH A POWERUP WITH YOUR PADDLE TO GAIN A SPECIAL ABILITY." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"CATCH A POWERUP WITH YOUR PADDLE TO GAIN A SPECIAL ABILITY." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:7];
 		
 	} 
@@ -3268,22 +3268,22 @@ static int numLevels = 33;
 	// FAREWELL
 	else if (action == 20) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"AND DON'T FORGET THAT YOU ARE COOPERATING." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"AND DON'T FORGET THAT YOU ARE COOPERATING." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:5];
 	} 
 	else if (action == 21) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"AFTER ALL, YOU'RE BINARY PLANETS." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"AFTER ALL, YOU'RE BINARY PLANETS." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:5];
 	} 
 	else if (action == 22) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"YOUR ORBITS ARE DEFINED BY MUTUAL GRAVITATIONAL INTERACTION." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"YOUR ORBITS ARE DEFINED BY MUTUAL GRAVITATIONAL INTERACTION." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:7];
 	} 
 	else if (action == 23) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"THUS YOUR FATES ARE TIED." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"THUS YOUR FATES ARE TIED." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:5];
 	} 
 	else if (action == 24) {
@@ -3490,7 +3490,7 @@ static int numLevels = 33;
 											   difficulty:curLevel] autorelease]];
 		
 	} else if (action == 1) {
-		_messageLabel = [[Utils multilineNodeWithText:@"WE'RE SCARY INVADERS, LOOK OUT!" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"WE'RE SCARY INVADERS, LOOK OUT!" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:22 rc:3];
 	} else if (action == 2) {
 		Ball *newball = [[[[pv.fleets objectAtIndex:0] invaders] objectAtIndex:7] ballWithDirection:ccp(-0.3, -0.75) ];
@@ -3499,7 +3499,7 @@ static int numLevels = 33;
 		[[SimpleAudioEngine sharedEngine] playEffect:@"shoot.wav"];
 	} else if (action == 3) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"USE YOUR SHEILD TO DEFLECT OUR SHOTS" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"USE YOUR SHEILD TO DEFLECT OUR SHOTS" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:18 rc:3];
 	} else if (action == 4) {
 		[pv.paddle1 moveTo: ssz.width / 2.0];
@@ -3513,15 +3513,15 @@ static int numLevels = 33;
 		[[PongVader getInstance].balls addObject:newball];
 		[[SimpleAudioEngine sharedEngine] playEffect:@"shoot.wav"];
 	} else if (action == 6) {
-		_messageLabel = [[Utils multilineNodeWithText:@"DON'T LET THE SHOTS HIT YOUR PLANET" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"DON'T LET THE SHOTS HIT YOUR PLANET" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:18 rc:3];
 	} else if (action == 7) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"OUCH!" font:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"OUCH!" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
 		[self placeBubble:ccp(300,580) rlen:10 rc:2];
 	} else if (action == 8) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"VOLLEY SHOTS TO CREATE A FIREBALL" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"VOLLEY SHOTS TO CREATE A FIREBALL" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:22 rc:3];
 	} else if (action == 9) {
 		[pv runAction:
@@ -3547,7 +3547,7 @@ static int numLevels = 33;
 		_pad2x = ssz.width / 2.0 - 250;
 	} else if (action == 10) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"OH NO!" font:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"OH NO!" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
 		[self placeBubble:ccp(375,580) rlen:10 rc:2];
 		_powerupSpawn = ((CCNode *)[[[pv.fleets objectAtIndex:0] invaders] objectAtIndex:9]).position;
 	} else if (action == 11) {
@@ -3572,15 +3572,15 @@ static int numLevels = 33;
 		_pad1x = ssz.width / 2.0;
 	} else if (action == 13) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"COLLECT POWERUPS TO GAIN SPECIAL ABILITIES" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"COLLECT POWERUPS TO GAIN SPECIAL ABILITIES" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:22 rc:3];
 	} else if (action == 14) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"HELP YOUR NEIGHBOR PLANET, YOUR FATES ARE TIED" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"HELP YOUR NEIGHBOR PLANET, YOUR FATES ARE TIED" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:22 rc:3];
 	} else if (action == 15) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"NOW, PREPARE TO DEFEND GALACTIC HARMONY!" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"NOW, PREPARE TO DEFEND GALACTIC HARMONY!" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(300, 580) rlen:22 rc:3];
 	} else if (action == 16) {
 		[pv.settings set:@"TutorialPlayed" toInt: 1];
@@ -3693,7 +3693,7 @@ static int numLevels = 33;
 		[pv addFleet: fleets[0]];
 
 	} else if (action == 1) {
-		_messageLabel = [[Utils multilineNodeWithText:@"GREETINGS HUMANS, WE COME IN..." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"GREETINGS HUMANS, WE COME IN..." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:ccp(400, 580) rlen:18 rc:3];
 	} else if (action == 2) {
 		[self clearMessageAndBubble];
@@ -3702,7 +3702,7 @@ static int numLevels = 33;
 		[[PongVader getInstance].balls addObject:newball];
 		[[SimpleAudioEngine sharedEngine] playEffect:@"shoot.wav"];
 	} else if (action == 3) {
-		_messageLabel = [[Utils multilineNodeWithText:@"OOPS..." font:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"OOPS..." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:8 rowheight:16] retain];
 		[self placeBubble:ccp(500,580) rlen:10 rc:2];
 	} else if (action == 4) {
 		[self skip];
@@ -3830,7 +3830,7 @@ static int numLevels = 33;
 		  [CCMoveTo actionWithDuration:0.8 position:inv]]];
 	} 
 	else if (action == 2) {
-		_messageLabel = [[Utils multilineNodeWithText:@"YOU'VE HURT CAPTAIN DAWDLE!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"YOU'VE HURT CAPTAIN DAWDLE!" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:4];
 	} 
 	else if (action == 3) {
@@ -3838,27 +3838,27 @@ static int numLevels = 33;
 	} 
 	else if (action == 4) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"YOU'LL PAY FOR THIS!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"YOU'LL PAY FOR THIS!" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:3];
 	} 
 	else if (action == 5) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"... LITERALLY." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"... LITERALLY." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:3];
 	} 
 	else if (action == 6) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"DAWDLE'S REPAIR COSTS ARE BEING ADDED TO YOUR DEBT." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"DAWDLE'S REPAIR COSTS ARE BEING ADDED TO YOUR DEBT." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:8];
 	} 
 	else if (action == 7) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"EXPECT AN INVOICE FROM ADMIRAL BRAIN." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"EXPECT AN INVOICE FROM ADMIRAL BRAIN." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:6];
 	} 
 	else if (action == 8) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"ADIEU!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"ADIEU!" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:20 rc:3];
 	} 
 	else if (action == 9) {
@@ -3984,32 +3984,32 @@ static int numLevels = 33;
 	} 
 	else if (action == 1) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"AHA YOU'VE MADE IT THIS FAR." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"AHA YOU'VE MADE IT THIS FAR." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:3];
 	} 
 	else if (action == 2) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"WE'RE PROUD OF YOU." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"WE'RE PROUD OF YOU." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i2 rlen:22 rc:3 sp:2];
 	} 
 	else if (action == 3) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"BUT DON'T GET COCKY." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"BUT DON'T GET COCKY." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i2 rlen:22 rc:3 sp:2];
 	} 
 	else if (action == 4) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"THESE ARE ONLY TRAINING LEVELS." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"THESE ARE ONLY TRAINING LEVELS." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:_i2 rlen:22 rc:3 sp:2];
 	} 
 	else if (action == 5) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"WARMUPS ARE OVER." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"WARMUPS ARE OVER." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:20 rc:3 sp:1];
 	} 
 	else if (action == 6) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"PREPARE FOR THE ONSLAUGHT OF EPISODE 1." font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"PREPARE FOR THE ONSLAUGHT OF EPISODE 1." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:20 rc:8 sp:1];
 	} 
 	else if (action == 7) {
@@ -4308,7 +4308,7 @@ static int numLevels = 33;
 	} 
 	else if (action == 1) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"ADMIRAL BRAIN!" font:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"ADMIRAL BRAIN!" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:10 rowheight:16] retain];
 		[self placeBubble:inv rlen:17 rc:6];
 	} 
 	else if (action == 2) {
@@ -4316,27 +4316,27 @@ static int numLevels = 33;
 	} 
 	else if (action == 3) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"IN LIGHT OF YOUR" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"IN LIGHT OF YOUR" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:inv rlen:22 rc:3];
 	} 
 	else if (action == 4) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"AHEM" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"AHEM" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:inv rlen:15 rc:3];
 	}
 	else if (action == 5) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"RESILIENCE" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"RESILIENCE" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:inv rlen:15 rc:3];
 	} 
 	else if (action == 6) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"WE'LL BE EXTENDING YOUR LOAN." font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"WE'LL BE EXTENDING YOUR LOAN." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:inv rlen:22 rc:4];
 	} 
 	else if (action == 7) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"SEE YOU IN 4007!" font:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"SEE YOU IN 4007!" fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
 		[self placeBubble:inv rlen:22 rc:3];
 	} 
 	else if (action == 8) {

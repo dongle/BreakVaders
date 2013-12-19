@@ -205,7 +205,7 @@ static GameState * _curState;
 
 #pragma mark PongVaders Specific
 
-- (void) cleanupLabel: (CCLabelBMFont *) label {
+- (void) cleanupLabel: (CCLabelTTF *) label {
 	PongVader *pv = [PongVader getInstance];
 	
 	[pv removeChild:label cleanup:YES];

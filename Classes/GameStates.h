@@ -61,12 +61,12 @@
 @end
 
 @interface StateLoseMenu : StateMenu {
-	CCLabelBMFont *_scores[2];
-	CCLabelBMFont *_scoreLabels[2];
-	CCLabelBMFont *_maxChains[2];
-	CCLabelBMFont *_curChains[2];
-	CCLabelBMFont *_combinedChain;
-	CCLabelBMFont *_combinedScore;
+	CCLabelTTF *_scores[2];
+	CCLabelTTF *_scoreLabels[2];
+	CCLabelTTF *_maxChains[2];
+	CCLabelTTF *_curChains[2];
+	CCLabelTTF *_combinedChain;
+	CCLabelTTF *_combinedScore;
 }
 @end
 
@@ -82,7 +82,7 @@
 @end
 
 @interface StateGetReady : GameState {
-	CCLabelBMFont *_label[4];
+	CCLabelTTF *_label[4];
 	BOOL _shouldClearFirst;
 }
 @property (readwrite, assign) BOOL shouldClearFirst;
@@ -90,12 +90,12 @@
 
 @interface StatePlaying : GameState
 {
-	CCLabelBMFont *_scores[2];
-	CCLabelBMFont *_scoreLabels[2];
-	CCLabelBMFont *_maxChains[2];
-	CCLabelBMFont *_curChains[2];
-	CCLabelBMFont *_bulletLabels[2];
-	//CCLabelBMFont *pauseLabels[2];
+	CCLabelTTF *_scores[2];
+	CCLabelTTF *_scoreLabels[2];
+	CCLabelTTF *_maxChains[2];
+	CCLabelTTF *_curChains[2];
+	CCLabelTTF *_bulletLabels[2];
+	//CCLabelTTF *pauseLabels[2];
 	CCSprite *_pauseLabels[2];
 	BOOL _hasEnteredBulletTime;
 	BOOL _btLabelDisplayed;
@@ -109,7 +109,7 @@
 
 @interface StatePostPlaying : GameState
 {
-	CCLabelBMFont *_label[4];
+	CCLabelTTF *_label[4];
 }
 - (id) initWithString1: (NSString *) l1 andString2: (NSString *) l2;
 @end
@@ -136,7 +136,7 @@
 	CCSprite *_textWedge;
 	CCSprite *_ltrbox[2];
 	//SelectedNode *skiplabel;
-	CCLabelBMFont *_skiplabel;
+	CCLabelTTF *_skiplabel;
 }
 - (GameState *) doAction: (int) action;
 - (void) placeBubble:(CGPoint) p rlen: (float) rowlength rc:(int) rowcount;
@@ -153,12 +153,12 @@
 	CCSprite *_jonvader, *_colevader;
 	
 	// captions
-	CCLabelBMFont *_producedBy, *_artBy, *_musicBy, *_starring, *_supportedBy;
-	CCLabelBMFont *_cameos, *_humaneNotice1, *_humaneNotice2, *_humaneTitle;
+	CCLabelTTF *_producedBy, *_artBy, *_musicBy, *_starring, *_supportedBy;
+	CCLabelTTF *_cameos, *_humaneNotice1, *_humaneNotice2, *_humaneTitle;
 	
 	// labels
-	CCLabelBMFont *_ensign, *_lieutenant, *_commander, *_tank, *_sweetCheeks;
-	CCLabelBMFont *_seaman, *_captain, *_admiral;
+	CCLabelTTF *_ensign, *_lieutenant, *_commander, *_tank, *_sweetCheeks;
+	CCLabelTTF *_seaman, *_captain, *_admiral;
 	
 	// characters
 	Invader *_ensPrance, *_ltWaddle, *_cdrBobble, *_shieldvader, *_redvader;
@@ -172,7 +172,7 @@
 	CGPoint _powerupSpawn, _i1, _i2;
 	BOOL _viewReset;
 	
-	CCLabelBMFont *_tutorialLabel;
+	CCLabelTTF *_tutorialLabel;
 	
 	Invader *_invader1, *_invader2;
 }
