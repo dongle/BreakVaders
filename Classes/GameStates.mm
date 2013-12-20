@@ -740,8 +740,9 @@ static int numLevels = 33;
 	else if ([label.labelname isEqualToString:@"PRO"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:8] node] position];
 		_arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
-		curLevel = 0;
-	} 
+//		curLevel = 0;
+        curLevel = 14;
+	}
 	else if ([label.labelname isEqualToString:@"EP1"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:9] node] position];
 		_arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
@@ -4735,7 +4736,7 @@ xxzqqqqqqzxx";
 	int powerupType = arc4random() % 2;
 	switch (powerupType) {
 		case 0:
-			effect = 1;
+			effect = POW_STAT;
 			break;
 		case 1:
 			effect = POW_CDRBOBBLE;
@@ -4746,7 +4747,7 @@ xxzqqqqqqzxx";
 	}
 	return effect;
 }
-- (int) getPowerupChance { return 50; }
+- (int) getPowerupChance { return 75; }
 
 @end
 
@@ -5401,6 +5402,8 @@ ffffffffffff";
 		
 		[pv addFleet: fleets[2]];
 		[pv addFleet: fleets[3]];
+        
+        pv.bulletTimeDistance = 0;
 	}
 	
 	for (Fleet *fleet in pv.fleets) {
@@ -6133,12 +6136,12 @@ xxxxxxxxxxxx";
 	
 	char block1[] = "\
 xxxxxxxx\
-zTTtTTTz\
+zTTttTTz\
 zxwxxwxz\
 zxxxxxxz\
 zxxxxxxz\
 zxsxxsxz\
-ztttTttz\
+zttTTttz\
 xxxxxxxx";
 	
 	char block2[] = "\
