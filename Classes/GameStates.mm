@@ -154,7 +154,7 @@ static int numLevels = 33;
 	// set up logo
 	if (_setupTitle) {
 		CGSize ssz = [CCDirector sharedDirector].winSize;
-		_pvTitle = [CCSprite spriteWithFile:@"pvTitle.png"];
+		_pvTitle = [CCSprite spriteWithFile:@"bvTitle.png"];
 		ccTexParams tp = {GL_NEAREST, GL_NEAREST, GL_CLAMP_TO_EDGE, GL_CLAMP_TO_EDGE};
 		[_pvTitle.texture setTexParameters:&tp];
 		
@@ -2618,7 +2618,7 @@ static int numLevels = 33;
 		
 		// LOGOS AND HUMAN CREDITS
 		
-		_pvLogo = [CCSprite spriteWithFile:@"pvTitle.png"];
+		_pvLogo = [CCSprite spriteWithFile:@"bvTitle.png"];
 		_pvLogo.position = ccp(ssz.width/2, 0);
 		_pvLogo.scale = 2.0;
 		

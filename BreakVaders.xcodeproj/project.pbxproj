@@ -21,6 +21,7 @@
 		CB29792118601EF2004C2432 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB29792018601EF2004C2432 /* SystemConfiguration.framework */; };
 		CB29792318601EFA004C2432 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB29792218601EFA004C2432 /* CoreData.framework */; };
 		CB29792518601F00004C2432 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB29792418601F00004C2432 /* libz.dylib */; };
+		CB8ECCD618650C8800546FA2 /* bvTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = CB8ECCD518650C8800546FA2 /* bvTitle.png */; };
 		CB9020C71852DE9400F3B416 /* apLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020111852DE9300F3B416 /* apLogo.png */; };
 		CB9020C81852DE9400F3B416 /* arrow-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020121852DE9300F3B416 /* arrow-low.png */; };
 		CB9020C91852DE9400F3B416 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020131852DE9300F3B416 /* arrow.png */; };
@@ -275,6 +276,7 @@
 		CB29792218601EFA004C2432 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CB29792418601F00004C2432 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		CB297926186024AB004C2432 /* BVLocalOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BVLocalOptions.h; sourceTree = "<group>"; };
+		CB8ECCD518650C8800546FA2 /* bvTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bvTitle.png; path = Resources/bvTitle.png; sourceTree = "<group>"; };
 		CB9020111852DE9300F3B416 /* apLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = apLogo.png; path = Resources/apLogo.png; sourceTree = "<group>"; };
 		CB9020121852DE9300F3B416 /* arrow-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow-low.png"; path = "Resources/arrow-low.png"; sourceTree = "<group>"; };
 		CB9020131852DE9300F3B416 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Resources/arrow.png; sourceTree = "<group>"; };
@@ -677,6 +679,7 @@
 				CB9020211852DE9300F3B416 /* boom.wav */,
 				CB9020221852DE9300F3B416 /* boss1.png */,
 				CB9020231852DE9300F3B416 /* boss21.png */,
+				CB8ECCD518650C8800546FA2 /* bvTitle.png */,
 				CB9020241852DE9300F3B416 /* charge.wav */,
 				CB9020251852DE9300F3B416 /* city1-low.png */,
 				CB9020261852DE9300F3B416 /* city1.png */,
@@ -1186,6 +1189,7 @@
 				CB9021781852DE9400F3B416 /* wail.wav in Resources */,
 				CB9021151852DE9400F3B416 /* slice.png in Resources */,
 				CB9021021852DE9400F3B416 /* fuzz.mp3 in Resources */,
+				CB8ECCD618650C8800546FA2 /* bvTitle.png in Resources */,
 				CB9021481852DE9400F3B416 /* prance1.png in Resources */,
 				CBBB272218601783003C4A18 /* pongvaders.png in Resources */,
 				CB9021041852DE9400F3B416 /* greenPill-low.png in Resources */,
