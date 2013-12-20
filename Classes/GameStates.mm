@@ -343,12 +343,13 @@ static int numLevels = 33;
 
 			// special case for first label - play game
 			if (i == 0) {
-				if ([pv.settings getInt:@"lastLevel"] != 0) {
-					menuText[0] = @"RESUME GAME";
-				} else {
-					if (!_IPAD) menuText[0] = @"PLAY";
+//				if ([pv.settings getInt:@"lastLevel"] != 0) {
+//					menuText[0] = @"RESUME GAME";
+//				} else {
+//					if (!_IPAD) menuText[0] = @"PLAY";
+                     menuText[0] = @"PLAY";
 					font = pv.largeFont;
-				}
+//				}
 			}
 			
 			CCLabelTTF *bmlabel = [CCLabelTTF labelWithString:menuText[i] fontName:@"pvaders.ttf" fontSize:pv.mediumFont];
@@ -431,16 +432,14 @@ static int numLevels = 33;
 			[pv.player[i] resetPropsNewGame];
 		}
 		curLevel = RESTART_LEVEL;
-		//curLevel = 5;
-		[pv.settings set:@"lastLevel" toInt:curLevel];
 		next = [[[StateSettingsMenu alloc] init] autorelease];
-		//next = [[[StateCredits alloc] init] autorelease];
+//		next = [[[StateCredits alloc] init] autorelease];
 	} else if ([label.labelname isEqualToString:@"RESUME GAME"]) {
 		for (int i = 0; i < 2; i++) {
 			[pv.player[i] restoreLastLevelScore];
 			[pv.player[i] restoreLastLevelChain];
 		}
-		curLevel = [pv.settings getInt:@"lastLevel"];
+//		curLevel = [pv.settings getInt:@"lastLevel"];
 		next = [[[StateGetReady alloc] init] autorelease];
 	} else if ([label.labelname isEqualToString:@"FEEDBACK"]) {
 //		[FlurryAPI logEvent:@"CLICKED_FEEDBACK"];
@@ -2765,7 +2764,11 @@ static int numLevels = 33;
 			//humaneNotice2.scale = 2.0;
 			_humaneLogo.scale = 2.0;
 			//humaneTitle.scale = 2.0;
-		}
+		} else {
+            _humaneNotice1.fontSize = pv.mediumFont;
+            _humaneNotice2.fontSize = pv.mediumFont;
+            _humaneTitle.fontSize = pv.mediumFont;
+        }
 		
 		
 		// add to node
@@ -2849,7 +2852,7 @@ static int numLevels = 33;
 	GameState *next = self;
 	
 	if (action == 0) {
-		[_scrollNode runAction:[CCMoveBy actionWithDuration:CREDITS_LENGTH position:_IPAD ? ccp(0,-_humaneTitle.position.y + 1.5* ssz.height) : ccp(0, -_humaneTitle.position.y + 1.5*ssz.height)]];
+		[_scrollNode runAction:[CCMoveBy actionWithDuration:CREDITS_LENGTH position:_IPAD ? ccp(0,-_humaneTitle.position.y + 1.5* ssz.height + FOUROFFSET) : ccp(0, -_humaneTitle.position.y + 1.5*ssz.height + FOUROFFSET)]];
 	}
 	else if (action == 1) {
 		//[scrollNode runAction:[CCFadeOut actionWithDuration:PICTURE_TRANSITION]];
@@ -2929,9 +2932,11 @@ static int numLevels = 33;
 		PongVader *pv = [PongVader getInstance];
 		_tutorialLabel = [[CCLabelTTF labelWithString:@"TUTORIAL" fontName:@"pvaders.ttf" fontSize:pv.largeFont] retain];
 		_tutorialLabel.position = TUTLABEL_POS;
+        _tutorialLabel.position = ccp(_tutorialLabel.position.x, _FOURINCH ? _tutorialLabel.position.y + FOUROFFSET : _tutorialLabel.position.y);
 		_tutorialLabel.color = ccc3(255, 0, 0);
 		
 		_skiplabel.position = SKIP_POS_TOP;
+        _skiplabel.position = ccp(_skiplabel.position.x, _FOURINCH ? _skiplabel.position.y + FOUROFFSET : _skiplabel.position.y);
 	}
 	return self;
 }
@@ -3113,7 +3118,7 @@ static int numLevels = 33;
 	} 
 	else if (action == 8) {
 		[self clearMessageAndBubble];
-		_messageLabel = [[Utils multilineNodeWithText:@"MOVE THE WHITE SHIELD WITH YOUR FINGER (NOT YET)." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:12 rowheight:16] retain];
+		_messageLabel = [[Utils multilineNodeWithText:@"AFTER THE TUTORIAL, MOVE THE WHITE SHIELD WITH YOUR FINGER." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:13 rowheight:16] retain];
 		[self placeBubble:_i1 rlen:22 rc:5];
 		
 		[pv.paddle1 moveTo: ssz.width / 2.0];
@@ -4358,7 +4363,7 @@ static int numLevels = 33;
 - (void) skip {
 	[self clearMessageAndBubble];
 	curLevel = 0;
-	[self changeTo: [[[StateLoseMenu alloc] init] autorelease] after:TRANSITION_PAUSE];
+	[self changeTo: [[[StateCredits alloc] init] autorelease] after:TRANSITION_PAUSE];
 }
 
 - (GameState *) doTimer:(CFTimeInterval)dTime {

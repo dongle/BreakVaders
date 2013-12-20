@@ -87,6 +87,7 @@ enum {
 @synthesize mainViewController = _mainViewController;
 @synthesize oldImpulse = _oldImpulse;
 @synthesize accelNormalized = _accelNormalized;
+@synthesize isFourInch = _isFourInch;
 
 - (Player **) player {
 	return _player;
@@ -145,6 +146,7 @@ static PongVader *_globalSceneInst = nil;
 		// background stuff
 		
 		CGSize screenSize = [CCDirector sharedDirector].winSize;
+        _isFourInch = screenSize.height > 500;
 		CCLOG(@"Screen width %0.2f screen height %0.2f",screenSize.width,screenSize.height);
 		
 		_starfield = [StarField starField];
@@ -228,8 +230,8 @@ static PongVader *_globalSceneInst = nil;
 			_paddle2 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 892) withForce: ccp(0,0) inWorld: _world];
 		}
 		else {
-			_paddle1 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 66) withForce: ccp(0,0) inWorld: _world];
-			_paddle2 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, 414) withForce: ccp(0,0) inWorld: _world];
+			_paddle1 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, _isFourInch ? 66 + 44 : 66) withForce: ccp(0,0) inWorld: _world];
+			_paddle2 = (Paddle *) [Paddle spriteBodyAt:ccp(screenSize.width/2, _isFourInch ? 414 + 44 : 414) withForce: ccp(0,0) inWorld: _world];
 		}
 		
 		_paddle1.player = _player[0];

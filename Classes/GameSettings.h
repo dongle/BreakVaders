@@ -21,6 +21,8 @@
 // Ports/versions
 // IPAD / IPHONE CUSTOMIZATION
 #define _IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define _FOURINCH [PongVader getInstance].isFourInch
+#define FOUROFFSET 88.0f
 
 // PLANET STUFF
 #define PLANET_MOTION_FACTOR 10.0

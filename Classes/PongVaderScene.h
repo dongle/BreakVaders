@@ -121,6 +121,7 @@
 	b2Vec2 _oldImpulse;
 	CGFloat _baseAccel[3];
 	BOOL _accelNormalized;
+    BOOL _isFourInch;
 }
 
 @property (readonly) b2World *world;
@@ -142,6 +143,7 @@
 @property (readonly) CGFloat smallFont, mediumFont, largeFont;
 @property (readwrite, assign) BOOL sentRequest, accelNormalized;
 @property(nonatomic, retain) UIViewController *mainViewController;
+@property (nonatomic, assign) BOOL isFourInch;
 
 // returns a Scene that contains the PongVader as the only child
 +(id) scene;
