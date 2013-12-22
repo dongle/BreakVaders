@@ -8,6 +8,10 @@
 
 #import "GameState.h"
 #import "PongVaderScene.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAITracker.h"
+#import "GAIDictionaryBuilder.h"
 
 static GameState * _curState;
 
@@ -81,6 +85,15 @@ static GameState * _curState;
 		_waitingOnSignal = NO;
 		_dataBin = nil;
 		_closeDataBin = kSTATE_NO_CLOSE_DATA;
+        
+        // This screen name value will remain set on the tracker and sent with
+        // hits until it is set to a new value or to nil.
+        [[GAI sharedInstance].defaultTracker set:kGAIScreenName
+                                           value:NSStringFromClass([self class])];
+        
+        // Send the screen view.
+        [[GAI sharedInstance].defaultTracker
+         send:[[GAIDictionaryBuilder createAppView] build]];
 	}
 	return self;
 }

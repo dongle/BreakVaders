@@ -66,8 +66,8 @@
     [_window makeKeyAndVisible];
     
     [GAI sharedInstance].trackUncaughtExceptions = YES;
-    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:GAID];
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:GAID];
     
     return YES;
 }
