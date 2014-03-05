@@ -31,7 +31,7 @@
 @interface Ball : SpriteBody {
 	NSObject *_lastHit;
 	Player *_lastPlayer;
-	int _health, _combo, _volley;
+	int _health, _combo, _volley, _fireballHits;
 	BOOL _isFireball, _isBulletTime, _isNuke;
 	CCMotionStreak *_streak;
 	float _AIOffset; // computer paddle will always hit this ball at the same angle
@@ -40,7 +40,7 @@
 }
 
 @property (readwrite, assign) Player *lastPlayer;  // weak ref
-@property (readwrite, assign) int health, combo, volley;
+@property (readwrite, assign) int health, combo, volley, fireballHits;
 @property (readwrite, assign) BOOL isBulletTime;
 @property (readwrite, assign) float AIOffset;
 @property (readwrite, assign) float strobeTime;

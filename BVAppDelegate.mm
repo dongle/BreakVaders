@@ -12,7 +12,10 @@
 #import "PongVaderScene.h"
 #import "BVLocalOptions.h"
 
+#import "BVGameKitHelper.h"
+
 #import "GAI.h"
+#import <Crashlytics/Crashlytics.h>
 
 @implementation BVAppDelegate
 
@@ -20,6 +23,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Crashlytics startWithAPIKey:CRASHID];
     _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
 	// cocos2d will inherit these values
@@ -68,6 +72,8 @@
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:GAID];
+    
+    [[BVGameKitHelper sharedGameKitHelper] authenticatePlayer];
     
     return YES;
 }

@@ -10,6 +10,7 @@
 #import "Invader.h"
 #import "PongVaderScene.h"
 #import "SimpleAudioEngine.h"
+#import "BVGameKitHelper.h"
 
 @implementation Bounce
 @synthesize pos = _pos;
@@ -39,6 +40,7 @@
 @synthesize strobeTime = _strobeTime;
 @synthesize bounces = _bounces;
 @synthesize streak = _streak;
+@synthesize fireballHits = _fireballHits;
 
 + (SpriteBody*) spriteBodyAt: (CGPoint) p withForce: (CGPoint) f inWorld: (b2World *) w {
 	// Create sprite and add it to the layer
@@ -112,6 +114,7 @@
 	ball.health = BALLHITS;
 	ball.combo = 1;
 	ball.volley = 0;
+    ball.fireballHits = 0;
 	
 	if (_IPAD) {
 		ball.AIOffset = arc4random() % 100;
@@ -146,9 +149,18 @@
 	_lastHit = hitwhat;
 	
 	[self addBounceAgainst:hitwhat];
+    
+    if ([self isHot]) {
+        NSLog(@"hit enemy while hot");
+        _fireballHits += 1;
+        if (_fireballHits >= 9) {
+            [[BVGameKitHelper sharedGameKitHelper] submitAchievementId:BVAchievementFB9];
+        } else if (_fireballHits >= 3) {
+            [[BVGameKitHelper sharedGameKitHelper] submitAchievementId:BVAchievementFB3];
+        }
+    }
 	
 	if ([_lastHit isKindOfClass:[Player class]]) {
-		
 		
 		if (_lastPlayer != (Player *) _lastHit) {
 			_volley +=1;
@@ -226,6 +238,7 @@
 - (BOOL) doKill {
 	_health = 0;
 	_strobeTime = 0;
+    _fireballHits = 0;
     PongVader *pv = [PongVader getInstance];
     [pv removeChild:_streak cleanup:YES];
     _streak = nil;

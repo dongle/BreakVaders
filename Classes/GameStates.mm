@@ -10,6 +10,7 @@
 #import "PongVaderScene.h"
 #import "BeatEvents.h"
 #import "Utils.h"
+#import "BVGameKitHelper.h"
 
 // game entities and such
 #import "BlockFleets.h"
@@ -2210,6 +2211,18 @@ static int numLevels = 33;
 		[[BeatSequencer getInstance] doTimer:dTime];
 	
 	// update score labels
+    
+    int maxPlayerOneChain = pv.player[0].maxChain;
+    
+    if (maxPlayerOneChain >= 100) {
+        [[BVGameKitHelper sharedGameKitHelper] submitAchievementId:BVAchievementChain100];
+    } else if (maxPlayerOneChain >= 50) {
+        [[BVGameKitHelper sharedGameKitHelper] submitAchievementId:BVAchievementChain50];
+    } else if (maxPlayerOneChain >= 25) {
+        [[BVGameKitHelper sharedGameKitHelper] submitAchievementId:BVAchievementChain25];
+    } else if (maxPlayerOneChain >= 10) {
+        [[BVGameKitHelper sharedGameKitHelper] submitAchievementId:BVAchievementChain10];
+    }
 	
 	for (int i=0; i<2; i++) {
 		
@@ -3802,6 +3815,7 @@ static int numLevels = 33;
 	}
 	[pv.settings set:@"BeatEpOne" toInt:1];
 	[pv.settings set:@"lastLevel" toInt:0];
+    [[BVGameKitHelper sharedGameKitHelper] submitAchievementId:BVAchievementEp1];
 }
 
 - (void) leave {
@@ -3917,6 +3931,7 @@ static int numLevels = 33;
 		pv.bossTime = YES;
 		
 		[pv.settings set:@"BeatPrologue" toInt:1];
+        [[BVGameKitHelper sharedGameKitHelper] submitAchievementId:BVAchievementPro];
 	}
 	return self;
 }
@@ -4248,7 +4263,8 @@ static int numLevels = 33;
 		_times[6] = _times[5] + 3.0; // we've extended
 		_times[7] = _times[6] + 2.0; // see you in 4007
 		_times[8] = _times[7] + 1.5; // exit
-
+        
+        [[BVGameKitHelper sharedGameKitHelper] submitAchievementId:BVAchievementEp2];
 		
 	}
 	return self;

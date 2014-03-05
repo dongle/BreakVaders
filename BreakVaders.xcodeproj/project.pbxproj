@@ -21,6 +21,8 @@
 		CB29792118601EF2004C2432 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB29792018601EF2004C2432 /* SystemConfiguration.framework */; };
 		CB29792318601EFA004C2432 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB29792218601EFA004C2432 /* CoreData.framework */; };
 		CB29792518601F00004C2432 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CB29792418601F00004C2432 /* libz.dylib */; };
+		CB60072418C58F8E00B5C484 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB60072318C58F8E00B5C484 /* GameKit.framework */; };
+		CB60072718C592DA00B5C484 /* BVGameKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = CB60072618C592DA00B5C484 /* BVGameKitHelper.m */; };
 		CB8ECCD618650C8800546FA2 /* bvTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = CB8ECCD518650C8800546FA2 /* bvTitle.png */; };
 		CB9020C71852DE9400F3B416 /* apLogo.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020111852DE9300F3B416 /* apLogo.png */; };
 		CB9020C81852DE9400F3B416 /* arrow-low.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020121852DE9300F3B416 /* arrow-low.png */; };
@@ -177,6 +179,7 @@
 		CB9021781852DE9400F3B416 /* wail.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C41852DE9400F3B416 /* wail.wav */; };
 		CB9021791852DE9400F3B416 /* warp.wav in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C51852DE9400F3B416 /* warp.wav */; };
 		CB90217A1852DE9400F3B416 /* yellowPill.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9020C61852DE9400F3B416 /* yellowPill.png */; };
+		CB98CDB51876228E00168D2A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB98CDB41876228E00168D2A /* Crashlytics.framework */; };
 		CBBB27151860142A003C4A18 /* pongvaders-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = CBBB27121860142A003C4A18 /* pongvaders-ipad.plist */; };
 		CBBB27161860142A003C4A18 /* pongvaders-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = CBBB27131860142A003C4A18 /* pongvaders-ipad.png */; };
 		CBBB27171860142A003C4A18 /* pongvaders-ipad.zss in Resources */ = {isa = PBXBuildFile; fileRef = CBBB27141860142A003C4A18 /* pongvaders-ipad.zss */; };
@@ -276,6 +279,9 @@
 		CB29792218601EFA004C2432 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CB29792418601F00004C2432 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		CB297926186024AB004C2432 /* BVLocalOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BVLocalOptions.h; sourceTree = "<group>"; };
+		CB60072318C58F8E00B5C484 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		CB60072518C592DA00B5C484 /* BVGameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BVGameKitHelper.h; path = Classes/BVGameKitHelper.h; sourceTree = "<group>"; };
+		CB60072618C592DA00B5C484 /* BVGameKitHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BVGameKitHelper.m; path = Classes/BVGameKitHelper.m; sourceTree = "<group>"; };
 		CB8ECCD518650C8800546FA2 /* bvTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bvTitle.png; path = Resources/bvTitle.png; sourceTree = "<group>"; };
 		CB9020111852DE9300F3B416 /* apLogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = apLogo.png; path = Resources/apLogo.png; sourceTree = "<group>"; };
 		CB9020121852DE9300F3B416 /* arrow-low.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "arrow-low.png"; path = "Resources/arrow-low.png"; sourceTree = "<group>"; };
@@ -438,6 +444,7 @@
 		CB9020C41852DE9400F3B416 /* wail.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = wail.wav; path = Resources/wail.wav; sourceTree = "<group>"; };
 		CB9020C51852DE9400F3B416 /* warp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = warp.wav; path = Resources/warp.wav; sourceTree = "<group>"; };
 		CB9020C61852DE9400F3B416 /* yellowPill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = yellowPill.png; path = Resources/yellowPill.png; sourceTree = "<group>"; };
+		CB98CDB41876228E00168D2A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		CBBB27121860142A003C4A18 /* pongvaders-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "pongvaders-ipad.plist"; path = "Resources/pongvaders-ipad.plist"; sourceTree = "<group>"; };
 		CBBB27131860142A003C4A18 /* pongvaders-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pongvaders-ipad.png"; path = "Resources/pongvaders-ipad.png"; sourceTree = "<group>"; };
 		CBBB27141860142A003C4A18 /* pongvaders-ipad.zss */ = {isa = PBXFileReference; lastKnownFileType = file; name = "pongvaders-ipad.zss"; path = "Resources/pongvaders-ipad.zss"; sourceTree = "<group>"; };
@@ -561,8 +568,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB60072418C58F8E00B5C484 /* GameKit.framework in Frameworks */,
 				CB29792518601F00004C2432 /* libz.dylib in Frameworks */,
 				CB29792318601EFA004C2432 /* CoreData.framework in Frameworks */,
+				CB98CDB51876228E00168D2A /* Crashlytics.framework in Frameworks */,
 				CB29792118601EF2004C2432 /* SystemConfiguration.framework in Frameworks */,
 				CB1077EC1851AA6300A0D2FB /* CoreGraphics.framework in Frameworks */,
 				CB1077EE1851AA6300A0D2FB /* UIKit.framework in Frameworks */,
@@ -609,6 +618,8 @@
 		CB1077E81851AA6300A0D2FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CB60072318C58F8E00B5C484 /* GameKit.framework */,
+				CB98CDB41876228E00168D2A /* Crashlytics.framework */,
 				CB29792418601F00004C2432 /* libz.dylib */,
 				CB29792218601EFA004C2432 /* CoreData.framework */,
 				CB29792018601EF2004C2432 /* SystemConfiguration.framework */,
@@ -915,6 +926,8 @@
 				CBFA56B71852F41100879246 /* TouchedSprite.mm */,
 				CBFA56BC1852F41100879246 /* Utils.h */,
 				CBFA56BD1852F41100879246 /* Utils.m */,
+				CB60072518C592DA00B5C484 /* BVGameKitHelper.h */,
+				CB60072618C592DA00B5C484 /* BVGameKitHelper.m */,
 			);
 			name = "PV files";
 			sourceTree = "<group>";
@@ -1016,6 +1029,7 @@
 				CB1077E31851AA6300A0D2FB /* Frameworks */,
 				CB1077E41851AA6300A0D2FB /* Resources */,
 				E0558F7B20944896BBB75863 /* Copy Pods Resources */,
+				CB98CDB31876225C00168D2A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1282,6 +1296,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		CB98CDB31876225C00168D2A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run f00b13389b2209c6a65cf88232f9efc0235848ae b601f1d5a7423b87f185f65055f3aaeef5f6793da87b85c5f218c8a9049e415f";
+		};
 		E0558F7B20944896BBB75863 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1346,6 +1373,7 @@
 				CBFA56D31852F41100879246 /* ContactListener.mm in Sources */,
 				CBFA56D71852F41100879246 /* ENSPrance.mm in Sources */,
 				CBFA56E11852F41100879246 /* ModalUIView.m in Sources */,
+				CB60072718C592DA00B5C484 /* BVGameKitHelper.m in Sources */,
 				CBFA56F71852F41100879246 /* StationaryInvader.mm in Sources */,
 				CBFA56F31852F41100879246 /* SNEye.mm in Sources */,
 				CBFA56F01852F41100879246 /* ShieldBoss.mm in Sources */,
@@ -1485,6 +1513,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/archer/Documents/BreakVaders,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BreakVaders-Prefix.pch";
 				INFOPLIST_FILE = "BreakVaders-Info.plist";
@@ -1500,6 +1532,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/archer/Documents/BreakVaders,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BreakVaders-Prefix.pch";
 				INFOPLIST_FILE = "BreakVaders-Info.plist";
