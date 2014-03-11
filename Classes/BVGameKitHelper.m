@@ -34,11 +34,9 @@
 
 -(void) authenticatePlayer {
     
-    __weak GKLocalPlayer* localPlayer =
-    [GKLocalPlayer localPlayer];
+    __weak GKLocalPlayer* localPlayer = [GKLocalPlayer localPlayer];
     
-    localPlayer.authenticateHandler =
-    ^(UIViewController *viewController,
+    localPlayer.authenticateHandler = ^(UIViewController *viewController,
       NSError *error) {
         
         [self setLastError:error];
@@ -47,6 +45,7 @@
             _gameCenterFeaturesEnabled = YES;
         } else if (viewController != nil) {
             [self presentViewController:viewController];
+            _gameCenterFeaturesEnabled = YES;
         } else {
             _gameCenterFeaturesEnabled = NO;
         }
@@ -55,24 +54,39 @@
 
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
 {
-    //
+    [self dismissViewController];
+}
+
+- (BOOL) isAuthenticated {
+    return [GKLocalPlayer localPlayer].isAuthenticated;
 }
 
 #pragma mark - Achievements
 
 - (void) submitAchievementId:(NSString *)achievementId {
-    GKAchievement *achievement = [[GKAchievement alloc] initWithIdentifier: achievementId];
-    if (achievement)
-    {
-        achievement.percentComplete = 100;
-        [GKAchievement reportAchievements:@[achievement] withCompletionHandler:^(NSError *error)
-         {
-             if (error != nil)
+    if (_gameCenterFeaturesEnabled) {
+        GKAchievement *achievement = [[GKAchievement alloc] initWithIdentifier: achievementId];
+        if (achievement && [GKLocalPlayer localPlayer] != nil) {
+            achievement.percentComplete = 100;
+            [GKAchievement reportAchievements:@[achievement] withCompletionHandler:^(NSError *error)
              {
-                 NSLog(@"Error in reporting achievements: %@", error);
-                 [self setLastError:error];
-             }
-         }];
+                 if (error != nil)
+                 {
+                     NSLog(@"Error in reporting achievements: %@", error);
+                     [self setLastError:error];
+                 }
+             }];
+        }
+    }
+}
+
+- (void) displayAchievements {
+    GKGameCenterViewController *gameCenterController = [[GKGameCenterViewController alloc] init];
+    if (gameCenterController != nil)
+    {
+        gameCenterController.gameCenterDelegate = self;
+        gameCenterController.viewState = GKGameCenterViewControllerStateAchievements;
+        [self presentViewController: gameCenterController];
     }
 }
 
@@ -97,6 +111,11 @@
     UIViewController* rootVC = [self getRootViewController];
     [rootVC presentViewController:vc animated:YES
                        completion:nil];
+}
+
+- (void)dismissViewController {
+    UIViewController* rootVC = [self getRootViewController];
+    [rootVC dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

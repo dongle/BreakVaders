@@ -73,7 +73,9 @@
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:GAID];
     
-    [[BVGameKitHelper sharedGameKitHelper] authenticatePlayer];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"gamecenter"]) {
+        [[BVGameKitHelper sharedGameKitHelper] authenticatePlayer];
+    }
     
     return YES;
 }

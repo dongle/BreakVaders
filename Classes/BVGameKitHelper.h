@@ -39,7 +39,9 @@ static NSString* const BVAchievementEp2 = @"BV_EP2";
 + (id) sharedGameKitHelper;
 
 - (void) authenticatePlayer;
+- (BOOL) isAuthenticated;
 
 - (void) submitAchievementId:(NSString *)achievementId;
+- (void) displayAchievements;
 
 @end

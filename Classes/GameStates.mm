@@ -303,7 +303,7 @@ static int numLevels = 33;
 		NSString *menuText[5];
 		
 		menuText[0] = @"PLAY GAME";
-		menuText[1] = @"SELECT EPISODE";
+		menuText[1] = @"ACHIEVEMENTS";
 		menuText[2] = @"OPENFEINT";
 		menuText[3] = @"FEEDBACK";
 		menuText[4] = @"MORE BY KODUCO";
@@ -330,14 +330,14 @@ static int numLevels = 33;
 		
 		else {
 			menuPos[0] = ccp(winSize.width/2, winSize.height/2+50);
-			menuPos[1] = ccp(winSize.width/2, winSize.height/2-10);
+			menuPos[1] = ccp(winSize.width/2, winSize.height/2-90);
 			menuPos[2] = ccp(winSize.width/2, winSize.height/2-50);
 			menuPos[3] = ccp(winSize.width/2, winSize.height/2-90);
 			menuPos[4] = ccp(winSize.width/2, 55);
 		}
 		
 		
-		int maxLabels = 1;
+		int maxLabels = 2;
 		
 		for (int i=0; i<maxLabels; i++) {
 			CGFloat font = pv.mediumFont;
@@ -359,12 +359,12 @@ static int numLevels = 33;
 			bmlabel.position = menuPos[i];
 			
 			// special case to hide resume game if there is no game to resume
-			if (i == 1) {
-				
-				if ([pv.settings getInt:@"lastLevel"] == 0) {
-					bmlabel.position = ccp(2000, 2000);
-				}
-			}
+//			if (i == 1) {
+//				
+//				if ([pv.settings getInt:@"lastLevel"] == 0) {
+//					bmlabel.position = ccp(2000, 2000);
+//				}
+//			}
 			
 //			if ([menuText[i] isEqualToString:@"TOGGLE SCOREBOARDS"]) {
 //				PongVader *pv = [PongVader getInstance];
@@ -454,18 +454,13 @@ static int numLevels = 33;
 //		[actionSheet showInView:ovc.view];	// show from our table view (pops up in the middle of the table)
 //		[actionSheet release];
 
-	} else if ([label.labelname isEqualToString:@"OPENFEINT"]) {
-//		[FlurryAPI logEvent:@"CHECKED_OF"];
-//		if (!pv.OFstarted) {
-//			[pv initOpenFeint];	
-//			if ([pv.settings getInt:@"OFwanted"] == 0) {
-//				[pv.settings set:@"OFwanted" toInt:1];
-//			}
-//		}
-//		// otherwise
-//		else {
-//			[OpenFeint launchDashboard];
-//		}
+	} else if ([label.labelname isEqualToString:@"ACHIEVEMENTS"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"gamecenter"];
+        if ([[BVGameKitHelper sharedGameKitHelper] isAuthenticated]) {
+            [[BVGameKitHelper sharedGameKitHelper] displayAchievements];
+        } else {
+            [[BVGameKitHelper sharedGameKitHelper] authenticatePlayer];
+        }
 	} else if ([label.labelname isEqualToString:@"MORE BY KODUCO"]) {
 //		[FlurryAPI logEvent:@"CHECKED_MORE"];
 //		next = [[[StateMoreGames alloc] init] autorelease];
