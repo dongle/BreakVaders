@@ -736,8 +736,7 @@ static int numLevels = 33;
 	else if ([label.labelname isEqualToString:@"PRO"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:8] node] position];
 		_arrow[2].position = ccp(p.x-xOffset, p.y+yOffset);
-//		curLevel = 0;
-        curLevel = 14;
+		curLevel = 0;
 	}
 	else if ([label.labelname isEqualToString:@"EP1"]) {
 		p = [[(SelectedNode*)[_labels objectAtIndex:9] node] position];
@@ -3128,7 +3127,7 @@ static int numLevels = 33;
 	else if (action == 8) {
 		[self clearMessageAndBubble];
 		_messageLabel = [[Utils multilineNodeWithText:@"AFTER THE TUTORIAL, MOVE THE WHITE SHIELD WITH YOUR FINGER." fontSize:pv.smallFont color: ccc3(0,0,0) rowlength:13 rowheight:16] retain];
-		[self placeBubble:_i1 rlen:22 rc:5];
+		[self placeBubble:_i1 rlen:22 rc:7];
 		
 		[pv.paddle1 moveTo: ssz.width / 2.0];
 		[pv.paddle2 moveTo: ssz.width / 2.0];
@@ -4258,6 +4257,7 @@ static int numLevels = 33;
 		_times[6] = _times[5] + 3.0; // we've extended
 		_times[7] = _times[6] + 2.0; // see you in 4007
 		_times[8] = _times[7] + 1.5; // exit
+        _times[9] = _times[8] + 1.5;
         
         [[BVGameKitHelper sharedGameKitHelper] submitAchievementId:BVAchievementEp2];
 		
@@ -5349,25 +5349,23 @@ rrrrrrrrrrrr\
 rrrrrrrrrrrr\
 rrrrrrrrrrrr\
 rrrrrrrrrrrr\
-rrrrrrrrrrrr\
 rrxrrrfffxff\
-ffffffffffff\
 ffffffffffff\
 ffffffffffff\
 ffffffffffff\
 ffffffffffff";
 		
 		char block2[] = "DxxxxxxD";
-		char block3[] = "ya";
+		char block3[] = "yy";
 		
 		CGPoint originspad[] = {ccp(ssz.width/2, ssz.height/2), ccp(ssz.width/2, ssz.height/2-20), 
 			ccp(ssz.width/2, ssz.height/2-240), ccp(ssz.width/2, ssz.height/2+240)};
-		CGPoint originsphn[] = {ccp(ssz.width/2, ssz.height/2), ccp(ssz.width/2, ssz.height/2-10),
-								ccp(ssz.width/2, ssz.height/2-120), ccp(ssz.width/2, ssz.height/2+120)};
+		CGPoint originsphn[] = {ccp(ssz.width/2, ssz.height/2), ccp(ssz.width/2, ssz.height/2),
+								ccp(ssz.width/2, ssz.height/2-100), ccp(ssz.width/2, ssz.height/2+100)};
 		
 		Fleet *fleets[] = {
 			[[[DirBlockFleet alloc] initWithConfig: block1
-										   andDims: ccp(12,10) 
+										   andDims: ccp(12,9)
 									   withSpacing: _IPAD ? 40 : 20 
 										  atOrigin: _IPAD ? originspad[0] : originsphn[0]
 										  maxWidth: _IPAD ? 400 : 200
@@ -5389,7 +5387,7 @@ ffffffffffff";
 			
 			
 			[[[DirBlockFleet alloc] initWithConfig: block3
-										   andDims: ccp(2,1) 
+										   andDims: ccp(2,1)
 									   withSpacing: _IPAD ? 40 : 20 
 										  atOrigin: _IPAD ? originspad[2] : originsphn[2]
 										  maxWidth: _IPAD ? 400 : 200
