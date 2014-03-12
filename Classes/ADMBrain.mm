@@ -106,11 +106,13 @@
 	}
 	
 	else {
+        BOOL isFourInch = [[PongVader getInstance] isFourInch];
+        
 		invader->_bspeed = BRAIN_INIT_SPD_IPHONE; //pixels per second
 		invader->_xmax = 270;
 		invader->_xmin = 50;
-		invader->_ymax = 330;
-		invader->_ymin = 150;
+		invader->_ymax = isFourInch ? 330 + 44 : 330;
+		invader->_ymin = isFourInch ? 150 + 44 : 150;
 		invader->_segcount = BRAIN_MAX_SEGS_IPHONE;
 		invader.health = BRAIN_MAX_HEALTH_IPHONE;
 	}
