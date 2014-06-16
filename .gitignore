@@ -21,3 +21,7 @@ build/*
 /* PODS */
 Pods/
 Podfile.lock
+
+breakvaders app store info.md
+
+*.txt
